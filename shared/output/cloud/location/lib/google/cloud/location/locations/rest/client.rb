@@ -118,7 +118,7 @@ module Google
               credentials = @config.credentials
               # Use self-signed JWT if the endpoint is unchanged from default,
               # but only if the default endpoint does not have a region prefix.
-              enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+              enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                        !@config.endpoint.split(".").first.include?("-")
               credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
@@ -167,6 +167,26 @@ module Google
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Location::Location>]
             #
             # @raise [::Google::Cloud::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/location"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Location::Locations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Location::ListLocationsRequest.new
+            #
+            #   # Call the list_locations method.
+            #   result = client.list_locations request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Cloud::Location::Location.
+            #     p item
+            #   end
+            #
             def list_locations request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -232,6 +252,22 @@ module Google
             # @return [::Google::Cloud::Location::Location]
             #
             # @raise [::Google::Cloud::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/location"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Location::Locations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Location::GetLocationRequest.new
+            #
+            #   # Call the get_location method.
+            #   result = client.get_location request
+            #
+            #   # The returned object is of type Google::Cloud::Location::Location.
+            #   p result
+            #
             def get_location request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -342,7 +378,9 @@ module Google
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "cloud.googleapis.com", ::String
+              DEFAULT_ENDPOINT = "cloud.googleapis.com"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed.any? { |klass| klass === value }
@@ -379,6 +417,14 @@ module Google
                   parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                   Rpcs.new parent_rpcs
                 end
+              end
+
+              ##
+              # Configuration for the channel pool
+              # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
+              #
+              def channel_pool
+                @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
               end
 
               ##

@@ -21,10 +21,12 @@ mixin "repo_info" do
   # with the current directory set to that directory, and also passing the
   # directory name to the block.
   #
-  def in_directories_with_bundles
+  def in_directories_with_bundles generator_only: false
+    non_generator_directories = ["gapic", "gapic-common"]
     Dir.chdir context_directory do
       Dir.glob "*/Gemfile" do |gemfile|
         dir = File.dirname gemfile
+        next if generator_only && non_generator_directories.include?(dir)
         Dir.chdir dir do
           yield dir
         end
@@ -89,20 +91,23 @@ end
 tool "ci" do
   desc "Runs CI in all directories"
 
+  flag :generator_only
+
   include :exec
   include :terminal
   include "repo_info"
 
   def run
     failures = []
-    in_directories_with_bundles do |dirname|
+    in_directories_with_bundles generator_only: generator_only do |dirname|
       ["test", "rubocop"].each do |task_name|
         if tool_defined? task_name
-          puts "Running #{task_name} in #{dirname}", :cyan, :bold
+          full_task_name = "#{dirname}: #{task_name}"
+          puts "Running #{full_task_name}", :cyan, :bold
           result = exec_separate_tool [task_name]
           unless result.success?
-            failures << "#{dirname}: #{task_name}"
-            puts "FAILED: #{dirname} #{task_name}", :red, :bold
+            failures << "#{full_task_name}"
+            puts "FAILED: #{full_task_name}", :red, :bold
           end
         else
           puts "No #{task_name} task defined in #{dirname}", :yellow
@@ -117,59 +122,34 @@ tool "ci" do
 end
 
 tool "gen" do
-  desc "Runs the generator for all goldens"
+  desc "Regenerates output for goldens"
+
+  remaining_args :services
+  flag :generator, "--generator=GENERATOR"
 
   include :exec, e: true
   include :terminal
-  include "repo_info"
 
   def run
-    in_directories_with_bundles do |dirname|
-      next if dirname == "shared"
-      puts "Generating in #{dirname}", :cyan, :bold
-      exec ["bundle", "exec", "rake", "gen"]
-    end
-  end
-
-  ["garbage", "showcase"].each do |name|
-    tool name do
-      desc "Runs the generator for #{name}"
-
-      include :exec, e: true
-      static :name, name
-  
-      def run
-        Dir.chdir "#{context_directory}/gapic-generator" do
-          exec ["bundle", "exec", "rake", "gen:#{name}"]
-        end
-      end
+    Dir.chdir "#{context_directory}/shared" do
+      cmd = ["gen"] + services + verbosity_flags
+      cmd += ["--generator", generator] if generator
+      exec_separate_tool cmd
     end
   end
 end
 
 tool "bin" do
-  desc "Generates binary input for all goldens"
+  desc "Regenerates binary input for goldens"
+
+  remaining_args :services
 
   include :exec, e: true
+  include :terminal
 
   def run
     Dir.chdir "#{context_directory}/shared" do
-      exec ["bundle", "exec", "rake", "gen"]
-    end
-  end
-
-  ["garbage", "showcase"].each do |name|
-    tool name do
-      desc "Generates binary input for #{name}"
-
-      include :exec, e: true
-      static :name, name
-  
-      def run
-        Dir.chdir "#{context_directory}/shared" do
-          exec ["bundle", "exec", "rake", "gen:#{name}"]
-        end
-      end
+      exec_separate_tool ["bin"] + services + verbosity_flags
     end
   end
 end

@@ -43,6 +43,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "google-protobuf", "~> 3.14"
   spec.add_dependency "grpc", "~> 1.36"
 
+  spec.add_development_dependency "concurrent-ruby", "~> 1.2.2"
   spec.add_development_dependency "google-cloud-core", "~> 1.5"
   spec.add_development_dependency "google-style", "~> 1.26.0"
   spec.add_development_dependency "minitest", "~> 5.16"
@@ -50,7 +51,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest-focus", "~> 1.1"
   spec.add_development_dependency "minitest-rg", "~> 5.2"
   spec.add_development_dependency "pry", ">= 0.14"
-  spec.add_development_dependency "rake", ">= 12.0"
   spec.add_development_dependency "redcarpet", "~> 3.0"
   spec.add_development_dependency "yard", "~> 0.9"
 end

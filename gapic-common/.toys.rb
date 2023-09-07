@@ -21,3 +21,36 @@ expand :minitest do |t|
   t.files = ["test/**/*_test.rb"]
   t.bundler = true
 end
+
+expand :yardoc do |t|
+  t.generate_output_flag = true
+  t.fail_on_warning = true
+  t.fail_on_undocumented_objects = false # TODO: Fix so this can be enabled
+  t.bundler = true
+end
+
+tool "ci" do
+  include :exec, e: true
+  include :terminal
+
+  def run
+    puts "Running rubocop...", :bold
+    exec_tool ["rubocop"] + verbosity_flags
+    puts "Running tests...", :bold
+    exec_tool ["test"] + verbosity_flags
+    puts "Running yard...", :bold
+    exec_tool ["yardoc"] + verbosity_flags
+  end
+end
+
+tool "irb" do
+  include :bundler
+
+  def run
+    require "irb"
+    require "irb/completion"
+
+    ARGV.clear
+    IRB.start
+  end
+end

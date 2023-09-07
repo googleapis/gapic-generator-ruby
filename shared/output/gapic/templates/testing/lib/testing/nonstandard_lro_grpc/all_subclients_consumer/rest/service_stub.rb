@@ -65,7 +65,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_plain_lro_rpc_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end
@@ -104,7 +104,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_another_lro_rpc_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end
@@ -143,7 +143,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_non_copy_another_lro_rpc_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end
@@ -182,7 +182,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_aip_lro_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end
@@ -220,7 +220,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_no_lro_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end

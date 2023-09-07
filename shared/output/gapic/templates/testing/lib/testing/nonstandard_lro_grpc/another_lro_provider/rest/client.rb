@@ -114,7 +114,7 @@ module Testing
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -170,6 +170,22 @@ module Testing
           # @return [::Testing::NonstandardLroGrpc::NonstandardOperation]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/nonstandard_lro_grpc"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::NonstandardLroGrpc::LroAnotherGetRequest.new
+          #
+          #   # Call the get_another method.
+          #   result = client.get_another request
+          #
+          #   # The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
+          #   p result
+          #
           def get_another request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -278,7 +294,9 @@ module Testing
           class Configuration
             extend ::Gapic::Config
 
-            config_attr :endpoint,      "nonstandardlro.example.com", ::String
+            DEFAULT_ENDPOINT = "nonstandardlro.example.com"
+
+            config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
             config_attr :credentials,   nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed.any? { |klass| klass === value }

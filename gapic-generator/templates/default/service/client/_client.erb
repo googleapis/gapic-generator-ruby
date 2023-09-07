@@ -105,7 +105,7 @@ class <%= service.client_name %>
     <%- unless service.generic_endpoint? -%>
     # Use self-signed JWT if the endpoint is unchanged from default,
     # but only if the default endpoint does not have a region prefix.
-    enable_self_signed_jwt = @config.endpoint == <%= service.client_name %>.configure.endpoint &&
+    enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                              !@config.endpoint.split(".").first.include?("-")
     credentials ||= Credentials.default scope: @config.scope,
                                         enable_self_signed_jwt: enable_self_signed_jwt
@@ -131,7 +131,8 @@ class <%= service.client_name %>
       credentials:  credentials,
       endpoint:     @config.endpoint,
       channel_args: @config.channel_args,
-      interceptors: @config.interceptors
+      interceptors: @config.interceptors,
+      channel_pool_config: @config.channel_pool
     )
   end
 

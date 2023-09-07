@@ -114,7 +114,7 @@ module Testing
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -180,6 +180,22 @@ module Testing
           # @return [::Testing::RoutingHeaders::Response]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/routing_headers"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::RoutingHeaders::Request.new
+          #
+          #   # Call the plain method.
+          #   result = client.plain request
+          #
+          #   # The returned object is of type Testing::RoutingHeaders::Response.
+          #   p result
+          #
           def plain request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -250,6 +266,22 @@ module Testing
           # @return [::Testing::RoutingHeaders::Response]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/routing_headers"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::RoutingHeaders::Request.new
+          #
+          #   # Call the with_sub_message method.
+          #   result = client.with_sub_message request
+          #
+          #   # The returned object is of type Testing::RoutingHeaders::Response.
+          #   p result
+          #
           def with_sub_message request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -320,6 +352,22 @@ module Testing
           # @return [::Testing::RoutingHeaders::Response]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/routing_headers"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::RoutingHeaders::Request.new
+          #
+          #   # Call the with_multiple_levels method.
+          #   result = client.with_multiple_levels request
+          #
+          #   # The returned object is of type Testing::RoutingHeaders::Response.
+          #   p result
+          #
           def with_multiple_levels request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -428,7 +476,9 @@ module Testing
           class Configuration
             extend ::Gapic::Config
 
-            config_attr :endpoint,      "routingheaders.example.com", ::String
+            DEFAULT_ENDPOINT = "routingheaders.example.com"
+
+            config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
             config_attr :credentials,   nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed.any? { |klass| klass === value }

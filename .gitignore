@@ -16,3 +16,4 @@
 /.idea/
 /node_modules/
 /package-lock.json
+/.toys/**/Gemfile.lock

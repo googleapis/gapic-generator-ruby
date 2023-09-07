@@ -114,7 +114,7 @@ module Testing
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -162,6 +162,22 @@ module Testing
           # @return [::Testing::Mixins::Response]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/mixins"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::Mixins::ServiceWithLoc::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::Mixins::Request.new
+          #
+          #   # Call the call_method method.
+          #   result = client.call_method request
+          #
+          #   # The returned object is of type Testing::Mixins::Response.
+          #   p result
+          #
           def call_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -270,7 +286,9 @@ module Testing
           class Configuration
             extend ::Gapic::Config
 
-            config_attr :endpoint,      "servicewithloc.example.com", ::String
+            DEFAULT_ENDPOINT = "servicewithloc.example.com"
+
+            config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
             config_attr :credentials,   nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed.any? { |klass| klass === value }

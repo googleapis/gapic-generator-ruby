@@ -23,12 +23,12 @@ require "google/cloud/compute/v1"
 # Snippet for the wait call in the RegionOperations service
 #
 # This is an auto-generated example demonstrating basic usage of
-# Google::Cloud::Compute::V1::RegionOperations::Client#wait. It may require
-# modification in order to execute successfully.
+# Google::Cloud::Compute::V1::RegionOperations::Rest::Client#wait. It may
+# require modification in order to execute successfully.
 #
 def wait
   # Create a client object. The client can be reused for multiple calls.
-  client = Google::Cloud::Compute::V1::RegionOperations::Client.new
+  client = Google::Cloud::Compute::V1::RegionOperations::Rest::Client.new
 
   # Create a request. To set request fields, pass in keyword arguments.
   request = Google::Cloud::Compute::V1::WaitRegionOperationRequest.new

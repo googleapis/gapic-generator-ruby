@@ -121,7 +121,7 @@ module Google
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -136,7 +136,8 @@ module Google
               credentials:  credentials,
               endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
-              interceptors: @config.interceptors
+              interceptors: @config.interceptors,
+              channel_pool_config: @config.channel_pool
             )
           end
 
@@ -980,7 +981,9 @@ module Google
           class Configuration
             extend ::Gapic::Config
 
-            config_attr :endpoint,      "localhost:7469", ::String
+            DEFAULT_ENDPOINT = "localhost:7469"
+
+            config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
             config_attr :credentials,   nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
@@ -1013,6 +1016,14 @@ module Google
                 parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
+            end
+
+            ##
+            # Configuration for the channel pool
+            # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
+            #
+            def channel_pool
+              @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
             end
 
             ##

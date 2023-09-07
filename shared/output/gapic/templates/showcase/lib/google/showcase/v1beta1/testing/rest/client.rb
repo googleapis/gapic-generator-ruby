@@ -119,7 +119,7 @@ module Google
               credentials = @config.credentials
               # Use self-signed JWT if the endpoint is unchanged from default,
               # but only if the default endpoint does not have a region prefix.
-              enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+              enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                        !@config.endpoint.split(".").first.include?("-")
               credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
@@ -165,6 +165,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::Session]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::CreateSessionRequest.new
+            #
+            #   # Call the create_session method.
+            #   result = client.create_session request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Session.
+            #   p result
+            #
             def create_session request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -227,6 +243,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::Session]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::GetSessionRequest.new
+            #
+            #   # Call the get_session method.
+            #   result = client.get_session request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Session.
+            #   p result
+            #
             def get_session request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -291,6 +323,26 @@ module Google
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Session>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ListSessionsRequest.new
+            #
+            #   # Call the list_sessions method.
+            #   result = client.list_sessions request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::Session.
+            #     p item
+            #   end
+            #
             def list_sessions request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -355,6 +407,22 @@ module Google
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::DeleteSessionRequest.new
+            #
+            #   # Call the delete_session method.
+            #   result = client.delete_session request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_session request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -419,6 +487,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::ReportSessionResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ReportSessionRequest.new
+            #
+            #   # Call the report_session method.
+            #   result = client.report_session request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::ReportSessionResponse.
+            #   p result
+            #
             def report_session request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -485,6 +569,26 @@ module Google
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Test>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ListTestsRequest.new
+            #
+            #   # Call the list_tests method.
+            #   result = client.list_tests request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::Test.
+            #     p item
+            #   end
+            #
             def list_tests request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -554,6 +658,22 @@ module Google
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::DeleteTestRequest.new
+            #
+            #   # Call the delete_test method.
+            #   result = client.delete_test request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_test request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -623,6 +743,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::VerifyTestResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::VerifyTestRequest.new
+            #
+            #   # Call the verify_test method.
+            #   result = client.verify_test request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::VerifyTestResponse.
+            #   p result
+            #
             def verify_test request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -731,7 +867,9 @@ module Google
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "localhost:7469", ::String
+              DEFAULT_ENDPOINT = "localhost:7469"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
                            nil]

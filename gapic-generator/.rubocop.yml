@@ -9,7 +9,6 @@ AllCops:
     - test/gapic/presenters/**/*
     - test/gapic/*.rb
     - test/test_helper.rb
-    - Rakefile
 
 Metrics/AbcSize:
   Exclude:

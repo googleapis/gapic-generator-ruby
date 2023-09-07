@@ -122,7 +122,7 @@ module Google
               credentials = @config.credentials
               # Use self-signed JWT if the endpoint is unchanged from default,
               # but only if the default endpoint does not have a region prefix.
-              enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+              enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                        !@config.endpoint.split(".").first.include?("-")
               credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
@@ -187,6 +187,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::EchoResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Echo::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::EchoRequest.new
+            #
+            #   # Call the echo method.
+            #   result = client.echo request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::EchoResponse.
+            #   p result
+            #
             def echo request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -248,6 +264,25 @@ module Google
             # @return [::Enumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Echo::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ExpandRequest.new
+            #
+            #   # Call the expand method to start streaming.
+            #   output = client.expand request
+            #
+            #   # The returned object is a streamed enumerable yielding elements of type
+            #   # ::Google::Showcase::V1beta1::EchoResponse
+            #   output.each do |current_response|
+            #     p current_response
+            #   end
+            #
             def expand request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -320,6 +355,26 @@ module Google
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Echo::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::PagedExpandRequest.new
+            #
+            #   # Call the paged_expand method.
+            #   result = client.paged_expand request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::EchoResponse.
+            #     p item
+            #   end
+            #
             def paged_expand request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -392,6 +447,22 @@ module Google
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Echo::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::PagedExpandLegacyRequest.new
+            #
+            #   # Call the paged_expand_legacy method.
+            #   result = client.paged_expand_legacy request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::PagedExpandResponse.
+            #   p result
+            #
             def paged_expand_legacy request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -464,6 +535,26 @@ module Google
             # @return [::Gapic::Rest::PagedEnumerable<::String, ::Google::Showcase::V1beta1::PagedExpandResponseList>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Echo::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::PagedExpandRequest.new
+            #
+            #   # Call the paged_expand_legacy_mapped method.
+            #   result = client.paged_expand_legacy_mapped request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse::AlphabetizedEntry.
+            #     p item
+            #   end
+            #
             def paged_expand_legacy_mapped request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -536,6 +627,29 @@ module Google
             # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Echo::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::WaitRequest.new
+            #
+            #   # Call the wait method.
+            #   result = client.wait request
+            #
+            #   # The returned object is of type Gapic::Operation. You can use it to
+            #   # check the status of an operation, cancel it, or wait for results.
+            #   # Here is how to wait for a response.
+            #   result.wait_until_done! timeout: 60
+            #   if result.response?
+            #     p result.response
+            #   else
+            #     puts "No response received."
+            #   end
+            #
             def wait request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -606,6 +720,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::BlockResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Echo::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::BlockRequest.new
+            #
+            #   # Call the block method.
+            #   result = client.block request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::BlockResponse.
+            #   p result
+            #
             def block request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -714,7 +844,9 @@ module Google
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "localhost:7469", ::String
+              DEFAULT_ENDPOINT = "localhost:7469"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
                            nil]

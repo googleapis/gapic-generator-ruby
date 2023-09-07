@@ -240,7 +240,7 @@ module Gapic
 
       def dependencies
         @dependencies ||= begin
-          deps = { "gapic-common" => [">= 0.18.0", "< 2.a"] }
+          deps = { "gapic-common" => [">= 0.20.0", "< 2.a"] }
           deps["grpc-google-iam-v1"] = "~> 1.1" if iam_dependency?
           extra_deps = gem_config_dependencies
           deps.merge! mixins_model.dependencies if mixins_model.mixins?
@@ -333,21 +333,30 @@ module Gapic
       ##
       # There is a special case (from PoV of generator parameters)
       # in gem dependencies where a dependency needs to be an array of strings
-      # e.g. ">= 1.6", "< 2.a"
+      # e.g. `">= 1.6", "< 2.a"``
       # Rather than creating a special generator param case for this I will special-case it here.
-      # '|' is the separator.
-      # The above would be represented as ">= 1.6|< 2.a"
+      # Supported separators are `|` and `+`. The latter is preferred.
+      # Spaces in the version requirements are optional.
+      # The above would be represented as `">=1.6+<2.a"`
       #
       # @return [Hash<String, String>, Hash{String=>Array<String>}, nil]
       def gem_config_dependencies
         return unless gem_config :extra_dependencies
-        gem_config(:extra_dependencies).to_h do |dep_name, dep_versions|
+        gem_config(:extra_dependencies).transform_values do |dep_versions|
           if dep_versions.include? "|"
-            [dep_name, dep_versions.split("|")]
+            dep_versions.split("|").map { |dep_version| check_dep_version dep_version }
+          elsif dep_versions.include? "+"
+            dep_versions.split("+").map { |dep_version| check_dep_version dep_version }
           else
-            [dep_name, dep_versions]
+            check_dep_version dep_versions
           end
         end
+      end
+
+      def check_dep_version dep_version
+        match = /([>=<~]+)\s*(\d+(?:\.\w+)+)/.match dep_version
+        raise "Bad syntax for extra_dependency: #{dep_version}" unless match
+        "#{match[1]} #{match[2]}"
       end
 
       def denylist_protos

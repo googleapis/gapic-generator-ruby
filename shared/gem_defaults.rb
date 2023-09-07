@@ -17,6 +17,9 @@
 
 def gem_defaults
   {
+    my_plugin: {
+      generator: :gem_builder
+    },
     grafeas_v1: {
       protos: [
         "grafeas/v1/attestation.proto",
@@ -37,8 +40,10 @@ def gem_defaults
         "grafeas/v1/slsa_provenance.proto",
         "grafeas/v1/slsa_provenance_zero_two.proto",
         "grafeas/v1/upgrade.proto",
+        "grafeas/v1/vex.proto",
         "grafeas/v1/vulnerability.proto"
-      ]
+      ],
+      generator: :cloud
     },
     language_v1: {
       protos: [
@@ -49,43 +54,50 @@ def gem_defaults
         "../shared/googleapis/google/cloud/language/v1/samples/test/*.yaml",
         "../shared/samples/language/*.yaml"
       ]),
-      grpc_service_config: "../shared/protos/testing/grpc_service_config/language_grpc_service_config.json"
+      grpc_service_config: "../shared/protos/testing/grpc_service_config/language_grpc_service_config.json",
+      generator: :cloud
     },
     language_v1beta1: {
       protos: [
         "google/cloud/language/v1beta1/language_service.proto"
-      ]
+      ],
+      generator: :cloud
     },
     language_v1beta2: {
       protos: [
         "google/cloud/language/v1beta2/language_service.proto"
-      ]
+      ],
+      generator: :cloud
     },
     language_wrapper: {
       protos: [
         "google/cloud/language/v1/language_service.proto"
-      ]
+      ],
+      generator: :cloud
     },
     secretmanager_v1beta1: {
       protos: [
         "google/cloud/secrets/v1beta1/resources.proto",
         "google/cloud/secrets/v1beta1/service.proto",
         "google/cloud/common_resources.proto"
-      ]
+      ],
+      generator: :cloud
     },
     secretmanager_wrapper: {
       protos: [
         "google/cloud/secrets/v1beta1/resources.proto",
         "google/cloud/secrets/v1beta1/service.proto",
         "google/cloud/common_resources.proto"
-      ]
+      ],
+      generator: :cloud
     },
     speech_v1: {
       protos: [
         "google/cloud/speech/v1/resource.proto",
         "google/cloud/speech/v1/cloud_speech.proto",
         "google/cloud/speech/v1/cloud_speech_adaptation.proto"
-      ]
+      ],
+      generator: :cloud
     },
     vision_v1: {
       protos: [
@@ -97,7 +109,8 @@ def gem_defaults
         "google/cloud/vision/v1/web_detection.proto"
       ],
       # vision yaml modified from the googleapis one -- added Location mixin
-      service_yaml: "../shared/protos/google/cloud/vision/v1/vision_v1.yaml"
+      service_yaml: "../shared/protos/google/cloud/vision/v1/vision_v1.yaml",
+      generator: :cloud
     },
     showcase: {
       protos: [
@@ -130,7 +143,8 @@ def gem_defaults
     googleads: {
       protos: [
         "google/ads/googleads/v12/services/campaign_service.proto"
-      ]
+      ],
+      generator: :ads
     },
     testing: {
       protos: [
@@ -149,17 +163,20 @@ def gem_defaults
     compute_small: {
       protos: [
         "google/cloud/compute/v1/compute_small.proto"
-      ]
+      ],
+      generator: :cloud
     },
     compute_small_wrapper: {
       protos: [
         "google/cloud/compute/v1/compute_small.proto"
-      ]
+      ],
+      generator: :cloud
     },
     location: {
       protos: [
         "google/cloud/location/locations.proto"
       ],
+      generator: :cloud
     }
   }
 end
@@ -178,4 +195,15 @@ end
 
 def service_yaml_for service
   gem_defaults[service][:service_yaml]
+end
+
+def generator_for service
+  gem_defaults[service][:generator] || :gapic
+end
+
+def all_service_names generator: nil, omit_generator: nil
+  list = gem_defaults.keys
+  list = list.find_all { |service| generator_for(service) == generator } if generator
+  list = list.find_all { |service| generator_for(service) != omit_generator } if omit_generator
+  list
 end

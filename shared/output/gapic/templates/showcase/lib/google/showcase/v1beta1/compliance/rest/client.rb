@@ -117,7 +117,7 @@ module Google
               credentials = @config.credentials
               # Use self-signed JWT if the endpoint is unchanged from default,
               # but only if the default endpoint does not have a region prefix.
-              enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+              enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                        !@config.endpoint.split(".").first.include?("-")
               credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
@@ -175,6 +175,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_body method.
+            #   result = client.repeat_data_body request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_body request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -252,6 +268,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_body_info method.
+            #   result = client.repeat_data_body_info request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_body_info request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -328,6 +360,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_query method.
+            #   result = client.repeat_data_query request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_query request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -405,6 +453,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_simple_path method.
+            #   result = client.repeat_data_simple_path request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_simple_path request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -480,6 +544,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_path_resource method.
+            #   result = client.repeat_data_path_resource request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_path_resource request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -555,6 +635,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_path_trailing_resource method.
+            #   result = client.repeat_data_path_trailing_resource request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_path_trailing_resource request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -630,6 +726,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_body_put method.
+            #   result = client.repeat_data_body_put request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_body_put request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -705,6 +817,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_body_patch method.
+            #   result = client.repeat_data_body_patch request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_body_patch request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -813,7 +941,9 @@ module Google
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "localhost:7469", ::String
+              DEFAULT_ENDPOINT = "localhost:7469"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
                            nil]

@@ -18,7 +18,7 @@
 # /workspace/gapic-generator.gem if building the base gem from main).
 # These gem files are copied into the final runtime image.
 ##
-FROM ruby:2.6-stretch as builder
+FROM ruby:3.1-buster as builder
 WORKDIR /workspace
 
 # Copy code from the local directory.
@@ -38,7 +38,7 @@ RUN gem build -o gapic-generator-ads.gem gapic-generator-ads.gemspec
 # Runtime image.
 # Installs the generator executables, common protos, and an entrypoint.
 ##
-FROM ruby:2.6-stretch
+FROM ruby:3.1-buster
 WORKDIR /workspace
 
 # Install common protos.

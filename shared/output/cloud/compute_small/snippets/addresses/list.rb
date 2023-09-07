@@ -23,12 +23,12 @@ require "google/cloud/compute/v1"
 # Snippet for the list call in the Addresses service
 #
 # This is an auto-generated example demonstrating basic usage of
-# Google::Cloud::Compute::V1::Addresses::Client#list. It may require
+# Google::Cloud::Compute::V1::Addresses::Rest::Client#list. It may require
 # modification in order to execute successfully.
 #
 def list
   # Create a client object. The client can be reused for multiple calls.
-  client = Google::Cloud::Compute::V1::Addresses::Client.new
+  client = Google::Cloud::Compute::V1::Addresses::Rest::Client.new
 
   # Create a request. To set request fields, pass in keyword arguments.
   request = Google::Cloud::Compute::V1::ListAddressesRequest.new

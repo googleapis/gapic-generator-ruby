@@ -66,7 +66,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_echo_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -101,7 +101,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_expand_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -137,7 +137,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_paged_expand_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -176,7 +176,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_paged_expand_legacy_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -215,7 +215,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_paged_expand_legacy_mapped_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -254,7 +254,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_wait_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -292,7 +292,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_block_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end

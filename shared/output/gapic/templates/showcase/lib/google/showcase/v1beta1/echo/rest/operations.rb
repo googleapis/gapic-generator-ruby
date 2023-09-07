@@ -143,6 +143,26 @@ module Google
             # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/longrunning"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Longrunning::Operations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Longrunning::ListOperationsRequest.new
+            #
+            #   # Call the list_operations method.
+            #   result = client.list_operations request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Longrunning::Operation.
+            #     p item
+            #   end
+            #
             def list_operations request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -209,6 +229,29 @@ module Google
             # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/longrunning"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Longrunning::Operations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Longrunning::GetOperationRequest.new
+            #
+            #   # Call the get_operation method.
+            #   result = client.get_operation request
+            #
+            #   # The returned object is of type Gapic::Operation. You can use it to
+            #   # check the status of an operation, cancel it, or wait for results.
+            #   # Here is how to wait for a response.
+            #   result.wait_until_done! timeout: 60
+            #   if result.response?
+            #     p result.response
+            #   else
+            #     puts "No response received."
+            #   end
+            #
             def get_operation request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -275,6 +318,22 @@ module Google
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/longrunning"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Longrunning::Operations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Longrunning::DeleteOperationRequest.new
+            #
+            #   # Call the delete_operation method.
+            #   result = client.delete_operation request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_operation request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -346,6 +405,22 @@ module Google
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/longrunning"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Longrunning::Operations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Longrunning::CancelOperationRequest.new
+            #
+            #   # Call the cancel_operation method.
+            #   result = client.cancel_operation request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def cancel_operation request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -454,7 +529,9 @@ module Google
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "localhost:7469", ::String
+              DEFAULT_ENDPOINT = "localhost:7469"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
                            nil]
@@ -576,7 +653,7 @@ module Google
 
               verb, uri, query_string_params, body = OperationsServiceStub.transcode_list_operations_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -615,7 +692,7 @@ module Google
 
               verb, uri, query_string_params, body = OperationsServiceStub.transcode_get_operation_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -653,7 +730,7 @@ module Google
 
               verb, uri, query_string_params, body = OperationsServiceStub.transcode_delete_operation_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -691,7 +768,7 @@ module Google
 
               verb, uri, query_string_params, body = OperationsServiceStub.transcode_cancel_operation_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
