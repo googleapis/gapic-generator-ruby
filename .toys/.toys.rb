@@ -21,10 +21,12 @@ mixin "repo_info" do
   # with the current directory set to that directory, and also passing the
   # directory name to the block.
   #
-  def in_directories_with_bundles generator_only: false
+  def in_directories_with_bundles generator_only: false, include_toys: false
     non_generator_directories = ["gapic", "gapic-common"]
     Dir.chdir context_directory do
-      Dir.glob "*/Gemfile" do |gemfile|
+      gemfiles = Dir.glob "*/Gemfile"
+      gemfiles += Dir.glob ".toys/**/Gemfile" if include_toys && !generator_only
+      gemfiles.each do |gemfile|
         dir = File.dirname gemfile
         next if generator_only && non_generator_directories.include?(dir)
         Dir.chdir dir do
@@ -51,13 +53,14 @@ tool "bundle" do
     tool task_name do
       desc "Runs bundle #{task_name} in all directories"
 
+      static :task_name, task_name
+
       include :exec, e: true
       include :terminal
       include "repo_info"
-      static :task_name, task_name
 
       def run
-        in_directories_with_bundles do |dirname|
+        in_directories_with_bundles include_toys: true do |dirname|
           puts "Bundle #{task_name} in #{dirname}", :cyan, :bold
           exec ["bundle", task_name, "--retry=3"]
         end
@@ -70,10 +73,11 @@ end
   tool task_name do
     desc "Runs #{task_name} in all directories"
 
+    static :task_name, task_name
+
     include :exec, e: true
     include :terminal
     include "repo_info"
-    static :task_name, task_name
 
     def run
       in_directories_with_bundles do |dirname|

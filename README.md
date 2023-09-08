@@ -2,253 +2,192 @@
 
 Create Ruby clients from a protocol buffer description of an API.
 
-**Note** This project is a preview. Please try it out and let us know what you think,
-but there are currently no guarantees of stability or support.
+## Getting started
 
-## Getting started using the Docker image
-The easiest way to use the generator is to run it with the Docker image. There are several docker images containing various flavors of gapic generators, we are going to use the `gapic-generator-ruby` image which is generating code using the [gapic-generator-cloud](https://github.com/googleapis/gapic-generator-ruby/tree/main/gapic-generator-cloud).
+The easiest way to use this generator is to clone the github repo (either at
+HEAD or at a release tag) and run the generator using the provided command line
+tool. The following steps describe how do this.
 
-### Download the sample protos for the Showcase API
-The [Showcase API](https://github.com/googleapis/gapic-showcase) is a good API to
-play with if you want to start generating your own client libraries. It has several
-services, we'll use `Echo` ([echo.proto](https://github.com/googleapis/gapic-showcase/blob/master/schema/google/showcase/v1beta1/echo.proto)) service as an example.
+### Prepare your Ruby environment
 
-Download the proto files locally (the following examples work in Linux or macOS):
+The GAPIC Generator for Ruby is written in Ruby and requires the language and
+several related tools.
 
-```sh
-$ curl -L https://github.com/googleapis/gapic-showcase/releases/download/v0.6.1/gapic-showcase-0.6.1-protos.tar.gz | tar xz
-```
+First, install Ruby, version 3.1 or later, if you have not already done so.
+[This page](https://www.ruby-lang.org/en/documentation/installation/) on the
+official Ruby website includes installation information. We recommend using one
+of the Ruby version managers such as
+[ASDF](https://www.ruby-lang.org/en/documentation/installation/#asdf-vm).
 
-### Run the generator using the Docker image
-
-```sh
-$ mkdir showcase-ruby
-$ docker run --rm --user $UID \
-  --mount type=bind,source=`pwd`/google/showcase/v1beta1,destination=/in/google/showcase/v1beta1,readonly \
-  --mount type=bind,source=`pwd`/showcase-ruby,destination=/out \
-  gcr.io/gapic-images/gapic-generator-ruby:latest --ruby-cloud-gem-name=google-showcase
-```
-
-NB: `ruby-cloud-gem-name` currently has to partialy (excluding version) match the package option from the proto files. For showcase the package is `google.showcase.v1beta1` and so the `ruby-cloud-gem-name` has to be `google-showcase`
-
-The resulting files are in `showcase-ruby` folder:
-
-```sh
-$ cd showcase-ruby
-$ bundle install   # install dependencies
-$ bundle exec rake ci  # run unit tests
-```
-
-## Building, installation and API generation without the Docker image
-### Install the Proto Compiler
-This generator relies on the Protocol Buffer Compiler to [orchestrate] the
-client generation. Install protoc version 3.7 or later.
-
-It may be available from your package manager. The following should work on Mac
-OS X using homebrew:
-```sh
-$ brew install protobuf
-```
-
-Otherwise, you can download the release from GitHub:
-```sh
-# Declare the protobuf version to use.
-$ export PROTOBUF_VERSION=3.7.1
-
-# Declare the target installation system.
-# export PROTOBUF_SYSTEM=osx-x86_64
-$ export PROTOBUF_SYSTEM=linux-x86_64
-
-# Get the precompiled protobuf compiler.
-$ mkdir /usr/src/protoc
-$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-${PROTOBUF_SYSTEM}.zip --output /usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
-$ cd /usr/src/protoc/
-$ unzip protoc-${PROTOBUF_VERSION}.zip
-$ rm protoc-${PROTOBUF_VERSION}.zip
-
-# Link the protoc to the path.
-$ ln -s /usr/src/protoc/bin/protoc /usr/local/bin/protoc
-
-# Move the common protobuf files to the local include folder.
-$ cp -R /usr/src/protoc/include/* /usr/local/include/
-```
-
-[orchestrate]: https://developers.google.com/protocol-buffers/docs/reference/ruby-generated
-
-### Set Up Your Ruby Environment
-
-If you are a Ruby developer, then please skip ahead to the next section.
-
-Install gem.
-
-```sh
-# Linux
-$ sudo apt-get install gem
-# Mac
-$ brew install gem
-```
-
-Add the following to your `~/.bashrc`, then do `source ~/.bashrc`.
-
-```sh
-export GEM_HOME=$HOME/.gem
-export GEM_PATH=$HOME/.gem
-export PATH=$PATH:$GOPATH/bin:$GEM_PATH/bin/ruby/2.5.0/bin
-```
-
-Install and set up Bundler.
+You will need the [Bundler](https://rubygems.org/gems/bundler) and
+[Toys](https://rubygems.org/gems/toys) gems. Install them if you haven't done
+so already:
 
 ```sh
 $ gem install bundler
-$ bundle install
-$ BUNDLE_PATH=~/.gems
+$ gem install toys
 ```
 
-### Build and Install the Generator
-This tool is in pre-alpha so it is not yet released to RubyGems. You will have to
-build the generator from scratch.
+### Clone the Ruby GAPIC Generator repo
+
+The generator itself is present in the repo
+https://github.com/googleapis/gapic-generator-ruby. Clone it to your local
+workstation. The following steps will use it at HEAD, but you can also check
+out a recent release tag.
 
 ```sh
-$ mkdir ~/my-gapic-example
-$ cd ~/my-gapic-example
 $ git clone https://github.com/googleapis/gapic-generator-ruby.git
 $ cd gapic-generator-ruby
-$ git submodule update --init
-$ bundle update
-$ bundle exec rake update
-$ bundle exec rake install
-$ which protoc-gen-ruby_gapic
-> {Non-empty path}
 ```
 
-### Generate an API
-Installing this generator exposes `protoc-gen-ruby_gapic` on the PATH. By doing
-so, it gives the protobuf compiler the CLI option `--ruby_gapic_out` on which
-you can specify an output path for this generator.
+There are submodules in this repo, so you will need to initialize those.
 
-If you want to experiment with an already-existing API, you can use the cloud
-vision API as an example.
-Note: You need to clone the googleapis repository from GitHub, and change
-to a special branch:
 ```sh
-$ cd ~/my-gapic-example
-$ git clone git@github.com:googleapis/api-common-protos.git
-$ git clone git@github.com:googleapis/googleapis.git
-$ cd googleapis
-$ git checkout --track -b input-contract origin/input-contract
+$ git submodule init
+$ git submodule update
 ```
 
-Currently, each API also requires a small configuration file that provides
-information such as the gem name. In your `my-gapic-example` directory, create
-a file `vision.yml` with the following contents:
-```yaml
----
+### Generating the Showcase client
+
+In this section we'll generate a client for the
+[Showcase API](https://github.com/googleapis/gapic-showcase), a sample API used
+for demoing and testing GAPIC.
+
+(The following section will demonstrate how to generate a client for a Google
+API from the [Googleapis repo](https://github.com/googleapis/googleapis).)
+
+#### Obtain Showcase protos
+
+The GAPIC Generator uses protobuf files as input. We will obtain the protos for
+Showcase from its repository on GitHub.
+
+Clone the Showcase repo. For this example, we will assume we are starting
+inside the gapic-generator-ruby clone directory (see above). We'll move up one
+directory, clone the showcase repo and then move *back* into the
+gapic-generator-ruby directory for subsequent steps.
+
+```sh
+$ cd ..
+$ git clone https://github.com/googleapis/gapic-showcase.git
+$ cd gapic-generator-ruby
+```
+
+#### Configure the client for the Echo service
+
+Each client requires a configuration. The Ruby GAPIC Generator can get this
+configuration from a YAML-formatted config file, or from the BUILD.bazel file
+used to generate Google APIs. For Showcase, we have neither, so we'll write a
+YAML file.
+
+Create a file called `showcase.yml` and copy the following into it:
+
+```
+:transports: ["rest", "grpc"]
 :gem:
-  :name: "google-cloud-vision"
-:defaults:
-  :service:
-    :default_host: "vision.googleapis.com"
-    :oauth_scopes:
-      - https://www.googleapis.com/auth/cloud-platform
-      - https://www.googleapis.com/auth/cloud-vision
+  :name: google-showcase
 ```
 
-Now you're ready to compile the API client:
+Note that all the keys begin with a colon, which signals to Ruby that they
+should be deserialized as Symbol keys rather than String keys.
+
+#### Generate the Echo client
+
+We can now run the generator, by using a Toys tool provided in the repo. This
+run will generate a client of the "Echo" service, one of the services in the
+Showcase API. It will read the source protos from the gapic-showcase clone,
+and write the result into a `tmp` directory within the gapic-generator-ruby
+clone. It will also get the configuration from the `showcase.yml` file you
+created above.
+
+Make sure you have moved into the gapic-generator-ruby directory, then run:
+
 ```sh
-$ cd ~/my-gapic-example
-$ mkdir dest
-$ protoc googleapis/google/cloud/vision/v1/*.proto \
-    --proto_path=api-common-protos --proto_path=googleapis \
-    --ruby_gapic_opt=configuration=vision.yml --ruby_gapic_out=dest
+$ toys run --input-dir=../gapic-showcase/schema --output-dir=tmp \
+  --config-file=showcase.yml google/showcase/v1beta1/echo.proto
 ```
 
-### Create a custom generator
-If you want to customize the output, you may create a new generator using the
-`gapic-generator` binary installed by the main generator. A new generator takes
-the form of a gem that provides an additional `protoc-gen-ruby_$NAME` binary
-that can be used by protoc.
+Now you can see the results in the `tmp` directory.
 
-Here's a brief example. Assuming you've already built and installed the main
-generator gem as described above, we will now create a custom generator called
-`acme`, by creating a gem called `gapic-generator-acme`:
 ```sh
-$ cd ~/my-gapic-example
-$ gapic-generator -g acme
-$ cd gapic-generator-acme
+$ cd tmp
+$ ls
 ```
 
-The generated code will include an empty `templates/acme` directory. This is
-where you can put overrides for the templates and helpers used by the code
-generator. (The default templates are copied into the `example_templates/acme`
-directory, although they are there only for your information. The actual
-defaults being used are hosted in the main `gapic-generator` gem.)
+### Generating a client for Google Cloud Language V2
 
-As an example, let's modify the license header generated at the top of each
-source file. This is located in the `shared/_license.erb` partial. If you look
-at `example_templates/acme/shared/_license.erb`, you'll see that an MIT license
-is rendered by default. Let's change that.
+In this section we'll generate a client for the Natural Language service that
+is part of Google Cloud. This will be very similar to the above Showcase
+example, but we will get the input protos and configuration from the googleapis
+repository, which is brought into gapic-generator-ruby as a submodule.
 
-Create `templates/acme/shared/_license.erb` and populate it with a different
-license header (maybe BSD or Apache). This will now override the MIT header
-provided by the core generator.
+Within the gapic-generator-ruby directory, run:
 
-Now let's build the custom generator gem.
 ```sh
-$ cd ~/my-gapic-example/gapic-generator-acme
-$ bundle install
-$ bundle exec rake install
+$ toys run --output-dir=tmp --clean google/cloud/language/v2
 ```
 
-You should now have a `protoc-gen-ruby_acme` binary in your PATH. So you should
-now be able to run the "Generate an API" example above using `--ruby_acme_opt=`
-and `--ruby_acme_out=` options to generate a client with your custom license
-header.
-
-For more examples, see the `gapic-generator-cloud` directory in this
-repository. This is the custom generator used for Google Cloud APIs.
+That's it! The generator's proto lookup defaults to searching the submodule
+in `shared/googleapis` so you do not need to provide `--input-dir`. It also
+finds its configuration in the `BUILD.bazel` file colocated with the protos.
+The `--clean` flag clears out the old `tmp` directory (in case you previously
+had generated the showcase client there.)
 
 ## Contributing
 
-Contributions to this library are always welcome and highly encouraged.
+The Ruby GAPIC Generator is maintained internally at Google by the Ruby Cloud
+SDK team. The roadmap is generally driven by the needs of the Google API client
+libraries for Ruby. However, contributions will be considered. Before opening
+a pull request, please open an issue describing the change that you are
+proposing; unless it is an obvious or trivial fix, it is best to discuss and
+get agreement on the change before making it.
 
-See the [CONTRIBUTING](CONTRIBUTING.md) documentation for more information on how to get started.
+### Testing
 
-### Development
+The CI runs on GitHub Actions and comprises four types of tests:
 
-#### How to update the test protobufs
+* Unit tests for the various components
+* Comparative tests against golden outputs
+* Functional tests for some golden outputs
+* Lint and style checks using rubocop
 
-From the repository's root, run the following. Replace `garbage` with the name of the relevant protobuf.
-```sh
-$ bundle exec rake bin
-$ cd gapic-generator
-$ bundle exec rake gen:garbage
-```
-
-#### Run unit tests
-To run all tests:
-
-```sh
-$ cd gapic-generator
-$ bundle exec rake test
-```
-
-To test a single file:
+To run the tests, execute this in the repo:
 
 ```sh
-$ cd gapic-generator
-$ bundle exec rake test TEST=path/to/test/file.rb
+$ toys ci
 ```
 
-#### Linting
+Note that the functional tests require Docker because they involve spinning up
+a temporary service for a generated client to talk to.
+
+### Updating golden outputs
+
+If you make changes that result in changes to the generated client code, you
+will need to regenerate the golden outputs to match. To do that, run the
+following in the repo:
+
 ```sh
-$ bundle exec rake rubocop
+$ toys gen
 ```
 
-## Versioning
+Include both the generator and golden output changes in the same pull request.
 
-This library is currently a **preview** with no guarantees of stability or support. Please get
-involved and let us know if you find it useful and we'll work towards a stable version.
+Golden outputs are generated from input protos in the `shared/googleapis`
+submodule. Their configurations are provided by YAML files in the
+`shared/config` directory. Finally, there is an index of those outputs in the
+`shared/gem_defaults.rb` file.
+
+If any of these inputs are modified, or if the submodule is updated, you should
+update the "binary inputs" in the `shared/input` directory. These are binary
+encodings of that input and configuration data, used in some tests. To update
+the binary inputs, execute:
+
+```sh
+$ toys bin
+```
 
 ## Disclaimer
 
-This is not an official Google product.
+While Google uses this product internally to produce API client libraries, this
+generator itself is not an official Google product. You can use it to produce
+your own clients for Google services or your own, but Google does not provide
+official support for use of this generator.
