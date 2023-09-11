@@ -420,14 +420,6 @@ module Google
               end
 
               ##
-              # Configuration for the channel pool
-              # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
-              #
-              def channel_pool
-                @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
-              end
-
-              ##
               # Configuration RPC class for the Locations API.
               #
               # Includes fields providing the configuration for each RPC in this service.
