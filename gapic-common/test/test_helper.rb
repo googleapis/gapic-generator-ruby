@@ -18,6 +18,7 @@ require "minitest/focus"
 require "minitest/rg"
 require "pp"
 
+require "grpc"
 require "gapic/common"
 require "gapic/rest"
 require "google/protobuf/any_pb"
