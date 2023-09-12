@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.25.1 / 2023-09-12
+
+* Includes changes from gapic-generator 0.25.1
+* Fix: Workaround for grpc windows issue during tests
+
 ### 0.25.0 / 2023-09-07
 
 * Includes changes from gapic-generator 0.25.0
