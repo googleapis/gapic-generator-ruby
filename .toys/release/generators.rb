@@ -169,7 +169,6 @@ def update_changelog_file path, messages, new_version, new_date
 end
 
 def update_bundles
-  exec ["bundle", "update"]
   exec ["bundle", "update"], chdir: "gapic-generator"
   exec ["bundle", "update"], chdir: "gapic-generator-ads"
   exec ["bundle", "update"], chdir: "gapic-generator-cloud"
