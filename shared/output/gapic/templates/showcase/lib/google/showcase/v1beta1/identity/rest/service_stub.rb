@@ -293,7 +293,7 @@ module Google
                                                       .with_bindings(
                                                         uri_method: :patch,
                                                         uri_template: "/v1beta1/{user.name}",
-                                                        body: "*",
+                                                        body: "user",
                                                         matches: [
                                                           ["user.name", %r{^users/[^/]+/?$}, false]
                                                         ]

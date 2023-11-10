@@ -574,6 +574,115 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     end
   end
 
+  def test_get_enum
+    # Create test objects.
+    client_result = ::Google::Showcase::V1beta1::EnumResponse.new
+    http_response = OpenStruct.new body: client_result.to_json
+
+    call_options = {}
+
+    # Create request parameters for a unary method.
+    unknown_enum = true
+
+    get_enum_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+    end
+
+    ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_get_enum_request, ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, get_enum_client_stub do
+        # Create client
+        client = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
+
+        # Use hash object
+        client.get_enum({ unknown_enum: unknown_enum }) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use named arguments
+        client.get_enum unknown_enum: unknown_enum do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use protobuf object
+        client.get_enum ::Google::Showcase::V1beta1::EnumRequest.new(unknown_enum: unknown_enum) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use hash object with options
+        client.get_enum({ unknown_enum: unknown_enum }, call_options) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use protobuf object with options
+        client.get_enum(::Google::Showcase::V1beta1::EnumRequest.new(unknown_enum: unknown_enum), call_options) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Verify method calls
+        assert_equal 5, get_enum_client_stub.call_count
+      end
+    end
+  end
+
+  def test_verify_enum
+    # Create test objects.
+    client_result = ::Google::Showcase::V1beta1::EnumResponse.new
+    http_response = OpenStruct.new body: client_result.to_json
+
+    call_options = {}
+
+    # Create request parameters for a unary method.
+    request = {}
+    continent = :CONTINENT_UNSPECIFIED
+
+    verify_enum_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+    end
+
+    ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_verify_enum_request, ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, verify_enum_client_stub do
+        # Create client
+        client = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
+
+        # Use hash object
+        client.verify_enum({ request: request, continent: continent }) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use named arguments
+        client.verify_enum request: request, continent: continent do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use protobuf object
+        client.verify_enum ::Google::Showcase::V1beta1::EnumResponse.new(request: request, continent: continent) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use hash object with options
+        client.verify_enum({ request: request, continent: continent }, call_options) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use protobuf object with options
+        client.verify_enum(::Google::Showcase::V1beta1::EnumResponse.new(request: request, continent: continent), call_options) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Verify method calls
+        assert_equal 5, verify_enum_client_stub.call_count
+      end
+    end
+  end
+
   def test_configure
     credentials_token = :dummy_value
 

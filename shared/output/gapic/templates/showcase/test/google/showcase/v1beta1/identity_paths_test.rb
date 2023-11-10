@@ -38,7 +38,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientPathsTest < Minitest::Test
         config.credentials = grpc_channel
       end
 
-      path = client.user_path user_id: "value0"
+      path = client.user_path user: "value0"
       assert_equal "users/value0", path
     end
   end

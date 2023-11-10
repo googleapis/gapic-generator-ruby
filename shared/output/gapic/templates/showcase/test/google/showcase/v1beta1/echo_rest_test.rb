@@ -127,6 +127,61 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     end
   end
 
+  def test_echo_error_details
+    # Create test objects.
+    client_result = ::Google::Showcase::V1beta1::EchoErrorDetailsResponse.new
+    http_response = OpenStruct.new body: client_result.to_json
+
+    call_options = {}
+
+    # Create request parameters for a unary method.
+    single_detail_text = "hello world"
+    multi_detail_text = ["hello world"]
+
+    echo_error_details_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+    end
+
+    ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_echo_error_details_request, ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, echo_error_details_client_stub do
+        # Create client
+        client = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
+
+        # Use hash object
+        client.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use named arguments
+        client.echo_error_details single_detail_text: single_detail_text, multi_detail_text: multi_detail_text do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use protobuf object
+        client.echo_error_details ::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use hash object with options
+        client.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }, call_options) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Use protobuf object with options
+        client.echo_error_details(::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text), call_options) do |_result, response|
+          assert_equal http_response, response.underlying_op
+        end
+
+        # Verify method calls
+        assert_equal 5, echo_error_details_client_stub.call_count
+      end
+    end
+  end
+
   def test_expand
     # Create test objects.
     client_result = ::Google::Showcase::V1beta1::EchoResponse.new
@@ -137,6 +192,7 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     content = "hello world"
     error = {}
+    stream_wait_time = {}
 
     expand_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, is_server_streaming:|
       assert options.metadata.key? :"x-goog-api-client"
@@ -152,27 +208,27 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
         end
 
         # Use hash object
-        client.expand({ content: content, error: error }) do |_result, response|
+        client.expand({ content: content, error: error, stream_wait_time: stream_wait_time }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use named arguments
-        client.expand content: content, error: error do |_result, response|
+        client.expand content: content, error: error, stream_wait_time: stream_wait_time do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object
-        client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error) do |_result, response|
+        client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use hash object with options
-        client.expand({ content: content, error: error }, call_options) do |_result, response|
+        client.expand({ content: content, error: error, stream_wait_time: stream_wait_time }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object with options
-        client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error), call_options) do |_result, response|
+        client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 

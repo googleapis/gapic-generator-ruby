@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-showcase is the official client library for the Client Libraries Showcase API."
-  gem.summary       = "API Client library for the Client Libraries Showcase API"
+  gem.description   = "Showcase represents both a model API and an integration testing surface for client library generator consumption."
+  gem.summary       = "Showcase represents both a model API and an integration testing surface for client library generator consumption."
   gem.homepage      = "https://github.com/googleapis/googleapis"
   gem.license       = "MIT"
 
@@ -24,6 +24,8 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = ">= 2.6"
 
   gem.add_dependency "gapic-common", ">= 0.20.0", "< 2.a"
+  gem.add_dependency "google-cloud-location", ">= 0.4", "< 2.a"
+  gem.add_dependency "google-iam-v1", ">= 0.4", "< 2.a"
 
   gem.add_development_dependency "google-style", "~> 1.26.3"
   gem.add_development_dependency "minitest", "~> 5.16"

@@ -26,6 +26,8 @@
 
 require "google/showcase/v1beta1/testing_pb"
 require "google/showcase/v1beta1/testing/rest/service_stub"
+require "google/cloud/location/rest"
+require "google/iam/v1/rest"
 
 module Google
   module Showcase
@@ -130,9 +132,37 @@ module Google
               @quota_project_id = @config.quota_project
               @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
+              @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+                config.credentials = credentials
+                config.quota_project = @quota_project_id
+                config.endpoint = @config.endpoint
+                config.bindings_override = @config.bindings_override
+              end
+
+              @iam_policy_client = Google::Iam::V1::IAMPolicy::Rest::Client.new do |config|
+                config.credentials = credentials
+                config.quota_project = @quota_project_id
+                config.endpoint = @config.endpoint
+                config.bindings_override = @config.bindings_override
+              end
+
               @testing_stub = ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                           credentials: credentials
             end
+
+            ##
+            # Get the associated client for mix-in of the Locations.
+            #
+            # @return [Google::Cloud::Location::Locations::Rest::Client]
+            #
+            attr_reader :location_client
+
+            ##
+            # Get the associated client for mix-in of the IAMPolicy.
+            #
+            # @return [Google::Iam::V1::IAMPolicy::Rest::Client]
+            #
+            attr_reader :iam_policy_client
 
             # Service calls
 
@@ -882,6 +912,13 @@ module Google
               config_attr :metadata,      nil, ::Hash, nil
               config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
+
+              # @private
+              # Overrides for http bindings for the RPCs of this service
+              # are only used when this service is used as mixin, and only
+              # by the host service.
+              # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
+              config_attr :bindings_override, {}, ::Hash, nil
 
               # @private
               def initialize parent_config = nil

@@ -29,6 +29,7 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "google/showcase/version"
+require "google/showcase/v1beta1/bindings_override"
 
 require "google/showcase/v1beta1/identity/credentials"
 require "google/showcase/v1beta1/identity/paths"

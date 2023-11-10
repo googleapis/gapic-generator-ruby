@@ -76,7 +76,7 @@ module Google
       #     The room to update.
       # @!attribute [rw] update_mask
       #   @return [::Google::Protobuf::FieldMask]
-      #     The field mask to determine wich fields are to be updated. If empty, the
+      #     The field mask to determine which fields are to be updated. If empty, the
       #     server will assume all fields are to be updated.
       class UpdateRoomRequest
         include ::Google::Protobuf::MessageExts
@@ -118,8 +118,8 @@ module Google
       #   @return [::String]
       #     A token to retrieve next page of results.
       #     Pass this value in ListRoomsRequest.page_token field in the subsequent
-      #     call to `google.showcase.v1beta1.Messaging\ListRooms` method to retrieve the
-      #     next page of results.
+      #     call to `google.showcase.v1beta1.Messaging\ListRooms` method to retrieve
+      #     the next page of results.
       class ListRoomsResponse
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -148,11 +148,13 @@ module Google
       # @!attribute [rw] legacy_room_id
       #   @return [::String]
       #     The legacy id of the room. This field is used to signal
-      #     the use of the compound resource pattern `rooms/{room_id}/blurbs/legacy/{legacy_room_id}.{blurb_id}`
+      #     the use of the compound resource pattern
+      #     `rooms/{room}/blurbs/legacy/{legacy_room}.{blurb}`
       # @!attribute [rw] legacy_user_id
       #   @return [::String]
       #     The legacy id of the user. This field is used to signal
-      #     the use of the compound resource pattern `users/{user_id}/profile/blurbs/legacy/{legacy_user_id}~{blurb_id}`
+      #     the use of the compound resource pattern
+      #     `users/{user}/profile/blurbs/legacy/{legacy_user}~{blurb}`
       class Blurb
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

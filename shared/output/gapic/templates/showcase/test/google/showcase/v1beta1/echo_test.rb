@@ -120,6 +120,66 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
     end
   end
 
+  def test_echo_error_details
+    # Create GRPC objects.
+    grpc_response = ::Google::Showcase::V1beta1::EchoErrorDetailsResponse.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    single_detail_text = "hello world"
+    multi_detail_text = ["hello world"]
+
+    echo_error_details_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :echo_error_details, name
+      assert_kind_of ::Google::Showcase::V1beta1::EchoErrorDetailsRequest, request
+      assert_equal "hello world", request["single_detail_text"]
+      assert_equal ["hello world"], request["multi_detail_text"]
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, echo_error_details_client_stub do
+      # Create client
+      client = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use named arguments
+      client.echo_error_details single_detail_text: single_detail_text, multi_detail_text: multi_detail_text do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.echo_error_details ::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }, grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.echo_error_details(::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text), grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, echo_error_details_client_stub.call_rpc_count
+    end
+  end
+
   def test_expand
     # Create GRPC objects.
     grpc_response = ::Google::Showcase::V1beta1::EchoResponse.new
@@ -130,12 +190,14 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
     # Create request parameters for a server streaming method.
     content = "hello world"
     error = {}
+    stream_wait_time = {}
 
     expand_client_stub = ClientStub.new [grpc_response].to_enum, grpc_operation do |name, request, options:|
       assert_equal :expand, name
       assert_kind_of ::Google::Showcase::V1beta1::ExpandRequest, request
       assert_equal "hello world", request["content"]
       assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Rpc::Status), request["error"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Duration), request["stream_wait_time"]
       refute_nil options
     end
 
@@ -146,7 +208,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.expand({ content: content, error: error }) do |response, operation|
+      client.expand({ content: content, error: error, stream_wait_time: stream_wait_time }) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -155,7 +217,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use named arguments
-      client.expand content: content, error: error do |response, operation|
+      client.expand content: content, error: error, stream_wait_time: stream_wait_time do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -164,7 +226,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error) do |response, operation|
+      client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -173,7 +235,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object with options
-      client.expand({ content: content, error: error }, grpc_options) do |response, operation|
+      client.expand({ content: content, error: error, stream_wait_time: stream_wait_time }, grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -182,7 +244,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error), grpc_options) do |response, operation|
+      client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time), grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r

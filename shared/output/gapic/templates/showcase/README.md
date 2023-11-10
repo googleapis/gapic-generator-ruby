@@ -1,8 +1,8 @@
 # Ruby Client for the Client Libraries Showcase API
 
-API Client library for the Client Libraries Showcase API
+Showcase represents both a model API and an integration testing surface for client library generator consumption.
 
-google-showcase is the official client library for the Client Libraries Showcase API.
+Showcase represents both a model API and an integration testing surface for client library generator consumption.
 
 https://github.com/googleapis/googleapis
 

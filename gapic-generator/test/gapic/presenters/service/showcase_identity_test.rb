@@ -36,7 +36,7 @@ class ShowcaseIdentityServiceTest < PresenterTest
     refute_empty presenter.references
     presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
     assert_equal ["User"], presenter.references.map(&:name)
-    assert_equal ["users/{user_id}"], presenter.references.map(&:patterns).map(&:first).map(&:pattern)
+    assert_equal ["users/{user}"], presenter.references.map(&:patterns).map(&:first).map(&:pattern)
   end
 
   def test_proto_service_name_full
