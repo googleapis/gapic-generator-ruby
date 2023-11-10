@@ -43,7 +43,7 @@ class FieldPresenterShowcaseTest < PresenterTest
     assert_equal "age", fp.name
     assert_equal "@!attribute [rw] age", fp.doc_attribute_type
     assert_equal "::Integer", fp.output_doc_types
-    assert_equal "The age of the use in years.\n", fp.doc_description
+    assert_equal "The age of the user in years.\n", fp.doc_description
     assert_equal "42", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full

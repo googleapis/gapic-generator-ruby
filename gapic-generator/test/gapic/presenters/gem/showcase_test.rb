@@ -31,18 +31,19 @@ class ShowcaseGemPresenterTest < PresenterTest
     assert_equal "Google::Showcase::VERSION", presenter.version_name_full
     assert_equal ["Google LLC"], presenter.authors
     assert_equal "googleapis-packages@google.com", presenter.email
-    assert_equal "google-showcase is the official client library for the Client Libraries Showcase API.", presenter.description
-    assert_equal "API Client library for the Client Libraries Showcase API", presenter.summary
+    assert_equal "Showcase represents both a model API and an integration testing surface for client library generator consumption.", presenter.description
+    assert_equal "Showcase represents both a model API and an integration testing surface for client library generator consumption.", presenter.summary
     assert_equal "https://github.com/googleapis/googleapis", presenter.homepage
     assert_equal "SHOWCASE", presenter.env_prefix
 
     assert_equal ["google.showcase.v1beta1"], presenter.packages.map(&:name)
     presenter.packages.each { |pp| assert_kind_of Gapic::Presenters::PackagePresenter, pp }
 
-    assert_equal ["Compliance", "Echo", "Identity", "Messaging", "Testing"], presenter.services.map(&:name)
+    assert_equal ["Compliance", "Echo", "Identity", "Messaging", "SequenceService", "Testing"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
 
-    assert_equal ["google/api/field_behavior.proto",
+    expected_proto_files = [
+      "google/api/field_behavior.proto",
       "google/api/resource.proto",
       "google/api/routing.proto",
       "google/longrunning/operations.proto",
@@ -57,7 +58,10 @@ class ShowcaseGemPresenterTest < PresenterTest
       "google/showcase/v1beta1/echo.proto",
       "google/showcase/v1beta1/identity.proto",
       "google/showcase/v1beta1/messaging.proto",
-      "google/showcase/v1beta1/testing.proto"].sort, presenter.proto_files.map(&:name).sort
+      "google/showcase/v1beta1/sequence.proto",
+      "google/showcase/v1beta1/testing.proto"
+    ]
+    assert_equal expected_proto_files.sort, presenter.proto_files.map(&:name).sort
     presenter.proto_files.each { |fp| assert_kind_of Gapic::Presenters::FilePresenter, fp }
 
     refute presenter.iam_dependency?
