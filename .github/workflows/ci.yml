@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       showcase:
-        image: gcr.io/gapic-images/gapic-showcase:0.22.0
+        image: gcr.io/gapic-images/gapic-showcase:0.25.0
         ports:
           - "7469:7469"
     steps:
@@ -27,7 +27,7 @@ jobs:
         with:
           ruby-version: "3.1"
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Checkout submodules
         run: |
           git submodule set-url shared/googleapis https://github.com/googleapis/googleapis.git
