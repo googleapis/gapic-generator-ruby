@@ -77,7 +77,7 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
       end
 
       # Use hash object
-      client.service_level_retry_method({}) do |response, operation|
+      client.service_level_retry_method({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -89,14 +89,13 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
       end
 
       # Use hash object with options
-      client.service_level_retry_method({}, grpc_options) do |response, operation|
+      client.service_level_retry_method({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(),
-                                        grpc_options) do |response, operation|
+      client.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -128,7 +127,7 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
       end
 
       # Use hash object
-      client.method_level_retry_method({}) do |response, operation|
+      client.method_level_retry_method({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -140,14 +139,13 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
       end
 
       # Use hash object with options
-      client.method_level_retry_method({}, grpc_options) do |response, operation|
+      client.method_level_retry_method({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(),
-                                       grpc_options) do |response, operation|
+      client.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

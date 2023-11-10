@@ -17,6 +17,8 @@
 require "gapic/formatting_utils"
 require "gapic/path_pattern"
 
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+
 module Gapic
   module Schema
     # Base class for all generic proto types including: enums, messages,
@@ -118,15 +120,20 @@ module Gapic
       # @param disable_xrefs [Boolean] (default is `false`) Disable linking to
       #   cross-references, and render them simply as text. This can be used if
       #   it is known that the targets are not present in the current library.
+      # @param transport [:rest,:grpc] The transport for client classes.
+      #   Optional; falls back to the default transport if not given.
       # @return [String]
       #
-      def docs_leading_comments disable_xrefs: false
+      def docs_leading_comments disable_xrefs: false, transport: nil
         return nil if @docs.nil?
         return nil if @docs.leading_comments.empty?
 
+        transport ||= containing_api.default_transport
         lines = @docs.leading_comments.each_line.to_a
         lines.map! { |line| line.start_with?(" ") ? line[1..] : line }
-        lines = FormattingUtils.format_doc_lines containing_api, lines, disable_xrefs: disable_xrefs
+        lines = FormattingUtils.format_doc_lines containing_api, lines,
+                                                 disable_xrefs: disable_xrefs,
+                                                 transport: transport
         lines.join
       end
 
@@ -988,6 +995,25 @@ module Gapic
         :pattern,
         :name_field
       )
+    end
+  end
+end
+
+module Google
+  module Cloud
+    module Tools
+      module Snippetgen
+        module Configlanguage
+          module V1
+            ##
+            # Additions to the SnippetConfig message
+            #
+            class SnippetConfig < ::Protobuf::Message
+              attr_accessor :json_representation
+            end
+          end
+        end
+      end
     end
   end
 end

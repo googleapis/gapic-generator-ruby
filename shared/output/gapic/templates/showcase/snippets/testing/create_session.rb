@@ -27,15 +27,24 @@
 # [START showcase_v0_generated_Testing_CreateSession_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Testing::Client.new
+##
+# Snippet for the create_session call in the Testing service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Testing::Client#create_session. It may require
+# modification in order to execute successfully.
+#
+def create_session
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Testing::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::CreateSessionRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::CreateSessionRequest.new
 
-# Call the create_session method.
-result = client.create_session request
+  # Call the create_session method.
+  result = client.create_session request
 
-# The returned object is of type Google::Showcase::V1beta1::Session.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::Session.
+  p result
+end
 # [END showcase_v0_generated_Testing_CreateSession_sync]

@@ -21,6 +21,7 @@ require "gapic/schema/loader"
 require "gapic/schema/request_param_parser"
 require "gapic/grpc_service_config/parser"
 require "gapic/schema/service_config_parser"
+require "gapic/model/api_metadata"
 
 module Gapic
   module Schema
@@ -42,6 +43,7 @@ module Gapic
     class Api
       attr_accessor :request
       attr_accessor :files
+      attr_reader :snippet_configs
 
       # Initializes an API object with the file descriptors that represent the
       # API.
@@ -65,6 +67,7 @@ module Gapic
 
         parameter_schema ||= Gapic::Generators::DefaultGeneratorParameters.default_schema
         @protoc_parameters = parse_parameter request.parameter, parameter_schema, error_output
+        @snippet_configs = loader.load_snippet_configs self.configuration[:snippet_configs_path]
         sanity_checks error_output
       end
 
@@ -206,6 +209,22 @@ module Gapic
         end
       end
 
+      # Return all snippet configs for the given method address. Returns the
+      # empty array if there are no snippet configs.
+      # @param address [String] Method address in the form
+      #   `proto.package.v1.ServiceName.MethodName`
+      # @return [Array<
+      #   Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig>]
+      def snippet_configs_for address
+        address = address.join "." if address.is_a? ::Array
+        @snippet_configs.find_all do |config|
+          rpc = config.rpc
+          rpc.api_version.any? do |vers|
+            address == "#{rpc.proto_package}.#{vers}.#{rpc.service_name}.#{rpc.rpc_name}"
+          end
+        end
+      end
+
       # Structured Hash representation of the configuration file.
       # @return [Hash]
       #   A Hash of the configuration values.
@@ -248,6 +267,16 @@ module Gapic
       def generate_grpc_clients?
         return true if configuration[:transports].nil?
         configuration[:transports].include? "grpc"
+      end
+
+      ##
+      # The default transport, used when choosing which client class a docs
+      # xref should link to.
+      #
+      # @return [:grpc,:rest]
+      #
+      def default_transport
+        generate_grpc_clients? ? :grpc : :rest
       end
 
       # Whether to generate standalone snippets
@@ -312,6 +341,19 @@ module Gapic
       # @return [Google::Api::Service]
       def service_config
         @service_config ||= Gapic::Schema::ServiceConfigParser.parse_service_yaml service_config_raw
+      end
+
+      # Parsed API Metadata model
+      # @return [Gapic::Model::ApiMetadata]
+      def api_metadata
+        @api_metadata ||= begin
+          api_metadata = Gapic::Model::ApiMetadata.new
+          Gapic::Schema::ServiceConfigParser.parse_api_metadata service_config_raw, api_metadata
+          api_metadata.standardize_names!
+          api_metadata.standardize_title! gem_name: configuration.fetch(:gem, nil)&.fetch(:name, "")
+          api_metadata.standardize_descriptions!
+          api_metadata
+        end
       end
 
       # Get a resource given its type string
@@ -387,6 +429,9 @@ module Gapic
           output.puts "WARNING: configured common service #{k} is not present" unless addrs.include? k
           output.puts "WARNING: configured common service delegate #{v} is not present" unless addrs.include? v
         end
+        # TODO: Sanity check snippet configs to ensure that the type of call
+        # (e.g. streaming, lro, etc) matches the rpc type. Warn and remove any
+        # noncomplying snippet configs to prevent crashes when rendering.
       end
 
       # Does a pre-analysis of all resources defined in the job. This has

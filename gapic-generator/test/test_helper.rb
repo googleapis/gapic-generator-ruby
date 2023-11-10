@@ -83,12 +83,15 @@ class GeneratorTest < Minitest::Test
           "protofiles_input/testing/grpc_service_config/grpc_service_config.json",
           "protofiles_input/testing/grpc_service_config/grpc_service_config2.json"
         ]
-        { "grpc_service_config" =>  grpc_service_config_paths.join(";") }
+        {
+          "grpc_service_config" =>  grpc_service_config_paths.join(";"),
+          "service-yaml" => "protofiles_input/testing/mixins/testing_service.yaml".freeze
+        }
       else
         { }
       end
 
-    params_override = default_params.merge(params_override || {})  
+    params_override = default_params.merge(params_override || {})
 
     Gapic::Schema::Api.new request(service, params_override: params_override, params_purge: params_purge)
   end
@@ -203,8 +206,11 @@ class FakeApi
     @files = []
     @namespace_mapping = {}
     @service_mapping = {}
+    @default_transport = :grpc
     yield self if block_given?
   end
+
+  attr_accessor :default_transport
 
   def add_file! package, ruby_package = nil
     @cur_registry = {}

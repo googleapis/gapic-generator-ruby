@@ -27,15 +27,24 @@
 # [START showcase_v0_generated_Messaging_UpdateBlurb_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Snippet for the update_blurb call in the Messaging service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#update_blurb. It may require
+# modification in order to execute successfully.
+#
+def update_blurb
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::UpdateBlurbRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::UpdateBlurbRequest.new
 
-# Call the update_blurb method.
-result = client.update_blurb request
+  # Call the update_blurb method.
+  result = client.update_blurb request
 
-# The returned object is of type Google::Showcase::V1beta1::Blurb.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::Blurb.
+  p result
+end
 # [END showcase_v0_generated_Messaging_UpdateBlurb_sync]

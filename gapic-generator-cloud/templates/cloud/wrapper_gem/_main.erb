@@ -19,30 +19,31 @@ require "google/cloud/config"
   config.add_field! :scope,         nil, match: [::Array, ::String]
   config.add_field! :lib_name,      nil, match: ::String
   config.add_field! :lib_version,   nil, match: ::String
-<%- unless gem.generate_rest_clients? -%>
+<%- if gem.generate_grpc_clients? -%>
   config.add_field! :interceptors,  nil, match: ::Array
 <%- end -%>
   config.add_field! :timeout,       nil, match: ::Numeric
   config.add_field! :metadata,      nil, match: ::Hash
-<%- unless gem.generate_rest_clients? -%>
   config.add_field! :retry_policy,  nil, match: [::Hash, ::Proc]
   config.add_field! :quota_project, nil, match: ::String
-<%- end -%>
 end
 <%- end -%>
 <% end %>
 <%- gem.services.each do |service| -%>
-<%- client_class_name_suffix = service.generate_rest_clients? ? "Rest::#{service.client_name}" : service.client_name -%>
 ##
 # Create a new client object for <%= service.module_name %>.
 #
 # By default, this returns an instance of
-# <%= gem.docs_link version: gem.default_version, class_name: "#{service.module_name}::#{client_class_name_suffix}" %>
-# for version <%= gem.default_version.capitalize %> of the API.
-# However, you can specify specify a different API version by passing it in the
+# <%= gem.docs_link version: gem.default_version, class_name: service.client_suffix_for_default_transport %>
+# for a <%= gem.default_transport_name %> client for version <%= gem.default_version.capitalize %> of the API.
+# However, you can specify a different API version by passing it in the
 # `version` parameter. If the <%= service.module_name %> service is
 # supported by that API version, and the corresponding gem is available, the
 # appropriate versioned client will be returned.
+<%- if service.supports_multiple_transports? -%>
+# You can also specify a different transport by passing `:rest` or `:grpc` in
+# the `transport` parameter.
+<%- end -%>
 #
 <%- if service.doc_description -%>
 # ## About <%= service.module_name %>
@@ -52,17 +53,25 @@ end
 <%- end -%>
 # @param version [::String, ::Symbol] The API version to connect to. Optional.
 #   Defaults to `:<%= gem.default_version %>`.
-# @return [<%= service.module_name %>::<%= client_class_name_suffix %>] A client object for the specified version.
+<%- if service.supports_multiple_transports? -%>
+# @param transport [:grpc, :rest] The transport to use. Defaults to `<%= gem.default_transport.inspect %>`.
+<%- end -%>
+# @return [::Object] A client object for the specified version.
 #
-def self.<%= service.factory_method_name %> version: :<%= gem.default_version %>, &block
+def self.<%= service.factory_method_name %> version: :<%= gem.default_version %><% if service.supports_multiple_transports? %>, transport: <%= gem.default_transport.inspect %><% end %>, &block
   require "<%= gem.namespace_require %>/#{version.to_s.downcase}"
 
   package_name = <%= gem.namespace %>
                   .constants
                   .select { |sym| sym.to_s.downcase == version.to_s.downcase.tr("_", "") }
                   .first
-  package_module = <%= gem.namespace %>.const_get package_name
-  package_module.const_get(:<%= service.module_name %>)<% if service.generate_rest_clients? %>.const_get(:Rest)<% end %>.const_get(:Client).new(&block)
+  service_module = <%= gem.namespace %>.const_get(package_name).const_get(:<%= service.module_name %>)
+<%- if service.supports_multiple_transports? -%>
+  service_module = service_module.const_get(:Rest) if transport == :rest
+  service_module.const_get(:Client).new(&block)
+<%- else -%>
+  service_module<% if service.generate_rest_clients? %>.const_get(:Rest)<% end %>.const_get(:Client).new(&block)
+<%- end -%>
 end
 
 <%- end -%>
@@ -79,15 +88,14 @@ end
 #   The library name as recorded in instrumentation and logging.
 # * `lib_version` (*type:* `String`) -
 #   The library version as recorded in instrumentation and logging.
-<%- unless gem.generate_rest_clients? -%>
+<%- if gem.generate_grpc_clients? -%>
 # * `interceptors` (*type:* `Array<GRPC::ClientInterceptor>`) -
 #   An array of interceptors that are run before calls are executed.
 <%- end -%>
 # * `timeout` (*type:* `Numeric`) -
 #   Default timeout in seconds.
 # * `metadata` (*type:* `Hash{Symbol=>String}`) -
-#   Additional <% if gem.generate_rest_clients? %>REST<% else %>gRPC<% end %> headers to be sent with the call.
-<%- unless gem.generate_rest_clients? -%>
+#   Additional headers to be sent with the call.
 # * `retry_policy` (*type:* `Hash`) -
 #   The retry policy. The value is a hash with the following keys:
 #     * `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
@@ -95,7 +103,6 @@ end
 #     * `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
 #     * `:retry_codes` (*type:* `Array<String>`) -
 #       The error codes that should trigger a retry.
-<%- end -%>
 #
 # @return [::Google::Cloud::Config] The default configuration used by this library
 #

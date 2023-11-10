@@ -25,7 +25,7 @@ module Gapic
     # @param lib_version [String] The client library version.
     # @param gax_version [String] The Gapic version. Defaults to `Gapic::Common::VERSION`.
     # @param gapic_version [String] The Gapic version.
-    # @param grpc_version [String] The GRPC version. Defaults to `GRPC::VERSION`.
+    # @param grpc_version [String] The GRPC version. Defaults to `::GRPC::VERSION`.
     # @param rest_version [String] The Rest Library (Faraday) version. Defaults to `Faraday::VERSION`.
     # @param transports_version_send [Array] Which transports to send versions for.
     #   Allowed values to contain are:
@@ -33,13 +33,14 @@ module Gapic
     #     `:rest` to send the REST library version (if defined)
     #   Defaults to `[:grpc]`
     def self.x_goog_api_client ruby_version: nil, lib_name: nil, lib_version: nil, gax_version: nil,
-                               gapic_version: nil, grpc_version: nil, rest_version: nil,
+                               gapic_version: nil, grpc_version: nil, rest_version: nil, protobuf_version: nil,
                                transports_version_send: [:grpc]
 
       ruby_version ||= ::RUBY_VERSION
       gax_version  ||= ::Gapic::Common::VERSION
       grpc_version ||= ::GRPC::VERSION if defined? ::GRPC::VERSION
-      rest_version ||= ::Faraday::VERSION if defined? ::Faraday
+      rest_version ||= ::Faraday::VERSION if defined? ::Faraday::VERSION
+      protobuf_version ||= Gem.loaded_specs["google-protobuf"].version.to_s if Gem.loaded_specs.key? "google-protobuf"
 
       x_goog_api_client_header = ["gl-ruby/#{ruby_version}"]
       x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
@@ -47,6 +48,7 @@ module Gapic
       x_goog_api_client_header << "gapic/#{gapic_version}" if gapic_version
       x_goog_api_client_header << "grpc/#{grpc_version}" if grpc_version && transports_version_send.include?(:grpc)
       x_goog_api_client_header << "rest/#{rest_version}" if rest_version && transports_version_send.include?(:rest)
+      x_goog_api_client_header << "pb/#{protobuf_version}" if protobuf_version
       x_goog_api_client_header.join " ".freeze
     end
   end

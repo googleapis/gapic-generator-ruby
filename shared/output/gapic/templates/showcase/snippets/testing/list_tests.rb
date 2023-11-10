@@ -27,21 +27,28 @@
 # [START showcase_v0_generated_Testing_ListTests_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Testing::Client.new
+##
+# Snippet for the list_tests call in the Testing service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Testing::Client#list_tests. It may require
+# modification in order to execute successfully.
+#
+def list_tests
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Testing::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::ListTestsRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::ListTestsRequest.new
 
-# Call the list_tests method.
-result = client.list_tests request
+  # Call the list_tests method.
+  result = client.list_tests request
 
-# The returned object is of type Gapic::PagedEnumerable. You can
-# iterate over all elements by calling #each, and the enumerable
-# will lazily make API calls to fetch subsequent pages. Other
-# methods are also available for managing paging directly.
-result.each do |response|
-  # Each element is of type ::Google::Showcase::V1beta1::Test.
-  p response
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # over elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
+    # Each element is of type ::Google::Showcase::V1beta1::Test.
+    p item
+  end
 end
 # [END showcase_v0_generated_Testing_ListTests_sync]

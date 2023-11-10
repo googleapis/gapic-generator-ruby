@@ -27,15 +27,24 @@
 # [START showcase_v0_generated_Messaging_CreateRoom_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Snippet for the create_room call in the Messaging service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#create_room. It may require
+# modification in order to execute successfully.
+#
+def create_room
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::CreateRoomRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::CreateRoomRequest.new
 
-# Call the create_room method.
-result = client.create_room request
+  # Call the create_room method.
+  result = client.create_room request
 
-# The returned object is of type Google::Showcase::V1beta1::Room.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::Room.
+  p result
+end
 # [END showcase_v0_generated_Messaging_CreateRoom_sync]

@@ -35,6 +35,15 @@ class ProtobufCoerceTest < Minitest::Spec
     _(user.type).must_equal USER_TYPE
   end
 
+  it "handles optional fields in a simple hash" do
+    hash = { name: USER_NAME, type: USER_TYPE, timestamp: nil }
+    user = Gapic::Protobuf.coerce hash, to: Gapic::Examples::User
+    _(user).must_be_kind_of Gapic::Examples::User
+    _(user.name).must_equal USER_NAME
+    _(user.type).must_equal USER_TYPE
+    _(user.timestamp).must_be_nil
+  end
+
   it "creates a protobuf message from a hash with a nested message" do
     request_hash = { name: REQUEST_NAME, user: Gapic::Examples::User.new(name: USER_NAME, type: USER_TYPE) }
     request = Gapic::Protobuf.coerce request_hash, to: Gapic::Examples::Request
@@ -75,13 +84,24 @@ class ProtobufCoerceTest < Minitest::Spec
     end
   end
 
-  it "handles maps" do
+  it "handles maps using the DSL" do
     request_hash = { name: USER_NAME, map_field: MAP }
     user = Gapic::Protobuf.coerce request_hash, to: Gapic::Examples::User
     _(user).must_be_kind_of Gapic::Examples::User
     _(user.name).must_equal USER_NAME
     _(user.map_field).must_be_kind_of Google::Protobuf::Map
     user.map_field.each do |k, v|
+      _(MAP[k]).must_equal v
+    end
+  end
+
+  it "handles maps using raw descriptor strings" do
+    request_hash = { name: USER_NAME, map_field: MAP }
+    obj = Gapic::Protobuf.coerce request_hash, to: Gapic::Examples::MapTest
+    _(obj).must_be_kind_of Gapic::Examples::MapTest
+    _(obj.name).must_equal USER_NAME
+    _(obj.map_field).must_be_kind_of Google::Protobuf::Map
+    obj.map_field.each do |k, v|
       _(MAP[k]).must_equal v
     end
   end

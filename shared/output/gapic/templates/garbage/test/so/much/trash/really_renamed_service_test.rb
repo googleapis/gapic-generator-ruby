@@ -77,7 +77,7 @@ class ::So::Much::Trash::ReallyRenamedService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.get_empty_garbage({}) do |response, operation|
+      client.get_empty_garbage({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -89,7 +89,7 @@ class ::So::Much::Trash::ReallyRenamedService::ClientTest < Minitest::Test
       end
 
       # Use hash object with options
-      client.get_empty_garbage({}, grpc_options) do |response, operation|
+      client.get_empty_garbage({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

@@ -32,14 +32,20 @@ require "testing/version"
 
 require "testing/nonstandard_lro_grpc/plain_lro_consumer/credentials"
 require "testing/nonstandard_lro_grpc/plain_lro_consumer/client"
+require "testing/nonstandard_lro_grpc/plain_lro_consumer/rest"
 
 module Testing
   module NonstandardLroGrpc
     ##
-    # To load this service and instantiate a client:
+    # @example Load this service and instantiate a gRPC client
     #
     #     require "testing/nonstandard_lro_grpc/plain_lro_consumer"
     #     client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Client.new
+    #
+    # @example Load this service and instantiate a REST client
+    #
+    #     require "testing/nonstandard_lro_grpc/plain_lro_consumer/rest"
+    #     client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::Client.new
     #
     module PlainLroConsumer
     end

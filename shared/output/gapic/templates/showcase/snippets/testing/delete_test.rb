@@ -27,15 +27,24 @@
 # [START showcase_v0_generated_Testing_DeleteTest_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Testing::Client.new
+##
+# Snippet for the delete_test call in the Testing service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Testing::Client#delete_test. It may require
+# modification in order to execute successfully.
+#
+def delete_test
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Testing::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::DeleteTestRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::DeleteTestRequest.new
 
-# Call the delete_test method.
-result = client.delete_test request
+  # Call the delete_test method.
+  result = client.delete_test request
 
-# The returned object is of type Google::Protobuf::Empty.
-p result
+  # The returned object is of type Google::Protobuf::Empty.
+  p result
+end
 # [END showcase_v0_generated_Testing_DeleteTest_sync]

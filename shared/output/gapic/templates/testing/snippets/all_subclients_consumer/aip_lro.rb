@@ -27,22 +27,31 @@
 # [START testing_v0_generated_AllSubclientsConsumer_AipLRO_sync]
 require "testing/nonstandard_lro_grpc"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client.new
+##
+# Snippet for the aip_lro call in the AllSubclientsConsumer service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#aip_lro. It may
+# require modification in order to execute successfully.
+#
+def aip_lro
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::NonstandardLroGrpc::Request.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::NonstandardLroGrpc::Request.new
 
-# Call the aip_lro method.
-result = client.aip_lro request
+  # Call the aip_lro method.
+  result = client.aip_lro request
 
-# The returned object is of type Gapic::Operation. You can use this
-# object to check the status of an operation, cancel it, or wait
-# for results. Here is how to block until completion:
-result.wait_until_done! timeout: 60
-if result.response?
-  p result.response
-else
-  puts "Error!"
+  # The returned object is of type Gapic::Operation. You can use it to
+  # check the status of an operation, cancel it, or wait for results.
+  # Here is how to wait for a response.
+  result.wait_until_done! timeout: 60
+  if result.response?
+    p result.response
+  else
+    puts "No response received."
+  end
 end
 # [END testing_v0_generated_AllSubclientsConsumer_AipLRO_sync]

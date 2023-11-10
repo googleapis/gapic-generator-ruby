@@ -26,10 +26,10 @@ def gapic_generator_repositories():
   # Create the ruby runtime
   ruby_runtime(
     name = "gapic_generator_ruby_runtime",
-    urls = ["https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.6.tar.gz"],
-    strip_prefix = "ruby-2.6.6",
+    urls = ["https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.3.tar.gz"],
+    strip_prefix = "ruby-3.1.3",
     prebuilt_rubys = [
-      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
+      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-3.1.3_glinux_x86_64.tar.gz",
     ],
     gemfile_lock = "@gapic_generator_ruby//:gapic-generator/Gemfile.lock",
     gems_to_install = {},

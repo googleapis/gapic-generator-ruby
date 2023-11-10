@@ -48,8 +48,15 @@ module Gapic
         field_doc_types @field, true
       end
 
-      def doc_description
-        @field.docs_leading_comments
+      ##
+      # The description as it should appear in YARD docs.
+      #
+      # @param transport [:grpc,:rest] Whether xref links should go to REST or
+      #   gRPC client classes. Uses the default transport if not provided.
+      # @return [String]
+      #
+      def doc_description transport: nil
+        @field.docs_leading_comments transport: transport
       end
 
       def default_value

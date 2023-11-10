@@ -13,13 +13,13 @@
   "snippets": [
     {
       "region_tag": "compute_v1_generated_Addresses_AggregatedList_sync",
-      "title": "Snippet for aggregated_list in Addresses",
-      "description": "Basic snippet for aggregated_list in Addresses",
+      "title": "Snippet for the aggregated_list call in the Addresses service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::Addresses::Rest::Client#aggregated_list. It may require modification in order to execute successfully.",
       "file": "addresses/aggregated_list.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "aggregated_list",
-        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#aggregated_list",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client#aggregated_list",
         "async": false,
         "parameters": [
           {
@@ -29,8 +29,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::AddressAggregatedList",
         "client": {
-          "short_name": "Addresses::Client",
-          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+          "short_name": "Addresses::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client"
         },
         "method": {
           "short_name": "AggregatedList",
@@ -46,20 +46,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_Addresses_Delete_sync",
-      "title": "Snippet for delete in Addresses",
-      "description": "Basic snippet for delete in Addresses",
+      "title": "Snippet for the delete call in the Addresses service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::Addresses::Rest::Client#delete. It may require modification in order to execute successfully.",
       "file": "addresses/delete.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "delete",
-        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#delete",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client#delete",
         "async": false,
         "parameters": [
           {
@@ -69,8 +69,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::Operation",
         "client": {
-          "short_name": "Addresses::Client",
-          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+          "short_name": "Addresses::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client"
         },
         "method": {
           "short_name": "Delete",
@@ -86,20 +86,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_Addresses_Get_sync",
-      "title": "Snippet for get in Addresses",
-      "description": "Basic snippet for get in Addresses",
+      "title": "Snippet for the get call in the Addresses service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::Addresses::Rest::Client#get. It may require modification in order to execute successfully.",
       "file": "addresses/get.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "get",
-        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#get",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client#get",
         "async": false,
         "parameters": [
           {
@@ -109,8 +109,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::Address",
         "client": {
-          "short_name": "Addresses::Client",
-          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+          "short_name": "Addresses::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client"
         },
         "method": {
           "short_name": "Get",
@@ -126,20 +126,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_Addresses_Insert_sync",
-      "title": "Snippet for insert in Addresses",
-      "description": "Basic snippet for insert in Addresses",
+      "title": "Snippet for the insert call in the Addresses service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::Addresses::Rest::Client#insert. It may require modification in order to execute successfully.",
       "file": "addresses/insert.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "insert",
-        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#insert",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client#insert",
         "async": false,
         "parameters": [
           {
@@ -149,8 +149,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::Operation",
         "client": {
-          "short_name": "Addresses::Client",
-          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+          "short_name": "Addresses::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client"
         },
         "method": {
           "short_name": "Insert",
@@ -166,20 +166,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_Addresses_List_sync",
-      "title": "Snippet for list in Addresses",
-      "description": "Basic snippet for list in Addresses",
+      "title": "Snippet for the list call in the Addresses service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::Addresses::Rest::Client#list. It may require modification in order to execute successfully.",
       "file": "addresses/list.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "list",
-        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#list",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client#list",
         "async": false,
         "parameters": [
           {
@@ -189,8 +189,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::AddressList",
         "client": {
-          "short_name": "Addresses::Client",
-          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+          "short_name": "Addresses::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Rest::Client"
         },
         "method": {
           "short_name": "List",
@@ -206,20 +206,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_RegionOperations_Delete_sync",
-      "title": "Snippet for delete in RegionOperations",
-      "description": "Basic snippet for delete in RegionOperations",
+      "title": "Snippet for the delete call in the RegionOperations service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::RegionOperations::Rest::Client#delete. It may require modification in order to execute successfully.",
       "file": "region_operations/delete.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "delete",
-        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client#delete",
+        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Rest::Client#delete",
         "async": false,
         "parameters": [
           {
@@ -229,8 +229,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::DeleteRegionOperationResponse",
         "client": {
-          "short_name": "RegionOperations::Client",
-          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client"
+          "short_name": "RegionOperations::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Rest::Client"
         },
         "method": {
           "short_name": "Delete",
@@ -246,20 +246,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_RegionOperations_Get_sync",
-      "title": "Snippet for get in RegionOperations",
-      "description": "Basic snippet for get in RegionOperations",
+      "title": "Snippet for the get call in the RegionOperations service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::RegionOperations::Rest::Client#get. It may require modification in order to execute successfully.",
       "file": "region_operations/get.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "get",
-        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client#get",
+        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Rest::Client#get",
         "async": false,
         "parameters": [
           {
@@ -269,8 +269,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::Operation",
         "client": {
-          "short_name": "RegionOperations::Client",
-          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client"
+          "short_name": "RegionOperations::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Rest::Client"
         },
         "method": {
           "short_name": "Get",
@@ -286,20 +286,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_RegionOperations_List_sync",
-      "title": "Snippet for list in RegionOperations",
-      "description": "Basic snippet for list in RegionOperations",
+      "title": "Snippet for the list call in the RegionOperations service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::RegionOperations::Rest::Client#list. It may require modification in order to execute successfully.",
       "file": "region_operations/list.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "list",
-        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client#list",
+        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Rest::Client#list",
         "async": false,
         "parameters": [
           {
@@ -309,8 +309,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::OperationList",
         "client": {
-          "short_name": "RegionOperations::Client",
-          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client"
+          "short_name": "RegionOperations::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Rest::Client"
         },
         "method": {
           "short_name": "List",
@@ -326,20 +326,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_RegionOperations_Wait_sync",
-      "title": "Snippet for wait in RegionOperations",
-      "description": "Basic snippet for wait in RegionOperations",
+      "title": "Snippet for the wait call in the RegionOperations service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::RegionOperations::Rest::Client#wait. It may require modification in order to execute successfully.",
       "file": "region_operations/wait.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "wait",
-        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client#wait",
+        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Rest::Client#wait",
         "async": false,
         "parameters": [
           {
@@ -349,8 +349,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::Operation",
         "client": {
-          "short_name": "RegionOperations::Client",
-          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client"
+          "short_name": "RegionOperations::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Rest::Client"
         },
         "method": {
           "short_name": "Wait",
@@ -366,20 +366,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_RegionInstanceGroupManagers_Resize_sync",
-      "title": "Snippet for resize in RegionInstanceGroupManagers",
-      "description": "Basic snippet for resize in RegionInstanceGroupManagers",
+      "title": "Snippet for the resize call in the RegionInstanceGroupManagers service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::Client#resize. It may require modification in order to execute successfully.",
       "file": "region_instance_group_managers/resize.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "resize",
-        "full_name": "::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Client#resize",
+        "full_name": "::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::Client#resize",
         "async": false,
         "parameters": [
           {
@@ -389,8 +389,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::Operation",
         "client": {
-          "short_name": "RegionInstanceGroupManagers::Client",
-          "full_name": "::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Client"
+          "short_name": "RegionInstanceGroupManagers::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::Client"
         },
         "method": {
           "short_name": "Resize",
@@ -406,20 +406,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_Networks_ListPeeringRoutes_sync",
-      "title": "Snippet for list_peering_routes in Networks",
-      "description": "Basic snippet for list_peering_routes in Networks",
+      "title": "Snippet for the list_peering_routes call in the Networks service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::Networks::Rest::Client#list_peering_routes. It may require modification in order to execute successfully.",
       "file": "networks/list_peering_routes.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "list_peering_routes",
-        "full_name": "::Google::Cloud::Compute::V1::Networks::Client#list_peering_routes",
+        "full_name": "::Google::Cloud::Compute::V1::Networks::Rest::Client#list_peering_routes",
         "async": false,
         "parameters": [
           {
@@ -429,8 +429,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList",
         "client": {
-          "short_name": "Networks::Client",
-          "full_name": "::Google::Cloud::Compute::V1::Networks::Client"
+          "short_name": "Networks::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Networks::Rest::Client"
         },
         "method": {
           "short_name": "ListPeeringRoutes",
@@ -446,20 +446,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_Networks_RemovePeering_sync",
-      "title": "Snippet for remove_peering in Networks",
-      "description": "Basic snippet for remove_peering in Networks",
+      "title": "Snippet for the remove_peering call in the Networks service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::Networks::Rest::Client#remove_peering. It may require modification in order to execute successfully.",
       "file": "networks/remove_peering.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "remove_peering",
-        "full_name": "::Google::Cloud::Compute::V1::Networks::Client#remove_peering",
+        "full_name": "::Google::Cloud::Compute::V1::Networks::Rest::Client#remove_peering",
         "async": false,
         "parameters": [
           {
@@ -469,8 +469,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::Operation",
         "client": {
-          "short_name": "Networks::Client",
-          "full_name": "::Google::Cloud::Compute::V1::Networks::Client"
+          "short_name": "Networks::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Networks::Rest::Client"
         },
         "method": {
           "short_name": "RemovePeering",
@@ -486,20 +486,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_GlobalOperations_Delete_sync",
-      "title": "Snippet for delete in GlobalOperations",
-      "description": "Basic snippet for delete in GlobalOperations",
+      "title": "Snippet for the delete call in the GlobalOperations service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::GlobalOperations::Rest::Client#delete. It may require modification in order to execute successfully.",
       "file": "global_operations/delete.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "delete",
-        "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Client#delete",
+        "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client#delete",
         "async": false,
         "parameters": [
           {
@@ -509,8 +509,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse",
         "client": {
-          "short_name": "GlobalOperations::Client",
-          "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Client"
+          "short_name": "GlobalOperations::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client"
         },
         "method": {
           "short_name": "Delete",
@@ -526,20 +526,20 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "compute_v1_generated_GlobalOperations_Get_sync",
-      "title": "Snippet for get in GlobalOperations",
-      "description": "Basic snippet for get in GlobalOperations",
+      "title": "Snippet for the get call in the GlobalOperations service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Cloud::Compute::V1::GlobalOperations::Rest::Client#get. It may require modification in order to execute successfully.",
       "file": "global_operations/get.rb",
       "language": "RUBY",
       "client_method": {
         "short_name": "get",
-        "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Client#get",
+        "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client#get",
         "async": false,
         "parameters": [
           {
@@ -549,8 +549,8 @@
         ],
         "result_type": "::Google::Cloud::Compute::V1::Operation",
         "client": {
-          "short_name": "GlobalOperations::Client",
-          "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Client"
+          "short_name": "GlobalOperations::Rest::Client",
+          "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client"
         },
         "method": {
           "short_name": "Get",
@@ -566,7 +566,7 @@
       "segments": [
         {
           "start": 20,
-          "end": 32,
+          "end": 41,
           "type": "FULL"
         }
       ]

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ require "grafeas/v1/version"
 
 module Grafeas
   ##
-  # To load this package, including all its services, and instantiate a client:
+  # API client module.
   #
-  # @example
+  # @example Load this package, including all its services, and instantiate a gRPC client
   #
   #     require "grafeas/v1"
   #     client = ::Grafeas::V1::Grafeas::Client.new

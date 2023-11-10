@@ -32,12 +32,17 @@ require "testing/version"
 
 module Testing
   ##
-  # To load this package, including all its services, and instantiate a client:
+  # API client module.
   #
-  # @example
+  # @example Load this package, including all its services, and instantiate a gRPC client
   #
   #     require "testing/nonstandard_lro_grpc"
   #     client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Client.new
+  #
+  # @example Load this package, including all its services, and instantiate a REST client
+  #
+  #     require "testing/nonstandard_lro_grpc"
+  #     client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::Client.new
   #
   module NonstandardLroGrpc
   end

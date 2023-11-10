@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ module Grafeas
     # there would be one note for the vulnerability and an occurrence for each
     # image with the vulnerability referring to that note.
     #
-    # To load this service and instantiate a client:
+    # @example Load this service and instantiate a gRPC client
     #
     #     require "grafeas/v1/grafeas"
     #     client = ::Grafeas::V1::Grafeas::Client.new

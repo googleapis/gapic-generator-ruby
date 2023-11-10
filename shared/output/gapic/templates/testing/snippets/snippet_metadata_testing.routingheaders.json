@@ -13,8 +13,8 @@
   "snippets": [
     {
       "region_tag": "testing_v0_generated_ServiceNoHeaders_Plain_sync",
-      "title": "Snippet for plain in ServiceNoHeaders",
-      "description": "Basic snippet for plain in ServiceNoHeaders",
+      "title": "Snippet for the plain call in the ServiceNoHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceNoHeaders::Client#plain. It may require modification in order to execute successfully.",
       "file": "service_no_headers/plain.rb",
       "language": "RUBY",
       "client_method": {
@@ -46,15 +46,15 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "testing_v0_generated_ServiceImplicitHeaders_Plain_sync",
-      "title": "Snippet for plain in ServiceImplicitHeaders",
-      "description": "Basic snippet for plain in ServiceImplicitHeaders",
+      "title": "Snippet for the plain call in the ServiceImplicitHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceImplicitHeaders::Client#plain. It may require modification in order to execute successfully.",
       "file": "service_implicit_headers/plain.rb",
       "language": "RUBY",
       "client_method": {
@@ -86,15 +86,15 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "testing_v0_generated_ServiceImplicitHeaders_WithSubMessage_sync",
-      "title": "Snippet for with_sub_message in ServiceImplicitHeaders",
-      "description": "Basic snippet for with_sub_message in ServiceImplicitHeaders",
+      "title": "Snippet for the with_sub_message call in the ServiceImplicitHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceImplicitHeaders::Client#with_sub_message. It may require modification in order to execute successfully.",
       "file": "service_implicit_headers/with_sub_message.rb",
       "language": "RUBY",
       "client_method": {
@@ -126,15 +126,15 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "testing_v0_generated_ServiceImplicitHeaders_WithMultipleLevels_sync",
-      "title": "Snippet for with_multiple_levels in ServiceImplicitHeaders",
-      "description": "Basic snippet for with_multiple_levels in ServiceImplicitHeaders",
+      "title": "Snippet for the with_multiple_levels call in the ServiceImplicitHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceImplicitHeaders::Client#with_multiple_levels. It may require modification in order to execute successfully.",
       "file": "service_implicit_headers/with_multiple_levels.rb",
       "language": "RUBY",
       "client_method": {
@@ -166,15 +166,15 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "testing_v0_generated_ServiceExplicitHeaders_PlainNoTemplate_sync",
-      "title": "Snippet for plain_no_template in ServiceExplicitHeaders",
-      "description": "Basic snippet for plain_no_template in ServiceExplicitHeaders",
+      "title": "Snippet for the plain_no_template call in the ServiceExplicitHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_no_template. It may require modification in order to execute successfully.",
       "file": "service_explicit_headers/plain_no_template.rb",
       "language": "RUBY",
       "client_method": {
@@ -206,15 +206,15 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "testing_v0_generated_ServiceExplicitHeaders_PlainFullField_sync",
-      "title": "Snippet for plain_full_field in ServiceExplicitHeaders",
-      "description": "Basic snippet for plain_full_field in ServiceExplicitHeaders",
+      "title": "Snippet for the plain_full_field call in the ServiceExplicitHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_full_field. It may require modification in order to execute successfully.",
       "file": "service_explicit_headers/plain_full_field.rb",
       "language": "RUBY",
       "client_method": {
@@ -246,15 +246,15 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "testing_v0_generated_ServiceExplicitHeaders_PlainExtract_sync",
-      "title": "Snippet for plain_extract in ServiceExplicitHeaders",
-      "description": "Basic snippet for plain_extract in ServiceExplicitHeaders",
+      "title": "Snippet for the plain_extract call in the ServiceExplicitHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_extract. It may require modification in order to execute successfully.",
       "file": "service_explicit_headers/plain_extract.rb",
       "language": "RUBY",
       "client_method": {
@@ -286,15 +286,15 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "testing_v0_generated_ServiceExplicitHeaders_Complex_sync",
-      "title": "Snippet for complex in ServiceExplicitHeaders",
-      "description": "Basic snippet for complex in ServiceExplicitHeaders",
+      "title": "Snippet for the complex call in the ServiceExplicitHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceExplicitHeaders::Client#complex. It may require modification in order to execute successfully.",
       "file": "service_explicit_headers/complex.rb",
       "language": "RUBY",
       "client_method": {
@@ -326,15 +326,15 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]
     },
     {
       "region_tag": "testing_v0_generated_ServiceExplicitHeaders_WithSubMessage_sync",
-      "title": "Snippet for with_sub_message in ServiceExplicitHeaders",
-      "description": "Basic snippet for with_sub_message in ServiceExplicitHeaders",
+      "title": "Snippet for the with_sub_message call in the ServiceExplicitHeaders service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::RoutingHeaders::ServiceExplicitHeaders::Client#with_sub_message. It may require modification in order to execute successfully.",
       "file": "service_explicit_headers/with_sub_message.rb",
       "language": "RUBY",
       "client_method": {
@@ -366,7 +366,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 40,
+          "end": 49,
           "type": "FULL"
         }
       ]

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,22 +19,31 @@
 # [START speech_v1_generated_Speech_LongRunningRecognize_sync]
 require "google/cloud/speech/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Speech::V1::Speech::Client.new
+##
+# Snippet for the long_running_recognize call in the Speech service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Speech::V1::Speech::Client#long_running_recognize. It may
+# require modification in order to execute successfully.
+#
+def long_running_recognize
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Speech::V1::Speech::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Speech::V1::LongRunningRecognizeRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Speech::V1::LongRunningRecognizeRequest.new
 
-# Call the long_running_recognize method.
-result = client.long_running_recognize request
+  # Call the long_running_recognize method.
+  result = client.long_running_recognize request
 
-# The returned object is of type Gapic::Operation. You can use this
-# object to check the status of an operation, cancel it, or wait
-# for results. Here is how to block until completion:
-result.wait_until_done! timeout: 60
-if result.response?
-  p result.response
-else
-  puts "Error!"
+  # The returned object is of type Gapic::Operation. You can use it to
+  # check the status of an operation, cancel it, or wait for results.
+  # Here is how to wait for a response.
+  result.wait_until_done! timeout: 60
+  if result.response?
+    p result.response
+  else
+    puts "No response received."
+  end
 end
 # [END speech_v1_generated_Speech_LongRunningRecognize_sync]

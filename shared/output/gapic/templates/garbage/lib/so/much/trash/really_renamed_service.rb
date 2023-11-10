@@ -37,7 +37,7 @@ module So
   module Much
     module Trash
       ##
-      # To load this service and instantiate a client:
+      # @example Load this service and instantiate a gRPC client
       #
       #     require "so/much/trash/really_renamed_service"
       #     client = ::So::Much::Trash::ReallyRenamedService::Client.new

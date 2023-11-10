@@ -42,14 +42,14 @@ module Google
       # A service to facilitate running discrete sets of tests
       # against Showcase.
       #
-      # To load this service and instantiate a GRPC client:
+      # @example Load this service and instantiate a gRPC client
       #
       #     require "google/showcase/v1beta1/testing"
       #     client = ::Google::Showcase::V1beta1::Testing::Client.new
       #
-      # To load this service and instantiate a REST client:
+      # @example Load this service and instantiate a REST client
       #
-      #     require "google/showcase/v1beta1/testing"
+      #     require "google/showcase/v1beta1/testing/rest"
       #     client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new
       #
       module Testing

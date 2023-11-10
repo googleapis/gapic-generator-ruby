@@ -27,18 +27,27 @@
 # [START garbage_v0_generated_GarbageService_ServerGarbage_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::GarbageService::Client.new
+##
+# Snippet for the server_garbage call in the GarbageService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#server_garbage. It may require
+# modification in order to execute successfully.
+#
+def server_garbage
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::GarbageService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::ListGarbageRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::ListGarbageRequest.new
 
-# Call the server_garbage method.
-result = client.server_garbage request
+  # Call the server_garbage method to start streaming.
+  output = client.server_garbage request
 
-# The returned object is a streamed enumerable yielding elements of
-# type ::So::Much::Trash::GarbageItem.
-result.each do |response|
-  p response
+  # The returned object is a streamed enumerable yielding elements of type
+  # ::So::Much::Trash::GarbageItem
+  output.each do |current_response|
+    p current_response
+  end
 end
 # [END garbage_v0_generated_GarbageService_ServerGarbage_sync]

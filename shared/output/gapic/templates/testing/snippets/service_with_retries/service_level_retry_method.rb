@@ -27,15 +27,24 @@
 # [START testing_v0_generated_ServiceWithRetries_ServiceLevelRetryMethod_sync]
 require "testing/grpc_service_config"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
+##
+# Snippet for the service_level_retry_method call in the ServiceWithRetries service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::GrpcServiceConfig::ServiceWithRetries::Client#service_level_retry_method.
+# It may require modification in order to execute successfully.
+#
+def service_level_retry_method
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::GrpcServiceConfig::Request.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::GrpcServiceConfig::Request.new
 
-# Call the service_level_retry_method method.
-result = client.service_level_retry_method request
+  # Call the service_level_retry_method method.
+  result = client.service_level_retry_method request
 
-# The returned object is of type Testing::GrpcServiceConfig::Response.
-p result
+  # The returned object is of type Testing::GrpcServiceConfig::Response.
+  p result
+end
 # [END testing_v0_generated_ServiceWithRetries_ServiceLevelRetryMethod_sync]

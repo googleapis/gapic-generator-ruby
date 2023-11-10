@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,6 +30,8 @@ module Google
           # Service that implements Google Cloud Speech API.
           #
           class Client
+            include Paths
+
             # @private
             attr_reader :speech_stub
 
@@ -121,7 +123,7 @@ module Google
               credentials = @config.credentials
               # Use self-signed JWT if the endpoint is unchanged from default,
               # but only if the default endpoint does not have a region prefix.
-              enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+              enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                        !@config.endpoint.split(".").first.include?("-")
               credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
@@ -142,7 +144,8 @@ module Google
                 credentials:  credentials,
                 endpoint:     @config.endpoint,
                 channel_args: @config.channel_args,
-                interceptors: @config.interceptors
+                interceptors: @config.interceptors,
+                channel_pool_config: @config.channel_pool
               )
             end
 
@@ -202,213 +205,6 @@ module Google
             #
             #   # The returned object is of type Google::Cloud::Speech::V1::RecognizeResponse.
             #   p result
-            #
-            # @example Transcribe a short audio file using synchronous speech recognition
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   local_file_path = File.read "resources/brooklyn_bridge.raw"
-            #
-            #   audio = {
-            #     # Path to local audio file, e.g. /path/audio.wav
-            #     content: local_file_path
-            #   }
-            #   config = {
-            #     # The language of the supplied audio
-            #     language_code: "en-US",
-            #     # Sample rate in Hertz of the audio data sent
-            #     sample_rate_hertz: 16000,
-            #     # Encoding of audio data sent. This sample sets this explicitly.
-            #     # This field is optional for FLAC and WAV audio formats.
-            #     encoding: :LINEAR16
-            #   }
-            #
-            #   response = client.recognize audio: audio, config: config
-            #   response.results.each do |result|
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
-            #
-            # @example Transcribe short audio file from Cloud Storage using synchronous speech recognition
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   storage_uri = "gs://cloud-samples-data/speech/brooklyn_bridge.raw"
-            #
-            #   audio = {
-            #     # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
-            #     uri: storage_uri
-            #   }
-            #   config = {
-            #     # Sample rate in Hertz of the audio data sent
-            #     sample_rate_hertz: 16000,
-            #     # The language of the supplied audio
-            #     language_code: "en-US",
-            #     # Encoding of audio data sent. This sample sets this explicitly.
-            #     # This field is optional for FLAC and WAV audio formats.
-            #     encoding: :LINEAR16
-            #   }
-            #
-            #   response = client.recognize audio: audio, config: config
-            #   response.results.each do |result|
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
-            #
-            # @example Transcribe a short audio file with multiple channels
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   local_file_path = File.read "resources/multi.wav"
-            #
-            #   audio = {
-            #     # Path to local audio file, e.g. /path/audio.wav
-            #     content: local_file_path
-            #   }
-            #   config = {
-            #     # The number of channels in the input audio file (optional)
-            #     audio_channel_count: 2,
-            #     # When set to true, each audio channel will be recognized separately.
-            #     # The recognition result will contain a channel_tag field to state which
-            #     # channel that result belongs to
-            #     enable_separate_recognition_per_channel: true,
-            #     # The language of the supplied audio
-            #     language_code: "en-US"
-            #   }
-            #
-            #   response = client.recognize audio: audio, config: config
-            #   response.results.each do |result|
-            #     # %s to recognize which audio channel this result is for
-            #     # channel_tag
-            #     puts "Channel tag: #{result.channel_tag}"
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
-            #
-            # @example Transcribe a short audio file from Cloud Storage with multiple channels
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   storage_uri = "gs://cloud-samples-data/speech/multi.wav"
-            #
-            #   audio = {
-            #     # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
-            #     uri: storage_uri
-            #   }
-            #   config = {
-            #     # The number of channels in the input audio file (optional)
-            #     audio_channel_count: 2,
-            #     # When set to true, each audio channel will be recognized separately.
-            #     # The recognition result will contain a channel_tag field to state which
-            #     # channel that result belongs to
-            #     enable_separate_recognition_per_channel: true,
-            #     # The language of the supplied audio
-            #     language_code: "en-US"
-            #   }
-            #
-            #   response = client.recognize audio: audio, config: config
-            #   response.results.each do |result|
-            #     # %s to recognize which audio channel this result is for
-            #     # channel_tag
-            #     puts "Channel tag: #{result.channel_tag}"
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
-            #
-            # @example Transcribe a short audio file using a specified transcription model
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   local_file_path = File.read "resources/hello.wav"
-            #   model = "phone_call"
-            #
-            #   audio = {
-            #     # Path to local audio file, e.g. /path/audio.wav
-            #     content: local_file_path
-            #   }
-            #   config = {
-            #     # The transcription model to use, e.g. video, phone_call, default
-            #     # For a list of available transcription models, see:
-            #     # https://cloud.google.com/speech-to-text/docs/transcription-model#transcription_models
-            #     model: model,
-            #     # The language of the supplied audio
-            #     language_code: "en-US"
-            #   }
-            #
-            #   response = client.recognize audio: audio, config: config
-            #   response.results.each do |result|
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
-            #
-            # @example Transcribe a short audio file from Cloud Storage using a specified transcription model
-
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   storage_uri = "gs://cloud-samples-data/speech/hello.wav"
-            #   model = "phone_call"
-            #
-            #   audio = {
-            #     # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
-            #     uri: storage_uri
-            #   }
-            #   config = {
-            #     # The transcription model to use, e.g. video, phone_call, default
-            #     # For a list of available transcription models, see:
-            #     # https://cloud.google.com/speech-to-text/docs/transcription-model#transcription_models
-            #     model: model,
-            #     # The language of the supplied audio
-            #     language_code: "en-US"
-            #   }
-            #
-            #   response = client.recognize audio: audio, config: config
-            #   response.results.each do |result|
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
-            #
-            # @example Transcribe a short audio file using an enhanced model
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   local_file_path = File.read "resources/hello.wav"
-            #
-            #   audio = {
-            #     # Path to local audio file, e.g. /path/audio.wav
-            #     content: local_file_path
-            #   }
-            #   config = {
-            #     # The enhanced model to use, e.g. phone_call
-            #     # Currently phone_call is the only model available as an enhanced model.
-            #     model: "phone_call",
-            #     # Use an enhanced model for speech recognition (when set to true).
-            #     # Project must be eligible for requesting enhanced models.
-            #     # Enhanced speech models require that you opt-in to data logging.
-            #     use_enhanced: true,
-            #     # The language of the supplied audio
-            #     language_code: "en-US"
-            #   }
-            #
-            #   response = client.recognize audio: audio, config: config
-            #   response.results.each do |result|
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
             #
             def recognize request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
@@ -494,114 +290,14 @@ module Google
             #   # Call the long_running_recognize method.
             #   result = client.long_running_recognize request
             #
-            #   # The returned object is of type Gapic::Operation. You can use this
-            #   # object to check the status of an operation, cancel it, or wait
-            #   # for results. Here is how to block until completion:
+            #   # The returned object is of type Gapic::Operation. You can use it to
+            #   # check the status of an operation, cancel it, or wait for results.
+            #   # Here is how to wait for a response.
             #   result.wait_until_done! timeout: 60
             #   if result.response?
             #     p result.response
             #   else
-            #     puts "Error!"
-            #   end
-            #
-            # @example Transcribe a long audio file using asynchronous speech recognition
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   local_file_path = File.read "resources/brooklyn_bridge.raw"
-            #
-            #   audio = {
-            #     # Path to local audio file, e.g. /path/audio.wav
-            #     content: local_file_path
-            #   }
-            #   config = {
-            #     # The language of the supplied audio
-            #     language_code: "en-US",
-            #     # Sample rate in Hertz of the audio data sent
-            #     sample_rate_hertz: 16000,
-            #     # Encoding of audio data sent. This sample sets this explicitly.
-            #     # This field is optional for FLAC and WAV audio formats.
-            #     encoding: :LINEAR16
-            #   }
-            #
-            #   response = client.long_running_recognize audio: audio, config: config
-            #
-            #   # Wait until the long running operation is done
-            #   response.wait_until_done!
-            #   response.results.each do |result|
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
-            #
-            # @example Transcribe long audio file from Cloud Storage using asynchronous speech recognition
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   storage_uri = "gs://cloud-samples-data/speech/brooklyn_bridge.raw"
-            #
-            #   audio = {
-            #     # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
-            #     uri: storage_uri
-            #   }
-            #   config = {
-            #     # Sample rate in Hertz of the audio data sent
-            #     sample_rate_hertz: 16000,
-            #     # The language of the supplied audio
-            #     language_code: "en-US",
-            #     # Encoding of audio data sent. This sample sets this explicitly.
-            #     # This field is optional for FLAC and WAV audio formats.
-            #     encoding: :LINEAR16
-            #   }
-            #
-            #   response = client.long_running_recognize audio: audio, config: config
-            #
-            #   # Wait until the long running operation is done
-            #   response.wait_until_done!
-            #   response.results.each do |result|
-            #     # First alternative is the most probable result
-            #     alternative = result.alternatives[0]
-            #     puts "Transcript: #{alternative.transcript}"
-            #   end
-            #
-            # @example Print start and end time of each word spoken in audio file from Cloud Storage
-            #   require "google/cloud/speech/v1/speech"
-            #
-            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            #   storage_uri = "gs://cloud-samples-data/speech/brooklyn_bridge.flac"
-            #
-            #   audio = {
-            #     # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
-            #     uri: storage_uri
-            #   }
-            #   config = {
-            #     # When enabled, the first result returned by the API will include a list
-            #     # of words and the start and end time offsets (timestamps) for those words.
-            #     enable_word_time_offsets: true,
-            #     # The language of the supplied audio
-            #     language_code: "en-US"
-            #   }
-            #
-            #   response = client.long_running_recognize audio: audio, config: config
-            #
-            #   # Wait until the long running operation is done
-            #   response.wait_until_done!
-            #
-            #   # The first result includes start and end time word offsets
-            #   result = response.results[0]
-            #
-            #   # First alternative is the most probable result
-            #   alternative = result.alternatives[0]
-            #   puts "Transcript: #{alternative.transcript}"
-            #
-            #   # Print the start and end time of each word
-            #   alternative.words.each do |word|
-            #     puts "Word: #{word.word}"
-            #     puts "Start time: #{word.start_time.seconds} seconds #{word.start_time.nanos} nanos"
-            #     puts "End time: #{word.end_time.seconds} seconds #{word.end_time.nanos} nanos"
+            #     puts "No response received."
             #   end
             #
             def long_running_recognize request, options = nil
@@ -661,22 +357,22 @@ module Google
             #   # Create a client object. The client can be reused for multiple calls.
             #   client = Google::Cloud::Speech::V1::Speech::Client.new
             #
-            #   # Create an input stream
+            #   # Create an input stream.
             #   input = Gapic::StreamInput.new
             #
             #   # Call the streaming_recognize method to start streaming.
             #   output = client.streaming_recognize input
             #
-            #   # Send requests on the stream. For each request, pass in keyword
-            #   # arguments to set fields. Be sure to close the stream when done.
+            #   # Send requests on the stream. For each request object, set fields by
+            #   # passing keyword arguments. Be sure to close the stream when done.
             #   input << Google::Cloud::Speech::V1::StreamingRecognizeRequest.new
             #   input << Google::Cloud::Speech::V1::StreamingRecognizeRequest.new
             #   input.close
             #
-            #   # Handle streamed responses. These may be interleaved with inputs.
-            #   # Each response is of type ::Google::Cloud::Speech::V1::StreamingRecognizeResponse.
-            #   output.each do |response|
-            #     p response
+            #   # The returned object is a streamed enumerable yielding elements of type
+            #   # ::Google::Cloud::Speech::V1::StreamingRecognizeResponse
+            #   output.each do |current_response|
+            #     p current_response
             #   end
             #
             def streaming_recognize request, options = nil
@@ -755,9 +451,9 @@ module Google
             #    *  (`String`) The path to a service account key file in JSON format
             #    *  (`Hash`) A service account key as a Hash
             #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-            #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+            #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
             #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-            #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+            #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
             #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
             #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
             #    *  (`nil`) indicating no credentials
@@ -799,7 +495,9 @@ module Google
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "speech.googleapis.com", ::String
+              DEFAULT_ENDPOINT = "speech.googleapis.com"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
@@ -832,6 +530,14 @@ module Google
                   parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                   Rpcs.new parent_rpcs
                 end
+              end
+
+              ##
+              # Configuration for the channel pool
+              # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
+              #
+              def channel_pool
+                @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
               end
 
               ##

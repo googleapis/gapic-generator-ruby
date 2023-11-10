@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,21 +19,28 @@
 # [START grafeas_v1_generated_Grafeas_ListOccurrences_sync]
 require "grafeas/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Grafeas::V1::Grafeas::Client.new
+##
+# Snippet for the list_occurrences call in the Grafeas service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Grafeas::V1::Grafeas::Client#list_occurrences. It may require modification in
+# order to execute successfully.
+#
+def list_occurrences
+  # Create a client object. The client can be reused for multiple calls.
+  client = Grafeas::V1::Grafeas::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Grafeas::V1::ListOccurrencesRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Grafeas::V1::ListOccurrencesRequest.new
 
-# Call the list_occurrences method.
-result = client.list_occurrences request
+  # Call the list_occurrences method.
+  result = client.list_occurrences request
 
-# The returned object is of type Gapic::PagedEnumerable. You can
-# iterate over all elements by calling #each, and the enumerable
-# will lazily make API calls to fetch subsequent pages. Other
-# methods are also available for managing paging directly.
-result.each do |response|
-  # Each element is of type ::Grafeas::V1::Occurrence.
-  p response
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # over elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
+    # Each element is of type ::Grafeas::V1::Occurrence.
+    p item
+  end
 end
 # [END grafeas_v1_generated_Grafeas_ListOccurrences_sync]

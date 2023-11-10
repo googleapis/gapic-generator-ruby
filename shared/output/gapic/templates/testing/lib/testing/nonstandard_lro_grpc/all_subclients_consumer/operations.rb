@@ -99,7 +99,8 @@ module Testing
             credentials:  credentials,
             endpoint:     @config.endpoint,
             channel_args: @config.channel_args,
-            interceptors: @config.interceptors
+            interceptors: @config.interceptors,
+            channel_pool_config: @config.channel_pool
           )
 
           # Used by an LRO wrapper for some methods of this service
@@ -164,13 +165,11 @@ module Testing
         #   # Call the list_operations method.
         #   result = client.list_operations request
         #
-        #   # The returned object is of type Gapic::PagedEnumerable. You can
-        #   # iterate over all elements by calling #each, and the enumerable
-        #   # will lazily make API calls to fetch subsequent pages. Other
-        #   # methods are also available for managing paging directly.
-        #   result.each do |response|
+        #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+        #   # over elements, and API calls will be issued to fetch pages as needed.
+        #   result.each do |item|
         #     # Each element is of type ::Google::Longrunning::Operation.
-        #     p response
+        #     p item
         #   end
         #
         def list_operations request, options = nil
@@ -189,14 +188,6 @@ module Testing
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
-
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.list_operations.timeout,
                                  metadata:     metadata,
@@ -258,14 +249,14 @@ module Testing
         #   # Call the get_operation method.
         #   result = client.get_operation request
         #
-        #   # The returned object is of type Gapic::Operation. You can use this
-        #   # object to check the status of an operation, cancel it, or wait
-        #   # for results. Here is how to block until completion:
+        #   # The returned object is of type Gapic::Operation. You can use it to
+        #   # check the status of an operation, cancel it, or wait for results.
+        #   # Here is how to wait for a response.
         #   result.wait_until_done! timeout: 60
         #   if result.response?
         #     p result.response
         #   else
-        #     puts "Error!"
+        #     puts "No response received."
         #   end
         #
         def get_operation request, options = nil
@@ -539,14 +530,14 @@ module Testing
         #   # Call the wait_operation method.
         #   result = client.wait_operation request
         #
-        #   # The returned object is of type Gapic::Operation. You can use this
-        #   # object to check the status of an operation, cancel it, or wait
-        #   # for results. Here is how to block until completion:
+        #   # The returned object is of type Gapic::Operation. You can use it to
+        #   # check the status of an operation, cancel it, or wait for results.
+        #   # Here is how to wait for a response.
         #   result.wait_until_done! timeout: 60
         #   if result.response?
         #     p result.response
         #   else
-        #     puts "Error!"
+        #     puts "No response received."
         #   end
         #
         def wait_operation request, options = nil
@@ -619,9 +610,9 @@ module Testing
         #    *  (`String`) The path to a service account key file in JSON format
         #    *  (`Hash`) A service account key as a Hash
         #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-        #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+        #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
         #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-        #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+        #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
         #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
         #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
         #    *  (`nil`) indicating no credentials
@@ -663,7 +654,9 @@ module Testing
         class Configuration
           extend ::Gapic::Config
 
-          config_attr :endpoint,      "nonstandardlro.example.com", ::String
+          DEFAULT_ENDPOINT = "nonstandardlro.example.com"
+
+          config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
           config_attr :credentials,   nil do |value|
             allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
             allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
@@ -696,6 +689,14 @@ module Testing
               parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
               Rpcs.new parent_rpcs
             end
+          end
+
+          ##
+          # Configuration for the channel pool
+          # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
+          #
+          def channel_pool
+            @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
           end
 
           ##

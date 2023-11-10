@@ -4,11 +4,17 @@ package testing.mixins;
 option ruby_package = "Testing::Mixins";
 
 import "google/api/client.proto";
+import "google/api/annotations.proto";
 
 service ServiceWithLoc {
     option (google.api.default_host) = "servicewithloc.example.com";
 
-    rpc Method(Request) returns(Response);
+    rpc Method(Request) returns(Response) {
+        option (google.api.http) = {
+            post: "/v1beta1/ServiceWithLoc/Method"
+            body: "*"
+        };
+    }
 }
 
 message Request {

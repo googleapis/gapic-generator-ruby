@@ -1,5 +1,91 @@
 # Release History
 
+### 0.20.0 (2023-08-31)
+
+#### Features
+
+* Add channel pooling for gapic clients ([#969](https://github.com/googleapis/gapic-generator-ruby/issues/969)) 
+* Add LRU hash ([#970](https://github.com/googleapis/gapic-generator-ruby/issues/970)) 
+#### Documentation
+
+* Minor fixes to YARD documentation links and parameters ([#959](https://github.com/googleapis/gapic-generator-ruby/issues/959)) 
+
+### 0.19.1 (2023-05-30)
+
+#### Bug Fixes
+
+* Fixed handling of optional fields in coerce ([#954](https://github.com/googleapis/gapic-generator-ruby/issues/954)) 
+
+### 0.19.0 (2023-05-26)
+
+#### Features
+
+* Compatibility with protobuf v23 generated map fields ([#948](https://github.com/googleapis/gapic-generator-ruby/issues/948)) 
+
+### 0.18.0 (2023-02-27)
+
+#### Features
+
+* add alias for details field in Rest Error ([#928](https://github.com/googleapis/gapic-generator-ruby/issues/928)) 
+
+### 0.17.1 (2023-02-09)
+
+#### Bug Fixes
+
+* add new class to the rest imports ([#913](https://github.com/googleapis/gapic-generator-ruby/issues/913)) 
+
+### 0.17.0 (2023-02-09)
+
+#### Features
+
+* add a transport operation class in Rest ([#911](https://github.com/googleapis/gapic-generator-ruby/issues/911)) 
+
+### 0.16.0 (2022-12-12)
+
+#### Features
+
+* custom regapic exception wrapping ([#866](https://github.com/googleapis/gapic-generator-ruby/issues/866)) 
+
+### 0.15.1 (2022-11-18)
+
+#### Bug Fixes
+
+* Fixed uninitialized constant when checking retry policy for a REST call ([#857](https://github.com/googleapis/gapic-generator-ruby/issues/857)) 
+
+### 0.15.0 (2022-11-17)
+
+#### Features
+
+* retry policy now works for REST calls
+
+### 0.14.0 (2022-11-08)
+
+#### Features
+
+* add support for different types of credentials to REST 
+#### Bug Fixes
+
+* deadlock fix ([#845](https://github.com/googleapis/gapic-generator-ruby/issues/845)) 
+
+### 0.13.0 (2022-10-26)
+
+#### Features
+
+* Implement server-side streaming support for REST calls in gapic-common ([#826](https://github.com/googleapis/gapic-generator-ruby/issues/826)) 
+
+### 0.12.0 (2022-09-15)
+
+#### Features
+
+* Support numeric_enums in the ClientStub ([#817](https://github.com/googleapis/gapic-generator-ruby/issues/817)) 
+* parse details information from REST errors  ([#815](https://github.com/googleapis/gapic-generator-ruby/issues/815)) 
+* send protobuf version in headers ([#816](https://github.com/googleapis/gapic-generator-ruby/issues/816)) 
+
+#### Bug Fixes
+
+* rewrap certain grpc errors ([#810](https://github.com/googleapis/gapic-generator-ruby/issues/810)) 
+  This will rewrap some GRPC::Unavailable errors that were caused by authentication failing as Gapic::GRPC::AuthorizationError which inherits from ::GRPC::Unauthenticated
+
 ### 0.11.1 (2022-08-03)
 
 #### Bug Fixes

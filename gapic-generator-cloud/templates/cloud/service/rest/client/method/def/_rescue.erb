@@ -1,4 +1,3 @@
  <%- assert_locals method -%>
-rescue ::Faraday::Error => e
-  gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
-  raise ::Google::Cloud::Error.from_error(gapic_error)
+rescue ::Gapic::Rest::Error => e
+  raise ::Google::Cloud::Error.from_error(e)

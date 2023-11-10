@@ -3,8 +3,8 @@
 <%= render partial: "service/client/requires", locals: { service: service} -%>
 require "<%= service.proto_service_require %>"
 require "<%= service.rest.service_stub_require %>"
-<%- if service.subclients? -%>
-<%- service.subclients.each do |subclient| -%>
+<%- if service.rest.subclients? -%>
+<%- service.rest.subclients.each do |subclient| -%>
 <%- unless subclient.client_class_name == "Operations" -%>
 require "<%= subclient.require_str %>"
 <%- end -%>
@@ -15,7 +15,7 @@ require "<%= subclient.require_str %>"
 # REST client for the <%= service.name %> service.
 #
 <%- if service.doc_description -%>
-<%= indent service.doc_description, "# " %>
+<%= indent service.doc_description(transport: :rest), "# " %>
 #
 <%- end -%>
 class <%= service.rest.client_name %>
@@ -31,6 +31,10 @@ class <%= service.rest.client_name %>
   #
   # See {<%= service.rest.client_name_full %>::Configuration}
   # for a description of the configuration fields.
+<%- if service.is_deprecated? -%>
+  #
+  # @deprecated This service is deprecated and may be removed in the next major version update.
+<%- end -%>
   #
   # @example
   #
@@ -45,7 +49,7 @@ class <%= service.rest.client_name %>
   # @return [<%= service.rest.client_name %>::Configuration]
   #
   def self.configure
-<%= indent render(partial: "service/client/self_configure", locals: { service: service }), 4 %>
+<%= indent render(partial: "service/client/self_configure", locals: { service: service.rest }), 4 %>
   end
 
   ##
@@ -94,17 +98,29 @@ class <%= service.rest.client_name %>
     # Create credentials
     credentials = @config.credentials
     <%- unless service.generic_endpoint? -%>
-    credentials ||= Credentials.default scope: @config.scope
+    # Use self-signed JWT if the endpoint is unchanged from default,
+    # but only if the default endpoint does not have a region prefix.
+    enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
+                             !@config.endpoint.split(".").first.include?("-")
+    credentials ||= Credentials.default scope: @config.scope,
+                                        enable_self_signed_jwt: enable_self_signed_jwt
     if credentials.is_a?(::String) || credentials.is_a?(::Hash)
       credentials = Credentials.new credentials, scope: @config.scope
     end
     <%- end -%>
-    
+
+    @quota_project_id = @config.quota_project
+    @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
     <%- if service.rest.subclients? -%>
     <%- service.rest.subclients.each do |subclient| -%>
     @<%= subclient.client_var_name %> = <%= subclient.client_class_docname %>.new do |config|
       config.credentials = credentials
+      config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
+      <%- if subclient.respond_to?(:bindings_override) && !subclient.bindings_override.empty? -%>
+      config.bindings_override = @config.bindings_override
+      <%- end -%>
     end
 
     <%- end -%>
@@ -112,8 +128,8 @@ class <%= service.rest.client_name %>
     @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new endpoint: @config.endpoint, credentials: credentials
   end
 
-  <%- if service.subclients? -%>
-  <%- service.subclients.each do |subclient| -%>
+  <%- if service.rest.subclients? -%>
+  <%- service.rest.subclients.each do |subclient| -%>
   ##
   # Get the associated client for <%= subclient.service_description %>.
   #

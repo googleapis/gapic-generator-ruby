@@ -27,21 +27,28 @@
 # [START showcase_v0_generated_Messaging_ListRooms_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Snippet for the list_rooms call in the Messaging service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#list_rooms. It may require
+# modification in order to execute successfully.
+#
+def list_rooms
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::ListRoomsRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::ListRoomsRequest.new
 
-# Call the list_rooms method.
-result = client.list_rooms request
+  # Call the list_rooms method.
+  result = client.list_rooms request
 
-# The returned object is of type Gapic::PagedEnumerable. You can
-# iterate over all elements by calling #each, and the enumerable
-# will lazily make API calls to fetch subsequent pages. Other
-# methods are also available for managing paging directly.
-result.each do |response|
-  # Each element is of type ::Google::Showcase::V1beta1::Room.
-  p response
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # over elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
+    # Each element is of type ::Google::Showcase::V1beta1::Room.
+    p item
+  end
 end
 # [END showcase_v0_generated_Messaging_ListRooms_sync]

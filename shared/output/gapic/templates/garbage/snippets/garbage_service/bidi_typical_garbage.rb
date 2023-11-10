@@ -27,24 +27,33 @@
 # [START garbage_v0_generated_GarbageService_BidiTypicalGarbage_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::GarbageService::Client.new
+##
+# Snippet for the bidi_typical_garbage call in the GarbageService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#bidi_typical_garbage. It may require
+# modification in order to execute successfully.
+#
+def bidi_typical_garbage
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::GarbageService::Client.new
 
-# Create an input stream
-input = Gapic::StreamInput.new
+  # Create an input stream.
+  input = Gapic::StreamInput.new
 
-# Call the bidi_typical_garbage method to start streaming.
-output = client.bidi_typical_garbage input
+  # Call the bidi_typical_garbage method to start streaming.
+  output = client.bidi_typical_garbage input
 
-# Send requests on the stream. For each request, pass in keyword
-# arguments to set fields. Be sure to close the stream when done.
-input << So::Much::Trash::TypicalGarbage.new
-input << So::Much::Trash::TypicalGarbage.new
-input.close
+  # Send requests on the stream. For each request object, set fields by
+  # passing keyword arguments. Be sure to close the stream when done.
+  input << So::Much::Trash::TypicalGarbage.new
+  input << So::Much::Trash::TypicalGarbage.new
+  input.close
 
-# Handle streamed responses. These may be interleaved with inputs.
-# Each response is of type ::So::Much::Trash::TypicalGarbage.
-output.each do |response|
-  p response
+  # The returned object is a streamed enumerable yielding elements of type
+  # ::So::Much::Trash::TypicalGarbage
+  output.each do |current_response|
+    p current_response
+  end
 end
 # [END garbage_v0_generated_GarbageService_BidiTypicalGarbage_sync]

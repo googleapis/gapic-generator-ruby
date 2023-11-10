@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ require "gapic/config/method"
 require "google/cloud/speech/v1/version"
 
 require "google/cloud/speech/v1/speech/credentials"
+require "google/cloud/speech/v1/speech/paths"
 require "google/cloud/speech/v1/speech/operations"
 require "google/cloud/speech/v1/speech/client"
 
@@ -33,7 +34,7 @@ module Google
         ##
         # Service that implements Google Cloud Speech API.
         #
-        # To load this service and instantiate a client:
+        # @example Load this service and instantiate a gRPC client
         #
         #     require "google/cloud/speech/v1/speech"
         #     client = ::Google::Cloud::Speech::V1::Speech::Client.new

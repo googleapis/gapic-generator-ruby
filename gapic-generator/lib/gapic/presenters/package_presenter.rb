@@ -73,6 +73,56 @@ module Gapic
         end
       end
 
+      ##
+      # @return [Boolean] Whether the generation of REST clients is requested
+      #    and can be done because at least one method has rest bindings.
+      #
+      def generate_rest_clients?
+        @api.generate_rest_clients? && !first_service_with_rest.nil?
+      end
+
+      ##
+      # @return [Boolean] Whether the generation of gRPC clients is requested
+      #
+      def generate_grpc_clients?
+        @api.generate_grpc_clients?
+      end
+
+      ##
+      # First service with REST bindings.
+      # @return [Gapic::Presenters::ServicePresenter, nil]
+      #
+      def first_service_with_rest
+        services.find(&:methods_rest_bindings?)
+      end
+
+      ##
+      # Whether there are mixin services that this package has http binding overrides for.
+      #
+      # @return [Boolean]
+      #
+      def mixin_binding_overrides?
+        first_service_with_rest&.rest&.mixin_binding_overrides? || false
+      end
+
+      ##
+      # Requires path for the mixin binding overrides file
+      #
+      # @return [String]
+      #
+      def mixin_binding_overrides_require
+        "#{ruby_file_path @api, namespace}/bindings_override"
+      end
+
+      ##
+      # File path for the mixin binding overrides file
+      #
+      # @return [String]
+      #
+      def mixin_binding_overrides_file_path
+        "#{mixin_binding_overrides_require}.rb"
+      end
+
       def address
         @package.split "."
       end
@@ -81,8 +131,16 @@ module Gapic
         ruby_file_path @api, namespace
       end
 
+      def package_rest_require
+        "#{ruby_file_path @api, namespace}/rest"
+      end
+
       def package_file_path
         "#{package_require}.rb"
+      end
+
+      def package_rest_file_path
+        "#{package_rest_require}.rb"
       end
 
       def package_directory_name
@@ -121,21 +179,6 @@ module Gapic
           libraryPackage: namespace,
           services:       services.to_h { |s| [s.grpc_service_name, s.drift_manifest] }
         }
-      end
-
-      ##
-      # How comments in the generated libraries refer to the GRPC client
-      # if no REST code is generated, this should just be "client",
-      # if REST code is generated, this should be disambiguated into the "GRPC client"
-      #
-      # Since we are using first service for an indication of whether package generates
-      # REST code, it's OK to defer this to the first service as well.
-      # For packages with no services the value of this does not really matter as
-      # no client generation docs will be generated.
-      #
-      # @return [String]
-      def grpc_client_designation
-        services.first&.grpc_client_designation || ""
       end
     end
   end

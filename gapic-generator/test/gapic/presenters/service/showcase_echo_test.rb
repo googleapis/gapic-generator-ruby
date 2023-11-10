@@ -28,7 +28,7 @@ class ShowcaseEchoServiceTest < PresenterTest
   def test_methods
     refute_empty presenter.methods
     presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
-    exp_method_names = ["echo", "expand", "collect", "chat", "paged_expand", "wait", "block"]
+    exp_method_names = ["echo", "expand", "collect", "chat", "paged_expand", "paged_expand_legacy", "paged_expand_legacy_mapped", "wait", "block"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
@@ -137,7 +137,10 @@ class ShowcaseEchoServiceTest < PresenterTest
   end
 
   def test_lro_service
-    assert_kind_of Gapic::Presenters::ServicePresenter, presenter.lro_service
+    lro_presenter = presenter.lro_service
+    assert_kind_of Gapic::Presenters::ServicePresenter, lro_presenter
+    assert lro_presenter.is_hosted_mixin?
+    refute lro_presenter.is_main_mixin_service?
   end
 
   def test_lro_client_var

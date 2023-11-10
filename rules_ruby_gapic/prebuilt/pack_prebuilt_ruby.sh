@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # A script demonstrating how to pack a ruby_runtime prebuild
-VERSION="2.6.6"
+VERSION="3.1.3"
 
 mkdir -p /tmp/pack_prebuilt_ruby/ruby-${VERSION}
 rm -rf /tmp/pack_prebuilt_ruby/ruby-${VERSION}/*

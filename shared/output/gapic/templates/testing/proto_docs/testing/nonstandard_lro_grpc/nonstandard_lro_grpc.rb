@@ -73,11 +73,11 @@ module Testing
         # A value indicating that the enum field is not set.
         UNDEFINED_STATUS = 0
 
-        DONE = 2104194
+        DONE = 2_104_194
 
-        PENDING = 35394935
+        PENDING = 35_394_935
 
-        RUNNING = 121282975
+        RUNNING = 121_282_975
       end
     end
 

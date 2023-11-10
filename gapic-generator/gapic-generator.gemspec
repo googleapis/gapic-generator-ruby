@@ -44,12 +44,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency "protobuf", "~> 3.8"
 
   spec.add_development_dependency "google-style", "~> 1.26.1"
-  spec.add_development_dependency "grpc-tools", "~> 1.46.3"
+  spec.add_development_dependency "grpc-tools", "~> 1.58.0"
   spec.add_development_dependency "minitest", "~> 5.16"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.0"
   spec.add_development_dependency "pry", ">= 0.14"
-  spec.add_development_dependency "rake", ">= 13.0"
   spec.add_development_dependency "redcarpet", "~> 3.0"
   spec.add_development_dependency "yard", "~> 0.9"
 end

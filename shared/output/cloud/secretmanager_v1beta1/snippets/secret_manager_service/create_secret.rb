@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +19,24 @@
 # [START secretmanager_v1beta1_generated_SecretManagerService_CreateSecret_sync]
 require "google/cloud/secret_manager/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+##
+# Snippet for the create_secret call in the SecretManagerService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client#create_secret.
+# It may require modification in order to execute successfully.
+#
+def create_secret
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::SecretManager::V1beta1::CreateSecretRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::SecretManager::V1beta1::CreateSecretRequest.new
 
-# Call the create_secret method.
-result = client.create_secret request
+  # Call the create_secret method.
+  result = client.create_secret request
 
-# The returned object is of type Google::Cloud::SecretManager::V1beta1::Secret.
-p result
+  # The returned object is of type Google::Cloud::SecretManager::V1beta1::Secret.
+  p result
+end
 # [END secretmanager_v1beta1_generated_SecretManagerService_CreateSecret_sync]

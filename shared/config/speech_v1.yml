@@ -8,3 +8,4 @@
     :oauth_scopes:
       - https://www.googleapis.com/auth/cloud-platform
 :generate_metadata: false
+:snippet_configs_path: "../shared/snippet_config/speech_v1"

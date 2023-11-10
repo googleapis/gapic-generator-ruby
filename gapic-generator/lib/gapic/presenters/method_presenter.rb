@@ -59,9 +59,9 @@ module Gapic
         # the overrides should get configured separately.
         is_lro =  @service_presenter.address.join(".") == Gapic::Model::Mixins::LRO_SERVICE
         service_config_override_http = is_lro ? @api.service_config : nil
-        @http = Gapic::Model::Method::HttpAnnotation.new @method, service_config_override_http
+        @http = Gapic::Model::Method::HttpAnnotation.create_with_override @method, service_config_override_http
 
-        @http_bindings = @http.bindings.map { |binding| Gapic::Presenters::Method::HttpBindingPresenter.new(binding) }
+        @http_bindings = @http.bindings.map { |binding| Gapic::Presenters::Method::HttpBindingPresenter.new binding }
         @routing = Gapic::Model::Method::Routing.new @method.routing, @http
         @lro = Gapic::Model::Method.parse_lro @method, @api
 
@@ -76,10 +76,21 @@ module Gapic
       end
 
       ##
+      # Return the "primary" snippet for this method. This should be used for
+      # inline snippets.
       # @return [Gapic::Presenters::SnippetPresenter]
       #
-      def snippet
-        SnippetPresenter.new self, @api
+      def snippet transport: nil
+        configs = @api.snippet_configs_for @method.full_name
+        SnippetPresenter.new self, @api, config: configs.first, transport: transport
+      end
+
+      ##
+      # @return [Array<Gapic::Presenters::SnippetPresenter>]
+      #
+      def all_snippets transport: nil
+        configs = @api.snippet_configs_for(@method.full_name) + [nil]
+        configs.map { |config| SnippetPresenter.new self, @api, config: config, transport: transport }
       end
 
       def generate_yardoc_snippets?
@@ -120,8 +131,15 @@ module Gapic
         end
       end
 
-      def doc_description
-        @method.docs_leading_comments
+      ##
+      # The description as it should appear in YARD docs.
+      #
+      # @param transport [:grpc,:rest] Whether xref links should go to REST or
+      #   gRPC client classes. Uses the default transport if not provided.
+      # @return [String]
+      #
+      def doc_description transport: nil
+        @method.docs_leading_comments transport: transport
       end
 
       def doc_response_type

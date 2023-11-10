@@ -27,15 +27,24 @@
 # [START testing_v0_generated_ServiceExplicitHeaders_Complex_sync]
 require "testing/routing_headers"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new
+##
+# Snippet for the complex call in the ServiceExplicitHeaders service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#complex. It may
+# require modification in order to execute successfully.
+#
+def complex
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::RoutingHeaders::Request.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::RoutingHeaders::Request.new
 
-# Call the complex method.
-result = client.complex request
+  # Call the complex method.
+  result = client.complex request
 
-# The returned object is of type Testing::RoutingHeaders::Response.
-p result
+  # The returned object is of type Testing::RoutingHeaders::Response.
+  p result
+end
 # [END testing_v0_generated_ServiceExplicitHeaders_Complex_sync]

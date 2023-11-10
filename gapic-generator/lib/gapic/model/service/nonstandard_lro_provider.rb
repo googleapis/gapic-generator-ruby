@@ -221,7 +221,7 @@ module Gapic
           name_candidate = polling_method.output.fields.find do |f|
             f.operation_field == ops_response_field
           end
-          return name_candidate.name if name_candidate
+          name_candidate&.name
         end
 
         ##
@@ -277,7 +277,7 @@ module Gapic
             raise ModelError, error_text
           end
 
-          if status_candidates.length.zero?
+          if status_candidates.empty?
             error_text = "A nonstandard LRO provider service `#{service.name}`'s " \
                          "polling method `#{polling_method.name}`'s output message " \
                          "`#{polling_method.output.name}` does not have any fields annotated " \

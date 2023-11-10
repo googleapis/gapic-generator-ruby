@@ -27,22 +27,31 @@
 # [START showcase_v0_generated_Messaging_SearchBlurbs_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Snippet for the search_blurbs call in the Messaging service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#search_blurbs. It may require
+# modification in order to execute successfully.
+#
+def search_blurbs
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::SearchBlurbsRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::SearchBlurbsRequest.new
 
-# Call the search_blurbs method.
-result = client.search_blurbs request
+  # Call the search_blurbs method.
+  result = client.search_blurbs request
 
-# The returned object is of type Gapic::Operation. You can use this
-# object to check the status of an operation, cancel it, or wait
-# for results. Here is how to block until completion:
-result.wait_until_done! timeout: 60
-if result.response?
-  p result.response
-else
-  puts "Error!"
+  # The returned object is of type Gapic::Operation. You can use it to
+  # check the status of an operation, cancel it, or wait for results.
+  # Here is how to wait for a response.
+  result.wait_until_done! timeout: 60
+  if result.response?
+    p result.response
+  else
+    puts "No response received."
+  end
 end
 # [END showcase_v0_generated_Messaging_SearchBlurbs_sync]

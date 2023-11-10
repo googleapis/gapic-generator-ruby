@@ -27,15 +27,24 @@
 # [START showcase_v0_generated_Echo_Block_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Echo::Client.new
+##
+# Snippet for the block call in the Echo service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#block. It may require modification in
+# order to execute successfully.
+#
+def block
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Echo::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::BlockRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::BlockRequest.new
 
-# Call the block method.
-result = client.block request
+  # Call the block method.
+  result = client.block request
 
-# The returned object is of type Google::Showcase::V1beta1::BlockResponse.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::BlockResponse.
+  p result
+end
 # [END showcase_v0_generated_Echo_Block_sync]

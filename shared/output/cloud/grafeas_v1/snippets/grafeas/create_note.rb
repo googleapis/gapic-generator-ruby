@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +19,24 @@
 # [START grafeas_v1_generated_Grafeas_CreateNote_sync]
 require "grafeas/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Grafeas::V1::Grafeas::Client.new
+##
+# Snippet for the create_note call in the Grafeas service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Grafeas::V1::Grafeas::Client#create_note. It may require modification in order
+# to execute successfully.
+#
+def create_note
+  # Create a client object. The client can be reused for multiple calls.
+  client = Grafeas::V1::Grafeas::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Grafeas::V1::CreateNoteRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Grafeas::V1::CreateNoteRequest.new
 
-# Call the create_note method.
-result = client.create_note request
+  # Call the create_note method.
+  result = client.create_note request
 
-# The returned object is of type Grafeas::V1::Note.
-p result
+  # The returned object is of type Grafeas::V1::Note.
+  p result
+end
 # [END grafeas_v1_generated_Grafeas_CreateNote_sync]

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ require "google/cloud/vision/v1/product_search/credentials"
 require "google/cloud/vision/v1/product_search/paths"
 require "google/cloud/vision/v1/product_search/operations"
 require "google/cloud/vision/v1/product_search/client"
+require "google/cloud/vision/v1/product_search/rest"
 
 module Google
   module Cloud
@@ -47,10 +48,15 @@ module Google
         # - Each {::Google::Cloud::Vision::V1::Product Product} has a collection of {::Google::Cloud::Vision::V1::ReferenceImage ReferenceImage} resources, named
         #   `projects/*/locations/*/products/*/referenceImages/*`
         #
-        # To load this service and instantiate a client:
+        # @example Load this service and instantiate a gRPC client
         #
         #     require "google/cloud/vision/v1/product_search"
         #     client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new
+        #
+        # @example Load this service and instantiate a REST client
+        #
+        #     require "google/cloud/vision/v1/product_search/rest"
+        #     client = ::Google::Cloud::Vision::V1::ProductSearch::Rest::Client.new
         #
         module ProductSearch
         end

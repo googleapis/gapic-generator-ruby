@@ -121,7 +121,7 @@ module Google
     set_option :java_package, "com.google.protobuf"
     set_option :java_outer_classname, "DescriptorProtos"
     set_option :optimize_for, ::Google::Protobuf::FileOptions::OptimizeMode::SPEED
-    set_option :go_package, "github.com/golang/protobuf/protoc-gen-go/descriptor;descriptor"
+    set_option :go_package, "google.golang.org/protobuf/types/descriptorpb"
     set_option :cc_enable_arenas, true
     set_option :objc_class_prefix, "GPB"
     set_option :csharp_namespace, "Google.Protobuf.Reflection"

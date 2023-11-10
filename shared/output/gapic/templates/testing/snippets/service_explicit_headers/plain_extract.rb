@@ -27,15 +27,24 @@
 # [START testing_v0_generated_ServiceExplicitHeaders_PlainExtract_sync]
 require "testing/routing_headers"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new
+##
+# Snippet for the plain_extract call in the ServiceExplicitHeaders service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_extract. It may
+# require modification in order to execute successfully.
+#
+def plain_extract
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::RoutingHeaders::Request.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::RoutingHeaders::Request.new
 
-# Call the plain_extract method.
-result = client.plain_extract request
+  # Call the plain_extract method.
+  result = client.plain_extract request
 
-# The returned object is of type Testing::RoutingHeaders::Response.
-p result
+  # The returned object is of type Testing::RoutingHeaders::Response.
+  p result
+end
 # [END testing_v0_generated_ServiceExplicitHeaders_PlainExtract_sync]

@@ -7,6 +7,10 @@ on:
     branches:
       - main
   workflow_dispatch:
+
+env:
+  MT_COMPAT: true
+
 jobs:
   CI:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
@@ -14,17 +18,23 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            ruby: "2.6"
-          - os: ubuntu-latest
             ruby: "2.7"
+            task: test
           - os: ubuntu-latest
             ruby: "3.0"
+            task: test
           - os: ubuntu-latest
             ruby: "3.1"
+            task: test
+          - os: ubuntu-latest
+            ruby: "3.2"
+            task: ci
           - os: macos-latest
-            ruby: "3.0"
+            ruby: "3.2"
+            task: test
           - os: windows-latest
-            ruby: "3.0"
+            ruby: "3.2"
+            task: test
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -34,11 +44,12 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: "${{ matrix.ruby }}"
-    - name: Install tools
+    - name: Install dependencies
       shell: bash
       run: |
-        cd gapic-common && gem install --no-document toys bundler && bundle install
-    - name: Test ${{ matrix.task }}
+        gem install --no-document toys bundler
+        cd gapic-common && bundle install
+    - name: Run ${{ matrix.task }}
       shell: bash
       run: |
-        cd gapic-common && bundle exec rake ci
+        cd gapic-common && toys ${{ matrix.task }}

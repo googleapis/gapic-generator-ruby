@@ -1,0 +1,16 @@
+<%- assert_locals package -%>
+@configure ||= begin
+  namespace = <%= package.parent_namespace.split("::").reject(&:empty?).inspect %>
+  parent_config = while namespace.any?
+                    parent_name = namespace.join "::"
+                    parent_const = const_get parent_name
+                    break parent_const.configure if parent_const.respond_to? :configure
+                    namespace.pop
+                  end
+
+  default_config = Configuration.new parent_config
+  <%= indent_tail render(partial: "lib/package/self_configure_defaults", locals: {package: package}), 2 %>
+  default_config
+end
+yield @configure if block_given?
+@configure

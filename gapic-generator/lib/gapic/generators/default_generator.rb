@@ -48,6 +48,10 @@ module Gapic
 
         gem = gem_presenter || Gapic::Presenters.gem_presenter(@api)
 
+        if @api.generate_rest_clients? && gem.packages.find(&:generate_rest_clients?).nil?
+          raise "Rest transport specified but no services have HTTP bindings"
+        end
+
         gem.packages.each do |package|
           package_snippets = PackageSnippets.new snippet_dir: "snippets",
                                                  proto_package: package.name,
@@ -55,10 +59,12 @@ module Gapic
 
           # Package level files
           files << g("package.erb", "lib/#{package.package_file_path}", package: package)
+          files << g("package_rest.erb", "lib/#{package.package_rest_file_path}", package: package) if package.generate_rest_clients?
+          files << g("binding_override.erb", "lib/#{package.mixin_binding_overrides_file_path}", package: package) if package.mixin_binding_overrides? && package.generate_rest_clients?
 
           package.services.each do |service|
-            should_generate_grpc = @api.generate_grpc_clients?
-            should_generate_rest = @api.generate_rest_clients? && service.methods_rest_bindings?
+            should_generate_grpc = service.generate_grpc_clients?
+            should_generate_rest = service.generate_rest_clients?
 
             # Service level files
             files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)
@@ -78,7 +84,7 @@ module Gapic
 
             # Nonstandard LRO shim
             files << g("service/nonstandard_lro.erb",        "lib/#{service.nonstandard_lro_file_path}",         service: service) if service.nonstandard_lro_provider? && should_generate_grpc
-            files << g("service/nonstandard_lro.erb",        "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.nonstandard_lro_provider? && should_generate_rest
+            files << g("service/rest/nonstandard_lro.erb",   "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.rest.nonstandard_lro_provider? && should_generate_rest
             
             # Rest-only `service.stub` file
             files << g("service/rest/service_stub.erb",      "lib/#{service.rest.service_stub_file_path}",       service: service) if should_generate_rest
@@ -95,9 +101,10 @@ module Gapic
 
             if @api.generate_standalone_snippets?
               service.methods.each do |method|
-                snippet = method.snippet
-                snippet_file = g("snippets/standalone.erb", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
-                package_snippets.add(method_presenter: method, snippet_presenter: snippet, snippet_file: snippet_file)
+                method.all_snippets.each do |snippet|
+                  snippet_file = g("snippets/standalone.erb", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
+                  package_snippets.add(method_presenter: method, snippet_presenter: snippet, snippet_file: snippet_file)
+                end
               end
             end
           end

@@ -33,8 +33,8 @@ module Gapic
           @api.generate_files
               .map(&:services)
               .flatten
-              .find_all { |s| !Gapic::Model::Mixins.mixin_service_address? s.address, gem_address: address }
               .map { |s| WrapperServicePresenter.new self, @api, s }
+              .find_all { |s| !s.is_hosted_mixin? }
         end
       end
 
@@ -136,15 +136,21 @@ module Gapic
         m[1].tr "-", "_"
       end
 
-      def docs_link version: nil, class_name: nil, text: nil
-        gem_name = version ? "#{name}-#{version}" : name
-        base_url = "https://googleapis.dev/ruby/#{gem_name}/latest"
+      def docs_link version: nil, class_name: nil, text: nil, gem_name: nil
+        gem_name ||= version ? "#{name}-#{version}" : name
+        base_url =
+          if cloud_product?
+            "https://cloud.google.com/ruby/docs/reference/#{gem_name}/latest"
+          else
+            "https://rubydoc.info/gems/#{gem_name}"
+          end
         if class_name
-          path = namespace.gsub "::", "/"
-          path = "#{path}/#{version.capitalize}" if version
-          class_path = class_name.gsub "::", "/"
+          separator = cloud_product? ? "-" : "/"
+          path = namespace.gsub "::", separator
+          path = "#{path}#{separator}#{version.capitalize}" if version
+          class_path = class_name.gsub "::", separator
           text ||= namespaced_class class_name, version: version
-          return "[#{text}](#{base_url}/#{path}/#{class_path}.html)"
+          return "[#{text}](#{base_url}/#{path}#{separator}#{class_path})"
         end
         "[#{text || name}](#{base_url})"
       end

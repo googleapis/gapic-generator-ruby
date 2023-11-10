@@ -6,3 +6,4 @@
     :default_host: "language.googleapis.com"
     :oauth_scopes:
       - https://www.googleapis.com/auth/cloud-platform
+:transports: ["grpc", "rest"]

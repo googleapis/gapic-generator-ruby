@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +19,24 @@
 # [START secretmanager_v1beta1_generated_SecretManagerService_DisableSecretVersion_sync]
 require "google/cloud/secret_manager/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+##
+# Snippet for the disable_secret_version call in the SecretManagerService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client#disable_secret_version.
+# It may require modification in order to execute successfully.
+#
+def disable_secret_version
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::SecretManager::V1beta1::DisableSecretVersionRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::SecretManager::V1beta1::DisableSecretVersionRequest.new
 
-# Call the disable_secret_version method.
-result = client.disable_secret_version request
+  # Call the disable_secret_version method.
+  result = client.disable_secret_version request
 
-# The returned object is of type Google::Cloud::SecretManager::V1beta1::SecretVersion.
-p result
+  # The returned object is of type Google::Cloud::SecretManager::V1beta1::SecretVersion.
+  p result
+end
 # [END secretmanager_v1beta1_generated_SecretManagerService_DisableSecretVersion_sync]

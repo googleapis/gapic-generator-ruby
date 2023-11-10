@@ -35,7 +35,7 @@ module Gapic
           suffix = gem.factory_method_suffix
           method_name = "#{method_name}#{suffix}" unless method_name.end_with? suffix
           method_name = "#{method_name}_client" if Gapic::RubyInfo.excluded_method_names.include? method_name
-          method_name
+          @api.fix_file_path method_name
         end
       end
 
@@ -48,9 +48,9 @@ module Gapic
       # @return [WrapperServicePresenter,WrapperServiceRestPresenter,nil]
       #
       def usable_service_presenter
-        if @api.generate_grpc_clients?
+        if generate_grpc_clients?
           self
-        elsif @api.generate_rest_clients? && methods_rest_bindings?
+        elsif generate_rest_clients?
           rest
         end
       end

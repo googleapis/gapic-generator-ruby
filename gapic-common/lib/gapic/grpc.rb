@@ -13,5 +13,6 @@
 # limitations under the License.
 
 require "grpc"
+require "gapic/grpc/errors"
 require "gapic/grpc/service_stub"
 require "gapic/grpc/status_details"

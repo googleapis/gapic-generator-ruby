@@ -119,13 +119,22 @@ module Google
 
               # Create credentials
               credentials = @config.credentials
-              credentials ||= Credentials.default scope: @config.scope
+              # Use self-signed JWT if the endpoint is unchanged from default,
+              # but only if the default endpoint does not have a region prefix.
+              enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
+                                       !@config.endpoint.split(".").first.include?("-")
+              credentials ||= Credentials.default scope: @config.scope,
+                                                  enable_self_signed_jwt: enable_self_signed_jwt
               if credentials.is_a?(::String) || credentials.is_a?(::Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
               end
 
+              @quota_project_id = @config.quota_project
+              @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
               @operations_client = ::Google::Showcase::V1beta1::Messaging::Rest::Operations.new do |config|
                 config.credentials = credentials
+                config.quota_project = @quota_project_id
                 config.endpoint = @config.endpoint
               end
 
@@ -136,7 +145,7 @@ module Google
             ##
             # Get the associated client for long-running operations.
             #
-            # @return [::Google::Showcase::V1beta1::Messaging::Operations]
+            # @return [::Google::Showcase::V1beta1::Messaging::Rest::Operations]
             #
             attr_reader :operations_client
 
@@ -154,8 +163,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload create_room(room: nil)
             #   Pass arguments to `create_room` via keyword arguments. Note that at
@@ -164,13 +171,29 @@ module Google
             #
             #   @param room [::Google::Showcase::V1beta1::Room, ::Hash]
             #     The room to create.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::CreateRoomRequest.new
+            #
+            #   # Call the create_room method.
+            #   result = client.create_room request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Room.
+            #   p result
+            #
             def create_room request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -182,20 +205,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.create_room.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.create_room.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.create_room.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.create_room request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.create_room request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -214,8 +241,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload get_room(name: nil)
             #   Pass arguments to `get_room` via keyword arguments. Note that at
@@ -224,13 +249,29 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested room.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::GetRoomRequest.new
+            #
+            #   # Call the get_room method.
+            #   result = client.get_room request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Room.
+            #   p result
+            #
             def get_room request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -242,20 +283,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.get_room.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.get_room.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.get_room.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.get_room request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.get_room request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -274,8 +319,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload update_room(room: nil, update_mask: nil)
             #   Pass arguments to `update_room` via keyword arguments. Note that at
@@ -287,13 +330,29 @@ module Google
             #   @param update_mask [::Google::Protobuf::FieldMask, ::Hash]
             #     The field mask to determine wich fields are to be updated. If empty, the
             #     server will assume all fields are to be updated.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::UpdateRoomRequest.new
+            #
+            #   # Call the update_room method.
+            #   result = client.update_room request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Room.
+            #   p result
+            #
             def update_room request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -305,20 +364,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.update_room.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.update_room.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.update_room.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.update_room request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.update_room request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -337,8 +400,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload delete_room(name: nil)
             #   Pass arguments to `delete_room` via keyword arguments. Note that at
@@ -347,13 +408,29 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested room.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::DeleteRoomRequest.new
+            #
+            #   # Call the delete_room method.
+            #   result = client.delete_room request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_room request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -365,20 +442,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.delete_room.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.delete_room.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.delete_room.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.delete_room request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.delete_room request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -397,8 +478,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload list_rooms(page_size: nil, page_token: nil)
             #   Pass arguments to `list_rooms` via keyword arguments. Note that at
@@ -412,13 +491,33 @@ module Google
             #     The value of google.showcase.v1beta1.ListRoomsResponse.next_page_token
             #     returned from the previous call to
             #     `google.showcase.v1beta1.Messaging\ListRooms` method.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Room>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Room>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ListRoomsRequest.new
+            #
+            #   # Call the list_rooms method.
+            #   result = client.list_rooms request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::Room.
+            #     p item
+            #   end
+            #
             def list_rooms request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -430,22 +529,26 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.list_rooms.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.list_rooms.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.list_rooms.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.list_rooms request, options do |result, response|
+              @messaging_stub.list_rooms request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @messaging_stub, :list_rooms, "rooms", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -466,8 +569,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload create_blurb(parent: nil, blurb: nil)
             #   Pass arguments to `create_blurb` via keyword arguments. Note that at
@@ -479,13 +580,29 @@ module Google
             #     be tied to.
             #   @param blurb [::Google::Showcase::V1beta1::Blurb, ::Hash]
             #     The blurb to create.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::CreateBlurbRequest.new
+            #
+            #   # Call the create_blurb method.
+            #   result = client.create_blurb request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Blurb.
+            #   p result
+            #
             def create_blurb request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -497,20 +614,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.create_blurb.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.create_blurb.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.create_blurb.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.create_blurb request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.create_blurb request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -529,8 +650,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload get_blurb(name: nil)
             #   Pass arguments to `get_blurb` via keyword arguments. Note that at
@@ -539,13 +658,29 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested blurb.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::GetBlurbRequest.new
+            #
+            #   # Call the get_blurb method.
+            #   result = client.get_blurb request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Blurb.
+            #   p result
+            #
             def get_blurb request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -557,20 +692,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.get_blurb.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.get_blurb.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.get_blurb.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.get_blurb request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.get_blurb request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -589,8 +728,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload update_blurb(blurb: nil, update_mask: nil)
             #   Pass arguments to `update_blurb` via keyword arguments. Note that at
@@ -602,13 +739,29 @@ module Google
             #   @param update_mask [::Google::Protobuf::FieldMask, ::Hash]
             #     The field mask to determine wich fields are to be updated. If empty, the
             #     server will assume all fields are to be updated.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::UpdateBlurbRequest.new
+            #
+            #   # Call the update_blurb method.
+            #   result = client.update_blurb request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Blurb.
+            #   p result
+            #
             def update_blurb request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -620,20 +773,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.update_blurb.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.update_blurb.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.update_blurb.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.update_blurb request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.update_blurb request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -652,8 +809,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload delete_blurb(name: nil)
             #   Pass arguments to `delete_blurb` via keyword arguments. Note that at
@@ -662,13 +817,29 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested blurb.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::DeleteBlurbRequest.new
+            #
+            #   # Call the delete_blurb method.
+            #   result = client.delete_blurb request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_blurb request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -680,20 +851,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.delete_blurb.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.delete_blurb.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.delete_blurb.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.delete_blurb request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.delete_blurb request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -713,8 +888,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload list_blurbs(parent: nil, page_size: nil, page_token: nil)
             #   Pass arguments to `list_blurbs` via keyword arguments. Note that at
@@ -731,13 +904,33 @@ module Google
             #     The value of google.showcase.v1beta1.ListBlurbsResponse.next_page_token
             #     returned from the previous call to
             #     `google.showcase.v1beta1.Messaging\ListBlurbs` method.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Blurb>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Blurb>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ListBlurbsRequest.new
+            #
+            #   # Call the list_blurbs method.
+            #   result = client.list_blurbs request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::Blurb.
+            #     p item
+            #   end
+            #
             def list_blurbs request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -749,22 +942,26 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.list_blurbs.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.list_blurbs.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.list_blurbs.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.list_blurbs request, options do |result, response|
+              @messaging_stub.list_blurbs request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @messaging_stub, :list_blurbs, "blurbs", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -785,8 +982,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload search_blurbs(query: nil, parent: nil, page_size: nil, page_token: nil)
             #   Pass arguments to `search_blurbs` via keyword arguments. Note that at
@@ -808,13 +1003,36 @@ module Google
             #     google.showcase.v1beta1.SearchBlurbsResponse.next_page_token
             #     returned from the previous call to
             #     `google.showcase.v1beta1.Messaging\SearchBlurbs` method.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::SearchBlurbsRequest.new
+            #
+            #   # Call the search_blurbs method.
+            #   result = client.search_blurbs request
+            #
+            #   # The returned object is of type Gapic::Operation. You can use it to
+            #   # check the status of an operation, cancel it, or wait for results.
+            #   # Here is how to wait for a response.
+            #   result.wait_until_done! timeout: 60
+            #   if result.response?
+            #     p result.response
+            #   else
+            #     puts "No response received."
+            #   end
+            #
             def search_blurbs request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -826,23 +1044,112 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.search_blurbs.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.search_blurbs.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.search_blurbs.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @messaging_stub.search_blurbs request, options do |result, response|
+              @messaging_stub.search_blurbs request, options do |result, operation|
                 result = ::Gapic::Operation.new result, @operations_client, options: options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
+            rescue ::Faraday::Error => e
+              raise ::Gapic::Rest::Error.wrap_faraday_error e
+            end
+
+            ##
+            # This returns a stream that emits the blurbs that are created for a
+            # particular chat room or user profile.
+            #
+            # @overload stream_blurbs(request, options = nil)
+            #   Pass arguments to `stream_blurbs` via a request object, either of type
+            #   {::Google::Showcase::V1beta1::StreamBlurbsRequest} or an equivalent Hash.
+            #
+            #   @param request [::Google::Showcase::V1beta1::StreamBlurbsRequest, ::Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #   @param options [::Gapic::CallOptions, ::Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @overload stream_blurbs(name: nil, expire_time: nil)
+            #   Pass arguments to `stream_blurbs` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param name [::String]
+            #     The resource name of a chat room or user profile whose blurbs to stream.
+            #   @param expire_time [::Google::Protobuf::Timestamp, ::Hash]
+            #     The time at which this stream will close.
+            # @return [::Enumerable<::Google::Showcase::V1beta1::StreamBlurbsResponse>]
+            #
+            # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::StreamBlurbsRequest.new
+            #
+            #   # Call the stream_blurbs method to start streaming.
+            #   output = client.stream_blurbs request
+            #
+            #   # The returned object is a streamed enumerable yielding elements of type
+            #   # ::Google::Showcase::V1beta1::StreamBlurbsResponse
+            #   output.each do |current_response|
+            #     p current_response
+            #   end
+            #
+            def stream_blurbs request, options = nil
+              raise ::ArgumentError, "request must be provided" if request.nil?
+
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::StreamBlurbsRequest
+
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              call_metadata = @config.rpcs.stream_blurbs.metadata.to_h
+
+              # Set x-goog-api-client and x-goog-user-project headers
+              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION,
+                transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              options.apply_defaults timeout:      @config.rpcs.stream_blurbs.timeout,
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.stream_blurbs.retry_policy
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              ::Gapic::Rest::ServerStream.new(
+                ::Google::Showcase::V1beta1::StreamBlurbsResponse,
+                ::Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
+                  @messaging_stub.stream_blurbs request, options do |chunk|
+                    in_q.deq
+                    out_q.enq chunk
+                  end
+                end
+              )
             rescue ::Faraday::Error => e
               raise ::Gapic::Rest::Error.wrap_faraday_error e
             end
@@ -851,24 +1158,30 @@ module Google
             # Configuration class for the Messaging REST API.
             #
             # This class represents the configuration for Messaging REST,
-            # providing control over credentials, timeouts, retry behavior, logging.
+            # providing control over timeouts, retry behavior, logging, transport
+            # parameters, and other low-level controls. Certain parameters can also be
+            # applied individually to specific RPCs. See
+            # {::Google::Showcase::V1beta1::Messaging::Rest::Client::Configuration::Rpcs}
+            # for a list of RPCs that can be configured independently.
             #
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for all calls to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # create_room to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Showcase::V1beta1::Messaging::Rest::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.create_room.timeout = 20.0
+            #   end
             #
-            #     ::Google::Showcase::V1beta1::Messaging::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Showcase::V1beta1::Messaging::Rest::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.create_room.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
@@ -879,9 +1192,9 @@ module Google
             #    *  (`String`) The path to a service account key file in JSON format
             #    *  (`Hash`) A service account key as a Hash
             #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-            #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+            #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
             #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-            #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+            #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
             #    *  (`nil`) indicating no credentials
             #   @return [::Object]
             # @!attribute [rw] scope
@@ -897,13 +1210,26 @@ module Google
             #   The call timeout in seconds.
             #   @return [::Numeric]
             # @!attribute [rw] metadata
-            #   Additional REST headers to be sent with the call.
+            #   Additional headers to be sent with the call.
             #   @return [::Hash{::Symbol=>::String}]
+            # @!attribute [rw] retry_policy
+            #   The retry policy. The value is a hash with the following keys:
+            #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #       trigger a retry.
+            #   @return [::Hash]
+            # @!attribute [rw] quota_project
+            #   A separate project against which to charge quota.
+            #   @return [::String]
             #
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "localhost:7469", ::String
+              DEFAULT_ENDPOINT = "localhost:7469"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
                            nil]
@@ -914,6 +1240,8 @@ module Google
               config_attr :lib_version,   nil, ::String, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
+              config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
+              config_attr :quota_project, nil, ::String, nil
 
               # @private
               def initialize parent_config = nil
@@ -942,9 +1270,14 @@ module Google
               # the following configuration fields:
               #
               #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-              #
-              # there is one other field (`retry_policy`) that can be set
-              # but is currently not supported for REST Gapic libraries.
+              #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+              #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+              #     include the following keys:
+              #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+              #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+              #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+              #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+              #         trigger a retry.
               #
               class Rpcs
                 ##
@@ -1002,6 +1335,11 @@ module Google
                 # @return [::Gapic::Config::Method]
                 #
                 attr_reader :search_blurbs
+                ##
+                # RPC-specific configuration for `stream_blurbs`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :stream_blurbs
 
                 # @private
                 def initialize parent_rpcs = nil
@@ -1027,6 +1365,8 @@ module Google
                   @list_blurbs = ::Gapic::Config::Method.new list_blurbs_config
                   search_blurbs_config = parent_rpcs.search_blurbs if parent_rpcs.respond_to? :search_blurbs
                   @search_blurbs = ::Gapic::Config::Method.new search_blurbs_config
+                  stream_blurbs_config = parent_rpcs.stream_blurbs if parent_rpcs.respond_to? :stream_blurbs
+                  @stream_blurbs = ::Gapic::Config::Method.new stream_blurbs_config
 
                   yield self if block_given?
                 end

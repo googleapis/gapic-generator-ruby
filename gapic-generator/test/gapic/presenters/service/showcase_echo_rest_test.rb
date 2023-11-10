@@ -30,7 +30,7 @@ class ShowcaseEchoRestServiceTest < PresenterTest
     presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     # showcase does not have REST bindings for the `chat` method
     # `expand` and `collect` are streaming methods and are currently not supported
-    exp_method_names = ["echo", "paged_expand", "wait", "block"]
+    exp_method_names = ["echo", "expand", "paged_expand", "paged_expand_legacy", "paged_expand_legacy_mapped", "wait", "block"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
@@ -67,6 +67,9 @@ class ShowcaseEchoRestServiceTest < PresenterTest
   end
 
   def test_lro_service
-    assert_kind_of Gapic::Presenters::ServicePresenter, presenter.lro_service
+    lro_presenter = presenter.lro_service
+    assert_kind_of Gapic::Presenters::ServicePresenter, lro_presenter
+    assert lro_presenter.is_hosted_mixin?
+    refute lro_presenter.is_main_mixin_service?
   end
 end

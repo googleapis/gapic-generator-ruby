@@ -1,5 +1,108 @@
 # Release History for gapic-generator
 
+### 0.25.1 / 2023-09-12
+
+* Fix: Workaround for grpc windows issue during tests
+
+### 0.25.0 / 2023-09-07
+
+* Feature: Add support for channel pool in gapic generator
+* Fix: Fix snippet generation for REGAPIC clients
+
+### 0.24.0 / 2023-07-05
+
+* Feature: Loosen parsing for extra_dependencies
+
+### 0.23.4 / 2023-06-03
+
+* Fix: Updates to the bundle locks
+* Fix: Generated clients depend on gapic-common 0.19.1
+* Fix: Fixes the enable_self_signed_jwt determination when the endpoint in the global configuration object (as opposed to the constructor configuration block) is modified
+
+### 0.23.3 / 2023-05-26
+
+* Fix: Generated clients depend on gapic-common 0.19
+
+### 0.23.2 / 2023-03-08
+
+* Fix: Remove html tags from description text parsed from service yaml
+* Fix: Fail generation if Rubocop autoformatting fails
+* Fix: Replace googleapis.dev links with equivalent cloud.google.com or rubydoc.info links
+* Fix: Fix special case iam API shortname
+
+### 0.23.1 / 2023-02-28
+
+* Fix: update gapic-common version
+* Fix: Handle empty fields in service yaml
+
+### 0.23.0 / 2023-02-27
+
+* Feature: Honor metadata from the service yaml
+
+### 0.22.0 / 2023-02-14
+
+* Feature: Update mixin dependency versions to 0.4
+
+### 0.21.1 / 2023-02-13
+
+* Fix: Get rubocop working in bazel
+
+### 0.21.0 / 2023-02-09
+
+* Feature: Load and interpret snippetgen phase 2 config data
+* Feature: Added SnippetGen phase2 implementation
+* Feature: Reimplemented snippetgen phase 1 using phase 2
+* Feature: Implemented enough of SnippetGen phase 2 to generate the initial test case
+* Feature: add a transport operation class in Rest
+* Fix: yield TransportOperation class instead of Faraday's
+
+### 0.20.0 / 2023-01-19
+
+* Feature: migrate generator bazel (including prebuilts) to 3.1.3
+
+### 0.19.0 / 2023-01-17
+
+* Fix: fail on rest transport and no bindings
+* Feature: Bump mixin minimum version to 0.3
+
+### 0.18.1 / 2022-12-15
+
+* Fix: Don't generate bindings_override.rb unless REST transport is active
+
+### 0.18.0 / 2022-12-15
+
+* Feature: add quota project and misc to REGAPIC templates
+* Feature: use retry policy in regapic templates
+* Fix: avoid creating rest default configuration for non-rest methods
+* Fix: transcoding in regapic tests
+* Fix: Cross-ref links use the REST client class in REST client docs
+* Feature: implements template changes for REST server-streaming.
+* Feature: all fixes for the combined rest+grpc libraries
+* Feature: generate bindings override for REST mixins
+* Fix: handle only regapic errors for REST libraries
+* Feature: Recognize transport argument for bazel jobs
+* Feature: Updated wrapper generator to support multi-transport clients
+
+### 0.17.2 / 2022-10-27
+
+* Fix: Update snippetgen phase 1 to conform to standard sample style
+
+### 0.17.1 / 2022-10-26
+
+* Fix: Fixed typo in rest_numeric_enums bazel field handling
+
+### 0.17.0 / 2022-10-21
+
+* Feature: Recognize rest_numeric_enums argument for bazel jobs
+
+### 0.16.1 / 2022-09-27
+
+No significant changes
+
+### 0.16.0 / 2022-09-16
+
+* Feature: Support numeric enums
+
 ### 0.15.3 / 2022-08-18
 
 * Fix: Fix out of date SDK auth documentation

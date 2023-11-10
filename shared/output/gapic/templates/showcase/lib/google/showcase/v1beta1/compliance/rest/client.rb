@@ -115,10 +115,18 @@ module Google
 
               # Create credentials
               credentials = @config.credentials
-              credentials ||= Credentials.default scope: @config.scope
+              # Use self-signed JWT if the endpoint is unchanged from default,
+              # but only if the default endpoint does not have a region prefix.
+              enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
+                                       !@config.endpoint.split(".").first.include?("-")
+              credentials ||= Credentials.default scope: @config.scope,
+                                                  enable_self_signed_jwt: enable_self_signed_jwt
               if credentials.is_a?(::String) || credentials.is_a?(::Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
               end
+
+              @quota_project_id = @config.quota_project
+              @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
               @compliance_stub = ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                                 credentials: credentials
@@ -139,8 +147,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_body(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_body` via keyword arguments. Note that at
@@ -162,13 +168,29 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_body method.
+            #   result = client.repeat_data_body request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_body request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -180,20 +202,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.repeat_data_body.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.repeat_data_body.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_body.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_body request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_body request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -214,8 +240,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_body_info(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_body_info` via keyword arguments. Note that at
@@ -237,13 +261,29 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_body_info method.
+            #   result = client.repeat_data_body_info request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_body_info request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -255,20 +295,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.repeat_data_body_info.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.repeat_data_body_info.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_body_info.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_body_info request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_body_info request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -288,8 +332,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_query(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_query` via keyword arguments. Note that at
@@ -311,13 +353,29 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_query method.
+            #   result = client.repeat_data_query request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_query request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -329,20 +387,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.repeat_data_query.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.repeat_data_query.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_query.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_query request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_query request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -363,8 +425,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_simple_path(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_simple_path` via keyword arguments. Note that at
@@ -386,13 +446,29 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_simple_path method.
+            #   result = client.repeat_data_simple_path request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_simple_path request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -404,20 +480,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.repeat_data_simple_path.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.repeat_data_simple_path.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_simple_path.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_simple_path request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_simple_path request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -436,8 +516,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_path_resource(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_path_resource` via keyword arguments. Note that at
@@ -459,13 +537,29 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_path_resource method.
+            #   result = client.repeat_data_path_resource request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_path_resource request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -477,20 +571,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.repeat_data_path_resource.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.repeat_data_path_resource.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_path_resource.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_path_resource request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_path_resource request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -509,8 +607,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_path_trailing_resource(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_path_trailing_resource` via keyword arguments. Note that at
@@ -532,13 +628,29 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_path_trailing_resource method.
+            #   result = client.repeat_data_path_trailing_resource request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_path_trailing_resource request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -550,20 +662,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.repeat_data_path_trailing_resource.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.repeat_data_path_trailing_resource.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_path_trailing_resource.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_path_trailing_resource request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_path_trailing_resource request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -582,8 +698,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_body_put(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_body_put` via keyword arguments. Note that at
@@ -605,13 +719,29 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_body_put method.
+            #   result = client.repeat_data_body_put request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_body_put request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -623,20 +753,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.repeat_data_body_put.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.repeat_data_body_put.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_body_put.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_body_put request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_body_put request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -655,8 +789,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_body_patch(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_body_patch` via keyword arguments. Note that at
@@ -678,13 +810,29 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Compliance::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::RepeatRequest.new
+            #
+            #   # Call the repeat_data_body_patch method.
+            #   result = client.repeat_data_body_patch request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+            #   p result
+            #
             def repeat_data_body_patch request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -696,20 +844,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.repeat_data_body_patch.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.repeat_data_body_patch.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_body_patch.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_body_patch request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_body_patch request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -720,24 +872,30 @@ module Google
             # Configuration class for the Compliance REST API.
             #
             # This class represents the configuration for Compliance REST,
-            # providing control over credentials, timeouts, retry behavior, logging.
+            # providing control over timeouts, retry behavior, logging, transport
+            # parameters, and other low-level controls. Certain parameters can also be
+            # applied individually to specific RPCs. See
+            # {::Google::Showcase::V1beta1::Compliance::Rest::Client::Configuration::Rpcs}
+            # for a list of RPCs that can be configured independently.
             #
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for all calls to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # repeat_data_body to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Showcase::V1beta1::Compliance::Rest::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.repeat_data_body.timeout = 20.0
+            #   end
             #
-            #     ::Google::Showcase::V1beta1::Compliance::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Showcase::V1beta1::Compliance::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.repeat_data_body.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
@@ -748,9 +906,9 @@ module Google
             #    *  (`String`) The path to a service account key file in JSON format
             #    *  (`Hash`) A service account key as a Hash
             #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-            #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+            #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
             #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-            #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+            #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
             #    *  (`nil`) indicating no credentials
             #   @return [::Object]
             # @!attribute [rw] scope
@@ -766,13 +924,26 @@ module Google
             #   The call timeout in seconds.
             #   @return [::Numeric]
             # @!attribute [rw] metadata
-            #   Additional REST headers to be sent with the call.
+            #   Additional headers to be sent with the call.
             #   @return [::Hash{::Symbol=>::String}]
+            # @!attribute [rw] retry_policy
+            #   The retry policy. The value is a hash with the following keys:
+            #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #       trigger a retry.
+            #   @return [::Hash]
+            # @!attribute [rw] quota_project
+            #   A separate project against which to charge quota.
+            #   @return [::String]
             #
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "localhost:7469", ::String
+              DEFAULT_ENDPOINT = "localhost:7469"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
                            nil]
@@ -783,6 +954,8 @@ module Google
               config_attr :lib_version,   nil, ::String, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
+              config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
+              config_attr :quota_project, nil, ::String, nil
 
               # @private
               def initialize parent_config = nil
@@ -811,9 +984,14 @@ module Google
               # the following configuration fields:
               #
               #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-              #
-              # there is one other field (`retry_policy`) that can be set
-              # but is currently not supported for REST Gapic libraries.
+              #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+              #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+              #     include the following keys:
+              #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+              #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+              #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+              #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+              #         trigger a retry.
               #
               class Rpcs
                 ##

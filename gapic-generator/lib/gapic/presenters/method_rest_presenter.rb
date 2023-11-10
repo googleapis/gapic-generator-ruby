@@ -55,6 +55,12 @@ module Gapic
         @main_method.name
       end
 
+      # Fully qualified proto name of the method (namespace.PascalCase)
+      # @return [String]
+      def grpc_full_name
+        @main_method.grpc.full_name
+      end
+
       ##
       # Full class name of the request type
       #
@@ -109,6 +115,16 @@ module Gapic
       end
 
       ##
+      # The presenter for the nonstandard LRO client of the kind this method uses
+      #
+      # @return [Gapic::Presenters::Service::LroClientPresenter, nil]
+      #
+      def nonstandard_lro_client
+        return unless nonstandard_lro?
+        @main_method.service.rest.nonstandard_lros.find { |model| model.service == @main_method.lro.service_full_name }
+      end
+
+      ##
       # Whether this method can be generated in REST clients
       # Only methods with http bindings can be generated, and
       # additionally only unary methods are currently supported.
@@ -116,9 +132,18 @@ module Gapic
       # @return [Boolean]
       #
       def can_generate_rest?
-        (@main_method.kind == :normal) &&
+        [:normal, :server].include?(@main_method.kind) &&
           http_bindings.first&.verb? &&
           http_bindings.first&.path?
+      end
+
+      ##
+      # Whether this method is a server-streaming method
+      #
+      # @return [Boolean]
+      #
+      def server_streaming?
+        @main_method.server_streaming?
       end
     end
   end

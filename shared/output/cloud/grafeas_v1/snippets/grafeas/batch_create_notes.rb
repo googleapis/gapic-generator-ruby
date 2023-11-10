@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +19,24 @@
 # [START grafeas_v1_generated_Grafeas_BatchCreateNotes_sync]
 require "grafeas/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Grafeas::V1::Grafeas::Client.new
+##
+# Snippet for the batch_create_notes call in the Grafeas service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Grafeas::V1::Grafeas::Client#batch_create_notes. It may require modification
+# in order to execute successfully.
+#
+def batch_create_notes
+  # Create a client object. The client can be reused for multiple calls.
+  client = Grafeas::V1::Grafeas::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Grafeas::V1::BatchCreateNotesRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Grafeas::V1::BatchCreateNotesRequest.new
 
-# Call the batch_create_notes method.
-result = client.batch_create_notes request
+  # Call the batch_create_notes method.
+  result = client.batch_create_notes request
 
-# The returned object is of type Grafeas::V1::BatchCreateNotesResponse.
-p result
+  # The returned object is of type Grafeas::V1::BatchCreateNotesResponse.
+  p result
+end
 # [END grafeas_v1_generated_Grafeas_BatchCreateNotes_sync]

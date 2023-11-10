@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,21 +19,28 @@
 # [START vision_v1_generated_ProductSearch_ListProductsInProductSet_sync]
 require "google/cloud/vision/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+##
+# Snippet for the list_products_in_product_set call in the ProductSearch service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Vision::V1::ProductSearch::Client#list_products_in_product_set.
+# It may require modification in order to execute successfully.
+#
+def list_products_in_product_set
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new
 
-# Call the list_products_in_product_set method.
-result = client.list_products_in_product_set request
+  # Call the list_products_in_product_set method.
+  result = client.list_products_in_product_set request
 
-# The returned object is of type Gapic::PagedEnumerable. You can
-# iterate over all elements by calling #each, and the enumerable
-# will lazily make API calls to fetch subsequent pages. Other
-# methods are also available for managing paging directly.
-result.each do |response|
-  # Each element is of type ::Google::Cloud::Vision::V1::Product.
-  p response
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # over elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
+    # Each element is of type ::Google::Cloud::Vision::V1::Product.
+    p item
+  end
 end
 # [END vision_v1_generated_ProductSearch_ListProductsInProductSet_sync]

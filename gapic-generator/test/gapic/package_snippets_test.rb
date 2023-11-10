@@ -19,9 +19,10 @@ require "gapic/package_snippets"
 require "google/protobuf/compiler/plugin.pb"
 
 describe Gapic::PackageSnippets do
-  FakeServicePresenter = Struct.new :client_name, :client_name_full, :grpc_full_name, :module_name, :name
+  FakeServicePresenter = Struct.new :client_name, :client_name_full, :grpc_full_name, :module_name, :name,
+                                    :client_suffix_for_default_transport
   FakeMethodPresenter = Struct.new :grpc_full_name, :grpc_name, :name, :request_type, :return_type, :service
-  FakeSnippetPresenter = Struct.new :region_tag, :service, :snippet_file_path
+  FakeSnippetPresenter = Struct.new :description, :region_tag, :service, :snippet_file_path, :snippet_name, :transport
 
   let(:proto_package) { "google.snippetstest.v1" }
   let(:gem_name) { "google-snippets_test-v1" }
@@ -41,13 +42,20 @@ describe Gapic::PackageSnippets do
   let(:region_tag2) { "snippettest_v1_generated_SnippetService_SetFoo_sync" }
   let(:snippet_file_path1) { "snippet_service/get_foo.rb" }
   let(:snippet_file_path2) { "snippet_service/set_foo.rb" }
+  let(:description1) { "get_foo description" }
+  let(:description2) { "set_foo description" }
+  let(:snippet_name1) { "get_foo name" }
+  let(:snippet_name2) { "set_foo name" }
   let(:snippet_file_fullpath1) { "snippets/#{snippet_file_path1}" }
   let(:snippet_file_fullpath2) { "snippets/#{snippet_file_path2}" }
+  let(:snippet_transport) { :grpc }
   let(:service_client_name) { "Client" }
   let(:service_module_name) { service_protoname }
   let(:service_client_name_full) { "Google::SnippetsTest::#{service_module_name}::#{service_client_name}" }
+  let(:service_client_suffix) { "#{service_module_name}::#{service_client_name}" }
   let(:service_presenter) do
-    FakeServicePresenter.new service_client_name, service_client_name_full, service_protoname_full, service_module_name, service_protoname
+    FakeServicePresenter.new service_client_name, service_client_name_full, service_protoname_full, service_module_name,
+                             service_protoname, service_client_suffix
   end
   let(:method_presenter1) do
     FakeMethodPresenter.new method_protoname_full1, method_protoname1, method_name1, request_type1, return_type, service_presenter
@@ -56,10 +64,10 @@ describe Gapic::PackageSnippets do
     FakeMethodPresenter.new method_protoname_full2, method_protoname2, method_name2, request_type2, return_type, service_presenter
   end
   let(:snippet_presenter1) do
-    FakeSnippetPresenter.new region_tag1, service_presenter, snippet_file_path1
+    FakeSnippetPresenter.new description1, region_tag1, service_presenter, snippet_file_path1, snippet_name1, snippet_transport
   end
   let(:snippet_presenter2) do
-    FakeSnippetPresenter.new region_tag2, service_presenter, snippet_file_path2
+    FakeSnippetPresenter.new description2, region_tag2, service_presenter, snippet_file_path2, snippet_name2, snippet_transport
   end
   let(:snippet_content1) do
     <<~CONTENT
@@ -127,8 +135,8 @@ describe Gapic::PackageSnippets do
       "snippets" => [
         {
           "region_tag" => region_tag1,
-          "title" => "Snippet for #{method_name1} in #{service_module_name}",
-          "description" => "Basic snippet for #{method_name1} in #{service_module_name}",
+          "title" => snippet_name1,
+          "description" => description1,
           "file" => snippet_file_path1,
           "language" => "RUBY",
           "client_method" => {
@@ -143,7 +151,7 @@ describe Gapic::PackageSnippets do
             ],
             "result_type" => return_type,
             "client" => {
-              "short_name" => "#{service_module_name}::#{service_client_name}",
+              "short_name" => service_client_suffix,
               "full_name" => service_client_name_full
             },
             "method" => {
@@ -167,8 +175,8 @@ describe Gapic::PackageSnippets do
         },
         {
           "region_tag" => region_tag2,
-          "title" => "Snippet for #{method_name2} in #{service_module_name}",
-          "description" => "Basic snippet for #{method_name2} in #{service_module_name}",
+          "title" => snippet_name2,
+          "description" => description2,
           "file" => snippet_file_path2,
           "language" => "RUBY",
           "client_method" => {
@@ -183,7 +191,7 @@ describe Gapic::PackageSnippets do
             ],
             "result_type" => return_type,
             "client" => {
-              "short_name" => "#{service_module_name}::#{service_client_name}",
+              "short_name" => service_client_suffix,
               "full_name" => service_client_name_full
             },
             "method" => {

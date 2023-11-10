@@ -27,15 +27,24 @@
 # [START garbage_v0_generated_IAMPolicy_TestIamPermissions_sync]
 require "google/iam/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::IAMPolicy::Client.new
+##
+# Snippet for the test_iam_permissions call in the IAMPolicy service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::IAMPolicy::Client#test_iam_permissions. It may require
+# modification in order to execute successfully.
+#
+def test_iam_permissions
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::IAMPolicy::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Iam::V1::TestIamPermissionsRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Iam::V1::TestIamPermissionsRequest.new
 
-# Call the test_iam_permissions method.
-result = client.test_iam_permissions request
+  # Call the test_iam_permissions method.
+  result = client.test_iam_permissions request
 
-# The returned object is of type Google::Iam::V1::TestIamPermissionsResponse.
-p result
+  # The returned object is of type Google::Iam::V1::TestIamPermissionsResponse.
+  p result
+end
 # [END garbage_v0_generated_IAMPolicy_TestIamPermissions_sync]

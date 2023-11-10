@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,9 +31,9 @@ module Google
         ##
         # The GlobalOperations API.
         #
-        # To load this service and instantiate a REST client:
+        # @example Load this service and instantiate a REST client
         #
-        #     require "google/cloud/compute/v1/global_operations"
+        #     require "google/cloud/compute/v1/global_operations/rest"
         #     client = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client.new
         #
         module GlobalOperations

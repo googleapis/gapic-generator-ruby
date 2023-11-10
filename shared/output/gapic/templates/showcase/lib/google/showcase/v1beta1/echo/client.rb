@@ -37,7 +37,9 @@ module Google
         # side streaming, client side streaming, and bidirectional streaming. This
         # service also exposes methods that explicitly implement server delay, and
         # paginated calls. Set the 'showcase-trailer' metadata key on any method
-        # to have the values echoed in the response trailers.
+        # to have the values echoed in the response trailers. Set the
+        # 'x-goog-request-params' metadata key on any method to have the values
+        # echoed in the response headers.
         #
         class Client
           # @private
@@ -124,7 +126,7 @@ module Google
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -145,7 +147,8 @@ module Google
               credentials:  credentials,
               endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
-              interceptors: @config.interceptors
+              interceptors: @config.interceptors,
+              channel_pool_config: @config.channel_pool
             )
           end
 
@@ -159,7 +162,7 @@ module Google
           # Service calls
 
           ##
-          # This method simply echos the request. This method is showcases unary rpcs.
+          # This method simply echoes the request. This method showcases unary RPCs.
           #
           # @overload echo(request, options = nil)
           #   Pass arguments to `echo` via a request object, either of type
@@ -171,7 +174,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload echo(content: nil, error: nil)
+          # @overload echo(content: nil, error: nil, severity: nil, header: nil, other_header: nil)
           #   Pass arguments to `echo` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -180,6 +183,12 @@ module Google
           #     The content to be echoed by the server.
           #   @param error [::Google::Rpc::Status, ::Hash]
           #     The error to be thrown by the server.
+          #   @param severity [::Google::Showcase::V1beta1::Severity]
+          #     The severity to be echoed by the server.
+          #   @param header [::String]
+          #     Optional. This field can be set to test the routing annotation on the Echo method.
+          #   @param other_header [::String]
+          #     Optional. This field can be set to test the routing annotation on the Echo method.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::Google::Showcase::V1beta1::EchoResponse]
@@ -221,6 +230,46 @@ module Google
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
+            header_params = {}
+            if request.header && !request.header.empty?
+              header_params["header"] = request.header
+            end
+            if request.header && !request.header.empty?
+              header_params["routing_id"] = request.header
+            end
+            if request.header &&
+               %r{^regions/[^/]+/zones/[^/]+(?:/.*)?$}.match?(request.header)
+              header_params["table_name"] = request.header
+            end
+            if request.header &&
+               %r{^projects/[^/]+/instances/[^/]+(?:/.*)?$}.match?(request.header)
+              header_params["table_name"] = request.header
+            end
+            if request.header
+              regex_match = %r{^(?<super_id>projects/[^/]+)(?:/.*)?$}.match request.header
+              if regex_match
+                header_params["super_id"] = regex_match["super_id".to_s]
+              end
+            end
+            if request.header
+              regex_match = %r{^projects/[^/]+/(?<instance_id>instances/[^/]+)(?:/.*)?$}.match request.header
+              if regex_match
+                header_params["instance_id"] = regex_match["instance_id".to_s]
+              end
+            end
+            if request.other_header && !request.other_header.empty?
+              header_params["baz"] = request.other_header
+            end
+            if request.other_header
+              regex_match = %r{^(?<qux>projects/[^/]+)(?:/.*)?$}.match request.other_header
+              if regex_match
+                header_params["qux"] = regex_match["qux".to_s]
+              end
+            end
+
+            request_params_header = URI.encode_www_form header_params
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
             options.apply_defaults timeout:      @config.rpcs.echo.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.echo.retry_policy
@@ -236,8 +285,8 @@ module Google
           end
 
           ##
-          # This method split the given content into words and will pass each word back
-          # through the stream. This method showcases server-side streaming rpcs.
+          # This method splits the given content into words and will pass each word back
+          # through the stream. This method showcases server-side streaming RPCs.
           #
           # @overload expand(request, options = nil)
           #   Pass arguments to `expand` via a request object, either of type
@@ -276,13 +325,13 @@ module Google
           #   # Create a request. To set request fields, pass in keyword arguments.
           #   request = Google::Showcase::V1beta1::ExpandRequest.new
           #
-          #   # Call the expand method.
-          #   result = client.expand request
+          #   # Call the expand method to start streaming.
+          #   output = client.expand request
           #
-          #   # The returned object is a streamed enumerable yielding elements of
-          #   # type ::Google::Showcase::V1beta1::EchoResponse.
-          #   result.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::Google::Showcase::V1beta1::EchoResponse
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def expand request, options = nil
@@ -319,7 +368,7 @@ module Google
           ##
           # This method will collect the words given to it. When the stream is closed
           # by the client, this method will return the a concatenation of the strings
-          # passed to it. This method showcases client-side streaming rpcs.
+          # passed to it. This method showcases client-side streaming RPCs.
           #
           # @param request [::Gapic::StreamInput, ::Enumerable<::Google::Showcase::V1beta1::EchoRequest, ::Hash>]
           #   An enumerable of {::Google::Showcase::V1beta1::EchoRequest} instances.
@@ -340,15 +389,17 @@ module Google
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = Google::Showcase::V1beta1::Echo::Client.new
           #
-          #   # Create a stream of requests, as an Enumerator.
-          #   # For each request, pass in keyword arguments to set fields.
-          #   request = [
-          #     Google::Showcase::V1beta1::EchoRequest.new,
-          #     Google::Showcase::V1beta1::EchoRequest.new
-          #   ].to_enum
+          #   # Create an input stream.
+          #   input = Gapic::StreamInput.new
           #
-          #   # Call the collect method.
-          #   result = client.collect request
+          #   # Call the collect method to start streaming.
+          #   result = client.collect input
+          #
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
+          #   input << Google::Showcase::V1beta1::EchoRequest.new
+          #   input << Google::Showcase::V1beta1::EchoRequest.new
+          #   input.close
           #
           #   # The returned object is of type Google::Showcase::V1beta1::EchoResponse.
           #   p result
@@ -390,9 +441,9 @@ module Google
           end
 
           ##
-          # This method, upon receiving a request on the stream, the same content will
-          # be passed  back on the stream. This method showcases bidirectional
-          # streaming rpcs.
+          # This method, upon receiving a request on the stream, will pass the same
+          # content back on the stream. This method showcases bidirectional
+          # streaming RPCs.
           #
           # @param request [::Gapic::StreamInput, ::Enumerable<::Google::Showcase::V1beta1::EchoRequest, ::Hash>]
           #   An enumerable of {::Google::Showcase::V1beta1::EchoRequest} instances.
@@ -413,22 +464,22 @@ module Google
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = Google::Showcase::V1beta1::Echo::Client.new
           #
-          #   # Create an input stream
+          #   # Create an input stream.
           #   input = Gapic::StreamInput.new
           #
           #   # Call the chat method to start streaming.
           #   output = client.chat input
           #
-          #   # Send requests on the stream. For each request, pass in keyword
-          #   # arguments to set fields. Be sure to close the stream when done.
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
           #   input << Google::Showcase::V1beta1::EchoRequest.new
           #   input << Google::Showcase::V1beta1::EchoRequest.new
           #   input.close
           #
-          #   # Handle streamed responses. These may be interleaved with inputs.
-          #   # Each response is of type ::Google::Showcase::V1beta1::EchoResponse.
-          #   output.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::Google::Showcase::V1beta1::EchoResponse
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def chat request, options = nil
@@ -489,7 +540,7 @@ module Google
           #   @param content [::String]
           #     The string to expand.
           #   @param page_size [::Integer]
-          #     The amount of words to returned in each page.
+          #     The number of words to returned in each page.
           #   @param page_token [::String]
           #     The position of the page to be returned.
           #
@@ -513,13 +564,11 @@ module Google
           #   # Call the paged_expand method.
           #   result = client.paged_expand request
           #
-          #   # The returned object is of type Gapic::PagedEnumerable. You can
-          #   # iterate over all elements by calling #each, and the enumerable
-          #   # will lazily make API calls to fetch subsequent pages. Other
-          #   # methods are also available for managing paging directly.
-          #   result.each do |response|
+          #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+          #   # over elements, and API calls will be issued to fetch pages as needed.
+          #   result.each do |item|
           #     # Each element is of type ::Google::Showcase::V1beta1::EchoResponse.
-          #     p response
+          #     p item
           #   end
           #
           def paged_expand request, options = nil
@@ -555,8 +604,180 @@ module Google
           end
 
           ##
-          # This method will wait the requested amount of and then return.
-          # This method showcases how a client handles a request timing out.
+          # This is similar to the PagedExpand except that it uses
+          # max_results instead of page_size, as some legacy APIs still
+          # do. New APIs should NOT use this pattern.
+          #
+          # @overload paged_expand_legacy(request, options = nil)
+          #   Pass arguments to `paged_expand_legacy` via a request object, either of type
+          #   {::Google::Showcase::V1beta1::PagedExpandLegacyRequest} or an equivalent Hash.
+          #
+          #   @param request [::Google::Showcase::V1beta1::PagedExpandLegacyRequest, ::Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
+          #   @param options [::Gapic::CallOptions, ::Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          # @overload paged_expand_legacy(content: nil, max_results: nil, page_token: nil)
+          #   Pass arguments to `paged_expand_legacy` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param content [::String]
+          #     The string to expand.
+          #   @param max_results [::Integer]
+          #     The number of words to returned in each page.
+          #     (-- aip.dev/not-precedent: This is a legacy, non-standard pattern that
+          #         violates aip.dev/158. Ordinarily, this should be page_size. --)
+          #   @param page_token [::String]
+          #     The position of the page to be returned.
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [::Google::Showcase::V1beta1::PagedExpandResponse]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
+          #
+          # @return [::Google::Showcase::V1beta1::PagedExpandResponse]
+          #
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::PagedExpandLegacyRequest.new
+          #
+          #   # Call the paged_expand_legacy method.
+          #   result = client.paged_expand_legacy request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::PagedExpandResponse.
+          #   p result
+          #
+          def paged_expand_legacy request, options = nil
+            raise ::ArgumentError, "request must be provided" if request.nil?
+
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::PagedExpandLegacyRequest
+
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.paged_expand_legacy.metadata.to_h
+
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Google::Showcase::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            options.apply_defaults timeout:      @config.rpcs.paged_expand_legacy.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.paged_expand_legacy.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @echo_stub.call_rpc :paged_expand_legacy, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          end
+
+          ##
+          # This method returns a map containing lists of words that appear in the input, keyed by their
+          # initial character. The only words returned are the ones included in the current page,
+          # as determined by page_token and page_size, which both refer to the word indices in the
+          # input. This paging result consisting of a map of lists is a pattern used by some legacy
+          # APIs. New APIs should NOT use this pattern.
+          #
+          # @overload paged_expand_legacy_mapped(request, options = nil)
+          #   Pass arguments to `paged_expand_legacy_mapped` via a request object, either of type
+          #   {::Google::Showcase::V1beta1::PagedExpandRequest} or an equivalent Hash.
+          #
+          #   @param request [::Google::Showcase::V1beta1::PagedExpandRequest, ::Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
+          #   @param options [::Gapic::CallOptions, ::Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          # @overload paged_expand_legacy_mapped(content: nil, page_size: nil, page_token: nil)
+          #   Pass arguments to `paged_expand_legacy_mapped` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param content [::String]
+          #     The string to expand.
+          #   @param page_size [::Integer]
+          #     The number of words to returned in each page.
+          #   @param page_token [::String]
+          #     The position of the page to be returned.
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [::Gapic::PagedEnumerable<::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse::AlphabetizedEntry>]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
+          #
+          # @return [::Gapic::PagedEnumerable<::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse::AlphabetizedEntry>]
+          #
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::PagedExpandRequest.new
+          #
+          #   # Call the paged_expand_legacy_mapped method.
+          #   result = client.paged_expand_legacy_mapped request
+          #
+          #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+          #   # over elements, and API calls will be issued to fetch pages as needed.
+          #   result.each do |item|
+          #     # Each element is of type ::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse::AlphabetizedEntry.
+          #     p item
+          #   end
+          #
+          def paged_expand_legacy_mapped request, options = nil
+            raise ::ArgumentError, "request must be provided" if request.nil?
+
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::PagedExpandRequest
+
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.paged_expand_legacy_mapped.metadata.to_h
+
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Google::Showcase::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            options.apply_defaults timeout:      @config.rpcs.paged_expand_legacy_mapped.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.paged_expand_legacy_mapped.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @echo_stub.call_rpc :paged_expand_legacy_mapped, request, options: options do |response, operation|
+              response = ::Gapic::PagedEnumerable.new @echo_stub, :paged_expand_legacy_mapped, request, response,
+                                                      operation, options
+              yield response, operation if block_given?
+              return response
+            end
+          end
+
+          ##
+          # This method will wait for the requested amount of time and then return.
+          # This method showcases how a client handles a request timeout.
           #
           # @overload wait(request, options = nil)
           #   Pass arguments to `wait` via a request object, either of type
@@ -603,14 +824,14 @@ module Google
           #   # Call the wait method.
           #   result = client.wait request
           #
-          #   # The returned object is of type Gapic::Operation. You can use this
-          #   # object to check the status of an operation, cancel it, or wait
-          #   # for results. Here is how to block until completion:
+          #   # The returned object is of type Gapic::Operation. You can use it to
+          #   # check the status of an operation, cancel it, or wait for results.
+          #   # Here is how to wait for a response.
           #   result.wait_until_done! timeout: 60
           #   if result.response?
           #     p result.response
           #   else
-          #     puts "Error!"
+          #     puts "No response received."
           #   end
           #
           def wait request, options = nil
@@ -765,9 +986,9 @@ module Google
           #    *  (`String`) The path to a service account key file in JSON format
           #    *  (`Hash`) A service account key as a Hash
           #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-          #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+          #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
           #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-          #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+          #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
           #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
           #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
           #    *  (`nil`) indicating no credentials
@@ -809,7 +1030,9 @@ module Google
           class Configuration
             extend ::Gapic::Config
 
-            config_attr :endpoint,      "localhost:7469", ::String
+            DEFAULT_ENDPOINT = "localhost:7469"
+
+            config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
             config_attr :credentials,   nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
@@ -842,6 +1065,14 @@ module Google
                 parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
+            end
+
+            ##
+            # Configuration for the channel pool
+            # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
+            #
+            def channel_pool
+              @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
             end
 
             ##
@@ -888,6 +1119,16 @@ module Google
               #
               attr_reader :paged_expand
               ##
+              # RPC-specific configuration for `paged_expand_legacy`
+              # @return [::Gapic::Config::Method]
+              #
+              attr_reader :paged_expand_legacy
+              ##
+              # RPC-specific configuration for `paged_expand_legacy_mapped`
+              # @return [::Gapic::Config::Method]
+              #
+              attr_reader :paged_expand_legacy_mapped
+              ##
               # RPC-specific configuration for `wait`
               # @return [::Gapic::Config::Method]
               #
@@ -910,6 +1151,10 @@ module Google
                 @chat = ::Gapic::Config::Method.new chat_config
                 paged_expand_config = parent_rpcs.paged_expand if parent_rpcs.respond_to? :paged_expand
                 @paged_expand = ::Gapic::Config::Method.new paged_expand_config
+                paged_expand_legacy_config = parent_rpcs.paged_expand_legacy if parent_rpcs.respond_to? :paged_expand_legacy
+                @paged_expand_legacy = ::Gapic::Config::Method.new paged_expand_legacy_config
+                paged_expand_legacy_mapped_config = parent_rpcs.paged_expand_legacy_mapped if parent_rpcs.respond_to? :paged_expand_legacy_mapped
+                @paged_expand_legacy_mapped = ::Gapic::Config::Method.new paged_expand_legacy_mapped_config
                 wait_config = parent_rpcs.wait if parent_rpcs.respond_to? :wait
                 @wait = ::Gapic::Config::Method.new wait_config
                 block_config = parent_rpcs.block if parent_rpcs.respond_to? :block

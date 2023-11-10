@@ -122,7 +122,7 @@ module So
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -143,7 +143,8 @@ module So
               credentials:  credentials,
               endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
-              interceptors: @config.interceptors
+              interceptors: @config.interceptors,
+              channel_pool_config: @config.channel_pool
             )
           end
 
@@ -1114,13 +1115,11 @@ module So
           #   # Call the get_paged_garbage method.
           #   result = client.get_paged_garbage request
           #
-          #   # The returned object is of type Gapic::PagedEnumerable. You can
-          #   # iterate over all elements by calling #each, and the enumerable
-          #   # will lazily make API calls to fetch subsequent pages. Other
-          #   # methods are also available for managing paging directly.
-          #   result.each do |response|
+          #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+          #   # over elements, and API calls will be issued to fetch pages as needed.
+          #   result.each do |item|
           #     # Each element is of type ::So::Much::Trash::GarbageItem.
-          #     p response
+          #     p item
           #   end
           #
           # @example Getting garbage
@@ -1215,14 +1214,14 @@ module So
           #   # Call the long_running_garbage method.
           #   result = client.long_running_garbage request
           #
-          #   # The returned object is of type Gapic::Operation. You can use this
-          #   # object to check the status of an operation, cancel it, or wait
-          #   # for results. Here is how to block until completion:
+          #   # The returned object is of type Gapic::Operation. You can use it to
+          #   # check the status of an operation, cancel it, or wait for results.
+          #   # Here is how to wait for a response.
           #   result.wait_until_done! timeout: 60
           #   if result.response?
           #     p result.response
           #   else
-          #     puts "Error!"
+          #     puts "No response received."
           #   end
           #
           def long_running_garbage request, options = nil
@@ -1279,15 +1278,17 @@ module So
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = So::Much::Trash::GarbageService::Client.new
           #
-          #   # Create a stream of requests, as an Enumerator.
-          #   # For each request, pass in keyword arguments to set fields.
-          #   request = [
-          #     So::Much::Trash::ListGarbageRequest.new,
-          #     So::Much::Trash::ListGarbageRequest.new
-          #   ].to_enum
+          #   # Create an input stream.
+          #   input = Gapic::StreamInput.new
           #
-          #   # Call the client_garbage method.
-          #   result = client.client_garbage request
+          #   # Call the client_garbage method to start streaming.
+          #   result = client.client_garbage input
+          #
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
+          #   input << So::Much::Trash::ListGarbageRequest.new
+          #   input << So::Much::Trash::ListGarbageRequest.new
+          #   input.close
           #
           #   # The returned object is of type So::Much::Trash::ListGarbageResponse.
           #   p result
@@ -1366,13 +1367,13 @@ module So
           #   # Create a request. To set request fields, pass in keyword arguments.
           #   request = So::Much::Trash::ListGarbageRequest.new
           #
-          #   # Call the server_garbage method.
-          #   result = client.server_garbage request
+          #   # Call the server_garbage method to start streaming.
+          #   output = client.server_garbage request
           #
-          #   # The returned object is a streamed enumerable yielding elements of
-          #   # type ::So::Much::Trash::GarbageItem.
-          #   result.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::So::Much::Trash::GarbageItem
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           # @example Getting garbage
@@ -1445,22 +1446,22 @@ module So
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = So::Much::Trash::GarbageService::Client.new
           #
-          #   # Create an input stream
+          #   # Create an input stream.
           #   input = Gapic::StreamInput.new
           #
           #   # Call the bidi_garbage method to start streaming.
           #   output = client.bidi_garbage input
           #
-          #   # Send requests on the stream. For each request, pass in keyword
-          #   # arguments to set fields. Be sure to close the stream when done.
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
           #   input << So::Much::Trash::ListGarbageRequest.new
           #   input << So::Much::Trash::ListGarbageRequest.new
           #   input.close
           #
-          #   # Handle streamed responses. These may be interleaved with inputs.
-          #   # Each response is of type ::So::Much::Trash::GarbageItem.
-          #   output.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::So::Much::Trash::GarbageItem
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def bidi_garbage request, options = nil
@@ -1521,22 +1522,22 @@ module So
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = So::Much::Trash::GarbageService::Client.new
           #
-          #   # Create an input stream
+          #   # Create an input stream.
           #   input = Gapic::StreamInput.new
           #
           #   # Call the bidi_typical_garbage method to start streaming.
           #   output = client.bidi_typical_garbage input
           #
-          #   # Send requests on the stream. For each request, pass in keyword
-          #   # arguments to set fields. Be sure to close the stream when done.
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
           #   input << So::Much::Trash::TypicalGarbage.new
           #   input << So::Much::Trash::TypicalGarbage.new
           #   input.close
           #
-          #   # Handle streamed responses. These may be interleaved with inputs.
-          #   # Each response is of type ::So::Much::Trash::TypicalGarbage.
-          #   output.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::So::Much::Trash::TypicalGarbage
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def bidi_typical_garbage request, options = nil
@@ -1680,9 +1681,9 @@ module So
           #    *  (`String`) The path to a service account key file in JSON format
           #    *  (`Hash`) A service account key as a Hash
           #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-          #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+          #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
           #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-          #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+          #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
           #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
           #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
           #    *  (`nil`) indicating no credentials
@@ -1724,7 +1725,9 @@ module So
           class Configuration
             extend ::Gapic::Config
 
-            config_attr :endpoint,      "endlesstrash.example.net", ::String
+            DEFAULT_ENDPOINT = "endlesstrash.example.net"
+
+            config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
             config_attr :credentials,   nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
@@ -1757,6 +1760,14 @@ module So
                 parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
+            end
+
+            ##
+            # Configuration for the channel pool
+            # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
+            #
+            def channel_pool
+              @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
             end
 
             ##

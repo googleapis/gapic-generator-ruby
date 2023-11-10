@@ -16,7 +16,8 @@ require "google/protobuf/timestamp_pb"
 
 module Gapic
   ##
-  # TODO: Describe Protobuf
+  # A set of internal utilities for coercing data to protobuf messages.
+  #
   module Protobuf
     ##
     # Creates an instance of a protobuf message from a hash that may include nested hashes. `google/protobuf` allows
@@ -30,11 +31,15 @@ module Gapic
     # @return [Object] An instance of the given message class.
     def self.coerce hash, to:
       return hash if hash.is_a? to
+      return nil if hash.nil?
+
+      # Special case handling of certain types
+      return time_to_timestamp hash if to == Google::Protobuf::Timestamp && hash.is_a?(Time)
 
       # Sanity check: input must be a Hash
       raise ArgumentError, "Value #{hash} must be a Hash or a #{to.name}" unless hash.is_a? Hash
 
-      hash = coerce_submessages hash, to
+      hash = coerce_submessages hash, to.descriptor
       to.new hash
     end
 
@@ -44,87 +49,56 @@ module Gapic
     # @private
     #
     # @param hash [Hash] The hash whose nested hashes will be coerced.
-    # @param message_class [Class] The corresponding protobuf message class of the given hash.
+    # @param message_descriptor [Google::Protobuf::Descriptor] The protobuf descriptor for the message.
     #
     # @return [Hash] A hash whose nested hashes have been coerced.
-    def self.coerce_submessages hash, message_class
+    def self.coerce_submessages hash, message_descriptor
       return nil if hash.nil?
       coerced = {}
-      message_descriptor = message_class.descriptor
       hash.each do |key, val|
         field_descriptor = message_descriptor.lookup key.to_s
-        coerced[key] = if field_descriptor && field_descriptor.type == :message
-                         coerce_submessage val, field_descriptor
-                       elsif field_descriptor && field_descriptor.type == :bytes &&
-                             (val.is_a?(IO) || val.is_a?(StringIO))
-                         val.binmode.read
-                       else
-                         # `google/protobuf` should throw an error if no field descriptor is
-                         # found. Simply pass through.
-                         val
-                       end
+        coerced[key] =
+          if field_descriptor&.type == :message
+            coerce_submessage val, field_descriptor
+          elsif field_descriptor&.type == :bytes && (val.is_a?(IO) || val.is_a?(StringIO))
+            val.binmode.read
+          else
+            # For non-message fields, just pass the scalar value through.
+            # Note: if field_descriptor is not found, we just pass the value
+            # through and let protobuf raise an error.
+            val
+          end
       end
       coerced
     end
 
     ##
-    # Coerces the value of a field to be acceptable by the instantiation method of the wrapping message.
+    # Coerces a message-typed field.
+    # The field can be a normal single message, a repeated message, or a map.
     #
     # @private
     #
-    # @param val [Object] The value to be coerced.
-    # @param field_descriptor [Google::Protobuf::FieldDescriptor] The field descriptor of the value.
+    # @param val [Object] The value to coerce
+    # @param field_descriptor [Google::Protobuf::FieldDescriptor] The field descriptor.
     #
-    # @return [Object] The coerced version of the given value.
     def self.coerce_submessage val, field_descriptor
-      if (field_descriptor.label == :repeated) && !(map_field? field_descriptor)
-        coerce_array val, field_descriptor
-      elsif field_descriptor.subtype.msgclass == Google::Protobuf::Timestamp && val.is_a?(Time)
-        time_to_timestamp val
+      if val.is_a? Array
+        # Assume this is a repeated message field, iterate over it and coerce
+        # each to the message class.
+        # Protobuf will raise an error if this assumption is incorrect.
+        val.map do |elem|
+          coerce elem, to: field_descriptor.subtype.msgclass
+        end
+      elsif field_descriptor.label == :repeated
+        # Non-array passed to a repeated field: assume this is a map, and that
+        # a hash is being passed, and let protobuf handle the conversion.
+        # Protobuf will raise an error if this assumption is incorrect.
+        val
       else
-        coerce_value val, field_descriptor
+        # Assume this is a normal single message, and coerce to the message
+        # class.
+        coerce val, to: field_descriptor.subtype.msgclass
       end
-    end
-
-    ##
-    # Coerces the values of an array to be acceptable by the instantiation method the wrapping message.
-    #
-    # @private
-    #
-    # @param array [Array<Object>] The values to be coerced.
-    # @param field_descriptor [Google::Protobuf::FieldDescriptor] The field descriptor of the values.
-    #
-    # @return [Array<Object>] The coerced version of the given values.
-    def self.coerce_array array, field_descriptor
-      raise ArgumentError, "Value #{array} must be an array" unless array.is_a? Array
-      array.map do |val|
-        coerce_value val, field_descriptor
-      end
-    end
-
-    ##
-    # Hack to determine if field_descriptor is for a map.
-    #
-    # TODO(geigerj): Remove this once protobuf Ruby supports an official way
-    # to determine if a FieldDescriptor represents a map.
-    # See: https://github.com/google/protobuf/issues/3425
-    def self.map_field? field_descriptor
-      (field_descriptor.label == :repeated) &&
-        (field_descriptor.subtype.name.include? "_MapEntry_")
-    end
-
-    ##
-    # Coerces the value of a field to be acceptable by the instantiation method of the wrapping message.
-    #
-    # @private
-    #
-    # @param val [Object] The value to be coerced.
-    # @param field_descriptor [Google::Protobuf::FieldDescriptor] The field descriptor of the value.
-    #
-    # @return [Object] The coerced version of the given value.
-    def self.coerce_value val, field_descriptor
-      return val unless (val.is_a? Hash) && !(map_field? field_descriptor)
-      coerce val, to: field_descriptor.subtype.msgclass
     end
 
     ##
@@ -147,6 +121,6 @@ module Gapic
       Google::Protobuf::Timestamp.new seconds: time.to_i, nanos: time.nsec
     end
 
-    private_class_method :coerce_submessages, :coerce_submessage, :coerce_array, :coerce_value, :map_field?
+    private_class_method :coerce_submessages, :coerce_submessage
   end
 end

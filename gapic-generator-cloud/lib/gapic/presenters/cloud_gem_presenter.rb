@@ -114,7 +114,7 @@ module Gapic
 
       ##
       # Overrides the reference doc URL to point to either the cloud-rad page
-      # or the googleapis.dev page depending on whether it is a cloud product.
+      # or the rubydoc.info page depending on whether it is a cloud product.
       #
       # @return [String]
       #
@@ -123,7 +123,7 @@ module Gapic
           if cloud_product?
             "https://cloud.google.com/ruby/docs/reference/#{name}/latest"
           else
-            "https://googleapis.dev/ruby/#{name}/latest"
+            "https://rubydoc.info/gems/#{name}"
           end
         end
       end
@@ -143,6 +143,7 @@ module Gapic
       def cloud_product?
         configured = gem_config :is_cloud_product
         return configured unless configured.nil?
+        return @api.api_metadata.organization == "CLOUD" if @api.api_metadata.organization
         return true if PSEUDO_CLOUD_GEMS.any? { |pattern| pattern === name }
         return false if NON_CLOUD_GEMS.any? { |pattern| pattern === name }
         services.any? do |service|

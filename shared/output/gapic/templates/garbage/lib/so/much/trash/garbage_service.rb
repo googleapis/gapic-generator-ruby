@@ -41,7 +41,7 @@ module So
       ##
       # Endless trash
       #
-      # To load this service and instantiate a client:
+      # @example Load this service and instantiate a gRPC client
       #
       #     require "so/much/trash/garbage_service"
       #     client = ::So::Much::Trash::GarbageService::Client.new

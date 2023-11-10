@@ -42,7 +42,9 @@ module Google
               # the REST modules only when it's required.
               require "gapic/rest"
 
-              @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials
+              @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials,
+                                                           numeric_enums: false,
+                                                           raise_faraday_errors: false
             end
 
             ##
@@ -53,18 +55,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #   A result object deserialized from the server's reply
             def create_room request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_create_room_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_create_room_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -76,9 +78,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Showcase::V1beta1::Room.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -90,18 +93,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #   A result object deserialized from the server's reply
             def get_room request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_get_room_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_get_room_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -113,9 +116,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Showcase::V1beta1::Room.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -127,18 +131,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #   A result object deserialized from the server's reply
             def update_room request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_update_room_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_update_room_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -150,9 +154,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Showcase::V1beta1::Room.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -164,18 +169,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #   A result object deserialized from the server's reply
             def delete_room request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_delete_room_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_delete_room_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -187,9 +192,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Protobuf::Empty.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -201,18 +207,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::ListRoomsResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::ListRoomsResponse]
             #   A result object deserialized from the server's reply
             def list_rooms request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_list_rooms_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_list_rooms_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -224,10 +230,11 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Showcase::V1beta1::ListRoomsResponse.decode_json response.body,
                                                                                   ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -239,18 +246,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #   A result object deserialized from the server's reply
             def create_blurb request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_create_blurb_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_create_blurb_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -262,9 +269,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Showcase::V1beta1::Blurb.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -276,18 +284,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #   A result object deserialized from the server's reply
             def get_blurb request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_get_blurb_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_get_blurb_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -299,9 +307,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Showcase::V1beta1::Blurb.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -313,18 +322,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #   A result object deserialized from the server's reply
             def update_blurb request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_update_blurb_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_update_blurb_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -336,9 +345,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Showcase::V1beta1::Blurb.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -350,18 +360,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #   A result object deserialized from the server's reply
             def delete_blurb request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_delete_blurb_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_delete_blurb_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -373,9 +383,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Protobuf::Empty.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -387,18 +398,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::ListBlurbsResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::ListBlurbsResponse]
             #   A result object deserialized from the server's reply
             def list_blurbs request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_list_blurbs_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_list_blurbs_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -410,10 +421,11 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Showcase::V1beta1::ListBlurbsResponse.decode_json response.body,
                                                                                    ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -425,18 +437,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Longrunning::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Longrunning::Operation]
             #   A result object deserialized from the server's reply
             def search_blurbs request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_search_blurbs_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_search_blurbs_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -448,14 +460,45 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Longrunning::Operation.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
+            ##
+            # Baseline implementation for the stream_blurbs REST call
+            #
+            # @param request_pb [::Google::Showcase::V1beta1::StreamBlurbsRequest]
+            #   A request object representing the call parameters. Required.
+            # @param options [::Gapic::CallOptions]
+            #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @yieldparam chunk [::String] The chunk of data received during server streaming.
+            #
+            # @return [::Gapic::Rest::TransportOperation]
+            def stream_blurbs request_pb, options = nil, &block
+              raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            private
+              verb, uri, query_string_params, body = ServiceStub.transcode_stream_blurbs_request request_pb
+              query_string_params = if query_string_params.any?
+                                      query_string_params.to_h { |p| p.split "=", 2 }
+                                    else
+                                      {}
+                                    end
+
+              response = @client_stub.make_http_request(
+                verb,
+                uri: uri,
+                body: body || "",
+                params: query_string_params,
+                options: options,
+                is_server_streaming: true,
+                &block
+              )
+              ::Gapic::Rest::TransportOperation.new response
+            end
 
             ##
             # @private
@@ -466,7 +509,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_create_room_request request_pb
+            def self.transcode_create_room_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,
@@ -486,7 +529,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_get_room_request request_pb
+            def self.transcode_get_room_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -507,7 +550,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_update_room_request request_pb
+            def self.transcode_update_room_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :patch,
@@ -529,7 +572,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_delete_room_request request_pb
+            def self.transcode_delete_room_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :delete,
@@ -550,7 +593,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_list_rooms_request request_pb
+            def self.transcode_list_rooms_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -569,7 +612,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_create_blurb_request request_pb
+            def self.transcode_create_blurb_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,
@@ -599,7 +642,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_get_blurb_request request_pb
+            def self.transcode_get_blurb_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -627,7 +670,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_update_blurb_request request_pb
+            def self.transcode_update_blurb_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :patch,
@@ -658,7 +701,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_delete_blurb_request request_pb
+            def self.transcode_delete_blurb_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :delete,
@@ -686,7 +729,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_list_blurbs_request request_pb
+            def self.transcode_list_blurbs_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -714,7 +757,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_search_blurbs_request request_pb
+            def self.transcode_search_blurbs_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,
@@ -729,6 +772,36 @@ module Google
                                                         uri_template: "/v1beta1/{parent}/blurbs:search",
                                                         matches: [
                                                           ["parent", %r{^users/-/profile/?$}, false]
+                                                        ]
+                                                      )
+              transcoder.transcode request_pb
+            end
+
+            ##
+            # @private
+            #
+            # GRPC transcoding helper method for the stream_blurbs REST call
+            #
+            # @param request_pb [::Google::Showcase::V1beta1::StreamBlurbsRequest]
+            #   A request object representing the call parameters. Required.
+            # @return [Array(String, [String, nil], Hash{String => String})]
+            #   Uri, Body, Query string parameters
+            def self.transcode_stream_blurbs_request request_pb
+              transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                      .with_bindings(
+                                                        uri_method: :post,
+                                                        uri_template: "/v1beta1/{name}/blurbs:stream",
+                                                        body: "*",
+                                                        matches: [
+                                                          ["name", %r{^rooms/[^/]+/?$}, false]
+                                                        ]
+                                                      )
+                                                      .with_bindings(
+                                                        uri_method: :post,
+                                                        uri_template: "/v1beta1/{name}/blurbs:stream",
+                                                        body: "*",
+                                                        matches: [
+                                                          ["name", %r{^users/[^/]+/profile/?$}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb

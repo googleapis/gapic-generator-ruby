@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +19,24 @@
 # [START compute_v1_generated_Addresses_Get_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::Addresses::Client.new
+##
+# Snippet for the get call in the Addresses service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Compute::V1::Addresses::Rest::Client#get. It may require
+# modification in order to execute successfully.
+#
+def get
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::Addresses::Rest::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::GetAddressRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::GetAddressRequest.new
 
-# Call the get method.
-result = client.get request
+  # Call the get method.
+  result = client.get request
 
-# The returned object is of type Google::Cloud::Compute::V1::Address.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::Address.
+  p result
+end
 # [END compute_v1_generated_Addresses_Get_sync]

@@ -118,7 +118,7 @@ module Testing
           credentials = @config.credentials
           # Use self-signed JWT if the endpoint is unchanged from default,
           # but only if the default endpoint does not have a region prefix.
-          enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+          enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                    !@config.endpoint.split(".").first.include?("-")
           credentials ||= Credentials.default scope: @config.scope,
                                               enable_self_signed_jwt: enable_self_signed_jwt
@@ -139,7 +139,8 @@ module Testing
             credentials:  credentials,
             endpoint:     @config.endpoint,
             channel_args: @config.channel_args,
-            interceptors: @config.interceptors
+            interceptors: @config.interceptors,
+            channel_pool_config: @config.channel_pool
           )
         end
 
@@ -464,9 +465,9 @@ module Testing
         #    *  (`String`) The path to a service account key file in JSON format
         #    *  (`Hash`) A service account key as a Hash
         #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-        #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+        #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
         #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-        #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+        #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
         #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
         #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
         #    *  (`nil`) indicating no credentials
@@ -508,7 +509,9 @@ module Testing
         class Configuration
           extend ::Gapic::Config
 
-          config_attr :endpoint,      "routingheaders.example.com", ::String
+          DEFAULT_ENDPOINT = "routingheaders.example.com"
+
+          config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
           config_attr :credentials,   nil do |value|
             allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
             allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
@@ -541,6 +544,14 @@ module Testing
               parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
               Rpcs.new parent_rpcs
             end
+          end
+
+          ##
+          # Configuration for the channel pool
+          # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
+          #
+          def channel_pool
+            @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
           end
 
           ##

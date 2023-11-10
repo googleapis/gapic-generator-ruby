@@ -41,14 +41,14 @@ module Google
       ##
       # A simple identity service.
       #
-      # To load this service and instantiate a GRPC client:
+      # @example Load this service and instantiate a gRPC client
       #
       #     require "google/showcase/v1beta1/identity"
       #     client = ::Google::Showcase::V1beta1::Identity::Client.new
       #
-      # To load this service and instantiate a REST client:
+      # @example Load this service and instantiate a REST client
       #
-      #     require "google/showcase/v1beta1/identity"
+      #     require "google/showcase/v1beta1/identity/rest"
       #     client = ::Google::Showcase::V1beta1::Identity::Rest::Client.new
       #
       module Identity

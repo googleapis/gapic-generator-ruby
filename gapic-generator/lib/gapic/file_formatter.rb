@@ -16,6 +16,7 @@
 
 require "tmpdir"
 require "fileutils"
+require "English"
 
 module Gapic
   ##
@@ -29,34 +30,37 @@ module Gapic
     #
     def initialize configuration, files
       @configuration = configuration
-      @files = format! configuration, files
+      @files = format! files
     end
 
     protected
 
-    def format! configuration, files
+    def format! files
       Dir.mktmpdir do |dir|
-        files.each do |file|
-          write_file dir, file
-        end
+        Dir.chdir dir do
+          files.each do |file|
+            FileUtils.mkdir_p File.dirname file.name
+            File.write file.name, file.content
+          end
 
-        system "rubocop --cache false -x #{dir} -o #{dir}/rubocop.out -c #{configuration}"
+          # Use the current Ruby binary path and invoke the CLI class directly
+          # rather than the normal rubocop executable, since the latter uses
+          # "/usr/bin/env ruby" which doesn't seem to work in the current bazel
+          # environment.
+          script = 'require "rubocop"; begin; RuboCop::CLI.new.run; rescue => e; p e; exit 1; end'
+          rubocop_cmd = "#{RbConfig.ruby} -e '#{script}' -- --cache false -a -o rubocop.out -c #{configuration}"
+          output = `#{rubocop_cmd}`.strip
+          unless output.empty?
+            warn "**** Rubocop output:"
+            warn output
+          end
+          raise "Rubocop failed" unless $CHILD_STATUS.success?
 
-        files.each do |file|
-          read_file dir, file
+          files.each do |file|
+            file.content = File.read file.name
+          end
         end
       end
-    end
-
-    def write_file dir, file
-      tmp_file = File.join dir, file.name
-      FileUtils.mkdir_p File.dirname tmp_file
-      File.write tmp_file, file.content
-    end
-
-    def read_file dir, file
-      tmp_file = File.join dir, file.name
-      file.content = File.read tmp_file
     end
   end
 end

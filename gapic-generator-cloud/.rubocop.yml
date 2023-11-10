@@ -7,11 +7,15 @@ AllCops:
     - tmp/**/*
     - bin/*
     - test/test_helper.rb
-    - Rakefile
 
 Metrics/AbcSize:
   Exclude:
     - test/gapic/schema/cloud_api_test.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - .toys.rb
+    - '*.gemspec'
 
 Metrics/ClassLength:
   Exclude:

@@ -87,6 +87,9 @@ module Google
                 credentials = Credentials.new credentials, scope: @config.scope
               end
 
+              @quota_project_id = @config.quota_project
+              @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
               @operations_stub = OperationsServiceStub.new(
                 endpoint:     @config.endpoint,
                 credentials:  credentials
@@ -119,8 +122,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil)
             #   Pass arguments to `list_operations` via keyword arguments. Note that at
@@ -135,13 +136,33 @@ module Google
             #     The standard list page size.
             #   @param page_token [::String]
             #     The standard list page token.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/longrunning"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Longrunning::Operations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Longrunning::ListOperationsRequest.new
+            #
+            #   # Call the list_operations method.
+            #   result = client.list_operations request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Longrunning::Operation.
+            #     p item
+            #   end
+            #
             def list_operations request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -153,22 +174,26 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.list_operations.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.list_operations.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.list_operations.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @operations_stub.list_operations request, options do |result, response|
+              @operations_stub.list_operations request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @operations_stub, :list_operations, "operations", request,
                                                             result, options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -189,8 +214,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload get_operation(name: nil)
             #   Pass arguments to `get_operation` via keyword arguments. Note that at
@@ -199,13 +222,36 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/longrunning"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Longrunning::Operations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Longrunning::GetOperationRequest.new
+            #
+            #   # Call the get_operation method.
+            #   result = client.get_operation request
+            #
+            #   # The returned object is of type Gapic::Operation. You can use it to
+            #   # check the status of an operation, cancel it, or wait for results.
+            #   # Here is how to wait for a response.
+            #   result.wait_until_done! timeout: 60
+            #   if result.response?
+            #     p result.response
+            #   else
+            #     puts "No response received."
+            #   end
+            #
             def get_operation request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -217,21 +263,25 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.get_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.get_operation.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.get_operation.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @operations_stub.get_operation request, options do |result, response|
+              @operations_stub.get_operation request, options do |result, operation|
                 result = ::Gapic::Operation.new result, @operations_client, options: options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -253,8 +303,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload delete_operation(name: nil)
             #   Pass arguments to `delete_operation` via keyword arguments. Note that at
@@ -263,13 +311,29 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource to be deleted.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/longrunning"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Longrunning::Operations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Longrunning::DeleteOperationRequest.new
+            #
+            #   # Call the delete_operation method.
+            #   result = client.delete_operation request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_operation request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -281,20 +345,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.delete_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.delete_operation.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.delete_operation.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @operations_stub.delete_operation request, options do |result, response|
-                yield result, response if block_given?
+              @operations_stub.delete_operation request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -322,8 +390,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload cancel_operation(name: nil)
             #   Pass arguments to `cancel_operation` via keyword arguments. Note that at
@@ -332,13 +398,29 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource to be cancelled.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/longrunning"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Longrunning::Operations::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Longrunning::CancelOperationRequest.new
+            #
+            #   # Call the cancel_operation method.
+            #   result = client.cancel_operation request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def cancel_operation request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -350,20 +432,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.cancel_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.cancel_operation.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.cancel_operation.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @operations_stub.cancel_operation request, options do |result, response|
-                yield result, response if block_given?
+              @operations_stub.cancel_operation request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -374,24 +460,30 @@ module Google
             # Configuration class for the Operations REST API.
             #
             # This class represents the configuration for Operations REST,
-            # providing control over credentials, timeouts, retry behavior, logging.
+            # providing control over timeouts, retry behavior, logging, transport
+            # parameters, and other low-level controls. Certain parameters can also be
+            # applied individually to specific RPCs. See
+            # {::Google::Longrunning::Operations::Rest::Client::Configuration::Rpcs}
+            # for a list of RPCs that can be configured independently.
             #
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for all calls to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # list_operations to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Longrunning::Operations::Rest::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.list_operations.timeout = 20.0
+            #   end
             #
-            #     ::Google::Longrunning::Operations::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Longrunning::Operations::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Longrunning::Operations::Rest::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.list_operations.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
@@ -402,9 +494,9 @@ module Google
             #    *  (`String`) The path to a service account key file in JSON format
             #    *  (`Hash`) A service account key as a Hash
             #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-            #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+            #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
             #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-            #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+            #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
             #    *  (`nil`) indicating no credentials
             #   @return [::Object]
             # @!attribute [rw] scope
@@ -420,13 +512,26 @@ module Google
             #   The call timeout in seconds.
             #   @return [::Numeric]
             # @!attribute [rw] metadata
-            #   Additional REST headers to be sent with the call.
+            #   Additional headers to be sent with the call.
             #   @return [::Hash{::Symbol=>::String}]
+            # @!attribute [rw] retry_policy
+            #   The retry policy. The value is a hash with the following keys:
+            #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #       trigger a retry.
+            #   @return [::Hash]
+            # @!attribute [rw] quota_project
+            #   A separate project against which to charge quota.
+            #   @return [::String]
             #
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "localhost:7469", ::String
+              DEFAULT_ENDPOINT = "localhost:7469"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
                            nil]
@@ -437,6 +542,8 @@ module Google
               config_attr :lib_version,   nil, ::String, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
+              config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
+              config_attr :quota_project, nil, ::String, nil
 
               # @private
               def initialize parent_config = nil
@@ -465,9 +572,14 @@ module Google
               # the following configuration fields:
               #
               #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-              #
-              # there is one other field (`retry_policy`) that can be set
-              # but is currently not supported for REST Gapic libraries.
+              #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+              #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+              #     include the following keys:
+              #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+              #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+              #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+              #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+              #         trigger a retry.
               #
               class Rpcs
                 ##
@@ -508,6 +620,8 @@ module Google
             end
           end
 
+          ##
+          # @private
           # REST service stub for the Longrunning Operations API.
           # Service stub contains baseline method implementations
           # including transcoding, making the REST call, and deserialing the response.
@@ -528,18 +642,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Longrunning::ListOperationsResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Longrunning::ListOperationsResponse]
             #   A result object deserialized from the server's reply
             def list_operations request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_list_operations_request request_pb
+              verb, uri, query_string_params, body = OperationsServiceStub.transcode_list_operations_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -551,10 +665,11 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Longrunning::ListOperationsResponse.decode_json response.body,
                                                                                  ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -566,18 +681,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Longrunning::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Longrunning::Operation]
             #   A result object deserialized from the server's reply
             def get_operation request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_get_operation_request request_pb
+              verb, uri, query_string_params, body = OperationsServiceStub.transcode_get_operation_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -589,9 +704,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Longrunning::Operation.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -603,18 +719,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #   A result object deserialized from the server's reply
             def delete_operation request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_delete_operation_request request_pb
+              verb, uri, query_string_params, body = OperationsServiceStub.transcode_delete_operation_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -626,9 +742,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Protobuf::Empty.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -640,18 +757,18 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #   A result object deserialized from the server's reply
             def cancel_operation request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_cancel_operation_request request_pb
+              verb, uri, query_string_params, body = OperationsServiceStub.transcode_cancel_operation_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -663,14 +780,12 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Protobuf::Empty.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
-
-
-            private
 
             ##
             # @private
@@ -681,7 +796,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_list_operations_request request_pb
+            def self.transcode_list_operations_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -700,7 +815,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_get_operation_request request_pb
+            def self.transcode_get_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -721,7 +836,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_delete_operation_request request_pb
+            def self.transcode_delete_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :delete,
@@ -742,7 +857,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_cancel_operation_request request_pb
+            def self.transcode_cancel_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,

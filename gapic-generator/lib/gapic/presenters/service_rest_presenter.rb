@@ -17,6 +17,7 @@
 require "active_support/inflector"
 require "gapic/helpers/filepath_helper"
 require "gapic/helpers/namespace_helper"
+require "forwardable"
 
 module Gapic
   module Presenters
@@ -27,6 +28,18 @@ module Gapic
       include Gapic::Helpers::FilepathHelper
       include Gapic::Helpers::NamespaceHelper
 
+      extend Forwardable
+      def_delegators :@main_service, :name, :helpers_file_name, :is_hosted_mixin?, :is_main_mixin_service?, :mixins?,
+                     :mixin_binding_overrides?, :grpc_service_config, :grpc_service_config_presenter, :lro_service,
+                     :lro_client_var, :nonstandard_lro_provider?, :credentials_class_xref, :client_name, :module_name,
+                     :grpc_full_name, :client_suffix_for_default_transport
+
+      # The namespace of the service. (not the client)
+      # Intentionally does not include "Rest", since
+      # we do not want Rest service's configuration to
+      # default to GRPC configuration (right now).
+      def_delegators :@main_service, :namespace
+
       ##
       # @param main_service [Gapic::Presenters::ServicePresenter]
       # @param api [Gapic::Schema::Api]
@@ -34,15 +47,6 @@ module Gapic
       def initialize main_service, api
         @main_service = main_service
         @api = api
-      end
-
-      ##
-      # Ruby name of this service
-      #
-      # @return [String]
-      #
-      def name
-        main_service.name
       end
 
       ##
@@ -65,11 +69,12 @@ module Gapic
 
       ##
       # Folder name for this service
+      # This is just "rest" for rest services
       #
       # @return [String]
       #
       def service_directory_name
-        service_require.split("/")[-2]
+        "rest"
       end
 
       ##
@@ -98,13 +103,6 @@ module Gapic
       #
       def service_stub_file_path
         "#{service_stub_require}.rb"
-      end
-
-      ##
-      # @return [String]
-      #
-      def client_name
-        main_service.client_name
       end
 
       ##
@@ -159,13 +157,6 @@ module Gapic
       ##
       # @return [String]
       #
-      def credentials_class_xref
-        main_service.credentials_class_xref
-      end
-
-      ##
-      # @return [String]
-      #
       def configure_client_call
         "#{client_name_full}.configure"
       end
@@ -215,10 +206,6 @@ module Gapic
         ruby_file_path @api, "#{service_name_full}::#{nonstandard_lro_name}"
       end
 
-      def lro_service
-        main_service.lro_service
-      end
-
       ##
       # A presenter for the LRO subclient if needed
       #
@@ -239,10 +226,6 @@ module Gapic
       # @return [Boolean]
       def lro?
         methods.find(&:lro?)
-      end
-
-      def lro_client_var
-        main_service.lro_client_var
       end
 
       def operations_name
@@ -270,6 +253,61 @@ module Gapic
       end
 
       ##
+      # The client presenters of the nonstandard LROs that are used by the methods of this service
+      #
+      # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter>]
+      def nonstandard_lros
+        return [] unless main_service.nonstandard_lro_consumer?
+        main_service.nonstandard_lros_models.map do |lro|
+          lro_wrapper = @api.lookup lro.service_full_name
+          lro_service = ServicePresenter.new(main_service.gem, @api, lro_wrapper).rest
+
+          service_description = "long-running operations via #{lro_service.name}"
+          client_var_name = ruby_file_path_for_namespace lro_service.name
+          Gapic::Presenters::Service::LroClientPresenter.new service: lro.service_full_name,
+                                                             client_class_name: lro_service.client_name_full,
+                                                             client_class_docname: lro_service.client_name_full,
+                                                             client_var_name: client_var_name,
+                                                             require_str: lro_service.service_require,
+                                                             service_description: service_description,
+                                                             helper_type: lro_service.nonstandard_lro_name_full
+        end
+      end
+
+      ##
+      # Whether config for this service should include the `bindings_override` field.
+      # This field is needed:
+      #   * if a service is a mixin in it's own package, e.g. `google.Cloud.Location`
+      #   * if a service hosts a mixin and has bindings overrides for it
+      # but the generated Operations clients should not have it since override for
+      # their bindings are generated instead of set during runtime.
+      #
+      def mixin_should_generate_override_config?
+        (is_main_mixin_service? || main_service.mixin_binding_overrides?) &&
+          main_service.grpc_full_name != "google.longrunning.Operations"
+      end
+
+      ##
+      # The client presenters of the mixin services that are used by the methods of this service
+      #
+      # @return [Enumerable<Gapic::Presenters::Service::MixinClientPresenter>]
+      def mixin_presenters
+        return [] unless main_service.mixins?
+        main_service.mixin_presenters.map do |grpc_presenter|
+          model = main_service.mixin_models.find { |mdl| mdl.service == grpc_presenter.service }
+          raise "Mismatch between model and presenters in service #{service_name_full}" unless model
+
+          Gapic::Presenters::Service::MixinClientPresenter.new service: model.service,
+                                                               client_class_name: model.client_class_name_rest,
+                                                               client_class_docname: model.client_class_docname_rest,
+                                                               client_var_name: model.client_var_name,
+                                                               require_str: model.require_str_rest,
+                                                               service_description: model.service_description,
+                                                               bindings_override: grpc_presenter.bindings_override
+        end
+      end
+
+      ##
       # Whether there are any subclients to generate with this service.
       # Subclients are the clients to other services (e.g. an LRO provider service).
       #
@@ -289,7 +327,7 @@ module Gapic
       #
       # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter, Gapic::Model::Mixins::Mixin>]
       def subclients
-        ([] << lro_client_presenter << main_service.mixins << main_service.nonstandard_lros).flatten.compact
+        [lro_client_presenter, mixin_presenters, nonstandard_lros].flatten.compact
       end
 
       ##
@@ -312,6 +350,23 @@ module Gapic
       #
       def methods
         main_service.methods.select(&:can_generate_rest?)
+      end
+
+      ##
+      # Require string for the helpers file
+      #
+      # @return [String]
+      #
+      def helpers_require
+        ruby_file_path @api, "#{service_name_full}::Helpers"
+      end
+
+      ##
+      # Whether this rest service should send the numeric enums signal
+      # @return [Boolean]
+      #
+      def numeric_enums?
+        main_service.gem.rest_numeric_enums?
       end
 
       private

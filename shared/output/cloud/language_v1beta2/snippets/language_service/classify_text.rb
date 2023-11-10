@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +19,24 @@
 # [START language_v1beta2_generated_LanguageService_ClassifyText_sync]
 require "google/cloud/language/v1beta2"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Language::V1beta2::LanguageService::Client.new
+##
+# Snippet for the classify_text call in the LanguageService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Language::V1beta2::LanguageService::Client#classify_text. It
+# may require modification in order to execute successfully.
+#
+def classify_text
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Language::V1beta2::LanguageService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Language::V1beta2::ClassifyTextRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Language::V1beta2::ClassifyTextRequest.new
 
-# Call the classify_text method.
-result = client.classify_text request
+  # Call the classify_text method.
+  result = client.classify_text request
 
-# The returned object is of type Google::Cloud::Language::V1beta2::ClassifyTextResponse.
-p result
+  # The returned object is of type Google::Cloud::Language::V1beta2::ClassifyTextResponse.
+  p result
+end
 # [END language_v1beta2_generated_LanguageService_ClassifyText_sync]

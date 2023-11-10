@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  MT_COMPAT: true
+
 jobs:
   tests:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
@@ -22,7 +25,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.6"
+          ruby-version: "3.1"
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Checkout submodules
@@ -32,9 +35,8 @@ jobs:
           git submodule update --init --recursive
       - name: Install dependencies
         run: |
-          gem install bundler
-          bundle install --retry=3
-          bundle exec rake bundle_install
+          gem install --no-document toys bundler
+          toys bundle install
       - name: Run CI
         run: |
-          bundle exec rake ci
+          toys ci --generator-only

@@ -8,8 +8,6 @@
 #     parameters, or to keep all the default parameter values, pass an empty Hash.
 #   @param options [::Gapic::CallOptions, ::Hash]
 #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-#     Note: currently retry functionality is not implemented. While it is possible
-#     to set it using ::Gapic::CallOptions, it will not be applied
 <%-if method.arguments.any?-%>
 #
 <%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>
@@ -21,7 +19,7 @@
 <%- method.arguments.each do |arg| -%>
 #   @param <%= arg.name %> [<%= arg.doc_types %>]
 <%- if arg.doc_description -%>
-<%= indent arg.doc_description, "#     " %>
+<%= indent arg.doc_description(transport: :rest), "#     " %>
 <%- end -%>
 <%- end -%>
 <%- end -%>

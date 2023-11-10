@@ -125,7 +125,7 @@ module Google
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -146,7 +146,8 @@ module Google
               credentials:  credentials,
               endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
-              interceptors: @config.interceptors
+              interceptors: @config.interceptors,
+              channel_pool_config: @config.channel_pool
             )
           end
 
@@ -532,13 +533,11 @@ module Google
           #   # Call the list_rooms method.
           #   result = client.list_rooms request
           #
-          #   # The returned object is of type Gapic::PagedEnumerable. You can
-          #   # iterate over all elements by calling #each, and the enumerable
-          #   # will lazily make API calls to fetch subsequent pages. Other
-          #   # methods are also available for managing paging directly.
-          #   result.each do |response|
+          #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+          #   # over elements, and API calls will be issued to fetch pages as needed.
+          #   result.each do |item|
           #     # Each element is of type ::Google::Showcase::V1beta1::Room.
-          #     p response
+          #     p item
           #   end
           #
           def list_rooms request, options = nil
@@ -964,13 +963,11 @@ module Google
           #   # Call the list_blurbs method.
           #   result = client.list_blurbs request
           #
-          #   # The returned object is of type Gapic::PagedEnumerable. You can
-          #   # iterate over all elements by calling #each, and the enumerable
-          #   # will lazily make API calls to fetch subsequent pages. Other
-          #   # methods are also available for managing paging directly.
-          #   result.each do |response|
+          #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+          #   # over elements, and API calls will be issued to fetch pages as needed.
+          #   result.each do |item|
           #     # Each element is of type ::Google::Showcase::V1beta1::Blurb.
-          #     p response
+          #     p item
           #   end
           #
           def list_blurbs request, options = nil
@@ -1070,14 +1067,14 @@ module Google
           #   # Call the search_blurbs method.
           #   result = client.search_blurbs request
           #
-          #   # The returned object is of type Gapic::Operation. You can use this
-          #   # object to check the status of an operation, cancel it, or wait
-          #   # for results. Here is how to block until completion:
+          #   # The returned object is of type Gapic::Operation. You can use it to
+          #   # check the status of an operation, cancel it, or wait for results.
+          #   # Here is how to wait for a response.
           #   result.wait_until_done! timeout: 60
           #   if result.response?
           #     p result.response
           #   else
-          #     puts "Error!"
+          #     puts "No response received."
           #   end
           #
           def search_blurbs request, options = nil
@@ -1161,13 +1158,13 @@ module Google
           #   # Create a request. To set request fields, pass in keyword arguments.
           #   request = Google::Showcase::V1beta1::StreamBlurbsRequest.new
           #
-          #   # Call the stream_blurbs method.
-          #   result = client.stream_blurbs request
+          #   # Call the stream_blurbs method to start streaming.
+          #   output = client.stream_blurbs request
           #
-          #   # The returned object is a streamed enumerable yielding elements of
-          #   # type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
-          #   result.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::Google::Showcase::V1beta1::StreamBlurbsResponse
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def stream_blurbs request, options = nil
@@ -1232,15 +1229,17 @@ module Google
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = Google::Showcase::V1beta1::Messaging::Client.new
           #
-          #   # Create a stream of requests, as an Enumerator.
-          #   # For each request, pass in keyword arguments to set fields.
-          #   request = [
-          #     Google::Showcase::V1beta1::CreateBlurbRequest.new,
-          #     Google::Showcase::V1beta1::CreateBlurbRequest.new
-          #   ].to_enum
+          #   # Create an input stream.
+          #   input = Gapic::StreamInput.new
           #
-          #   # Call the send_blurbs method.
-          #   result = client.send_blurbs request
+          #   # Call the send_blurbs method to start streaming.
+          #   result = client.send_blurbs input
+          #
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
+          #   input << Google::Showcase::V1beta1::CreateBlurbRequest.new
+          #   input << Google::Showcase::V1beta1::CreateBlurbRequest.new
+          #   input.close
           #
           #   # The returned object is of type Google::Showcase::V1beta1::SendBlurbsResponse.
           #   p result
@@ -1306,22 +1305,22 @@ module Google
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = Google::Showcase::V1beta1::Messaging::Client.new
           #
-          #   # Create an input stream
+          #   # Create an input stream.
           #   input = Gapic::StreamInput.new
           #
           #   # Call the connect method to start streaming.
           #   output = client.connect input
           #
-          #   # Send requests on the stream. For each request, pass in keyword
-          #   # arguments to set fields. Be sure to close the stream when done.
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
           #   input << Google::Showcase::V1beta1::ConnectRequest.new
           #   input << Google::Showcase::V1beta1::ConnectRequest.new
           #   input.close
           #
-          #   # Handle streamed responses. These may be interleaved with inputs.
-          #   # Each response is of type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
-          #   output.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::Google::Showcase::V1beta1::StreamBlurbsResponse
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def connect request, options = nil
@@ -1398,9 +1397,9 @@ module Google
           #    *  (`String`) The path to a service account key file in JSON format
           #    *  (`Hash`) A service account key as a Hash
           #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-          #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+          #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
           #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-          #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+          #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
           #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
           #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
           #    *  (`nil`) indicating no credentials
@@ -1442,7 +1441,9 @@ module Google
           class Configuration
             extend ::Gapic::Config
 
-            config_attr :endpoint,      "localhost:7469", ::String
+            DEFAULT_ENDPOINT = "localhost:7469"
+
+            config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
             config_attr :credentials,   nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
@@ -1475,6 +1476,14 @@ module Google
                 parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
+            end
+
+            ##
+            # Configuration for the channel pool
+            # @return [::Gapic::ServiceStub::ChannelPool::Configuration]
+            #
+            def channel_pool
+              @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
             end
 
             ##

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/call_options/error_codes"
 require "gapic/call_options/retry_policy"
 
 module Gapic
@@ -36,7 +37,7 @@ module Gapic
     # @param timeout [Numeric] The client-side timeout for RPC calls.
     # @param metadata [Hash] The request header params.
     # @param retry_policy [Hash, RetryPolicy, Proc] The policy for error retry. A Hash can be provided to
-    #   customize the policy object, using keys that match the arguments for {RetryPolicy.new}.
+    #   customize the policy object, using keys that match the arguments for {RetryPolicy.initialize}.
     #
     #   A Proc object can also be provided. The Proc should accept an error as an argument, and return `true` if the
     #   error should be retried or `false` if not. If the error is to be retried, the Proc object must also block
@@ -58,9 +59,8 @@ module Gapic
     #
     # @param timeout [Numeric] The client-side timeout for RPC calls.
     # @param metadata [Hash] the request header params.
-    # @param retry_policy [Hash] the policy for error retry.
     # @param retry_policy [Hash] The policy for error retry. keys must match the arguments for
-    #   {RetryPolicy.new}.
+    #   {RetryPolicy.initialize}.
     #
     def apply_defaults timeout: nil, metadata: nil, retry_policy: nil
       @timeout ||= timeout

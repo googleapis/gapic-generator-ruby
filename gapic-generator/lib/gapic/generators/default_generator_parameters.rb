@@ -25,6 +25,7 @@ module Gapic
         ":gem.:yard_strict",
         ":gem.:generic_endpoint",
         ":gem.:is_cloud_product",
+        ":gem.:rest_numeric_enums",
         ":generate_metadata",
         ":generate_standalone_snippets",
         ":generate_yardoc_snippets"
@@ -48,7 +49,8 @@ module Gapic
         ":defaults.:service.:default_host",
         "grpc_service_config",
         ":service_yaml",
-        ":overrides.:wrapper_gem_name"
+        ":overrides.:wrapper_gem_name",
+        ":snippet_configs_path"
       ].freeze
 
       ARRAY_PARAMETERS = [
@@ -68,7 +70,8 @@ module Gapic
         "gem-free-tier"        => ":gem.:free_tier",
         "gem-yard-strict"      => ":gem.:yard_strict",
         "gem-generic-endpoint" => ":gem.:generic_endpoint",
-        "gem-is-cloud-product" => ":gem.:is_cloud_product"
+        "gem-is-cloud-product" => ":gem.:is_cloud_product",
+        "rest-numeric-enums"   => ":gem.:rest_numeric_enums"
       }.freeze
 
       STRING_PARAMETERS_ALIASES = {
@@ -88,7 +91,8 @@ module Gapic
         "gem-factory-method-suffix" => ":gem.:factory_method_suffix",
         "default-service-host"      => ":defaults.:service.:default_host",
         "grpc-service-config"       => "grpc_service_config",
-        "service-yaml"              => ":service_yaml"
+        "service-yaml"              => ":service_yaml",
+        "snippet-configs-path"      => ":snippet_configs_path"
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {

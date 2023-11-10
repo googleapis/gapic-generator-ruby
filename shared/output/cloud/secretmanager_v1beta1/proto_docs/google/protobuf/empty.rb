@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,8 +26,6 @@ module Google
     #     service Foo {
     #       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
     #     }
-    #
-    # The JSON representation for `Empty` is empty JSON object `{}`.
     class Empty
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods

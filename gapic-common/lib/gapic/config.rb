@@ -44,9 +44,9 @@ module Gapic
     ##
     # Add configuration attribute methods to the configuratin class.
     #
-    # @param [String, Symbol] key The name of the option
-    # @param [Object, nil] initial Initial value (nil is allowed)
-    # @param [Hash] opts Validation options
+    # @param [String, Symbol] name The name of the option
+    # @param [Object, nil] default Initial value (nil is allowed)
+    # @param [Array] valid_values A list of valid types
     #
     def config_attr name, default, *valid_values, &validator
       name = String(name).to_sym

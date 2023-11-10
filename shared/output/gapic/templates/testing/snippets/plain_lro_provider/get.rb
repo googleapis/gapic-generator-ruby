@@ -27,15 +27,24 @@
 # [START testing_v0_generated_PlainLroProvider_Get_sync]
 require "testing/nonstandard_lro_grpc"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::NonstandardLroGrpc::PlainLroProvider::Client.new
+##
+# Snippet for the get call in the PlainLroProvider service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::NonstandardLroGrpc::PlainLroProvider::Client#get. It may require
+# modification in order to execute successfully.
+#
+def get
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::NonstandardLroGrpc::PlainLroProvider::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::NonstandardLroGrpc::LroGetRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::NonstandardLroGrpc::LroGetRequest.new
 
-# Call the get method.
-result = client.get request
+  # Call the get method.
+  result = client.get request
 
-# The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
-p result
+  # The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
+  p result
+end
 # [END testing_v0_generated_PlainLroProvider_Get_sync]

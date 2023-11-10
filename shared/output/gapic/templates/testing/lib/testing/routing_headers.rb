@@ -31,12 +31,17 @@ require "testing/version"
 
 module Testing
   ##
-  # To load this package, including all its services, and instantiate a client:
+  # API client module.
   #
-  # @example
+  # @example Load this package, including all its services, and instantiate a gRPC client
   #
   #     require "testing/routing_headers"
   #     client = ::Testing::RoutingHeaders::ServiceNoHeaders::Client.new
+  #
+  # @example Load this package, including all its services, and instantiate a REST client
+  #
+  #     require "testing/routing_headers"
+  #     client = ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new
   #
   module RoutingHeaders
   end

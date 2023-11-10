@@ -117,10 +117,18 @@ module Google
 
               # Create credentials
               credentials = @config.credentials
-              credentials ||= Credentials.default scope: @config.scope
+              # Use self-signed JWT if the endpoint is unchanged from default,
+              # but only if the default endpoint does not have a region prefix.
+              enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
+                                       !@config.endpoint.split(".").first.include?("-")
+              credentials ||= Credentials.default scope: @config.scope,
+                                                  enable_self_signed_jwt: enable_self_signed_jwt
               if credentials.is_a?(::String) || credentials.is_a?(::Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
               end
+
+              @quota_project_id = @config.quota_project
+              @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
               @testing_stub = ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                           credentials: credentials
@@ -140,8 +148,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload create_session(session: nil)
             #   Pass arguments to `create_session` via keyword arguments. Note that at
@@ -152,13 +158,29 @@ module Google
             #     The session to be created.
             #     Sessions are immutable once they are created (although they can
             #     be deleted).
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Session]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Session]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::CreateSessionRequest.new
+            #
+            #   # Call the create_session method.
+            #   result = client.create_session request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Session.
+            #   p result
+            #
             def create_session request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -170,20 +192,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.create_session.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.create_session.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.create_session.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @testing_stub.create_session request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.create_session request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -202,8 +228,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload get_session(name: nil)
             #   Pass arguments to `get_session` via keyword arguments. Note that at
@@ -212,13 +236,29 @@ module Google
             #
             #   @param name [::String]
             #     The session to be retrieved.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Session]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Session]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::GetSessionRequest.new
+            #
+            #   # Call the get_session method.
+            #   result = client.get_session request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Session.
+            #   p result
+            #
             def get_session request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -230,20 +270,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.get_session.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.get_session.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.get_session.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @testing_stub.get_session request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.get_session request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -262,8 +306,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload list_sessions(page_size: nil, page_token: nil)
             #   Pass arguments to `list_sessions` via keyword arguments. Note that at
@@ -274,13 +316,33 @@ module Google
             #     The maximum number of sessions to return per page.
             #   @param page_token [::String]
             #     The page token, for retrieving subsequent pages.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Session>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Session>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ListSessionsRequest.new
+            #
+            #   # Call the list_sessions method.
+            #   result = client.list_sessions request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::Session.
+            #     p item
+            #   end
+            #
             def list_sessions request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -292,22 +354,26 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.list_sessions.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.list_sessions.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.list_sessions.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @testing_stub.list_sessions request, options do |result, response|
+              @testing_stub.list_sessions request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @testing_stub, :list_sessions, "sessions", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -326,8 +392,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload delete_session(name: nil)
             #   Pass arguments to `delete_session` via keyword arguments. Note that at
@@ -336,13 +400,29 @@ module Google
             #
             #   @param name [::String]
             #     The session to be deleted.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::DeleteSessionRequest.new
+            #
+            #   # Call the delete_session method.
+            #   result = client.delete_session request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_session request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -354,20 +434,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.delete_session.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.delete_session.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.delete_session.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @testing_stub.delete_session request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.delete_session request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -388,8 +472,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload report_session(name: nil)
             #   Pass arguments to `report_session` via keyword arguments. Note that at
@@ -398,13 +480,29 @@ module Google
             #
             #   @param name [::String]
             #     The session to be reported on.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::ReportSessionResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::ReportSessionResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ReportSessionRequest.new
+            #
+            #   # Call the report_session method.
+            #   result = client.report_session request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::ReportSessionResponse.
+            #   p result
+            #
             def report_session request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -416,20 +514,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.report_session.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.report_session.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.report_session.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @testing_stub.report_session request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.report_session request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -448,8 +550,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload list_tests(parent: nil, page_size: nil, page_token: nil)
             #   Pass arguments to `list_tests` via keyword arguments. Note that at
@@ -462,13 +562,33 @@ module Google
             #     The maximum number of tests to return per page.
             #   @param page_token [::String]
             #     The page token, for retrieving subsequent pages.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Test>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Test>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ListTestsRequest.new
+            #
+            #   # Call the list_tests method.
+            #   result = client.list_tests request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::Test.
+            #     p item
+            #   end
+            #
             def list_tests request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -480,22 +600,26 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.list_tests.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.list_tests.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.list_tests.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @testing_stub.list_tests request, options do |result, response|
+              @testing_stub.list_tests request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @testing_stub, :list_tests, "tests", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -519,8 +643,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload delete_test(name: nil)
             #   Pass arguments to `delete_test` via keyword arguments. Note that at
@@ -529,13 +651,29 @@ module Google
             #
             #   @param name [::String]
             #     The test to be deleted.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::DeleteTestRequest.new
+            #
+            #   # Call the delete_test method.
+            #   result = client.delete_test request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_test request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -547,20 +685,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.delete_test.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.delete_test.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.delete_test.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @testing_stub.delete_test request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.delete_test request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -582,8 +724,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload verify_test(name: nil, answer: nil, answers: nil)
             #   Pass arguments to `verify_test` via keyword arguments. Note that at
@@ -596,13 +736,29 @@ module Google
             #     The answer from the test.
             #   @param answers [::Array<::String>]
             #     The answers from the test if multiple are to be checked
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::VerifyTestResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::VerifyTestResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Testing::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::VerifyTestRequest.new
+            #
+            #   # Call the verify_test method.
+            #   result = client.verify_test request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::VerifyTestResponse.
+            #   p result
+            #
             def verify_test request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -614,20 +770,24 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.verify_test.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
               options.apply_defaults timeout:      @config.rpcs.verify_test.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.verify_test.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-              @testing_stub.verify_test request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.verify_test request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -638,24 +798,30 @@ module Google
             # Configuration class for the Testing REST API.
             #
             # This class represents the configuration for Testing REST,
-            # providing control over credentials, timeouts, retry behavior, logging.
+            # providing control over timeouts, retry behavior, logging, transport
+            # parameters, and other low-level controls. Certain parameters can also be
+            # applied individually to specific RPCs. See
+            # {::Google::Showcase::V1beta1::Testing::Rest::Client::Configuration::Rpcs}
+            # for a list of RPCs that can be configured independently.
             #
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for all calls to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # create_session to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Showcase::V1beta1::Testing::Rest::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.create_session.timeout = 20.0
+            #   end
             #
-            #     ::Google::Showcase::V1beta1::Testing::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.create_session.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
@@ -666,9 +832,9 @@ module Google
             #    *  (`String`) The path to a service account key file in JSON format
             #    *  (`Hash`) A service account key as a Hash
             #    *  (`Google::Auth::Credentials`) A googleauth credentials object
-            #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+            #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
             #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
-            #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+            #       (see the [signet docs](https://rubydoc.info/gems/signet/Signet/OAuth2/Client))
             #    *  (`nil`) indicating no credentials
             #   @return [::Object]
             # @!attribute [rw] scope
@@ -684,13 +850,26 @@ module Google
             #   The call timeout in seconds.
             #   @return [::Numeric]
             # @!attribute [rw] metadata
-            #   Additional REST headers to be sent with the call.
+            #   Additional headers to be sent with the call.
             #   @return [::Hash{::Symbol=>::String}]
+            # @!attribute [rw] retry_policy
+            #   The retry policy. The value is a hash with the following keys:
+            #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #       trigger a retry.
+            #   @return [::Hash]
+            # @!attribute [rw] quota_project
+            #   A separate project against which to charge quota.
+            #   @return [::String]
             #
             class Configuration
               extend ::Gapic::Config
 
-              config_attr :endpoint,      "localhost:7469", ::String
+              DEFAULT_ENDPOINT = "localhost:7469"
+
+              config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
               config_attr :credentials,   nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
                            nil]
@@ -701,6 +880,8 @@ module Google
               config_attr :lib_version,   nil, ::String, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
+              config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
+              config_attr :quota_project, nil, ::String, nil
 
               # @private
               def initialize parent_config = nil
@@ -729,9 +910,14 @@ module Google
               # the following configuration fields:
               #
               #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-              #
-              # there is one other field (`retry_policy`) that can be set
-              # but is currently not supported for REST Gapic libraries.
+              #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+              #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+              #     include the following keys:
+              #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+              #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+              #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+              #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+              #         trigger a retry.
               #
               class Rpcs
                 ##

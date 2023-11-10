@@ -1,0 +1,4 @@
+---
+:transports: ["grpc", "rest"]
+:gem:
+  :name: "google-cloud-location"

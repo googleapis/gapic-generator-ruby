@@ -44,36 +44,11 @@ module Gapic
       #
       # @return [Gapic::Rest::GrpcTranscoder] The updated transcoder.
       def with_bindings uri_method:, uri_template:, matches: [], body: nil
-        template = uri_template
-
-        matches.each do |name, _regex, _preserve_slashes|
-          unless uri_template =~ /({#{Regexp.quote name}})/
-            err_msg = "Binding configuration is incorrect: missing parameter in the URI template.\n" \
-                      "Parameter `#{name}` is specified for matching but there is no corresponding parameter " \
-                      "`{#{name}}` in the URI template."
-            raise ::Gapic::Common::Error, err_msg
-          end
-
-          template = template.gsub "{#{name}}", ""
-        end
-
-        if template =~ /{([a-zA-Z_.]+)}/
-          err_name = Regexp.last_match[1]
-          err_msg = "Binding configuration is incorrect: missing match configuration.\n" \
-                    "Parameter `{#{err_name}}` is specified in the URI template but there is no " \
-                    "corresponding match configuration for `#{err_name}`."
-          raise ::Gapic::Common::Error, err_msg
-        end
-
-        if body&.include? "."
-          raise ::Gapic::Common::Error,
-                "Provided body template `#{body}` points to a field in a sub-message. This is not supported."
-        end
-
-        field_bindings = matches.map do |name, regex, preserve_slashes|
-          HttpBinding::FieldBinding.new name, regex, preserve_slashes
-        end
-        GrpcTranscoder.new @bindings + [HttpBinding.new(uri_method, uri_template, field_bindings, body)]
+        binding = HttpBinding.create_with_validation(uri_method: uri_method,
+                                                     uri_template: uri_template,
+                                                     matches: matches,
+                                                     body: body)
+        GrpcTranscoder.new @bindings + [binding]
       end
 
       ##
@@ -142,7 +117,7 @@ module Gapic
           field_value = extract_scalar_value! request_hash, field_path_camel, field_binding.regex
 
           if field_value
-            field_value = field_value.split("/").map { |segment| percent_escape(segment) }.join("/")
+            field_value = field_value.split("/").map { |segment| percent_escape segment }.join("/")
           end
 
           [field_binding.field_path, field_value]
@@ -151,7 +126,7 @@ module Gapic
 
       # Percent-escapes a string.
       # @param str [String] String to escape.
-      # @return str [String] Escaped string.
+      # @return [String] Escaped string.
       def percent_escape str
         # `+` to represent spaces is not currently supported in Showcase server.
         CGI.escape(str).gsub("+", "%20")
@@ -243,7 +218,7 @@ module Gapic
 
         # Covers the case where in `foo.bar.baz`, `baz` is still a submessage or an array.
         return nil if value.is_a?(::Hash) || value.is_a?(::Array)
-        return value.to_s if value.to_s =~ regex
+        value.to_s if value.to_s =~ regex
       end
 
       # Finds a value in the hash by path.

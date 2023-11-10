@@ -27,15 +27,24 @@
 # [START showcase_v0_generated_Identity_UpdateUser_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Identity::Client.new
+##
+# Snippet for the update_user call in the Identity service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Identity::Client#update_user. It may require
+# modification in order to execute successfully.
+#
+def update_user
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Identity::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::UpdateUserRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::UpdateUserRequest.new
 
-# Call the update_user method.
-result = client.update_user request
+  # Call the update_user method.
+  result = client.update_user request
 
-# The returned object is of type Google::Showcase::V1beta1::User.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::User.
+  p result
+end
 # [END showcase_v0_generated_Identity_UpdateUser_sync]

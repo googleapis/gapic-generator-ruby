@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ module Google
         # * {::Google::Cloud::SecretManager::V1beta1::Secret Secret}
         # * {::Google::Cloud::SecretManager::V1beta1::SecretVersion SecretVersion}
         #
-        # To load this service and instantiate a client:
+        # @example Load this service and instantiate a gRPC client
         #
         #     require "google/cloud/secret_manager/v1beta1/secret_manager_service"
         #     client = ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new

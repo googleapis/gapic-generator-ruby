@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +19,24 @@
 # [START vision_v1_generated_ProductSearch_GetProductSet_sync]
 require "google/cloud/vision/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+##
+# Snippet for the get_product_set call in the ProductSearch service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Vision::V1::ProductSearch::Client#get_product_set. It may
+# require modification in order to execute successfully.
+#
+def get_product_set
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Vision::V1::GetProductSetRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Vision::V1::GetProductSetRequest.new
 
-# Call the get_product_set method.
-result = client.get_product_set request
+  # Call the get_product_set method.
+  result = client.get_product_set request
 
-# The returned object is of type Google::Cloud::Vision::V1::ProductSet.
-p result
+  # The returned object is of type Google::Cloud::Vision::V1::ProductSet.
+  p result
+end
 # [END vision_v1_generated_ProductSearch_GetProductSet_sync]

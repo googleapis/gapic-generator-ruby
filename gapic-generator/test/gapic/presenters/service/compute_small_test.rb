@@ -16,18 +16,30 @@
 
 require "test_helper"
 
-class ServicePresenterRestTest < PresenterTest
+class ComputeSmallTest < PresenterTest
   def test_compute_addresses
-    presenter = service_presenter :compute_small, "Addresses"
+    main_service = service_presenter(:compute_small, "Addresses")
+    presenter = main_service.rest
 
-    refute presenter.nonstandard_lro_provider?
-    assert presenter.nonstandard_lro_consumer?
+    refute main_service.nonstandard_lro_provider?
+    assert main_service.nonstandard_lro_consumer?
+
+    refute presenter.is_hosted_mixin?
+    refute presenter.is_main_mixin_service?
+    refute presenter.mixins?
+    refute presenter.mixin_binding_overrides?
   end
 
   def test_compute_region_operations
-    presenter = service_presenter :compute_small, "RegionOperations"
+    main_service = service_presenter(:compute_small, "RegionOperations")
+    presenter = main_service.rest
 
-    assert presenter.nonstandard_lro_provider?
-    refute presenter.nonstandard_lro_consumer?
+    assert main_service.nonstandard_lro_provider?
+    refute main_service.nonstandard_lro_consumer?
+
+    refute presenter.is_hosted_mixin?
+    refute presenter.is_main_mixin_service?
+    refute presenter.mixins?
+    refute presenter.mixin_binding_overrides?
   end
 end

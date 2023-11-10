@@ -1,5 +1,105 @@
 # Release History for gapic-generator-cloud
 
+### 0.25.1 / 2023-09-12
+
+* Includes changes from gapic-generator 0.25.1
+* Fix: Workaround for grpc windows issue during tests
+
+### 0.25.0 / 2023-09-07
+
+* Includes changes from gapic-generator 0.25.0
+
+### 0.24.0 / 2023-07-05
+
+* Includes changes from gapic-generator 0.24.0
+
+### 0.23.4 / 2023-06-03
+
+* Includes changes from gapic-generator 0.23.4
+
+### 0.23.3 / 2023-05-26
+
+* Includes changes from gapic-generator 0.23.3
+* Fix: Generated clients depend on gapic-common 0.19
+
+### 0.23.2 / 2023-03-08
+
+* Includes changes from gapic-generator 0.23.2
+* Fix: Replace googleapis.dev links with equivalent cloud.google.com or rubydoc.info links
+* Fix: Fix broken ruby-doc logger class links in readme templates
+* Fix: Path override now affects wrapper factory method names
+
+### 0.23.1 / 2023-02-28
+
+* Includes changes from gapic-generator 0.23.1
+
+### 0.23.0 / 2023-02-27
+
+* Includes changes from gapic-generator 0.23.0
+* Feature: Honor metadata from the service yaml
+
+### 0.22.0 / 2023-02-14
+
+* Includes changes from gapic-generator 0.22.0
+* Feature: Update mixin dependency versions to 0.4
+
+### 0.21.1 / 2023-02-13
+
+* Includes changes from gapic-generator 0.21.1
+* Fix: Get rubocop working in bazel
+
+### 0.21.0 / 2023-02-09
+
+* Includes changes from gapic-generator 0.21.0
+* Feature: Load and interpret snippetgen phase 2 config data
+* Feature: Implemented enough of SnippetGen phase 2 to generate the initial test case
+* Feature: add a transport operation class in Rest
+
+### 0.20.0 / 2023-01-19
+
+* Includes changes from gapic-generator 0.20.0
+
+### 0.19.0 / 2023-01-17
+
+* Includes changes from gapic-generator 0.19.0
+* Fix: remove a deprecated method usage that new Ruby does not like
+
+### 0.18.1 / 2022-12-15
+
+* Includes changes from gapic-generator 0.18.1
+
+### 0.18.0 / 2022-12-15
+
+* Includes changes from gapic-generator 0.18.0
+* Fix: Cross-ref links use the REST client class in REST client docs
+* Feature: all fixes for the combined rest+grpc libraries
+* Fix: handle only regapic errors for REST libraries
+* Feature: Updated wrapper generator to support multi-transport clients
+
+### 0.17.2 / 2022-10-27
+
+* Includes changes from gapic-generator 0.17.2
+* Fix: Update snippetgen phase 1 to conform to standard sample style
+
+### 0.17.1 / 2022-10-26
+
+* Includes changes from gapic-generator 0.17.1
+
+### 0.17.0 / 2022-10-21
+
+* Includes changes from gapic-generator 0.17.0
+
+### 0.16.1 / 2022-09-27
+
+* Includes changes from gapic-generator 0.16.1
+* Fix: correct cause of Cloud error
+
+### 0.16.0 / 2022-09-16
+
+* Includes changes from gapic-generator 0.16.0
+* Feature: parse details information from REST errors
+* Feature: Support numeric enums
+
 ### 0.15.3 / 2022-08-18
 
 * Includes changes from gapic-generator 0.15.3

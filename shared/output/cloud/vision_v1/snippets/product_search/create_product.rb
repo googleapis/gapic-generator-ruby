@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +19,24 @@
 # [START vision_v1_generated_ProductSearch_CreateProduct_sync]
 require "google/cloud/vision/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+##
+# Snippet for the create_product call in the ProductSearch service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Vision::V1::ProductSearch::Client#create_product. It may
+# require modification in order to execute successfully.
+#
+def create_product
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Vision::V1::CreateProductRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Vision::V1::CreateProductRequest.new
 
-# Call the create_product method.
-result = client.create_product request
+  # Call the create_product method.
+  result = client.create_product request
 
-# The returned object is of type Google::Cloud::Vision::V1::Product.
-p result
+  # The returned object is of type Google::Cloud::Vision::V1::Product.
+  p result
+end
 # [END vision_v1_generated_ProductSearch_CreateProduct_sync]

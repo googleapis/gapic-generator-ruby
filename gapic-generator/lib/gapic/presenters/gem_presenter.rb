@@ -73,10 +73,6 @@ module Gapic
         end
       end
 
-      def address
-        name.split("-").map(&:camelize)
-      end
-
       def name
         gem_config :name
       end
@@ -88,6 +84,7 @@ module Gapic
 
       def title
         gem_config(:title) ||
+          @api.api_metadata.title ||
           namespace.split("::").join(" ")
       end
 
@@ -120,11 +117,13 @@ module Gapic
 
       def description
         gem_config(:description) ||
+          @api.api_metadata.description ||
           "#{name} is the official client library for the #{title} API."
       end
 
       def summary
         gem_config(:summary) ||
+          @api.api_metadata.summary ||
           "API Client library for the #{title} API"
       end
 
@@ -146,17 +145,21 @@ module Gapic
       end
 
       def product_documentation_url
-        gem_config :product_documentation_url
+        gem_config(:product_documentation_url) || @api.api_metadata.documentation_url
       end
 
       def api_id
-        raw_id = gem_config :api_id
+        raw_id = gem_config(:api_id) || @api.api_metadata.name
         return nil unless raw_id
         raw_id.include?(".") ? raw_id : "#{raw_id}.googleapis.com"
       end
 
       def api_shortname
-        gem_config :api_shortname
+        gem_config(:api_shortname) || @api.api_metadata.short_name
+      end
+
+      def doc_tag_prefix
+        @api.api_metadata.doc_tag_prefix || api_shortname || api_id&.split(".")&.first
       end
 
       def issue_tracker_url
@@ -188,8 +191,38 @@ module Gapic
       ##
       # @return [Boolean]
       #
+      def rest_numeric_enums?
+        gem_config(:rest_numeric_enums) || false
+      end
+
+      ##
+      # @return [Boolean] Whether the generation of REST clients is requested
+      #    and can be done because at least one method has rest bindings.
+      #
       def generate_rest_clients?
-        @api.generate_rest_clients?
+        @api.generate_rest_clients? && packages.any? { |package| !package.first_service_with_rest.nil? }
+      end
+
+      ##
+      # @return [Boolean] Whether generation of gRPC clients is requested.
+      #
+      def generate_grpc_clients?
+        @api.generate_grpc_clients?
+      end
+
+      ##
+      # @return [:grpc] If gRPC is the default transport
+      # @return [:rest] if REST is the default transport
+      #
+      def default_transport
+        @api.default_transport
+      end
+
+      ##
+      # @return [String] Pretty name of the default transport
+      #
+      def default_transport_name
+        @api.default_transport == :grpc ? "gRPC" : "REST"
       end
 
       def entrypoint_require
@@ -207,11 +240,12 @@ module Gapic
 
       def dependencies
         @dependencies ||= begin
-          deps = { "gapic-common" => [">= 0.10", "< 2.a"] }
+          deps = { "gapic-common" => [">= 0.20.0", "< 2.a"] }
           deps["grpc-google-iam-v1"] = "~> 1.1" if iam_dependency?
           extra_deps = gem_config_dependencies
-          deps.merge! extra_deps if extra_deps
           deps.merge! mixins_model.dependencies if mixins_model.mixins?
+          # extra deps should be last, overriding mixins or defaults
+          deps.merge! extra_deps if extra_deps
           # google-iam-v1 is a superset of grpc-google-iam-v1, so if both are
           # listed, use only google-iam-v1.
           deps.delete "grpc-google-iam-v1" if deps.include? "google-iam-v1"
@@ -299,21 +333,30 @@ module Gapic
       ##
       # There is a special case (from PoV of generator parameters)
       # in gem dependencies where a dependency needs to be an array of strings
-      # e.g. ">= 1.6", "< 2.a"
+      # e.g. `">= 1.6", "< 2.a"``
       # Rather than creating a special generator param case for this I will special-case it here.
-      # '|' is the separator.
-      # The above would be represented as ">= 1.6|< 2.a"
+      # Supported separators are `|` and `+`. The latter is preferred.
+      # Spaces in the version requirements are optional.
+      # The above would be represented as `">=1.6+<2.a"`
       #
       # @return [Hash<String, String>, Hash{String=>Array<String>}, nil]
       def gem_config_dependencies
         return unless gem_config :extra_dependencies
-        gem_config(:extra_dependencies).to_h do |dep_name, dep_versions|
+        gem_config(:extra_dependencies).transform_values do |dep_versions|
           if dep_versions.include? "|"
-            [dep_name, dep_versions.split("|")]
+            dep_versions.split("|").map { |dep_version| check_dep_version dep_version }
+          elsif dep_versions.include? "+"
+            dep_versions.split("+").map { |dep_version| check_dep_version dep_version }
           else
-            [dep_name, dep_versions]
+            check_dep_version dep_versions
           end
         end
+      end
+
+      def check_dep_version dep_version
+        match = /([>=<~]+)\s*(\d+(?:\.\w+)+)/.match dep_version
+        raise "Bad syntax for extra_dependency: #{dep_version}" unless match
+        "#{match[1]} #{match[2]}"
       end
 
       def denylist_protos
