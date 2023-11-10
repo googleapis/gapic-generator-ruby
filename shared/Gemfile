@@ -13,7 +13,7 @@ gem "google-cloud-location", ">= 0.4", "< 2.a"
 gem "google-iam-v1", ">= 0.4", "< 2.a"
 
 gem "google-protobuf", "~> 3.24.4"
-gem "google-style", "~> 1.26.3"
+gem "google-style", ">= 1.26.3", "< 1.28"
 gem "grpc-tools", "~> 1.58.0"
 gem "minitest", "~> 5.0"
 gem "minitest-autotest", "~> 1.0"
