@@ -29,7 +29,7 @@ mixin "golden-tools" do
     mkdir_p "#{output_dir}/lib"
 
     protoc_cmd = [
-      "grpc_tools_ruby_protoc",
+      "bundle", "exec", "grpc_tools_ruby_protoc",
       "--experimental_allow_proto3_optional=1",
       "-I", "../shared/protos",
       "-I", "../shared/api-common-protos",
@@ -135,6 +135,7 @@ tool "bin" do
   desc "Regenerates binary input for goldens"
 
   remaining_args :services, accept: proc(&:to_sym)
+  flag :generator, "--generator=GENERATOR", accept: proc(&:to_sym)
 
   include "golden-tools"
 
@@ -143,9 +144,12 @@ tool "bin" do
     Dir.chdir context_directory
     set :services, all_service_names(omit_generator: :gem_builder) if services.empty?
     services.each do |service|
+      puts "Generating binary input for #{service}", :bold
+      service_generator = generator || generator_for(service)
       Dir.mktmpdir do |tmp|
-        puts "Generating binary input for #{service}", :bold
-        run_protoc service, tmp, extra_opts: "binary_output=input/#{service}_desc.bin"
+        run_protoc service, tmp,
+                   generator: service_generator,
+                   extra_opts: "binary_output=input/#{service}_desc.bin"
       end
     end
   end

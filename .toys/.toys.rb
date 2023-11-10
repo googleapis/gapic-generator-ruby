@@ -28,6 +28,7 @@ mixin "repo_info" do
       gemfiles += Dir.glob ".toys/**/Gemfile" if include_toys && !generator_only
       gemfiles.each do |gemfile|
         dir = File.dirname gemfile
+        next if dir == "tmp"
         next if generator_only && non_generator_directories.include?(dir)
         Dir.chdir dir do
           yield dir
