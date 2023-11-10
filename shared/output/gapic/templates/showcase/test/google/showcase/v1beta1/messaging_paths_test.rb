@@ -38,16 +38,16 @@ class ::Google::Showcase::V1beta1::Messaging::ClientPathsTest < Minitest::Test
         config.credentials = grpc_channel
       end
 
-      path = client.blurb_path user_id: "value0", legacy_user_id: "value1", blurb_id: "value2"
+      path = client.blurb_path user: "value0", legacy_user: "value1", blurb: "value2"
       assert_equal "users/value0/profile/blurbs/legacy/value1~value2", path
 
-      path = client.blurb_path user_id: "value0", blurb_id: "value1"
+      path = client.blurb_path user: "value0", blurb: "value1"
       assert_equal "users/value0/profile/blurbs/value1", path
 
-      path = client.blurb_path room_id: "value0", blurb_id: "value1"
+      path = client.blurb_path room: "value0", blurb: "value1"
       assert_equal "rooms/value0/blurbs/value1", path
 
-      path = client.blurb_path room_id: "value0", legacy_room_id: "value1", blurb_id: "value2"
+      path = client.blurb_path room: "value0", legacy_room: "value1", blurb: "value2"
       assert_equal "rooms/value0/blurbs/legacy/value1.value2", path
     end
   end
@@ -59,7 +59,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientPathsTest < Minitest::Test
         config.credentials = grpc_channel
       end
 
-      path = client.room_path room_id: "value0"
+      path = client.room_path room: "value0"
       assert_equal "rooms/value0", path
     end
   end
@@ -71,7 +71,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientPathsTest < Minitest::Test
         config.credentials = grpc_channel
       end
 
-      path = client.user_path user_id: "value0"
+      path = client.user_path user: "value0"
       assert_equal "users/value0", path
     end
   end

@@ -26,6 +26,8 @@
 
 require "google/showcase/v1beta1/echo_pb"
 require "google/showcase/v1beta1/echo/rest/service_stub"
+require "google/cloud/location/rest"
+require "google/iam/v1/rest"
 
 module Google
   module Showcase
@@ -139,6 +141,20 @@ module Google
                 config.endpoint = @config.endpoint
               end
 
+              @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+                config.credentials = credentials
+                config.quota_project = @quota_project_id
+                config.endpoint = @config.endpoint
+                config.bindings_override = @config.bindings_override
+              end
+
+              @iam_policy_client = Google::Iam::V1::IAMPolicy::Rest::Client.new do |config|
+                config.credentials = credentials
+                config.quota_project = @quota_project_id
+                config.endpoint = @config.endpoint
+                config.bindings_override = @config.bindings_override
+              end
+
               @echo_stub = ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                     credentials: credentials
             end
@@ -149,6 +165,20 @@ module Google
             # @return [::Google::Showcase::V1beta1::Echo::Rest::Operations]
             #
             attr_reader :operations_client
+
+            ##
+            # Get the associated client for mix-in of the Locations.
+            #
+            # @return [Google::Cloud::Location::Locations::Rest::Client]
+            #
+            attr_reader :location_client
+
+            ##
+            # Get the associated client for mix-in of the IAMPolicy.
+            #
+            # @return [Google::Iam::V1::IAMPolicy::Rest::Client]
+            #
+            attr_reader :iam_policy_client
 
             # Service calls
 
@@ -239,6 +269,93 @@ module Google
             end
 
             ##
+            # This method returns error details in a repeated "google.protobuf.Any"
+            # field. This method showcases handling errors thus encoded, particularly
+            # over REST transport. Note that GAPICs only allow the type
+            # "google.protobuf.Any" for field paths ending in "error.details", and, at
+            # run-time, the actual types for these fields must be one of the types in
+            # google/rpc/error_details.proto.
+            #
+            # @overload echo_error_details(request, options = nil)
+            #   Pass arguments to `echo_error_details` via a request object, either of type
+            #   {::Google::Showcase::V1beta1::EchoErrorDetailsRequest} or an equivalent Hash.
+            #
+            #   @param request [::Google::Showcase::V1beta1::EchoErrorDetailsRequest, ::Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #   @param options [::Gapic::CallOptions, ::Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @overload echo_error_details(single_detail_text: nil, multi_detail_text: nil)
+            #   Pass arguments to `echo_error_details` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param single_detail_text [::String]
+            #     Content to return in a singular `*.error.details` field of type
+            #     `google.protobuf.Any`
+            #   @param multi_detail_text [::Array<::String>]
+            #     Content to return in a repeated `*.error.details` field of type
+            #     `google.protobuf.Any`
+            # @yield [result, operation] Access the result along with the TransportOperation object
+            # @yieldparam result [::Google::Showcase::V1beta1::EchoErrorDetailsResponse]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
+            #
+            # @return [::Google::Showcase::V1beta1::EchoErrorDetailsResponse]
+            #
+            # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Echo::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::EchoErrorDetailsRequest.new
+            #
+            #   # Call the echo_error_details method.
+            #   result = client.echo_error_details request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::EchoErrorDetailsResponse.
+            #   p result
+            #
+            def echo_error_details request, options = nil
+              raise ::ArgumentError, "request must be provided" if request.nil?
+
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::EchoErrorDetailsRequest
+
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              call_metadata = @config.rpcs.echo_error_details.metadata.to_h
+
+              # Set x-goog-api-client and x-goog-user-project headers
+              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION,
+                transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              options.apply_defaults timeout:      @config.rpcs.echo_error_details.timeout,
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.echo_error_details.retry_policy
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              @echo_stub.echo_error_details request, options do |result, operation|
+                yield result, operation if block_given?
+                return result
+              end
+            rescue ::Faraday::Error => e
+              raise ::Gapic::Rest::Error.wrap_faraday_error e
+            end
+
+            ##
             # This method splits the given content into words and will pass each word back
             # through the stream. This method showcases server-side streaming RPCs.
             #
@@ -252,7 +369,7 @@ module Google
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @overload expand(content: nil, error: nil)
+            # @overload expand(content: nil, error: nil, stream_wait_time: nil)
             #   Pass arguments to `expand` via keyword arguments. Note that at
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -261,6 +378,8 @@ module Google
             #     The content that will be split into words and returned on the stream.
             #   @param error [::Google::Rpc::Status, ::Hash]
             #     The error that is thrown after all words are sent on the stream.
+            #   @param stream_wait_time [::Google::Protobuf::Duration, ::Hash]
+            #     The wait time between each server streaming messages
             # @return [::Enumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
@@ -861,6 +980,13 @@ module Google
               config_attr :quota_project, nil, ::String, nil
 
               # @private
+              # Overrides for http bindings for the RPCs of this service
+              # are only used when this service is used as mixin, and only
+              # by the host service.
+              # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
+              config_attr :bindings_override, {}, ::Hash, nil
+
+              # @private
               def initialize parent_config = nil
                 @parent_config = parent_config unless parent_config.nil?
 
@@ -903,6 +1029,11 @@ module Google
                 #
                 attr_reader :echo
                 ##
+                # RPC-specific configuration for `echo_error_details`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :echo_error_details
+                ##
                 # RPC-specific configuration for `expand`
                 # @return [::Gapic::Config::Method]
                 #
@@ -937,6 +1068,8 @@ module Google
                 def initialize parent_rpcs = nil
                   echo_config = parent_rpcs.echo if parent_rpcs.respond_to? :echo
                   @echo = ::Gapic::Config::Method.new echo_config
+                  echo_error_details_config = parent_rpcs.echo_error_details if parent_rpcs.respond_to? :echo_error_details
+                  @echo_error_details = ::Gapic::Config::Method.new echo_error_details_config
                   expand_config = parent_rpcs.expand if parent_rpcs.respond_to? :expand
                   @expand = ::Gapic::Config::Method.new expand_config
                   paged_expand_config = parent_rpcs.paged_expand if parent_rpcs.respond_to? :paged_expand

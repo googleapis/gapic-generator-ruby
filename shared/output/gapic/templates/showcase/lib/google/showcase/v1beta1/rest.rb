@@ -28,7 +28,9 @@ require "google/showcase/v1beta1/compliance/rest"
 require "google/showcase/v1beta1/echo/rest"
 require "google/showcase/v1beta1/identity/rest"
 require "google/showcase/v1beta1/messaging/rest"
+require "google/showcase/v1beta1/sequence_service/rest"
 require "google/showcase/v1beta1/testing/rest"
+require "google/showcase/v1beta1/bindings_override"
 require "google/showcase/version"
 
 module Google

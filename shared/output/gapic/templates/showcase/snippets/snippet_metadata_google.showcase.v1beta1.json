@@ -332,6 +332,86 @@
       ]
     },
     {
+      "region_tag": "showcase_v0_generated_Compliance_GetEnum_sync",
+      "title": "Snippet for the get_enum call in the Compliance service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#get_enum. It may require modification in order to execute successfully.",
+      "file": "compliance/get_enum.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_enum",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#get_enum",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::EnumRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::EnumResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "GetEnum",
+          "full_name": "google.showcase.v1beta1.Compliance.GetEnum",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Compliance_VerifyEnum_sync",
+      "title": "Snippet for the verify_enum call in the Compliance service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#verify_enum. It may require modification in order to execute successfully.",
+      "file": "compliance/verify_enum.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "verify_enum",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#verify_enum",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::EnumResponse",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::EnumResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "VerifyEnum",
+          "full_name": "google.showcase.v1beta1.Compliance.VerifyEnum",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
       "region_tag": "showcase_v0_generated_Echo_Echo_sync",
       "title": "Snippet for the echo call in the Echo service",
       "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#echo. It may require modification in order to execute successfully.",
@@ -355,6 +435,46 @@
         "method": {
           "short_name": "Echo",
           "full_name": "google.showcase.v1beta1.Echo.Echo",
+          "service": {
+            "short_name": "Echo",
+            "full_name": "google.showcase.v1beta1.Echo"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Echo_EchoErrorDetails_sync",
+      "title": "Snippet for the echo_error_details call in the Echo service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#echo_error_details. It may require modification in order to execute successfully.",
+      "file": "echo/echo_error_details.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "echo_error_details",
+        "full_name": "::Google::Showcase::V1beta1::Echo::Client#echo_error_details",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::EchoErrorDetailsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::EchoErrorDetailsResponse",
+        "client": {
+          "short_name": "Echo::Client",
+          "full_name": "::Google::Showcase::V1beta1::Echo::Client"
+        },
+        "method": {
+          "short_name": "EchoErrorDetails",
+          "full_name": "google.showcase.v1beta1.Echo.EchoErrorDetails",
           "service": {
             "short_name": "Echo",
             "full_name": "google.showcase.v1beta1.Echo"
@@ -1447,6 +1567,246 @@
         {
           "start": 28,
           "end": 58,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_SequenceService_CreateSequence_sync",
+      "title": "Snippet for the create_sequence call in the SequenceService service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#create_sequence. It may require modification in order to execute successfully.",
+      "file": "sequence_service/create_sequence.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "create_sequence",
+        "full_name": "::Google::Showcase::V1beta1::SequenceService::Client#create_sequence",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::CreateSequenceRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Sequence",
+        "client": {
+          "short_name": "SequenceService::Client",
+          "full_name": "::Google::Showcase::V1beta1::SequenceService::Client"
+        },
+        "method": {
+          "short_name": "CreateSequence",
+          "full_name": "google.showcase.v1beta1.SequenceService.CreateSequence",
+          "service": {
+            "short_name": "SequenceService",
+            "full_name": "google.showcase.v1beta1.SequenceService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_SequenceService_CreateStreamingSequence_sync",
+      "title": "Snippet for the create_streaming_sequence call in the SequenceService service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#create_streaming_sequence. It may require modification in order to execute successfully.",
+      "file": "sequence_service/create_streaming_sequence.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "create_streaming_sequence",
+        "full_name": "::Google::Showcase::V1beta1::SequenceService::Client#create_streaming_sequence",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::CreateStreamingSequenceRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::StreamingSequence",
+        "client": {
+          "short_name": "SequenceService::Client",
+          "full_name": "::Google::Showcase::V1beta1::SequenceService::Client"
+        },
+        "method": {
+          "short_name": "CreateStreamingSequence",
+          "full_name": "google.showcase.v1beta1.SequenceService.CreateStreamingSequence",
+          "service": {
+            "short_name": "SequenceService",
+            "full_name": "google.showcase.v1beta1.SequenceService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_SequenceService_GetSequenceReport_sync",
+      "title": "Snippet for the get_sequence_report call in the SequenceService service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#get_sequence_report. It may require modification in order to execute successfully.",
+      "file": "sequence_service/get_sequence_report.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_sequence_report",
+        "full_name": "::Google::Showcase::V1beta1::SequenceService::Client#get_sequence_report",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::GetSequenceReportRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::SequenceReport",
+        "client": {
+          "short_name": "SequenceService::Client",
+          "full_name": "::Google::Showcase::V1beta1::SequenceService::Client"
+        },
+        "method": {
+          "short_name": "GetSequenceReport",
+          "full_name": "google.showcase.v1beta1.SequenceService.GetSequenceReport",
+          "service": {
+            "short_name": "SequenceService",
+            "full_name": "google.showcase.v1beta1.SequenceService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_SequenceService_GetStreamingSequenceReport_sync",
+      "title": "Snippet for the get_streaming_sequence_report call in the SequenceService service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#get_streaming_sequence_report. It may require modification in order to execute successfully.",
+      "file": "sequence_service/get_streaming_sequence_report.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_streaming_sequence_report",
+        "full_name": "::Google::Showcase::V1beta1::SequenceService::Client#get_streaming_sequence_report",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::StreamingSequenceReport",
+        "client": {
+          "short_name": "SequenceService::Client",
+          "full_name": "::Google::Showcase::V1beta1::SequenceService::Client"
+        },
+        "method": {
+          "short_name": "GetStreamingSequenceReport",
+          "full_name": "google.showcase.v1beta1.SequenceService.GetStreamingSequenceReport",
+          "service": {
+            "short_name": "SequenceService",
+            "full_name": "google.showcase.v1beta1.SequenceService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_SequenceService_AttemptSequence_sync",
+      "title": "Snippet for the attempt_sequence call in the SequenceService service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#attempt_sequence. It may require modification in order to execute successfully.",
+      "file": "sequence_service/attempt_sequence.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "attempt_sequence",
+        "full_name": "::Google::Showcase::V1beta1::SequenceService::Client#attempt_sequence",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::AttemptSequenceRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Protobuf::Empty",
+        "client": {
+          "short_name": "SequenceService::Client",
+          "full_name": "::Google::Showcase::V1beta1::SequenceService::Client"
+        },
+        "method": {
+          "short_name": "AttemptSequence",
+          "full_name": "google.showcase.v1beta1.SequenceService.AttemptSequence",
+          "service": {
+            "short_name": "SequenceService",
+            "full_name": "google.showcase.v1beta1.SequenceService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_SequenceService_AttemptStreamingSequence_sync",
+      "title": "Snippet for the attempt_streaming_sequence call in the SequenceService service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#attempt_streaming_sequence. It may require modification in order to execute successfully.",
+      "file": "sequence_service/attempt_streaming_sequence.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "attempt_streaming_sequence",
+        "full_name": "::Google::Showcase::V1beta1::SequenceService::Client#attempt_streaming_sequence",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::AttemptStreamingSequenceResponse",
+        "client": {
+          "short_name": "SequenceService::Client",
+          "full_name": "::Google::Showcase::V1beta1::SequenceService::Client"
+        },
+        "method": {
+          "short_name": "AttemptStreamingSequence",
+          "full_name": "google.showcase.v1beta1.SequenceService.AttemptStreamingSequence",
+          "service": {
+            "short_name": "SequenceService",
+            "full_name": "google.showcase.v1beta1.SequenceService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 52,
           "type": "FULL"
         }
       ]

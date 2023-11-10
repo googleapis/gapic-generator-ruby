@@ -201,6 +201,25 @@ module Google
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # @!attribute [rw] unknown_enum
+      #   @return [::Boolean]
+      #     Whether the client is requesting a new, unknown enum value or a known enum value already declard in this proto file.
+      class EnumRequest
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # @!attribute [rw] request
+      #   @return [::Google::Showcase::V1beta1::EnumRequest]
+      #     The original request for a known or unknown enum from the server.
+      # @!attribute [rw] continent
+      #   @return [::Google::Showcase::V1beta1::Continent]
+      #     The actual enum the server provided.
+      class EnumResponse
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
       module Continent
         CONTINENT_UNSPECIFIED = 0
 

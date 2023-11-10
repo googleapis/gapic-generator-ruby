@@ -46,7 +46,7 @@ module Google
       #     The latest timestamp at which the user was updated.
       # @!attribute [rw] age
       #   @return [::Integer]
-      #     The age of the use in years.
+      #     The age of the user in years.
       # @!attribute [rw] height_feet
       #   @return [::Float]
       #     The height of the user in feet.
@@ -94,7 +94,7 @@ module Google
       #     The user to update.
       # @!attribute [rw] update_mask
       #   @return [::Google::Protobuf::FieldMask]
-      #     The field mask to determine wich fields are to be updated. If empty, the
+      #     The field mask to determine which fields are to be updated. If empty, the
       #     server will assume all fields are to be updated.
       class UpdateUserRequest
         include ::Google::Protobuf::MessageExts

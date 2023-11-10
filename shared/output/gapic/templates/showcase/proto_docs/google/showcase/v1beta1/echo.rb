@@ -64,6 +64,58 @@ module Google
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # The request message used for the EchoErrorDetails method.
+      # @!attribute [rw] single_detail_text
+      #   @return [::String]
+      #     Content to return in a singular `*.error.details` field of type
+      #     `google.protobuf.Any`
+      # @!attribute [rw] multi_detail_text
+      #   @return [::Array<::String>]
+      #     Content to return in a repeated `*.error.details` field of type
+      #     `google.protobuf.Any`
+      class EchoErrorDetailsRequest
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # The response message used for the EchoErrorDetails method.
+      # @!attribute [rw] single_detail
+      #   @return [::Google::Showcase::V1beta1::EchoErrorDetailsResponse::SingleDetail]
+      # @!attribute [rw] multiple_details
+      #   @return [::Google::Showcase::V1beta1::EchoErrorDetailsResponse::MultipleDetails]
+      class EchoErrorDetailsResponse
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+
+        # @!attribute [rw] error
+        #   @return [::Google::Showcase::V1beta1::ErrorWithSingleDetail]
+        class SingleDetail
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # @!attribute [rw] error
+        #   @return [::Google::Showcase::V1beta1::ErrorWithMultipleDetails]
+        class MultipleDetails
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+      end
+
+      # @!attribute [rw] details
+      #   @return [::Google::Protobuf::Any]
+      class ErrorWithSingleDetail
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # @!attribute [rw] details
+      #   @return [::Array<::Google::Protobuf::Any>]
+      class ErrorWithMultipleDetails
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
       # The request message for the Expand method.
       # @!attribute [rw] content
       #   @return [::String]
@@ -71,6 +123,9 @@ module Google
       # @!attribute [rw] error
       #   @return [::Google::Rpc::Status]
       #     The error that is thrown after all words are sent on the stream.
+      # @!attribute [rw] stream_wait_time
+      #   @return [::Google::Protobuf::Duration]
+      #     The wait time between each server streaming messages
       class ExpandRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

@@ -26,6 +26,8 @@
 
 require "google/showcase/v1beta1/identity_pb"
 require "google/showcase/v1beta1/identity/rest/service_stub"
+require "google/cloud/location/rest"
+require "google/iam/v1/rest"
 
 module Google
   module Showcase
@@ -129,9 +131,37 @@ module Google
               @quota_project_id = @config.quota_project
               @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
+              @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+                config.credentials = credentials
+                config.quota_project = @quota_project_id
+                config.endpoint = @config.endpoint
+                config.bindings_override = @config.bindings_override
+              end
+
+              @iam_policy_client = Google::Iam::V1::IAMPolicy::Rest::Client.new do |config|
+                config.credentials = credentials
+                config.quota_project = @quota_project_id
+                config.endpoint = @config.endpoint
+                config.bindings_override = @config.bindings_override
+              end
+
               @identity_stub = ::Google::Showcase::V1beta1::Identity::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                             credentials: credentials
             end
+
+            ##
+            # Get the associated client for mix-in of the Locations.
+            #
+            # @return [Google::Cloud::Location::Locations::Rest::Client]
+            #
+            attr_reader :location_client
+
+            ##
+            # Get the associated client for mix-in of the IAMPolicy.
+            #
+            # @return [Google::Iam::V1::IAMPolicy::Rest::Client]
+            #
+            attr_reader :iam_policy_client
 
             # Service calls
 
@@ -312,7 +342,7 @@ module Google
             #   @param user [::Google::Showcase::V1beta1::User, ::Hash]
             #     The user to update.
             #   @param update_mask [::Google::Protobuf::FieldMask, ::Hash]
-            #     The field mask to determine wich fields are to be updated. If empty, the
+            #     The field mask to determine which fields are to be updated. If empty, the
             #     server will assume all fields are to be updated.
             # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::User]
@@ -627,6 +657,13 @@ module Google
               config_attr :metadata,      nil, ::Hash, nil
               config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
+
+              # @private
+              # Overrides for http bindings for the RPCs of this service
+              # are only used when this service is used as mixin, and only
+              # by the host service.
+              # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
+              config_attr :bindings_override, {}, ::Hash, nil
 
               # @private
               def initialize parent_config = nil

@@ -38,8 +38,9 @@ module Google
   module Showcase
     module V1beta1
       ##
-      # This service is used to test that GAPICs can transcode proto3 requests to
-      # REST format correctly for various types of HTTP annotations.
+      # This service is used to test that GAPICs implement various REST-related features correctly. This mostly means transcoding proto3 requests to REST format
+      # correctly for various types of HTTP annotations, but it also includes verifying that unknown (numeric) enums received by clients can be round-tripped
+      # correctly.
       #
       # @example Load this service and instantiate a gRPC client
       #

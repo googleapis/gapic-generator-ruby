@@ -49,6 +49,16 @@
               "methods": [
                 "repeat_data_body_patch"
               ]
+            },
+            "GetEnum": {
+              "methods": [
+                "get_enum"
+              ]
+            },
+            "VerifyEnum": {
+              "methods": [
+                "verify_enum"
+              ]
             }
           }
         }
@@ -62,6 +72,11 @@
             "Echo": {
               "methods": [
                 "echo"
+              ]
+            },
+            "EchoErrorDetails": {
+              "methods": [
+                "echo_error_details"
               ]
             },
             "Expand": {
@@ -215,6 +230,45 @@
             "Connect": {
               "methods": [
                 "connect"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "SequenceService": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::Google::Showcase::V1beta1::SequenceService::Client",
+          "rpcs": {
+            "CreateSequence": {
+              "methods": [
+                "create_sequence"
+              ]
+            },
+            "CreateStreamingSequence": {
+              "methods": [
+                "create_streaming_sequence"
+              ]
+            },
+            "GetSequenceReport": {
+              "methods": [
+                "get_sequence_report"
+              ]
+            },
+            "GetStreamingSequenceReport": {
+              "methods": [
+                "get_streaming_sequence_report"
+              ]
+            },
+            "AttemptSequence": {
+              "methods": [
+                "attempt_sequence"
+              ]
+            },
+            "AttemptStreamingSequence": {
+              "methods": [
+                "attempt_streaming_sequence"
               ]
             }
           }
