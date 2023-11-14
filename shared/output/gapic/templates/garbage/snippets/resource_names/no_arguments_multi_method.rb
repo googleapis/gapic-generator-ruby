@@ -30,9 +30,14 @@ require "so/much/trash"
 ##
 # Snippet for the no_arguments_multi_method call in the ResourceNames service
 #
+# This snippet has been automatically generated and should be regarded as a code
+# template only. It will require modifications to work:
+# - It may require correct/in-range values for request initialization.
+# - It may require specifying regional endpoints when creating the service
+# client as shown in https://cloud.google.com/ruby/docs/reference.
+#
 # This is an auto-generated example demonstrating basic usage of
-# So::Much::Trash::ResourceNames::Client#no_arguments_multi_method. It may
-# require modification in order to execute successfully.
+# So::Much::Trash::ResourceNames::Client#no_arguments_multi_method.
 #
 def no_arguments_multi_method
   # Create a client object. The client can be reused for multiple calls.

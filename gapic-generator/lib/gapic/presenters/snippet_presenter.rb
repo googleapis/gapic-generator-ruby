@@ -118,8 +118,14 @@ module Gapic
 
       def description
         @config&.metadata&.snippet_description ||
-          "This is an auto-generated example demonstrating basic usage of #{client_type}##{method_name}. " \
-          "It may require modification in order to execute successfully."
+          "This is an auto-generated example demonstrating basic usage of #{client_type}##{method_name}."
+      end
+
+      def disclaimer
+        "This snippet has been automatically generated and should be regarded as a code template only. " \
+          "It will require modifications to work:\n" \
+          "- It may require correct/in-range values for request initialization.\n" \
+          "- It may require specifying regional endpoints when creating the service client as shown in https://cloud.google.com/ruby/docs/reference."
       end
 
       def snippet_method_parameters

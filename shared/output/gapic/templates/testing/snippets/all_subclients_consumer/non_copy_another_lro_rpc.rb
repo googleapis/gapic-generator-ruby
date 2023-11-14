@@ -30,9 +30,14 @@ require "testing/nonstandard_lro_grpc"
 ##
 # Snippet for the non_copy_another_lro_rpc call in the AllSubclientsConsumer service
 #
+# This snippet has been automatically generated and should be regarded as a code
+# template only. It will require modifications to work:
+# - It may require correct/in-range values for request initialization.
+# - It may require specifying regional endpoints when creating the service
+# client as shown in https://cloud.google.com/ruby/docs/reference.
+#
 # This is an auto-generated example demonstrating basic usage of
 # Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#non_copy_another_lro_rpc.
-# It may require modification in order to execute successfully.
 #
 def non_copy_another_lro_rpc
   # Create a client object. The client can be reused for multiple calls.

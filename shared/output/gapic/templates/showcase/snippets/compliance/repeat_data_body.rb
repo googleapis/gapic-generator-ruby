@@ -30,9 +30,14 @@ require "google/showcase/v1beta1"
 ##
 # Snippet for the repeat_data_body call in the Compliance service
 #
+# This snippet has been automatically generated and should be regarded as a code
+# template only. It will require modifications to work:
+# - It may require correct/in-range values for request initialization.
+# - It may require specifying regional endpoints when creating the service
+# client as shown in https://cloud.google.com/ruby/docs/reference.
+#
 # This is an auto-generated example demonstrating basic usage of
-# Google::Showcase::V1beta1::Compliance::Client#repeat_data_body. It may require
-# modification in order to execute successfully.
+# Google::Showcase::V1beta1::Compliance::Client#repeat_data_body.
 #
 def repeat_data_body
   # Create a client object. The client can be reused for multiple calls.

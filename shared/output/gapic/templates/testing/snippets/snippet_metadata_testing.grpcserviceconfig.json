@@ -14,7 +14,7 @@
     {
       "region_tag": "testing_v0_generated_ServiceNoRetry_NoRetryMethod_sync",
       "title": "Snippet for the no_retry_method call in the ServiceNoRetry service",
-      "description": "This is an auto-generated example demonstrating basic usage of Testing::GrpcServiceConfig::ServiceNoRetry::Client#no_retry_method. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::GrpcServiceConfig::ServiceNoRetry::Client#no_retry_method.",
       "file": "service_no_retry/no_retry_method.rb",
       "language": "RUBY",
       "client_method": {
@@ -46,7 +46,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -54,7 +54,7 @@
     {
       "region_tag": "testing_v0_generated_ServiceWithRetries_ServiceLevelRetryMethod_sync",
       "title": "Snippet for the service_level_retry_method call in the ServiceWithRetries service",
-      "description": "This is an auto-generated example demonstrating basic usage of Testing::GrpcServiceConfig::ServiceWithRetries::Client#service_level_retry_method. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::GrpcServiceConfig::ServiceWithRetries::Client#service_level_retry_method.",
       "file": "service_with_retries/service_level_retry_method.rb",
       "language": "RUBY",
       "client_method": {
@@ -86,7 +86,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -94,7 +94,7 @@
     {
       "region_tag": "testing_v0_generated_ServiceWithRetries_MethodLevelRetryMethod_sync",
       "title": "Snippet for the method_level_retry_method call in the ServiceWithRetries service",
-      "description": "This is an auto-generated example demonstrating basic usage of Testing::GrpcServiceConfig::ServiceWithRetries::Client#method_level_retry_method. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::GrpcServiceConfig::ServiceWithRetries::Client#method_level_retry_method.",
       "file": "service_with_retries/method_level_retry_method.rb",
       "language": "RUBY",
       "client_method": {
@@ -126,7 +126,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
