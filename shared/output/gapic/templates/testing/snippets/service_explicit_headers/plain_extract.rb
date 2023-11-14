@@ -30,9 +30,14 @@ require "testing/routing_headers"
 ##
 # Snippet for the plain_extract call in the ServiceExplicitHeaders service
 #
+# This snippet has been automatically generated and should be regarded as a code
+# template only. It will require modifications to work:
+# - It may require correct/in-range values for request initialization.
+# - It may require specifying regional endpoints when creating the service
+# client as shown in https://cloud.google.com/ruby/docs/reference.
+#
 # This is an auto-generated example demonstrating basic usage of
-# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_extract. It may
-# require modification in order to execute successfully.
+# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_extract.
 #
 def plain_extract
   # Create a client object. The client can be reused for multiple calls.

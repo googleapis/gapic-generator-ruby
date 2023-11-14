@@ -4,6 +4,8 @@ require "<%= snippet.require_path %>"
 ##
 # <%= snippet.snippet_name %>
 #
+<%= indent wrap(snippet.disclaimer, 78), "# " %>
+#
 <%= indent wrap(snippet.description, 78), "# " %>
 <%- unless snippet.snippet_method_parameters.empty? -%>
 #

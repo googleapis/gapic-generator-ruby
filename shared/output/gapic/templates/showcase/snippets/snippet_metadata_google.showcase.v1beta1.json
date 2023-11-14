@@ -14,7 +14,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataBody_sync",
       "title": "Snippet for the repeat_data_body call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_body. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_body.",
       "file": "compliance/repeat_data_body.rb",
       "language": "RUBY",
       "client_method": {
@@ -46,7 +46,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -54,7 +54,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataBodyInfo_sync",
       "title": "Snippet for the repeat_data_body_info call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_info. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_info.",
       "file": "compliance/repeat_data_body_info.rb",
       "language": "RUBY",
       "client_method": {
@@ -86,7 +86,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -94,7 +94,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataQuery_sync",
       "title": "Snippet for the repeat_data_query call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_query. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_query.",
       "file": "compliance/repeat_data_query.rb",
       "language": "RUBY",
       "client_method": {
@@ -126,7 +126,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -134,7 +134,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataSimplePath_sync",
       "title": "Snippet for the repeat_data_simple_path call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_simple_path. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_simple_path.",
       "file": "compliance/repeat_data_simple_path.rb",
       "language": "RUBY",
       "client_method": {
@@ -166,7 +166,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -174,7 +174,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataPathResource_sync",
       "title": "Snippet for the repeat_data_path_resource call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_resource. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_resource.",
       "file": "compliance/repeat_data_path_resource.rb",
       "language": "RUBY",
       "client_method": {
@@ -206,7 +206,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -214,7 +214,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataPathTrailingResource_sync",
       "title": "Snippet for the repeat_data_path_trailing_resource call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_trailing_resource. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_trailing_resource.",
       "file": "compliance/repeat_data_path_trailing_resource.rb",
       "language": "RUBY",
       "client_method": {
@@ -246,7 +246,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -254,7 +254,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataBodyPut_sync",
       "title": "Snippet for the repeat_data_body_put call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_put. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_put.",
       "file": "compliance/repeat_data_body_put.rb",
       "language": "RUBY",
       "client_method": {
@@ -286,7 +286,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -294,7 +294,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataBodyPatch_sync",
       "title": "Snippet for the repeat_data_body_patch call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_patch. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_patch.",
       "file": "compliance/repeat_data_body_patch.rb",
       "language": "RUBY",
       "client_method": {
@@ -326,7 +326,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -334,7 +334,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_GetEnum_sync",
       "title": "Snippet for the get_enum call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#get_enum. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#get_enum.",
       "file": "compliance/get_enum.rb",
       "language": "RUBY",
       "client_method": {
@@ -366,7 +366,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -374,7 +374,7 @@
     {
       "region_tag": "showcase_v0_generated_Compliance_VerifyEnum_sync",
       "title": "Snippet for the verify_enum call in the Compliance service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#verify_enum. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Compliance::Client#verify_enum.",
       "file": "compliance/verify_enum.rb",
       "language": "RUBY",
       "client_method": {
@@ -406,7 +406,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -414,7 +414,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_Echo_sync",
       "title": "Snippet for the echo call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#echo. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#echo.",
       "file": "echo/echo.rb",
       "language": "RUBY",
       "client_method": {
@@ -446,7 +446,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -454,7 +454,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_EchoErrorDetails_sync",
       "title": "Snippet for the echo_error_details call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#echo_error_details. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#echo_error_details.",
       "file": "echo/echo_error_details.rb",
       "language": "RUBY",
       "client_method": {
@@ -486,7 +486,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -494,7 +494,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_Expand_sync",
       "title": "Snippet for the expand call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#expand. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#expand.",
       "file": "echo/expand.rb",
       "language": "RUBY",
       "client_method": {
@@ -526,7 +526,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 52,
+          "end": 57,
           "type": "FULL"
         }
       ]
@@ -534,7 +534,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_Collect_sync",
       "title": "Snippet for the collect call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#collect. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#collect.",
       "file": "echo/collect.rb",
       "language": "RUBY",
       "client_method": {
@@ -566,7 +566,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 55,
+          "end": 60,
           "type": "FULL"
         }
       ]
@@ -574,7 +574,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_Chat_sync",
       "title": "Snippet for the chat call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#chat. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#chat.",
       "file": "echo/chat.rb",
       "language": "RUBY",
       "client_method": {
@@ -606,7 +606,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 58,
+          "end": 63,
           "type": "FULL"
         }
       ]
@@ -614,7 +614,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_PagedExpand_sync",
       "title": "Snippet for the paged_expand call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#paged_expand. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#paged_expand.",
       "file": "echo/paged_expand.rb",
       "language": "RUBY",
       "client_method": {
@@ -646,7 +646,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 53,
+          "end": 58,
           "type": "FULL"
         }
       ]
@@ -654,7 +654,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_PagedExpandLegacy_sync",
       "title": "Snippet for the paged_expand_legacy call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#paged_expand_legacy. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#paged_expand_legacy.",
       "file": "echo/paged_expand_legacy.rb",
       "language": "RUBY",
       "client_method": {
@@ -686,7 +686,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -694,7 +694,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_PagedExpandLegacyMapped_sync",
       "title": "Snippet for the paged_expand_legacy_mapped call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#paged_expand_legacy_mapped. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#paged_expand_legacy_mapped.",
       "file": "echo/paged_expand_legacy_mapped.rb",
       "language": "RUBY",
       "client_method": {
@@ -726,7 +726,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 53,
+          "end": 58,
           "type": "FULL"
         }
       ]
@@ -734,7 +734,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_Wait_sync",
       "title": "Snippet for the wait call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#wait. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#wait.",
       "file": "echo/wait.rb",
       "language": "RUBY",
       "client_method": {
@@ -766,7 +766,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 56,
+          "end": 61,
           "type": "FULL"
         }
       ]
@@ -774,7 +774,7 @@
     {
       "region_tag": "showcase_v0_generated_Echo_Block_sync",
       "title": "Snippet for the block call in the Echo service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#block. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Echo::Client#block.",
       "file": "echo/block.rb",
       "language": "RUBY",
       "client_method": {
@@ -806,7 +806,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -814,7 +814,7 @@
     {
       "region_tag": "showcase_v0_generated_Identity_CreateUser_sync",
       "title": "Snippet for the create_user call in the Identity service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#create_user. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#create_user.",
       "file": "identity/create_user.rb",
       "language": "RUBY",
       "client_method": {
@@ -846,7 +846,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -854,7 +854,7 @@
     {
       "region_tag": "showcase_v0_generated_Identity_GetUser_sync",
       "title": "Snippet for the get_user call in the Identity service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#get_user. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#get_user.",
       "file": "identity/get_user.rb",
       "language": "RUBY",
       "client_method": {
@@ -886,7 +886,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -894,7 +894,7 @@
     {
       "region_tag": "showcase_v0_generated_Identity_UpdateUser_sync",
       "title": "Snippet for the update_user call in the Identity service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#update_user. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#update_user.",
       "file": "identity/update_user.rb",
       "language": "RUBY",
       "client_method": {
@@ -926,7 +926,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -934,7 +934,7 @@
     {
       "region_tag": "showcase_v0_generated_Identity_DeleteUser_sync",
       "title": "Snippet for the delete_user call in the Identity service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#delete_user. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#delete_user.",
       "file": "identity/delete_user.rb",
       "language": "RUBY",
       "client_method": {
@@ -966,7 +966,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -974,7 +974,7 @@
     {
       "region_tag": "showcase_v0_generated_Identity_ListUsers_sync",
       "title": "Snippet for the list_users call in the Identity service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#list_users. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Identity::Client#list_users.",
       "file": "identity/list_users.rb",
       "language": "RUBY",
       "client_method": {
@@ -1006,7 +1006,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 53,
+          "end": 58,
           "type": "FULL"
         }
       ]
@@ -1014,7 +1014,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_CreateRoom_sync",
       "title": "Snippet for the create_room call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#create_room. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#create_room.",
       "file": "messaging/create_room.rb",
       "language": "RUBY",
       "client_method": {
@@ -1046,7 +1046,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1054,7 +1054,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_GetRoom_sync",
       "title": "Snippet for the get_room call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#get_room. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#get_room.",
       "file": "messaging/get_room.rb",
       "language": "RUBY",
       "client_method": {
@@ -1086,7 +1086,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1094,7 +1094,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_UpdateRoom_sync",
       "title": "Snippet for the update_room call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#update_room. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#update_room.",
       "file": "messaging/update_room.rb",
       "language": "RUBY",
       "client_method": {
@@ -1126,7 +1126,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1134,7 +1134,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_DeleteRoom_sync",
       "title": "Snippet for the delete_room call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#delete_room. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#delete_room.",
       "file": "messaging/delete_room.rb",
       "language": "RUBY",
       "client_method": {
@@ -1166,7 +1166,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1174,7 +1174,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_ListRooms_sync",
       "title": "Snippet for the list_rooms call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#list_rooms. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#list_rooms.",
       "file": "messaging/list_rooms.rb",
       "language": "RUBY",
       "client_method": {
@@ -1206,7 +1206,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 53,
+          "end": 58,
           "type": "FULL"
         }
       ]
@@ -1214,7 +1214,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_CreateBlurb_sync",
       "title": "Snippet for the create_blurb call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#create_blurb. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#create_blurb.",
       "file": "messaging/create_blurb.rb",
       "language": "RUBY",
       "client_method": {
@@ -1246,7 +1246,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1254,7 +1254,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_GetBlurb_sync",
       "title": "Snippet for the get_blurb call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#get_blurb. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#get_blurb.",
       "file": "messaging/get_blurb.rb",
       "language": "RUBY",
       "client_method": {
@@ -1286,7 +1286,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1294,7 +1294,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_UpdateBlurb_sync",
       "title": "Snippet for the update_blurb call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#update_blurb. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#update_blurb.",
       "file": "messaging/update_blurb.rb",
       "language": "RUBY",
       "client_method": {
@@ -1326,7 +1326,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1334,7 +1334,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_DeleteBlurb_sync",
       "title": "Snippet for the delete_blurb call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#delete_blurb. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#delete_blurb.",
       "file": "messaging/delete_blurb.rb",
       "language": "RUBY",
       "client_method": {
@@ -1366,7 +1366,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1374,7 +1374,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_ListBlurbs_sync",
       "title": "Snippet for the list_blurbs call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#list_blurbs. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#list_blurbs.",
       "file": "messaging/list_blurbs.rb",
       "language": "RUBY",
       "client_method": {
@@ -1406,7 +1406,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 53,
+          "end": 58,
           "type": "FULL"
         }
       ]
@@ -1414,7 +1414,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_SearchBlurbs_sync",
       "title": "Snippet for the search_blurbs call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#search_blurbs. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#search_blurbs.",
       "file": "messaging/search_blurbs.rb",
       "language": "RUBY",
       "client_method": {
@@ -1446,7 +1446,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 56,
+          "end": 61,
           "type": "FULL"
         }
       ]
@@ -1454,7 +1454,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_StreamBlurbs_sync",
       "title": "Snippet for the stream_blurbs call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#stream_blurbs. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#stream_blurbs.",
       "file": "messaging/stream_blurbs.rb",
       "language": "RUBY",
       "client_method": {
@@ -1486,7 +1486,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 52,
+          "end": 57,
           "type": "FULL"
         }
       ]
@@ -1494,7 +1494,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_SendBlurbs_sync",
       "title": "Snippet for the send_blurbs call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#send_blurbs. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#send_blurbs.",
       "file": "messaging/send_blurbs.rb",
       "language": "RUBY",
       "client_method": {
@@ -1526,7 +1526,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 55,
+          "end": 60,
           "type": "FULL"
         }
       ]
@@ -1534,7 +1534,7 @@
     {
       "region_tag": "showcase_v0_generated_Messaging_Connect_sync",
       "title": "Snippet for the connect call in the Messaging service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#connect. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Messaging::Client#connect.",
       "file": "messaging/connect.rb",
       "language": "RUBY",
       "client_method": {
@@ -1566,7 +1566,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 58,
+          "end": 63,
           "type": "FULL"
         }
       ]
@@ -1574,7 +1574,7 @@
     {
       "region_tag": "showcase_v0_generated_SequenceService_CreateSequence_sync",
       "title": "Snippet for the create_sequence call in the SequenceService service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#create_sequence. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#create_sequence.",
       "file": "sequence_service/create_sequence.rb",
       "language": "RUBY",
       "client_method": {
@@ -1606,7 +1606,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1614,7 +1614,7 @@
     {
       "region_tag": "showcase_v0_generated_SequenceService_CreateStreamingSequence_sync",
       "title": "Snippet for the create_streaming_sequence call in the SequenceService service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#create_streaming_sequence. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#create_streaming_sequence.",
       "file": "sequence_service/create_streaming_sequence.rb",
       "language": "RUBY",
       "client_method": {
@@ -1646,7 +1646,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1654,7 +1654,7 @@
     {
       "region_tag": "showcase_v0_generated_SequenceService_GetSequenceReport_sync",
       "title": "Snippet for the get_sequence_report call in the SequenceService service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#get_sequence_report. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#get_sequence_report.",
       "file": "sequence_service/get_sequence_report.rb",
       "language": "RUBY",
       "client_method": {
@@ -1686,7 +1686,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1694,7 +1694,7 @@
     {
       "region_tag": "showcase_v0_generated_SequenceService_GetStreamingSequenceReport_sync",
       "title": "Snippet for the get_streaming_sequence_report call in the SequenceService service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#get_streaming_sequence_report. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#get_streaming_sequence_report.",
       "file": "sequence_service/get_streaming_sequence_report.rb",
       "language": "RUBY",
       "client_method": {
@@ -1726,7 +1726,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1734,7 +1734,7 @@
     {
       "region_tag": "showcase_v0_generated_SequenceService_AttemptSequence_sync",
       "title": "Snippet for the attempt_sequence call in the SequenceService service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#attempt_sequence. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#attempt_sequence.",
       "file": "sequence_service/attempt_sequence.rb",
       "language": "RUBY",
       "client_method": {
@@ -1766,7 +1766,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1774,7 +1774,7 @@
     {
       "region_tag": "showcase_v0_generated_SequenceService_AttemptStreamingSequence_sync",
       "title": "Snippet for the attempt_streaming_sequence call in the SequenceService service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#attempt_streaming_sequence. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#attempt_streaming_sequence.",
       "file": "sequence_service/attempt_streaming_sequence.rb",
       "language": "RUBY",
       "client_method": {
@@ -1806,7 +1806,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 52,
+          "end": 57,
           "type": "FULL"
         }
       ]
@@ -1814,7 +1814,7 @@
     {
       "region_tag": "showcase_v0_generated_Testing_CreateSession_sync",
       "title": "Snippet for the create_session call in the Testing service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#create_session. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#create_session.",
       "file": "testing/create_session.rb",
       "language": "RUBY",
       "client_method": {
@@ -1846,7 +1846,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1854,7 +1854,7 @@
     {
       "region_tag": "showcase_v0_generated_Testing_GetSession_sync",
       "title": "Snippet for the get_session call in the Testing service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#get_session. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#get_session.",
       "file": "testing/get_session.rb",
       "language": "RUBY",
       "client_method": {
@@ -1886,7 +1886,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1894,7 +1894,7 @@
     {
       "region_tag": "showcase_v0_generated_Testing_ListSessions_sync",
       "title": "Snippet for the list_sessions call in the Testing service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#list_sessions. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#list_sessions.",
       "file": "testing/list_sessions.rb",
       "language": "RUBY",
       "client_method": {
@@ -1926,7 +1926,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 53,
+          "end": 58,
           "type": "FULL"
         }
       ]
@@ -1934,7 +1934,7 @@
     {
       "region_tag": "showcase_v0_generated_Testing_DeleteSession_sync",
       "title": "Snippet for the delete_session call in the Testing service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#delete_session. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#delete_session.",
       "file": "testing/delete_session.rb",
       "language": "RUBY",
       "client_method": {
@@ -1966,7 +1966,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -1974,7 +1974,7 @@
     {
       "region_tag": "showcase_v0_generated_Testing_ReportSession_sync",
       "title": "Snippet for the report_session call in the Testing service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#report_session. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#report_session.",
       "file": "testing/report_session.rb",
       "language": "RUBY",
       "client_method": {
@@ -2006,7 +2006,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -2014,7 +2014,7 @@
     {
       "region_tag": "showcase_v0_generated_Testing_ListTests_sync",
       "title": "Snippet for the list_tests call in the Testing service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#list_tests. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#list_tests.",
       "file": "testing/list_tests.rb",
       "language": "RUBY",
       "client_method": {
@@ -2046,7 +2046,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 53,
+          "end": 58,
           "type": "FULL"
         }
       ]
@@ -2054,7 +2054,7 @@
     {
       "region_tag": "showcase_v0_generated_Testing_DeleteTest_sync",
       "title": "Snippet for the delete_test call in the Testing service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#delete_test. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#delete_test.",
       "file": "testing/delete_test.rb",
       "language": "RUBY",
       "client_method": {
@@ -2086,7 +2086,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
@@ -2094,7 +2094,7 @@
     {
       "region_tag": "showcase_v0_generated_Testing_VerifyTest_sync",
       "title": "Snippet for the verify_test call in the Testing service",
-      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#verify_test. It may require modification in order to execute successfully.",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::Testing::Client#verify_test.",
       "file": "testing/verify_test.rb",
       "language": "RUBY",
       "client_method": {
@@ -2126,7 +2126,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 49,
+          "end": 54,
           "type": "FULL"
         }
       ]
