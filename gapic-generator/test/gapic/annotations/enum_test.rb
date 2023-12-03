@@ -25,7 +25,7 @@ class EnumTest < AnnotationTest
     assert_equal 22, message.fields.count
 
     assert_equal "enum", message.fields[12].name
-    assert_equal Google::Protobuf::FieldDescriptorProto::Type::TYPE_ENUM, message.fields[12].type
+    assert_equal :TYPE_ENUM, message.fields[12].type
     assert message.fields[12].enum?
   end
 end

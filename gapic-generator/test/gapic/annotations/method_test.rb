@@ -25,12 +25,12 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
-    assert_equal "/v1/simple_garbage:get", method.options[:http][:post]
-    assert_equal "*", method.options[:http][:body]
+    assert_equal "/v1/simple_garbage:get", method.option_named("http")["post"]
+    assert_equal "*", method.option_named("http")["body"]
 
-    assert_empty method.options[:method_signature]
+    assert_empty method.option_named "method_signature"
 
-    assert_nil method.options[:operation_info]
+    assert_nil method.option_named "operation_info"
 
     refute_nil method.http
     assert_kind_of Google::Api::HttpRule, method.http
@@ -50,13 +50,13 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
-    assert_kind_of Google::Api::HttpRule, method.options[:http]
-    assert_equal "/v1/specific_garbage:get", method.options[:http][:post]
-    assert_equal "*", method.options[:http][:body]
+    assert_kind_of Google::Api::HttpRule, method.option_named("http")
+    assert_equal "/v1/specific_garbage:get", method.option_named("http")["post"]
+    assert_equal "*", method.option_named("http")["body"]
 
-    assert_empty method.options[:method_signature]
+    assert_empty method.option_named "method_signature"
 
-    assert_nil method.options[:operation_info]
+    assert_nil method.option_named "operation_info"
 
     assert_nil method.operation_info
 
@@ -78,13 +78,13 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
-    assert_kind_of Google::Api::HttpRule, method.options[:http]
-    assert_equal "/v1/nested_garbage:get", method.options[:http][:post]
-    assert_equal "*", method.options[:http][:body]
+    assert_kind_of Google::Api::HttpRule, method.option_named("http")
+    assert_equal "/v1/nested_garbage:get", method.option_named("http")["post"]
+    assert_equal "*", method.option_named("http")["body"]
 
-    assert_empty method.options[:method_signature]
+    assert_empty method.option_named "method_signature"
 
-    assert_nil method.options[:operation_info]
+    assert_nil method.option_named "operation_info"
 
     assert_nil method.operation_info
 
@@ -106,13 +106,13 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
-    assert_kind_of Google::Api::HttpRule, method.options[:http]
-    assert_equal "/v1/repeated_garbage:get", method.options[:http][:post]
-    assert_equal "*", method.options[:http][:body]
+    assert_kind_of Google::Api::HttpRule, method.option_named("http")
+    assert_equal "/v1/repeated_garbage:get", method.option_named("http")["post"]
+    assert_equal "*", method.option_named("http")["body"]
 
-    assert_empty method.options[:method_signature]
+    assert_empty method.option_named("method_signature")
 
-    assert_nil method.options[:operation_info]
+    assert_nil method.option_named("operation_info")
 
     assert_nil method.operation_info
 
@@ -134,16 +134,16 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
-    assert_kind_of Google::Api::HttpRule, method.options[:http]
-    assert_equal "/v1/garbage:lro", method.options[:http][:post]
-    assert_equal "*", method.options[:http][:body]
+    assert_kind_of Google::Api::HttpRule, method.option_named("http")
+    assert_equal "/v1/garbage:lro", method.option_named("http")["post"]
+    assert_equal "*", method.option_named("http")["body"]
 
-    assert_empty method.options[:method_signature]
+    assert_empty method.option_named "method_signature"
 
-    refute_nil method.options[:operation_info]
-    assert_kind_of Google::Longrunning::OperationInfo, method.options[:operation_info]
-    assert_equal "google.garbage.v1.LongRunningGarbageResponse", method.options[:operation_info][:response_type]
-    assert_equal "google.garbage.v1.LongRunningGarbageMetadata", method.options[:operation_info][:metadata_type]
+    refute_nil method.option_named "operation_info"
+    assert_kind_of Google::Longrunning::OperationInfo, method.option_named("operation_info")
+    assert_equal "google.garbage.v1.LongRunningGarbageResponse", method.option_named("operation_info")["response_type"]
+    assert_equal "google.garbage.v1.LongRunningGarbageMetadata", method.option_named("operation_info")["metadata_type"]
 
     refute_nil method.http
     assert_kind_of Google::Api::HttpRule, method.http
@@ -165,13 +165,13 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
-    assert_kind_of Google::Api::HttpRule, method.options[:http]
-    assert_equal "/v1/garbage:client", method.options[:http][:post]
-    assert_equal "*", method.options[:http][:body]
+    assert_kind_of Google::Api::HttpRule, method.option_named("http")
+    assert_equal "/v1/garbage:client", method.option_named("http")["post"]
+    assert_equal "*", method.option_named("http")["body"]
 
-    assert_empty method.options[:method_signature]
+    assert_empty method.option_named("method_signature")
 
-    assert_nil method.options[:operation_info]
+    assert_nil method.option_named "operation_info"
 
     assert_nil method.operation_info
 
@@ -193,13 +193,13 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
-    assert_kind_of Google::Api::HttpRule, method.options[:http]
-    assert_equal "/v1/garbage:server", method.options[:http][:post]
-    assert_equal "*", method.options[:http][:body]
+    assert_kind_of Google::Api::HttpRule, method.option_named("http")
+    assert_equal "/v1/garbage:server", method.option_named("http")["post"]
+    assert_equal "*", method.option_named("http")["body"]
 
-    assert_empty method.options[:method_signature]
+    assert_empty method.option_named "method_signature"
 
-    assert_nil method.options[:operation_info]
+    assert_nil method.option_named "operation_info"
 
     assert_nil method.operation_info
 

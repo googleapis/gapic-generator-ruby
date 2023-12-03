@@ -23,7 +23,7 @@ class IterationPresenterTest < PresenterTest
   include SnippetTestHelper
 
   def build_iteration_presenter json
-    proto = build_proto_fragment Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Statement::Iteration, json
+    proto = build_proto_fragment Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Statement::Iteration, json
     Gapic::Presenters::SnippetPresenter::IterationPresenter.new proto, json
   end
 

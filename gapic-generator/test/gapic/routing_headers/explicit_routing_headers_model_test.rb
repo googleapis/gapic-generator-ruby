@@ -180,7 +180,7 @@ class ExplictRoutingHeadersModelTest < Minitest::Test
   # A helper to compare parsed routing header annotation to the expected.
   # In the `expected`, the parameters are grouped by the name of the routing header.
   def assert_routing_matches expected, actual
-    error_msg_end = "\nExpected: \n#{expected.pretty_inspect}\nActual: \n#{actual.pretty_inspect}"
+    error_msg_end = "\nExpected: \n#{expected}\nActual: \n#{actual}"
 
     # Base asserts
     refute actual.nil?, "Actual should not be nil!#{error_msg_end}"
@@ -211,8 +211,8 @@ class ExplictRoutingHeadersModelTest < Minitest::Test
         end
 
         next if all_subfields_match
-        expected_err = "Value from Expected['#{header_key}'] at index #{index}: \n#{exp_val.pretty_inspect}"
-        act_err = "Value from Actual['#{header_key}'] at index #{index}: \n#{act_val.pretty_inspect}"
+        expected_err = "Value from Expected['#{header_key}'] at index #{index}: \n#{exp_val}"
+        act_err = "Value from Actual['#{header_key}'] at index #{index}: \n#{act_val}"
         assert all_subfields_match,
                "Cannot find a match for a value in Expected['#{header_key}'] at index #{index}:\n" \
                "#{expected_err}\n#{act_err}\n" + error_msg_end

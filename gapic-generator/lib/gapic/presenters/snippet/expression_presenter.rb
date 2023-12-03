@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 
 module Gapic
   module Presenters
@@ -27,12 +27,12 @@ module Gapic
         ##
         # Create an expression presenter.
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Expression]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Expression]
         #     The protobuf representation of the expression
         # @param json [String]
         #     The JSON representation of the expression
         #
-        def initialize proto, json # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+        def initialize proto, json
           @render_lines =
             if json&.key? "stringValue"
               render_string proto

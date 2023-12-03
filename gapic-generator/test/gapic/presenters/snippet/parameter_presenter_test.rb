@@ -22,7 +22,7 @@ class ParameterPresenterTest < PresenterTest
   include SnippetTestHelper
 
   def build_parameter_presenter json
-    proto = build_proto_fragment Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Statement::Declaration, json
+    proto = build_proto_fragment Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Statement::Declaration, json
     Gapic::Presenters::SnippetPresenter::ParameterPresenter.new proto, json
   end
 

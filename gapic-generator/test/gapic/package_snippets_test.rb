@@ -16,7 +16,7 @@
 
 require "test_helper"
 require "gapic/package_snippets"
-require "google/protobuf/compiler/plugin.pb"
+require "google/protobuf/compiler/plugin_pb"
 
 describe Gapic::PackageSnippets do
   FakeServicePresenter = Struct.new :client_name, :client_name_full, :grpc_full_name, :module_name, :name,

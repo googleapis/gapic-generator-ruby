@@ -14,14 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/api/annotations.pb"
-require "google/api/client.pb"
-require "google/api/field_behavior.pb"
-require "google/api/resource.pb"
-require "google/api/routing.pb"
-require "google/cloud/extended_operations.pb"
-require "google/longrunning/operations.pb"
-require "google/protobuf/descriptor.pb"
+require "google/api/annotations_pb"
+require "google/api/client_pb"
+require "google/api/field_behavior_pb"
+require "google/api/resource_pb"
+require "google/api/routing_pb"
+require "google/cloud/extended_operations_pb"
+require "google/longrunning/operations_pb"
+require "google/protobuf/descriptor_pb"
+require "gapic/schema/proto_tools"
 require "gapic/schema/wrappers"
 
 module Gapic
@@ -33,6 +34,14 @@ module Gapic
         @prior_messages = []
         @prior_enums = []
       end
+
+      FILE_EXTENSION_NAMES = {
+        "google.api.resource_definition" => [1053, ::Google::Api::ResourceDescriptor, :repeated]
+      }.freeze
+
+      MESSAGE_EXTENSION_NAMES = {
+        "google.api.resource" => [1053, ::Google::Api::ResourceDescriptor]
+      }.freeze
 
       # Loads a file.
       #
@@ -48,27 +57,28 @@ module Gapic
         registry = {}
 
         # Load the docs.
-        location = file_descriptor.source_code_info.location
-        docs = location.each_with_object({}) { |l, ans| ans[l.path] = l }
+        location = file_descriptor.source_code_info.location || []
+        docs = location.each_with_object({}) { |l, ans| ans[l.path.to_a] = l }
 
         # Load top-level enums.
-        enums = file_descriptor.enum_type.each_with_index.map do |e, i|
+        enums = (file_descriptor.enum_type || []).each_with_index.map do |e, i|
           load_enum registry, e, address, docs, [5, i]
         end
 
         # Load top-level messages.
-        messages = file_descriptor.message_type.each_with_index.map do |m, i|
+        messages = (file_descriptor.message_type || []).each_with_index.map do |m, i|
           load_message registry, m, address, docs, [4, i]
         end
         messages.each(&method(:update_fields!))
 
         # Load services.
-        services = file_descriptor.service.each_with_index.map do |s, i|
+        services = (file_descriptor.service || []).each_with_index.map do |s, i|
           load_service registry, s, address, docs, [6, i]
         end
 
         # Load top-level resources
-        resource_descriptors = file_descriptor.options[:".google.api.resource_definition"] if file_descriptor.options
+        option_extensions = ProtoTools.parse_options_extensions file_descriptor.options, FILE_EXTENSION_NAMES
+        resource_descriptors = option_extensions["google.api.resource_definition"]
         resources = Array(resource_descriptors).map { |descriptor| Resource.new descriptor }
 
         # Construct and return the file.
@@ -81,14 +91,14 @@ module Gapic
       #
       # @param path [String] Directory to search for snippet config files
       # @return [Array<
-      #   Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig>]
+      #   Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::SnippetConfig>]
       #
       def load_snippet_configs path
         return [] unless path
         Dir.chdir path do
           Dir.glob("**/*.json").map do |file_path|
             json = JSON.load_file file_path
-            proto = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig.new underscore_keys json
+            proto = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::SnippetConfig.new underscore_keys json
             proto.json_representation = json
             proto
           end
@@ -124,7 +134,7 @@ module Gapic
         address = address.clone << descriptor.name
 
         # Load Enum Values
-        values = descriptor.value.each_with_index.map do |value, i|
+        values = (descriptor.value || []).each_with_index.map do |value, i|
           load_enum_value registry, value, address, docs, path + [2, i]
         end
 
@@ -171,20 +181,21 @@ module Gapic
         address = address.clone << descriptor.name
 
         # Load Children
-        nested_messages = descriptor.nested_type.each_with_index.map do |m, i|
+        nested_messages = (descriptor.nested_type || []).each_with_index.map do |m, i|
           load_message registry, m, address, docs, path + [3, i]
         end
-        nested_enums = descriptor.enum_type.each_with_index.map do |e, i|
+        nested_enums = (descriptor.enum_type || []).each_with_index.map do |e, i|
           load_enum registry, e, address, docs, path + [4, i]
         end
-        fields = descriptor.field.each_with_index.map do |f, i|
+        fields = (descriptor.field || []).each_with_index.map do |f, i|
           load_field registry, f, address, docs, path + [2, i]
         end
-        extensions = descriptor.extension.each_with_index.map do |e, i|
+        extensions = (descriptor.extension || []).each_with_index.map do |e, i|
           load_field registry, e, address, docs, path + [6, i]
         end
 
-        resource_descriptor = descriptor.options[:".google.api.resource"] if descriptor.options
+        option_extensions = ProtoTools.parse_options_extensions descriptor.options, MESSAGE_EXTENSION_NAMES
+        resource_descriptor = option_extensions["google.api.resource"]
         resource = resource_descriptor ? Resource.new(resource_descriptor) : nil
 
         # Construct, cache, and return.
@@ -231,7 +242,7 @@ module Gapic
         address = address.clone << descriptor.name
 
         # Load children
-        methods = descriptor.method.each_with_index.map do |m, i|
+        methods = (descriptor["method"] || descriptor.method || []).each_with_index.map do |m, i|
           load_method registry, m, address, docs, path + [2, i]
         end
 

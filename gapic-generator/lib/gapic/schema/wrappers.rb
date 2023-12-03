@@ -16,8 +16,9 @@
 
 require "gapic/formatting_utils"
 require "gapic/path_pattern"
+require "gapic/schema/proto_tools"
 
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 
 module Gapic
   module Schema
@@ -100,6 +101,7 @@ module Gapic
         @descriptor = descriptor
         @address = address
         @docs = docs
+        @options_extensions = nil
       end
 
       # Returns the "root" of this schema.
@@ -135,6 +137,34 @@ module Gapic
                                                  disable_xrefs: disable_xrefs,
                                                  transport: transport
         lines.join
+      end
+
+      ##
+      # Return the options. This method must be overridden by a subclass.
+      #
+      def options
+        raise UnimplementedError
+      end
+
+      ##
+      # Return a configuration of supported option extensions.
+      # This method should be overridden by a subclass.
+      #
+      def option_extension_names
+        {}
+      end
+
+      ##
+      # Return the value of the named option, or nil if not found.
+      #
+      def option_named name
+        return nil unless options
+        result = options[name]
+        return result unless result.nil?
+        name = option_extension_names.keys.find { |key| key.end_with? ".#{name}" } unless name.include? "."
+        return nil unless name
+        @options_extensions ||= ProtoTools.parse_options_extensions options, option_extension_names
+        @options_extensions[name]
       end
 
       # @!method path
@@ -256,16 +286,28 @@ module Gapic
         @methods.each { |m| m.parent = self }
       end
 
+      OPTION_EXTENSION_NAMES = {
+        "google.api.default_host" => [1049, :string],
+        "google.api.oauth_scopes" => [1050, :string]
+      }.freeze
+
+      ##
+      # Return a configuration of supported option extensions.
+      #
+      def option_extension_names
+        OPTION_EXTENSION_NAMES
+      end
+
       # @return [String] The hostname for this service
       #   (e.g. "foo.googleapis.com"). This should be specified with no
       #   prefix.
       def host
-        options[:".google.api.default_host"] if options
+        option_named "google.api.default_host"
       end
 
       # @return [Array<String>] The OAuth scopes information for the client.
       def scopes
-        String(options[:".google.api.oauth_scopes"]).split "," if options
+        String(option_named("google.api.oauth_scopes")).split ","
       end
 
       # @return [String] Ruby Package
@@ -278,7 +320,7 @@ module Gapic
       # @return [Boolean] True if this service is marked as deprecated, false
       # otherwise.
       def is_deprecated?
-        options[:deprecated] if options
+        option_named "deprecated"
       end
 
       # @return [Array<Google::Api::ResourceDescriptor>] A representation of the resource.
@@ -338,12 +380,28 @@ module Gapic
         @output = output
       end
 
+      OPTION_EXTENSION_NAMES = {
+        "google.api.method_signature" => [1050, :string, :repeated],
+        "google.api.http" => [72_295_728, ::Google::Api::HttpRule],
+        "google.api.routing" => [72_295_729, ::Google::Api::RoutingRule],
+        "google.cloud.operation_polling_method" => [1250, :bool],
+        "google.cloud.operation_service" => [1249, :string],
+        "google.longrunning.operation_info" => [1049, ::Google::Longrunning::OperationInfo]
+      }.freeze
+
+      ##
+      # Return a configuration of supported option extensions.
+      #
+      def option_extension_names
+        OPTION_EXTENSION_NAMES
+      end
+
       # @return [Array<Array<String>>] The parameter lists
       #   defined for this method. See `google/api/client.proto`.
       def signatures
         return [] if options.nil?
 
-        Array(options[:".google.api.method_signature"]).map do |sig|
+        Array(option_named("google.api.method_signature")).map do |sig|
           String(sig).split ","
         end
       end
@@ -355,25 +413,25 @@ module Gapic
       #   Required for methods that return `google.longrunning.Operation`;
       #   invalid otherwise.
       def operation_info
-        options[:".google.longrunning.operation_info"] if options
+        option_named "google.longrunning.operation_info"
       end
 
       # @return [Boolean] True if this method is marked as deprecated, false
       #   otherwise.
       def is_deprecated?
-        options[:deprecated] if options
+        option_named("deprecated") == true
       end
 
       # @return [Google::Api::HttpRule] The HTTP bindings for this method. See
       #   `google/api/http.proto`.
       def http
-        options[:".google.api.http"] if options
+        option_named "google.api.http"
       end
 
       # @return [Google::Api::RoutingRule] The Routing bindings for this method. See
       #   `google/api/routing.proto`.
       def routing
-        options[:".google.api.routing"] if options
+        option_named "google.api.routing"
       end
 
       # @return [String] The full name for this method
@@ -389,14 +447,14 @@ module Gapic
       #   that should be used for polling the operation object
       #   that this method returns
       def operation_service
-        options[:".google.cloud.operation_service"] if options
+        option_named "google.cloud.operation_service"
       end
 
       # Nonstandard LRO annotation.
       # @return [Boolean] Whether this method is a polling method
       #   for a nonstandard LRO service
       def polling_method
-        options[:".google.cloud.operation_polling_method"] if options
+        option_named "google.cloud.operation_polling_method"
       end
 
       # @!method name
@@ -486,7 +544,7 @@ module Gapic
 
       # @return [String] Ruby Package
       def ruby_package
-        options[:ruby_package] if options
+        option_named "ruby_package"
       end
 
       # @!method name
@@ -616,6 +674,17 @@ module Gapic
         @resource.parent = self if @resource
       end
 
+      OPTION_EXTENSION_NAMES = {
+        "google.api.resource" => [1053, ::Google::Api::ResourceDescriptor]
+      }.freeze
+
+      ##
+      # Return a configuration of supported option extensions.
+      #
+      def option_extension_names
+        OPTION_EXTENSION_NAMES
+      end
+
       # @return [Boolean] whether this type is a map entry
       def map_entry?
         descriptor.options&.map_entry
@@ -676,6 +745,21 @@ module Gapic
         @enum = enum
       end
 
+      OPTION_EXTENSION_NAMES = {
+        "google.api.field_behavior" => [1052, :enum, :repeated],
+        "google.api.resource_reference" => [1055, ::Google::Api::ResourceReference],
+        "google.cloud.operation_field" => [1149, :enum],
+        "google.cloud.operation_request_field" => [1150, :string],
+        "google.cloud.operation_response_field" => [1151, :string]
+      }.freeze
+
+      ##
+      # Return a configuration of supported option extensions.
+      #
+      def option_extension_names
+        OPTION_EXTENSION_NAMES
+      end
+
       # Whether this field is a message.
       # @return [Boolean]
       def message?
@@ -687,7 +771,7 @@ module Gapic
       # Whether this field is a repeated field.
       # @return [Boolean]
       def repeated?
-        label == Google::Protobuf::FieldDescriptorProto::Label::LABEL_REPEATED
+        label == :LABEL_REPEATED
       end
 
       # Whether this field is an enum.
@@ -723,16 +807,14 @@ module Gapic
       # @return [String] A reference to another resource message or resource
       #   definition. See `google/api/resource.proto`.
       def resource_reference
-        options[:".google.api.resource_reference"] if options
+        option_named "google.api.resource_reference"
       end
 
       # @return [Array<Google::Api::FieldBehavior>] A designation of a
       #   specific field behavior (required, output only, etc.) in protobuf
       #   messages.
       def field_behavior
-        return options[:".google.api.field_behavior"] if options
-
-        []
+        option_named("google.api.field_behavior") || []
       end
 
       # @return [String] The full name for this field
@@ -771,7 +853,7 @@ module Gapic
       #
       # @return [String]
       def operation_request_field
-        options[:".google.cloud.operation_request_field"] if options
+        option_named "google.cloud.operation_request_field"
       end
 
       # Nonstandard LRO annotation.
@@ -799,7 +881,7 @@ module Gapic
       #
       # @return [String]
       def operation_response_field
-        options[:".google.cloud.operation_response_field"] if options
+        option_named "google.cloud.operation_response_field"
       end
 
       # Nonstandard LRO annotation.
@@ -809,14 +891,14 @@ module Gapic
       #
       # @return [Integer]
       def operation_field
-        options[:".google.cloud.operation_field"] if options
+        option_named "google.cloud.operation_field"
       end
 
       # Specifically denotes a field as optional. While all fields in protocol
       # buffers are optional, this may be specified for emphasis if
       # appropriate.
       def optional?
-        field_behavior.include? Google::Api::FieldBehavior::OPTIONAL
+        field_behavior&.include? Google::Api::FieldBehavior::OPTIONAL
       end
 
       # Denotes a field as a part of oneof.
@@ -825,14 +907,14 @@ module Gapic
       # but since the indexes in the message's oneof table start with 0 as well
       # we need this to determine whether the field is a part of the oneof
       def oneof?
-        @descriptor.field? :oneof_index
+        @descriptor.has_oneof_index?
       end
 
       # Denotes a field as required. This indicates that the field **must** be
       # provided as part of the request, and failure to do so will cause an
       # error (usually `INVALID_ARGUMENT`).
       def required?
-        field_behavior.include? Google::Api::FieldBehavior::REQUIRED
+        field_behavior&.include? Google::Api::FieldBehavior::REQUIRED
       end
 
       # Denotes a field as output only. This indicates that the field is
@@ -840,21 +922,26 @@ module Gapic
       # nothing (the server *must* ignore it and *must not* throw an error as
       # a result of the field's presence).
       def output_only?
-        field_behavior.include? Google::Api::FieldBehavior::OUTPUT_ONLY
+        field_behavior&.include? Google::Api::FieldBehavior::OUTPUT_ONLY
       end
 
       # Denotes a field as input only. This indicates that the field is
       # provided in requests, and the corresponding field is not included in
       # output.
       def input_only?
-        field_behavior.include? Google::Api::FieldBehavior::INPUT_ONLY
+        field_behavior&.include? Google::Api::FieldBehavior::INPUT_ONLY
       end
 
       # Denotes a field as immutable. This indicates that the field may be set
       # once in a request to create a resource, but may not be changed
       # thereafter.
       def immutable?
-        field_behavior.include? Google::Api::FieldBehavior::IMMUTABLE
+        field_behavior&.include? Google::Api::FieldBehavior::IMMUTABLE
+      end
+
+      # Denotes a field as proto3 optional
+      def proto3_optional?
+        @descriptor.proto3_optional
       end
 
       # @!method name
@@ -904,8 +991,7 @@ module Gapic
         :default_value,
         :oneof_index,
         :json_name,
-        :options,
-        :proto3_optional?
+        :options
       )
     end
 
@@ -1002,13 +1088,13 @@ end
 module Google
   module Cloud
     module Tools
-      module Snippetgen
-        module Configlanguage
+      module SnippetGen
+        module ConfigLanguage
           module V1
             ##
             # Additions to the SnippetConfig message
             #
-            class SnippetConfig < ::Protobuf::Message
+            class SnippetConfig
               attr_accessor :json_representation
             end
           end

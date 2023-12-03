@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 require "gapic/presenters/snippet/statement_presenter"
 
 module Gapic
@@ -28,7 +28,7 @@ module Gapic
         ##
         # Create a simple request init presenter.
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::SimpleRequestInitialization]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::SimpleRequestInitialization]
         #     The protobuf representation
         # @param json [String]
         #     The JSON representation
@@ -114,7 +114,7 @@ module Gapic
         ##
         # Create a streaming request init presenter.
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::StreamingRequestInitialization]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::StreamingRequestInitialization]
         #     The protobuf representation
         # @param json [String]
         #     The JSON representation

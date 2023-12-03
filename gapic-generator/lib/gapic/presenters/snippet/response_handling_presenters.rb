@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 require "gapic/presenters/snippet/statement_presenter"
 
 module Gapic
@@ -43,7 +43,7 @@ module Gapic
         ##
         # Create a simple response handling presenter
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::SimpleResponseHandling]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::SimpleResponseHandling]
         #     The protobuf representation
         # @param json [String]
         #     The JSON representation
@@ -92,7 +92,7 @@ module Gapic
         ##
         # Create an LRO response handling presenter
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::LroResponseHandling]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::LroResponseHandling]
         #     The protobuf representation
         # @param json [String]
         #     The JSON representation
@@ -106,12 +106,10 @@ module Gapic
               @render_lines << "# The returned object is of type Gapic::Operation. You can use it to"
               @render_lines << "# check the status of an operation, cancel it, or wait for results."
             end
-            polling_type_class =
-              Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::LroResponseHandling::PollingType
             case proto&.polling_type
-            when polling_type_class::NONE
+            when :NONE
               # Do nothing
-            when polling_type_class::ONCE
+            when :ONCE
               @render_lines += check_once_lines phase1
             else
               @render_lines += wait_response_lines phase1
@@ -173,7 +171,7 @@ module Gapic
         ##
         # Create a server-streaming response handling presenter
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::StreamingResponseHandling]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::StreamingResponseHandling]
         #     The protobuf representation
         # @param json [String]
         #     The JSON representation
@@ -241,7 +239,7 @@ module Gapic
         ##
         # Create a paginated response handling presenter
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::PaginatedResponseHandling]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::PaginatedResponseHandling]
         #     The protobuf representation
         # @param json [String]
         #     The JSON representation

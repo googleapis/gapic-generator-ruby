@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/protobuf/compiler/plugin.pb"
-require "google/cloud/tools/snippetgen/snippetindex/v1/snippet_index.pb"
+require "google/protobuf/compiler/plugin_pb"
+require "google/cloud/tools/snippetgen/snippetindex/v1/snippet_index_pb"
 require "json"
 
 module Gapic
@@ -23,7 +23,7 @@ module Gapic
   # content.
   class PackageSnippets
     # @private
-    SnippetIndex = ::Google::Cloud::Tools::Snippetgen::Snippetindex::V1
+    SnippetIndex = ::Google::Cloud::Tools::SnippetGen::SnippetIndex::V1
 
     ##
     # Start collecting snippets for a package
@@ -150,30 +150,10 @@ module Gapic
       result
     end
 
-    # Custom JSON hash generator, used because the usual JSON serialization
-    # provided by the ruby-protobuf gem uses the numeric tag for enums whereas
-    # we want the string value.
-    def json_value_for value, field = nil
-      case value
-      when ::Protobuf::Message
-        result = {}
-        value.each_field do |fld, val|
-          result[fld.name] = json_value_for val, fld
-        end
-        result
-      when ::Protobuf::Enum
-        value.name.to_s
-      when ::Array
-        value.map { |elem| json_value_for elem, field }
-      else
-        if value.respond_to? :to_json_hash_value
-          value.to_json_hash_value
-        elsif field.respond_to? :json_encode
-          field.json_encode value
-        else
-          value
-        end
-      end
+    def json_value_for value
+      json = value.class.encode_json value, preserve_proto_fieldnames: true,
+                                            emit_defaults: true
+      JSON.parse json
     end
   end
 end

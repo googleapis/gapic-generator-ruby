@@ -16,7 +16,7 @@
 
 require "gapic/file_formatter"
 require "action_controller"
-require "google/protobuf/compiler/plugin.pb"
+require "google/protobuf/compiler/plugin_pb"
 require "tempfile"
 
 module Gapic
@@ -66,7 +66,7 @@ module Gapic
           template: template, formats: :text, locals: args
         )
         Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-          name: filename, content: content
+          name: filename, content: String.new(content)
         )
       end
       alias_method :g, :generate_file

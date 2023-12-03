@@ -26,7 +26,7 @@ class ClientCallPresenterTest < PresenterTest
   RESPONSE_NAME = "response"
 
   def build_client_call_presenter json, phase1: false, streaming: false, response_name: RESPONSE_NAME
-    klass = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::ClientCall
+    klass = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::ClientCall
     proto = build_proto_fragment klass, json if json
     Gapic::Presenters::SnippetPresenter::ClientCallPresenter.new \
       proto, json,

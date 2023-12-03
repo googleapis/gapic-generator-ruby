@@ -51,7 +51,7 @@ class AnnotationResourceTest < AnnotationTest
     refute_nil message.options
     assert_kind_of Google::Protobuf::MessageOptions, message.options
 
-    resource = message.options[:resource]
+    resource = message.option_named "resource"
     assert_kind_of Google::Api::ResourceDescriptor, resource
     assert_equal ["projects/{project}/simple_garbage/{simple_garbage}"], resource.pattern
 
@@ -85,8 +85,8 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal "garbage", field.name
     refute_nil field.options
     assert_kind_of Google::Protobuf::FieldOptions, field.options
-    assert_kind_of Google::Api::ResourceReference, field.options[:resource_reference]
-    assert_equal "endlesstrash.example.net/SimpleGarbage", field.options[:resource_reference].type
+    assert_kind_of Google::Api::ResourceReference, field.option_named("resource_reference")
+    assert_equal "endlesstrash.example.net/SimpleGarbage", field.option_named("resource_reference").type
 
     assert_equal 3, message.fields.count
     assert_kind_of Google::Api::ResourceReference, message.fields[0].resource_reference
@@ -131,8 +131,8 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal "garbage", field.name
     refute_nil field.options
     assert_kind_of Google::Protobuf::FieldOptions, field.options
-    assert_kind_of Google::Api::ResourceReference, field.options[:resource_reference]
-    assert_equal "endlesstrash.example.net/Garbage", field.options[:resource_reference].child_type
+    assert_kind_of Google::Api::ResourceReference, field.option_named("resource_reference")
+    assert_equal "endlesstrash.example.net/Garbage", field.option_named("resource_reference").child_type
 
     assert_equal 1, message.fields.count
     assert_equal "endlesstrash.example.net/Garbage", message.fields[0].resource_reference.child_type

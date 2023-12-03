@@ -22,7 +22,7 @@ class DeclarationPresenterTest < PresenterTest
   include SnippetTestHelper
 
   def build_declaration_presenter json
-    proto = build_proto_fragment Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Statement::Declaration, json
+    proto = build_proto_fragment Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Statement::Declaration, json
     Gapic::Presenters::SnippetPresenter::DeclarationPresenter.new proto, json
   end
 
@@ -75,8 +75,8 @@ class DeclarationPresenterTest < PresenterTest
     expected = [
       "# Initialize the value",
       "message = {",
-      '  name: "Jane Doe",',
-      "  age: 21",
+      "  age: 21,",
+      '  name: "Jane Doe"',
       "}"
     ]
     assert_equal expected, presenter.render_lines

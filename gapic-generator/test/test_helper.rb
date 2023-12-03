@@ -23,6 +23,7 @@ require "gapic/generator"
 require "gapic/path_pattern"
 require "gapic/presenters"
 require "gapic/resource_lookup"
+require "google/protobuf/compiler/plugin_pb"
 require "action_controller"
 require "action_view"
 require "ostruct"
@@ -219,7 +220,7 @@ class FakeApi
     @cur_services = []
     @cur_address = package.split "."
     yield if block_given?
-    descriptor = OpenStruct.new options: { ruby_package: ruby_package }, package: package
+    descriptor = OpenStruct.new options: { "ruby_package" => ruby_package }, package: package
     file = Gapic::Schema::File.new descriptor, @cur_address, nil, @cur_messages, @cur_enums,
                                    @cur_services, [], nil, @cur_registry
     file.parent = self
@@ -363,7 +364,7 @@ class FakeRequest < OpenStruct
   end
 
   def add_toplevel_resource! type, patterns
-    resources = @cur_descriptor.options[:".google.api.resource_definition"] ||= []
+    resources = @cur_descriptor.options["google.api.resource_definition"] ||= []
     resource_descriptor = OpenStruct.new
     resource_descriptor.type = type
     resource_descriptor.pattern = Array(patterns)
@@ -394,7 +395,7 @@ class FakeRequest < OpenStruct
     resource_descriptor = OpenStruct.new
     resource_descriptor.type = type
     resource_descriptor.pattern = Array(patterns)
-    @cur_descriptor.options[:".google.api.resource"] = resource_descriptor
+    @cur_descriptor.options["google.api.resource"] = resource_descriptor
     self
   end
 
@@ -403,6 +404,7 @@ class FakeRequest < OpenStruct
     @cur_descriptor = OpenStruct.new
     @cur_descriptor.name = name
     @cur_descriptor.type_name = type_name
+    @cur_descriptor.options = {}
     yield @cur_descriptor if block_given?
     outer_descriptor.field << @cur_descriptor
     @cur_descriptor = outer_descriptor
@@ -417,6 +419,7 @@ class FakeRequest < OpenStruct
     end
     @cur_descriptor.name = name
     @cur_descriptor.method = []
+    @cur_descriptor.options = {}
     yield @cur_descriptor if block_given?
     outer_descriptor.service << @cur_descriptor
     @cur_descriptor = outer_descriptor
@@ -428,6 +431,7 @@ class FakeRequest < OpenStruct
     @cur_descriptor = OpenStruct.new
     @cur_descriptor.input_type = input_type
     @cur_descriptor.output_type = output_type
+    @cur_descriptor.options = {}
     yield @cur_descriptor if block_given?
     outer_descriptor.method << @cur_descriptor
     @cur_descriptor = outer_descriptor

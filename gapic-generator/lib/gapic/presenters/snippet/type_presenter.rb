@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 
 module Gapic
   module Presenters
@@ -27,7 +27,7 @@ module Gapic
         ##
         # Create a type presenter.
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Type]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Type]
         #     The protobuf representation of the type
         # @param json [String]
         #     The JSON representation of the type
@@ -76,22 +76,21 @@ module Gapic
           "Hash{#{key_type.render}=>#{value_type.render}}"
         end
 
-        scalar_type = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Type::ScalarType
         SCALAR_TYPE_MAPPING = {
-          scalar_type::TYPE_DOUBLE => "Float",
-          scalar_type::TYPE_FLOAT => "Float",
-          scalar_type::TYPE_INT64 => "Integer",
-          scalar_type::TYPE_UINT64 => "Integer",
-          scalar_type::TYPE_INT32 => "Integer",
-          scalar_type::TYPE_FIXED64 => "Integer",
-          scalar_type::TYPE_FIXED32 => "Integer",
-          scalar_type::TYPE_BOOL => "boolean",
-          scalar_type::TYPE_STRING => "String",
-          scalar_type::TYPE_UINT32 => "Integer",
-          scalar_type::TYPE_SFIXED32 => "Integer",
-          scalar_type::TYPE_SFIXED64 => "Integer",
-          scalar_type::TYPE_SINT32 => "Integer",
-          scalar_type::TYPE_SINT64 => "Integer"
+          TYPE_DOUBLE: "Float",
+          TYPE_FLOAT: "Float",
+          TYPE_INT64: "Integer",
+          TYPE_UINT64: "Integer",
+          TYPE_INT32: "Integer",
+          TYPE_FIXED64: "Integer",
+          TYPE_FIXED32: "Integer",
+          TYPE_BOOL: "boolean",
+          TYPE_STRING: "String",
+          TYPE_UINT32: "Integer",
+          TYPE_SFIXED32: "Integer",
+          TYPE_SFIXED64: "Integer",
+          TYPE_SINT32: "Integer",
+          TYPE_SINT64: "Integer"
         }.freeze
       end
     end

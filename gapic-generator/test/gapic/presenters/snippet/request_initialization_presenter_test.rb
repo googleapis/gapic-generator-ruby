@@ -25,14 +25,14 @@ class RequestInitializationPresenterTest < PresenterTest
   STANDARD_REQUEST_NAME = "request"
 
   def build_simple_presenter json, phase1: false
-    klass = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::SimpleRequestInitialization
+    klass = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::SimpleRequestInitialization
     proto = build_proto_fragment klass, json if json
     Gapic::Presenters::SnippetPresenter::SimpleRequestInitializationPresenter.new \
       proto, json, request_type: REQUEST_TYPE, phase1: phase1
   end
 
   def build_streaming_presenter json, phase1: false
-    klass = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::StreamingRequestInitialization
+    klass = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::StreamingRequestInitialization
     proto = build_proto_fragment klass, json if json
     Gapic::Presenters::SnippetPresenter::StreamingRequestInitializationPresenter.new \
       proto, json, request_name: STANDARD_REQUEST_NAME, request_type: REQUEST_TYPE, phase1: phase1
@@ -68,8 +68,8 @@ class RequestInitializationPresenterTest < PresenterTest
     presenter = build_simple_presenter json
     expected = [
       "the_request = {",
-      '  name: "Jane Doe",',
-      "  age: 21",
+      "  age: 21,",
+      '  name: "Jane Doe"',
       "}"
     ]
     assert_equal expected, presenter.render_precall_lines
@@ -109,8 +109,8 @@ class RequestInitializationPresenterTest < PresenterTest
     expected = [
       "age = 21",
       "the_request = {",
-      '  name: "Jane Doe",',
-      "  age: age",
+      "  age: age,",
+      '  name: "Jane Doe"',
       "}"
     ]
     assert_equal expected, presenter.render_precall_lines
@@ -252,8 +252,8 @@ class RequestInitializationPresenterTest < PresenterTest
       "}",
       "people.each do |name, age|",
       "  next_request = {",
-      "    name: name,",
-      "    age: age",
+      "    age: age,",
+      "    name: name",
       "  }",
       "  request << next_request",
       "end",

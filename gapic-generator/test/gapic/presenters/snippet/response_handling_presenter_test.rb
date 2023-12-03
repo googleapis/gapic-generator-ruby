@@ -25,27 +25,27 @@ class ResponseHandlingPresenterTest < PresenterTest
   STANDARD_RESPONSE_NAME = "result"
 
   def build_simple_presenter json, phase1: false
-    klass = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::SimpleResponseHandling
+    klass = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::SimpleResponseHandling
     proto = build_proto_fragment klass, json if json
     Gapic::Presenters::SnippetPresenter::SimpleResponseHandlingPresenter.new \
       proto, json, response_type: RESPONSE_TYPE, phase1: phase1
   end
 
   def build_lro_presenter json, phase1: false
-    klass = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::LroResponseHandling
+    klass = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::LroResponseHandling
     proto = build_proto_fragment klass, json if json
     Gapic::Presenters::SnippetPresenter::LroResponseHandlingPresenter.new proto, json, phase1: phase1
   end
 
   def build_streaming_presenter json, phase1: false, response_name: STANDARD_RESPONSE_NAME
-    klass = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::StreamingResponseHandling
+    klass = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::StreamingResponseHandling
     proto = build_proto_fragment klass, json if json
     Gapic::Presenters::SnippetPresenter::StreamingResponseHandlingPresenter.new \
       proto, json, response_name: response_name, base_response_type: RESPONSE_TYPE, phase1: phase1
   end
 
   def build_paginated_presenter json, phase1: false
-    klass = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::PaginatedResponseHandling
+    klass = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::PaginatedResponseHandling
     proto = build_proto_fragment klass, json if json
     Gapic::Presenters::SnippetPresenter::PaginatedResponseHandlingPresenter.new \
       proto, json, paged_response_type: RESPONSE_TYPE, phase1: phase1

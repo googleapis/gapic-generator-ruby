@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 require "gapic/presenters/snippet/expression_presenter"
 
 module Gapic
@@ -28,7 +28,7 @@ module Gapic
         ##
         # Create a declaration presenter.
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Statement::Declaration]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Statement::Declaration]
         #     The protobuf representation of the declaration
         # @param json [String]
         #     The JSON representation of the declaration
