@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.26.0 / 2023-12-04
+
+* Feature: Use google-protobuf instead of third-party protobuf library
+* Fix: clean up and update gem dependencies
+
 ### 0.25.1 / 2023-09-12
 
 * Fix: Workaround for grpc windows issue during tests
