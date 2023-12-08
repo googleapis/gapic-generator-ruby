@@ -39,11 +39,16 @@ class ServiceStubTest < Minitest::Test
   end
 
   FakeCredentials = Class.new Google::Auth::Credentials do
-    def initialize
+    def initialize universe_domain: nil
+      @custom_universe_domain = universe_domain || "googleapis.com"
     end
 
     def updater_proc
       ->{}
+    end
+    
+    def universe_domain
+      @custom_universe_domain
     end
   end
 
@@ -215,5 +220,64 @@ class ServiceStubTest < Minitest::Test
     end
 
     assert_equal rpc_count, 1
+  end
+
+  class FakeGrpcStub
+    def initialize *args, **kwargs
+    end
+  end
+
+  def test_default_universe_domain
+    creds = FakeCredentials.new
+    service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+                                          endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                          credentials: creds
+    assert_equal "googleapis.com", service_stub.universe_domain
+    assert_equal "myservice.googleapis.com", service_stub.endpoint
+  end
+
+  def test_custom_universe_domain
+    creds = FakeCredentials.new universe_domain: "myuniverse.com"
+    service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+                                          universe_domain: "myuniverse.com",
+                                          endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                          credentials: creds
+    assert_equal "myuniverse.com", service_stub.universe_domain
+    assert_equal "myservice.myuniverse.com", service_stub.endpoint
+  end
+
+  def test_universe_domain_env
+    old_domain = ENV["GOOGLE_CLOUD_UNIVERSE_DOMAIN"]
+    ENV["GOOGLE_CLOUD_UNIVERSE_DOMAIN"] = "myuniverse.com"
+    begin
+      creds = FakeCredentials.new universe_domain: "myuniverse.com"
+      service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+                                            endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                            credentials: creds
+      assert_equal "myuniverse.com", service_stub.universe_domain
+      assert_equal "myservice.myuniverse.com", service_stub.endpoint
+    ensure
+      ENV["GOOGLE_CLOUD_UNIVERSE_DOMAIN"] = old_domain
+    end
+  end
+
+  def test_universe_domain_credentials_mismatch
+    creds = FakeCredentials.new universe_domain: "myuniverse.com"
+    assert_raises Gapic::UniverseDomainMismatch do
+      Gapic::ServiceStub.new FakeGrpcStub,
+                             endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                             credentials: creds
+    end
+  end
+
+  def test_endpoint_override
+    creds = FakeCredentials.new universe_domain: "myuniverse.com"
+    service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+                                          universe_domain: "myuniverse.com",
+                                          endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                          endpoint: "myservice.otheruniverse.com",
+                                          credentials: creds
+    assert_equal "myuniverse.com", service_stub.universe_domain
+    assert_equal "myservice.otheruniverse.com", service_stub.endpoint
   end
 end

@@ -14,6 +14,7 @@
 
 require "googleauth"
 require "gapic/rest/faraday_middleware"
+require "gapic/universe_domain_concerns"
 require "faraday/retry"
 
 module Gapic
@@ -26,9 +27,16 @@ module Gapic
     #   - store credentials and add auth information to the request
     #
     class ClientStub
+      include UniverseDomainConcerns
+
       ##
       # Initializes with an endpoint and credentials
-      # @param endpoint [String] an endpoint for the service that this stub will send requests to
+      # @param endpoint [String] The endpoint of the API. Overrides any endpoint_template.
+      # @param endpoint_template [String] The endpoint of the API, where the
+      #   universe domain component of the hostname is marked by the string in
+      #   the constant {UniverseDomainConcerns::ENDPOINT_SUBSTITUTION}.
+      # @param universe_domain [String] The universe domain in which calls
+      #   should be made. Defaults to `googleapis.com`.
       # @param credentials [Google::Auth::Credentials]
       #   Credentials to send with calls in form of a googleauth credentials object.
       #   (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
@@ -42,19 +50,28 @@ module Gapic
       #
       # @yield [Faraday::Connection]
       #
-      def initialize endpoint:, credentials:, numeric_enums: false, raise_faraday_errors: true
-        @endpoint = endpoint
-        @endpoint = "https://#{endpoint}" unless /^https?:/.match? endpoint
-        @endpoint = @endpoint.sub %r{/$}, ""
+      def initialize credentials:,
+                     endpoint: nil,
+                     endpoint_template: nil,
+                     universe_domain: nil,
+                     numeric_enums: false,
+                     raise_faraday_errors: true
+        setup_universe_domain universe_domain: universe_domain,
+                              endpoint: endpoint,
+                              endpoint_template: endpoint_template,
+                              credentials: credentials
 
-        @credentials = credentials
+        endpoint_url = self.endpoint
+        endpoint_url = "https://#{endpoint_url}" unless /^https?:/.match? endpoint_url
+        endpoint_url = endpoint_url.sub %r{/$}, ""
+
         @numeric_enums = numeric_enums
 
         @raise_faraday_errors = raise_faraday_errors
 
-        @connection = Faraday.new url: @endpoint do |conn|
+        @connection = Faraday.new url: endpoint_url do |conn|
           conn.headers = { "Content-Type" => "application/json" }
-          conn.request :google_authorization, @credentials unless @credentials.is_a? ::Symbol
+          conn.request :google_authorization, self.credentials unless self.credentials.is_a? ::Symbol
           conn.request :retry
           conn.response :raise_error
           conn.adapter :net_http

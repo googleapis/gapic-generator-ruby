@@ -17,7 +17,7 @@ require "googleauth"
 require "gapic/grpc/service_stub/rpc_call"
 require "gapic/grpc/service_stub/channel"
 require "gapic/grpc/service_stub/channel_pool"
-
+require "gapic/universe_domain_concerns"
 
 module Gapic
   ##
@@ -31,6 +31,8 @@ module Gapic
   #   @return [Gapic::ServiceStub::ChannelPool] The instance of the ChannelPool class.
   #
   class ServiceStub
+    include UniverseDomainConcerns
+
     attr_reader :grpc_stub
     attr_reader :channel_pool
 
@@ -38,7 +40,12 @@ module Gapic
     # Creates a Gapic gRPC stub object.
     #
     # @param grpc_stub_class [Class] gRPC stub class to create a new instance of.
-    # @param endpoint [String] The endpoint of the API.
+    # @param endpoint [String] The endpoint of the API. Overrides any endpoint_template.
+    # @param endpoint_template [String] The endpoint of the API, where the
+    #   universe domain component of the hostname is marked by the string in
+    #   the constant {UniverseDomainConcerns::ENDPOINT_SUBSTITUTION}.
+    # @param universe_domain [String] The universe domain in which calls should
+    #   be made. Defaults to `googleapis.com`.
     # @param credentials [Google::Auth::Credentials, Signet::OAuth2::Client, String, Hash, Proc,
     #   ::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] Provides the means for authenticating requests made by
     #   the client. This parameter can be many types:
@@ -58,24 +65,32 @@ module Gapic
     # @param channel_pool_config [::Gapic::ServiceStub:ChannelPool::Configuration] The configuration for channel
     #     pool. This argument will raise error when `credentials` is provided as a `::GRPC::Core::Channel`.
     #
-    def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil,
-                   interceptors: nil, channel_pool_config: nil
+    def initialize grpc_stub_class,
+                   credentials:,
+                   endpoint: nil,
+                   endpoint_template: nil,
+                   universe_domain: nil,
+                   channel_args: nil,
+                   interceptors: nil,
+                   channel_pool_config: nil
       raise ArgumentError, "grpc_stub_class is required" if grpc_stub_class.nil?
-      raise ArgumentError, "endpoint is required" if endpoint.nil?
-      raise ArgumentError, "credentials is required" if credentials.nil?
+
+      setup_universe_domain universe_domain: universe_domain,
+                            endpoint: endpoint,
+                            endpoint_template: endpoint_template,
+                            credentials: credentials
 
       @channel_pool = nil
       @grpc_stub = nil
       channel_args = Hash channel_args
       interceptors = Array interceptors
 
-
       if channel_pool_config && channel_pool_config.channel_count > 1
-        create_channel_pool grpc_stub_class, endpoint: endpoint, credentials: credentials,
+        create_channel_pool grpc_stub_class, endpoint: self.endpoint, credentials: self.credentials,
                             channel_args: channel_args, interceptors: interceptors,
                             channel_pool_config: channel_pool_config
       else
-        create_grpc_stub grpc_stub_class, endpoint: endpoint, credentials: credentials,
+        create_grpc_stub grpc_stub_class, endpoint: self.endpoint, credentials: self.credentials,
                          channel_args: channel_args, interceptors: interceptors
       end
     end

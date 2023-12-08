@@ -44,6 +44,10 @@ class GrpcStubTest < Minitest::Spec
     def updater_proc
       ->{}
     end
+
+    def universe_domain
+      "googleapis.com"
+    end
   end
 
   def test_with_channel
