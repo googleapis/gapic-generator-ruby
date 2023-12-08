@@ -23,10 +23,7 @@ require "pp"
 #
 class ThreadedEnumeratorTest < Minitest::Test
   # Tests the base behavior of the ThreadedEnumerator
-  def test_thread_enumerator
-    in_q = Queue.new
-    out_q = Queue.new
-
+  def test_thread_enumerator_base
     te = Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
       (0..9).each do |i|
         in_q.deq
@@ -48,10 +45,7 @@ class ThreadedEnumeratorTest < Minitest::Test
   # Test the error behavior of the ThreadedEnumerator
   # The error that originates within the block should
   # be rethrown in the calling thread.
-  def test_thread_enumerator
-    in_q = Queue.new
-    out_q = Queue.new
-
+  def test_thread_enumerator_error
     te = Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
       (0..2).each do |i|
         in_q.deq

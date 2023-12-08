@@ -18,7 +18,7 @@ require "gapic/rest"
 class GrpcTranscoderTest < Minitest::Test
   def test_errors
     err = assert_raises ::Gapic::Common::Error do
-      transcoder = Gapic::Rest::GrpcTranscoder.new.with_bindings(
+      Gapic::Rest::GrpcTranscoder.new.with_bindings(
         uri_method: :patch,
         uri_template: "{name}",
         matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}, true], ["foo", %r{^v1/projects/[^/]+(?:/.*)?$}, true]])
@@ -26,12 +26,12 @@ class GrpcTranscoderTest < Minitest::Test
     assert err.message.include? "Binding configuration is incorrect: missing parameter in the URI template."
     
     err = assert_raises ::Gapic::Common::Error do
-      transcoder = Gapic::Rest::GrpcTranscoder.new.with_bindings(uri_method: :patch, uri_template: "{name}", matches: [])
+      Gapic::Rest::GrpcTranscoder.new.with_bindings(uri_method: :patch, uri_template: "{name}", matches: [])
     end
     assert err.message.include? "Binding configuration is incorrect: missing match configuration."
 
     err = assert_raises ::Gapic::Common::Error do
-      transcoder = Gapic::Rest::GrpcTranscoder.new.with_bindings(uri_method: :patch, uri_template: "f/100", body: "sub_request.name")
+      Gapic::Rest::GrpcTranscoder.new.with_bindings(uri_method: :patch, uri_template: "f/100", body: "sub_request.name")
     end
     assert err.message =~ /Provided body template `.+` points to a field in a sub-message/
 

@@ -250,7 +250,7 @@ module Gapic
       # @return [Boolean]
       #
       def next_page_token?
-        return if @response.nil?
+        return if @response.nil? # rubocop:disable Style/ReturnNilInPredicateMethodDefinition
 
         !@response.next_page_token.empty?
       end

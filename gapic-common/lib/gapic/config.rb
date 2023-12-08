@@ -50,7 +50,7 @@ module Gapic
     #
     def config_attr name, default, *valid_values, &validator
       name = String(name).to_sym
-      name_setter = "#{name}=".to_sym
+      name_setter = :"#{name}="
       raise NameError, "invalid config name #{name}" if name !~ /^[a-zA-Z]\w*$/ || name == :parent_config
       raise NameError, "method #{name} already exists" if method_defined? name
       raise NameError, "method #{name_setter} already exists" if method_defined? name_setter
@@ -58,7 +58,7 @@ module Gapic
       raise ArgumentError, "validation must be provided" if validator.nil? && valid_values.empty?
       validator ||= ->(value) { valid_values.any? { |v| v === value } }
 
-      name_ivar = "@#{name}".to_sym
+      name_ivar = :"@#{name}"
 
       create_getter name_ivar, name, default
       create_setter name_ivar, name_setter, default, validator
