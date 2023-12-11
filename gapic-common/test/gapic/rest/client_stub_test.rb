@@ -114,4 +114,63 @@ class ClientStubTest < ClientStubTestBase
     client_stub.make_put_request uri: "/foo", body: "hello"
     mock.verify
   end
+
+  def test_default_universe_domain
+    client_stub = ::Gapic::Rest::ClientStub.new endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                                credentials: :dummy_credentials
+    assert_equal "googleapis.com", client_stub.universe_domain
+    assert_equal "myservice.googleapis.com", client_stub.endpoint
+  end
+
+  def test_custom_universe_domain
+    client_stub = ::Gapic::Rest::ClientStub.new universe_domain: "myuniverse.com",
+                                                endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                                credentials: :dummy_credentials
+    assert_equal "myuniverse.com", client_stub.universe_domain
+    assert_equal "myservice.myuniverse.com", client_stub.endpoint
+  end
+
+  def test_universe_domain_env
+    old_domain = ENV["GOOGLE_CLOUD_UNIVERSE_DOMAIN"]
+    ENV["GOOGLE_CLOUD_UNIVERSE_DOMAIN"] = "myuniverse.com"
+    begin
+      client_stub = ::Gapic::Rest::ClientStub.new endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                                  credentials: :dummy_credentials
+      assert_equal "myuniverse.com", client_stub.universe_domain
+      assert_equal "myservice.myuniverse.com", client_stub.endpoint
+    ensure
+      ENV["GOOGLE_CLOUD_UNIVERSE_DOMAIN"] = old_domain
+    end
+  end
+
+  def test_endpoint_override
+    client_stub = ::Gapic::Rest::ClientStub.new universe_domain: "myuniverse.com",
+                                                endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                                endpoint: "myservice.otheruniverse.com",
+                                                credentials: :dummy_credentials
+    assert_equal "myuniverse.com", client_stub.universe_domain
+    assert_equal "myservice.otheruniverse.com", client_stub.endpoint
+  end
+
+  FakeCredentials = Class.new Google::Auth::Credentials do
+    def initialize universe_domain: nil
+      @custom_universe_domain = universe_domain || "googleapis.com"
+    end
+
+    def updater_proc
+      ->{}
+    end
+    
+    def universe_domain
+      @custom_universe_domain
+    end
+  end
+
+  def test_universe_domain_credentials_mismatch
+    creds = FakeCredentials.new universe_domain: "myuniverse.com"
+    assert_raises Gapic::UniverseDomainMismatch do
+      ::Gapic::Rest::ClientStub.new endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                    credentials: creds
+    end
+  end
 end
