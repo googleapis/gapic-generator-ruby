@@ -219,7 +219,7 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
 
     Kernel.stub :sleep, sleep_proc do
       client_stub.stub :base_make_http_request, make_request_proc do
-        ex = assert_raises RuntimeError do
+        assert_raises RuntimeError do
           client_stub.make_get_request uri: "/foo", options: options
         end
       end

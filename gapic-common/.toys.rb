@@ -54,3 +54,19 @@ tool "irb" do
     IRB.start
   end
 end
+
+tool "fixtures" do
+  include :exec, e: true
+  include :bundler
+
+  def run
+    Dir.chdir context_directory
+    cmd = [
+      "grpc_tools_ruby_protoc",
+      "--ruby_out=test/fixtures",
+      "-I", "test/fixtures"
+    ]
+    cmd += Dir.glob "*.proto", base: "test/fixtures"
+    exec cmd
+  end
+end

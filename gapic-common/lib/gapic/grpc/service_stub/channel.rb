@@ -91,8 +91,6 @@ module Gapic
           rpc_call = RpcCall.new @grpc_stub.method method_name
           response = rpc_call.call request, options: options, &block
           response
-        rescue StandardError => e
-          raise e
         ensure
           @mutex.synchronize { @concurrent_streams -= 1 }
         end

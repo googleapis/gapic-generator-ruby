@@ -33,24 +33,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.platform =      Gem::Platform::RUBY
 
-  spec.required_ruby_version = ">= 2.6"
+  spec.required_ruby_version = ">= 2.7"
 
   spec.add_dependency "faraday", ">= 1.9", "< 3.a"
   spec.add_dependency "faraday-retry", ">= 1.0", "< 3.a"
-  spec.add_dependency "googleapis-common-protos", ">= 1.3.12", "< 2.a"
-  spec.add_dependency "googleapis-common-protos-types", ">= 1.3.1", "< 2.a"
-  spec.add_dependency "googleauth", "~> 1.0"
-  spec.add_dependency "google-protobuf", "~> 3.14"
-  spec.add_dependency "grpc", "~> 1.36"
-
-  spec.add_development_dependency "concurrent-ruby", "~> 1.2.2"
-  spec.add_development_dependency "google-cloud-core", "~> 1.5"
-  spec.add_development_dependency "google-style", "~> 1.26.4"
-  spec.add_development_dependency "minitest", "~> 5.16"
-  spec.add_development_dependency "minitest-autotest", "~> 1.0"
-  spec.add_development_dependency "minitest-focus", "~> 1.1"
-  spec.add_development_dependency "minitest-rg", "~> 5.2"
-  spec.add_development_dependency "pry", ">= 0.14"
-  spec.add_development_dependency "redcarpet", "~> 3.0"
-  spec.add_development_dependency "yard", "~> 0.9"
+  spec.add_dependency "googleapis-common-protos", ">= 1.4.0", "< 2.a"
+  spec.add_dependency "googleapis-common-protos-types", ">= 1.11.0", "< 2.a"
+  spec.add_dependency "googleauth", "~> 1.9"
+  spec.add_dependency "google-protobuf", "~> 3.18"
+  spec.add_dependency "grpc", "~> 1.59"
 end
