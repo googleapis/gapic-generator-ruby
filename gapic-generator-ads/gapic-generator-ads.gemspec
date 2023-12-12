@@ -39,15 +39,7 @@ Gem::Specification.new do |spec|
   spec.executables   = ["protoc-gen-ruby_ads"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.6"
+  spec.required_ruby_version = ">= 2.7"
 
   spec.add_dependency "gapic-generator", "= #{Gapic::Generator::Ads::VERSION}"
-
-  spec.add_development_dependency "grpc-tools", "~> 1.59.2"
-  spec.add_development_dependency "minitest", "~> 5.16"
-  spec.add_development_dependency "minitest-autotest", "~> 1.0"
-  spec.add_development_dependency "minitest-focus", "~> 1.0"
-  spec.add_development_dependency "pry", ">= 0.14"
-  spec.add_development_dependency "redcarpet", "~> 3.0"
-  spec.add_development_dependency "yard", "~> 0.9"
 end
