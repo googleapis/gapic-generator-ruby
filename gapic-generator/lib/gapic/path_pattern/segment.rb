@@ -127,7 +127,7 @@ module Gapic
       def == other
         return false unless other.is_a? self.class
 
-        (pattern == other.pattern && position == other.position)
+        pattern == other.pattern && position == other.position
       end
     end
 
@@ -272,9 +272,10 @@ module Gapic
       def == other
         return false unless other.is_a? self.class
 
-        (type == other.type && pattern == other.pattern &&
+        type == other.type &&
+          pattern == other.pattern &&
           resource_names == other.resource_names &&
-          resource_patterns == other.resource_patterns)
+          resource_patterns == other.resource_patterns
       end
     end
 

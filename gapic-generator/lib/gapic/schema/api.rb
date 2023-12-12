@@ -456,7 +456,7 @@ module Gapic
           file.resources.each { |resource| populate_resource_lookups resource, types, patterns }
           file.messages.each { |message| populate_message_resource_lookups message, types, patterns }
         end
-        types.each do |_type, resource|
+        types.each_value do |resource|
           parents = resource.parsed_parent_patterns
                             .flat_map { |pat| Array(patterns[pat]) }
                             .uniq
