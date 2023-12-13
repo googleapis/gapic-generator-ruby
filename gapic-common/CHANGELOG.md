@@ -1,5 +1,12 @@
 # Release History
 
+### 0.21.0 (2023-12-13)
+
+#### Features
+
+* Drop support for Ruby 2.6 ([#1009](https://github.com/googleapis/gapic-generator-ruby/issues/1009)) 
+* Honor universe domain in stubs ([#1008](https://github.com/googleapis/gapic-generator-ruby/issues/1008)) 
+
 ### 0.20.0 (2023-08-31)
 
 #### Features
