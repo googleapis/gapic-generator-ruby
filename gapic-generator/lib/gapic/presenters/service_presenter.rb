@@ -30,6 +30,14 @@ module Gapic
       # @return [Gapic::Presenters::ServiceRestPresenter]
       attr_reader :rest
 
+      # @return [String] String representation of this presenter type.
+      attr_reader :type
+
+      ##
+      # @param gem_presenter [Gapic::Presenters::GemPresenter]
+      # @param api [Gapic::Schema::Api]
+      # @param service [Gapic::Presenters::ServicePresenter]
+      # @param parent_service [Gapic::Presenters::ServicePresenter]
       def initialize gem_presenter, api, service, parent_service: nil
         @gem_presenter = gem_presenter
         @api = api
@@ -37,6 +45,7 @@ module Gapic
         @parent_service = parent_service
         @rest = ServiceRestPresenter.new self, api
         @nonstandard_lro = api.nonstandard_lro_model_for service.full_name
+        @type = "service"
       end
 
       def gem
@@ -52,7 +61,7 @@ module Gapic
       end
 
       ##
-      # @return [Boolean]
+      # @return [Boolean] Whether the service is marked as deprecated.
       #
       def is_deprecated?
         @service.is_deprecated?

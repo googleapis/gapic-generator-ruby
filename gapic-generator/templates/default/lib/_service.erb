@@ -33,6 +33,7 @@ require "<%= service.rest.service_rest_require %>"
 <%= indent service.doc_description, "# " %>
 #
 <%- end -%>
+<%= render partial: "proto_docs/deprecated", locals: { presenter: service, newline: true } -%>
 <%- if service.generate_grpc_clients? -%>
 # @example Load this service and instantiate a gRPC client
 #

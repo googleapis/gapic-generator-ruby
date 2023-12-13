@@ -43,10 +43,10 @@ module Gapic
       ##
       # @param main_service [Gapic::Presenters::ServicePresenter]
       # @param api [Gapic::Schema::Api]
-      #
       def initialize main_service, api
         @main_service = main_service
         @api = api
+        @type = "service"
       end
 
       ##
@@ -369,12 +369,20 @@ module Gapic
         main_service.gem.rest_numeric_enums?
       end
 
+      ##
+      # @return [Boolean] Whether the service is marked as deprecated.
+      def is_deprecated?
+        @main_service.is_deprecated?
+      end
+
       private
 
       # @return [Gapic::Presenters::ServicePresenter]
       attr_reader :main_service
       # @return [Gapic::Schema::Api]
       attr_reader :api
+      # @return [String] String representation of this presenter type.
+      attr_reader :type
     end
   end
 end

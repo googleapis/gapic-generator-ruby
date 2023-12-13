@@ -318,7 +318,7 @@ module Gapic
       end
 
       # @return [Boolean] True if this service is marked as deprecated, false
-      # otherwise.
+      #   otherwise.
       def is_deprecated?
         option_named "deprecated"
       end
@@ -591,6 +591,12 @@ module Gapic
         @values.each { |v| v.parent = self }
       end
 
+      # @return [Boolean] True if this enum is marked as deprecated, false
+      #   otherwise.
+      def is_deprecated?
+        option_named "deprecated"
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the Enum.
       # @!method options
@@ -696,6 +702,12 @@ module Gapic
       #   which also reference full proto name.
       def full_name
         @address.join "."
+      end
+
+      # @return [Boolean] True if this message is marked as deprecated, false
+      #   otherwise.
+      def is_deprecated?
+        option_named "deprecated"
       end
 
       # @!method name
@@ -942,6 +954,12 @@ module Gapic
       # Denotes a field as proto3 optional
       def proto3_optional?
         @descriptor.proto3_optional
+      end
+
+      # @return [Boolean] True if this field is marked as deprecated, false
+      #   otherwise.
+      def is_deprecated?
+        option_named "deprecated"
       end
 
       # @!method name

@@ -25,10 +25,18 @@ module Gapic
     class FieldPresenter
       include Gapic::Helpers::NamespaceHelper
 
+      # @return [String] String representation of this presenter type.
+      attr_reader :type
+
+      ##
+      # @param api [Gapic::Schema::Api]
+      # @param message [Gapic::Schema::Message]
+      # @param field [Gapic::Schema::Field]
       def initialize api, message, field
         @api = api
         @message = message
         @field = field
+        @type = "field"
       end
 
       def name
@@ -137,6 +145,12 @@ module Gapic
       # @return [String]
       def camel_name
         camel_name_for name
+      end
+
+      ##
+      # @return [Boolean] Whether the field is marked as deprecated.
+      def is_deprecated?
+        @field.is_deprecated?
       end
 
       protected
