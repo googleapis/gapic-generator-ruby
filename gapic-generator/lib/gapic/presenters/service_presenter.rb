@@ -38,6 +38,7 @@ module Gapic
       # @param api [Gapic::Schema::Api]
       # @param service [Gapic::Presenters::ServicePresenter]
       # @param parent_service [Gapic::Presenters::ServicePresenter]
+      #
       def initialize gem_presenter, api, service, parent_service: nil
         @gem_presenter = gem_presenter
         @api = api

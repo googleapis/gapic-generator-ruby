@@ -32,6 +32,7 @@ module Gapic
       ##
       # @param api [Gapic::Schema::Api]
       # @param message [Gapic::Schema::Message]
+      #
       def initialize api, message
         @api = api
         @message = message
@@ -72,6 +73,7 @@ module Gapic
 
       ##
       # @return [Boolean] Whether the message is marked as deprecated.
+      #
       def is_deprecated?
         @message.is_deprecated?
       end

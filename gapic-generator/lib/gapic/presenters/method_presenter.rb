@@ -51,6 +51,7 @@ module Gapic
       # @param service_presenter [Gapic::Presenters::ServicePresenter]
       # @param api [Gapic::Schema::Api]
       # @param method [Gapic::Schema::Method]
+      #
       def initialize service_presenter, api, method
         @service_presenter = service_presenter
         @api = api
@@ -160,7 +161,7 @@ module Gapic
       end
 
       ##
-      # @return [Boolean]
+      # @return [Boolean] Whether the method is marked as deprecated.
       #
       def is_deprecated?
         @method.is_deprecated?

@@ -43,6 +43,7 @@ module Gapic
       ##
       # @param main_service [Gapic::Presenters::ServicePresenter]
       # @param api [Gapic::Schema::Api]
+      #
       def initialize main_service, api
         @main_service = main_service
         @api = api
@@ -371,6 +372,7 @@ module Gapic
 
       ##
       # @return [Boolean] Whether the service is marked as deprecated.
+      #
       def is_deprecated?
         @main_service.is_deprecated?
       end

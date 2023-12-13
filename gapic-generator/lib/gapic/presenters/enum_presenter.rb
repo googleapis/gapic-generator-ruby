@@ -25,6 +25,7 @@ module Gapic
 
       ##
       # @param enum [Gapic::Schema::Enum]
+      #
       def initialize enum
         @enum = enum
         @type = "enum"
@@ -44,6 +45,7 @@ module Gapic
 
       ##
       # @return [Boolean] Whether the enum is marked as deprecated.
+      #
       def is_deprecated?
         @enum.is_deprecated?
       end
