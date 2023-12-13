@@ -28,6 +28,11 @@ expand :yardoc do |t|
   t.fail_on_undocumented_objects = false # TODO: Fix so this can be enabled
   t.bundler = true
 end
+alias_tool :yard, :yardoc
+
+expand :gem_build
+
+expand :gem_build, name: "install", install_gem: true
 
 tool "ci" do
   include :exec, e: true
