@@ -2,6 +2,7 @@
 <%- if enum.doc_description -%>
 <%= indent enum.doc_description, "# " %>
 <%- end -%>
+<%= render partial: "proto_docs/deprecated", locals: { presenter: enum } -%>
 module <%= enum.name %>
   <%- enum.values.each do |value| -%>
 

@@ -1,0 +1,9 @@
+<%- assert_locals presenter -%>
+<% newline ||= false %>
+<% indentation ||= "# " %>
+<%- if presenter.is_deprecated? -%>
+<%= indent "@deprecated This #{presenter.type} is deprecated and may be removed in the next major version update.\n", indentation %>
+<%- if newline -%>
+<%= indentation %>
+<%- end -%>
+<%- end -%>

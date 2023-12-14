@@ -196,6 +196,7 @@ module Google
           # An automated bid strategy that sets your bids to help get as many clicks
           # as possible within your budget.
           # @!attribute [rw] target_spend_micros
+          #   @deprecated This field is deprecated and may be removed in the next major version update.
           #   @return [::Integer]
           #     The spend target under which to maximize clicks.
           #     A TargetSpend bidder will attempt to spend the smaller of this value

@@ -26,9 +26,17 @@ module Gapic
     class MessagePresenter
       include Gapic::Helpers::NamespaceHelper
 
+      # @return [String] String representation of this presenter type.
+      attr_reader :type
+
+      ##
+      # @param api [Gapic::Schema::Api]
+      # @param message [Gapic::Schema::Message]
+      #
       def initialize api, message
         @api = api
         @message = message
+        @type = "message"
       end
 
       def name
@@ -61,6 +69,13 @@ module Gapic
 
       def nested_messages
         @nested_messages ||= @message.nested_messages.map { |m| MessagePresenter.new @api, m }
+      end
+
+      ##
+      # @return [Boolean] Whether the message is marked as deprecated.
+      #
+      def is_deprecated?
+        @message.is_deprecated?
       end
 
       protected

@@ -20,8 +20,15 @@ module Gapic
     # A presenter for proto enums.
     #
     class EnumPresenter
+      # @return [String] String representation of this presenter type.
+      attr_reader :type
+
+      ##
+      # @param enum [Gapic::Schema::Enum]
+      #
       def initialize enum
         @enum = enum
+        @type = "enum"
       end
 
       def name
@@ -34,6 +41,13 @@ module Gapic
 
       def values
         @values ||= @enum.values.map { |v| EnumValuePresenter.new v }
+      end
+
+      ##
+      # @return [Boolean] Whether the enum is marked as deprecated.
+      #
+      def is_deprecated?
+        @enum.is_deprecated?
       end
     end
   end
