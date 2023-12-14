@@ -1,5 +1,11 @@
 # Release History
 
+### 0.21.1 (2023-12-14)
+
+#### Bug Fixes
+
+* add missing module import for universe_domain_concerns ([#1016](https://github.com/googleapis/gapic-generator-ruby/issues/1016)) 
+
 ### 0.21.0 (2023-12-13)
 
 #### Features
