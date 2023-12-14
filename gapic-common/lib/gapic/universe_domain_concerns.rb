@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/common/error"
+
 module Gapic
   ##
   # A mixin module that provides methods for obtaining the effective universe
