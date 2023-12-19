@@ -35,7 +35,7 @@ jobs:
           git submodule update --init --recursive
       - name: Install dependencies
         run: |
-          gem install --no-document toys bundler
+          gem install --no-document toys
           toys bundle install
       - name: Run CI
         run: |
