@@ -230,6 +230,10 @@ module Gapic
           "localhost"
       end
 
+      def client_endpoint_template
+        client_endpoint&.sub(/.googleapis.com$/, ".$UNIVERSE_DOMAIN$")
+      end
+
       def generic_endpoint?
         gem.generic_endpoint?
       end

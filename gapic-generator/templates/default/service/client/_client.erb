@@ -18,6 +18,9 @@ require "<%= subclient.require_str %>"
 #
 <%- end -%>
 class <%= service.client_name %>
+  # @private
+  DEFAULT_ENDPOINT_TEMPLATE = <%= service.client_endpoint_template.inspect %>
+
 <%- if service.paths? -%>
   include <%= service.paths_name %>
 
@@ -69,6 +72,15 @@ class <%= service.client_name %>
   end
 
   ##
+  # The effective universe domain
+  #
+  # @return [String]
+  #
+  def universe_domain
+    @<%= service.stub_name %>.universe_domain
+  end
+
+  ##
   # Create a new <%= service.name %> client object.
   #
   # @example
@@ -102,7 +114,8 @@ class <%= service.client_name %>
     <%- unless service.generic_endpoint? -%>
     # Use self-signed JWT if the endpoint is unchanged from default,
     # but only if the default endpoint does not have a region prefix.
-    enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
+    enable_self_signed_jwt = @config.endpoint.nil? ||
+                             @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                              !@config.endpoint.split(".").first.include?("-")
     credentials ||= Credentials.default scope: @config.scope,
                                         enable_self_signed_jwt: enable_self_signed_jwt
@@ -119,14 +132,18 @@ class <%= service.client_name %>
       config.credentials = credentials
       config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
+      # TODO: Remove guard once updated mixins are released and dependencies are updated accordingly
+      config.universe_domain = @config.universe_domain if config.respond_to? :universe_domain=
     end
 
     <%- end -%>
     <%- end -%>
     @<%= service.stub_name %> = ::Gapic::ServiceStub.new(
       <%= service.proto_service_stub_name_full %>,
-      credentials:  credentials,
-      endpoint:     @config.endpoint,
+      credentials: credentials,
+      endpoint: @config.endpoint,
+      endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
+      universe_domain: @config.universe_domain,
       channel_args: @config.channel_args,
       interceptors: @config.interceptors,
       channel_pool_config: @config.channel_pool
