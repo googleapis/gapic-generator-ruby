@@ -85,6 +85,7 @@ module Gapic
         files << g("gem/gitignore.erb",                 ".gitignore",                                    gem: gem)
         files << g("gem/repo-metadata.erb",             ".repo-metadata.json",                           gem: gem)
         files << g("wrapper_gem/rubocop.erb",           ".rubocop.yml",                                  gem: gem)
+        files << g("gem/toys.erb",                      ".toys.rb",                                      gem: gem)
         files << g("wrapper_gem/yardopts.erb",          ".yardopts",                                     gem: gem)
         files << g("gem/authentication.erb",            "AUTHENTICATION.md",                             gem: gem) unless gem.generic_endpoint?
         files << g("gem/changelog.erb",                 "CHANGELOG.md",                                  gem: gem)
