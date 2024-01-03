@@ -16,7 +16,6 @@
 
 require "test_helper"
 require_relative "snippet_test_helper"
-require "gapic/presenters/snippet/declaration_presenter"
 
 class DeclarationPresenterTest < PresenterTest
   include SnippetTestHelper
