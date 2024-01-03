@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 
 module Gapic
   module Presenters
