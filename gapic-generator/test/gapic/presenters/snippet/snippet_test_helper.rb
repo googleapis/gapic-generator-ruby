@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
+require "gapic/presenters/snippet_presenter"
 
 module SnippetTestHelper
   def build_proto_fragment klass, json
