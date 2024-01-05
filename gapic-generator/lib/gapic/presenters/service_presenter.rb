@@ -230,6 +230,12 @@ module Gapic
           "localhost"
       end
 
+      ##
+      # Returns a template for the endpoint, with the universe domain component
+      # of the url replaced with the string `$UNIVERSE_DOMAIN$`.
+      #
+      # @return [String]
+      #
       def client_endpoint_template
         client_endpoint&.sub(/.googleapis.com$/, ".$UNIVERSE_DOMAIN$")
       end
