@@ -18,22 +18,18 @@ require "test_helper"
 require "google/showcase/v1beta1/echo"
 require "grpc"
 
-class EchoTest < ShowcaseTest
-  def setup client=nil
-    @client = client
+class EchoGRPCTest < ShowcaseTest
+  def setup
+    @client = new_echo_client
+  end
+
+  def test_universe_domain
+    assert_equal "googleapis.com", @client.universe_domain
   end
 
   def test_echo
-    return unless @client
-
     response = @client.echo content: "hi there!"
     assert_equal "hi there!", response.content
-  end
-end
-
-class EchoGRPCTest < EchoTest
-  def setup
-    super new_echo_client
   end
 
   def test_echo_with_block
@@ -60,8 +56,17 @@ class EchoGRPCTest < EchoTest
   end
 end
 
-class EchoRestTest < EchoTest
+class EchoRestTest < ShowcaseTest
   def setup
-    super new_echo_rest_client
+    @client = new_echo_rest_client
+  end
+
+  def test_universe_domain
+    assert_equal "googleapis.com", @client.universe_domain
+  end
+
+  def test_echo
+    response = @client.echo content: "hi there!"
+    assert_equal "hi there!", response.content
   end
 end

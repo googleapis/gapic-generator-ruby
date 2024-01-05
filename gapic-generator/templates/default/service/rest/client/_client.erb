@@ -19,6 +19,9 @@ require "<%= subclient.require_str %>"
 #
 <%- end -%>
 class <%= service.rest.client_name %>
+  # @private
+  DEFAULT_ENDPOINT_TEMPLATE = <%= service.client_endpoint_template.inspect %>
+
 <%- if service.paths? -%>
   include <%= service.paths_name %>
 
@@ -70,6 +73,15 @@ class <%= service.rest.client_name %>
   end
 
   ##
+  # The effective universe domain
+  #
+  # @return [String]
+  #
+  def universe_domain
+    @<%= service.stub_name %>.universe_domain
+  end
+
+  ##
   # Create a new <%= service.name %> REST client object.
   #
   # @example
@@ -97,7 +109,8 @@ class <%= service.rest.client_name %>
     <%- unless service.generic_endpoint? -%>
     # Use self-signed JWT if the endpoint is unchanged from default,
     # but only if the default endpoint does not have a region prefix.
-    enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
+    enable_self_signed_jwt = @config.endpoint.nil? ||
+                             @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                              !@config.endpoint.split(".").first.include?("-")
     credentials ||= Credentials.default scope: @config.scope,
                                         enable_self_signed_jwt: enable_self_signed_jwt
@@ -115,6 +128,8 @@ class <%= service.rest.client_name %>
       config.credentials = credentials
       config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
+      # TODO: Remove guard once updated mixins are released and dependencies are updated accordingly
+      config.universe_domain = @config.universe_domain if config.respond_to? :universe_domain=
       <%- if subclient.respond_to?(:bindings_override) && !subclient.bindings_override.empty? -%>
       config.bindings_override = @config.bindings_override
       <%- end -%>
@@ -122,7 +137,12 @@ class <%= service.rest.client_name %>
 
     <%- end -%>
     <%- end -%>
-    @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new endpoint: @config.endpoint, credentials: credentials
+    @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new(
+      endpoint: @config.endpoint,
+      endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
+      universe_domain: @config.universe_domain,
+      credentials: credentials
+    )
   end
 
   <%- if service.rest.subclients? -%>

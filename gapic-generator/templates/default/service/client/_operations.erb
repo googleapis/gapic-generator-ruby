@@ -6,6 +6,9 @@ require "<%= service.lro_service.proto_service_require %>"
 # Service that implements Longrunning Operations API.
 class <%= service.operations_name %>
   # @private
+  DEFAULT_ENDPOINT_TEMPLATE = <%= service.client_endpoint_template.inspect %>
+
+  # @private
   attr_reader :<%= service.lro_service.stub_name %>
 
   ##
@@ -40,6 +43,15 @@ class <%= service.operations_name %>
   end
 
   ##
+  # The effective universe domain
+  #
+  # @return [String]
+  #
+  def universe_domain
+    @<%= service.lro_service.stub_name %>.universe_domain
+  end
+
+  ##
   # Create a new <%= service.operations_name %> client object.
   #
   # @yield [config] Configure the <%= service.client_name %> client.
@@ -69,8 +81,10 @@ class <%= service.operations_name %>
 
     @<%= service.lro_service.stub_name %> = ::Gapic::ServiceStub.new(
       <%= service.lro_service.proto_service_stub_name_full %>,
-      credentials:  credentials,
-      endpoint:     @config.endpoint,
+      credentials: credentials,
+      endpoint: @config.endpoint,
+      endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
+      universe_domain: @config.universe_domain,
       channel_args: @config.channel_args,
       interceptors: @config.interceptors,
       channel_pool_config: @config.channel_pool
