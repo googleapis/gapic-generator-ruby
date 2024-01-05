@@ -74,13 +74,14 @@
 # @!attribute [rw] universe_domain
 #   The universe domain within which to make requests. This determines the
 #   default endpoint URL. The default value of nil uses the environment
-#   universe (usually GDU).
+#   universe (usually the default "googleapis.com" universe).
 #   @return [::String,nil]
 #
 class Configuration
   extend ::Gapic::Config
 
-  # @private Deprecated and unused
+  # @private
+  # The endpoint specific to the default "googleapis.com" universe. Deprecated.
   DEFAULT_ENDPOINT = <%= service.client_endpoint.inspect %>
 
   config_attr :endpoint,      nil, ::String, nil

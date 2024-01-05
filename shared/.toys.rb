@@ -158,8 +158,15 @@ end
 tool "test" do
   expand :minitest do |t|
     t.name = "showcase"
-    t.libs = ["test"]
-    t.files = ["test/**/*_test.rb"]
+    t.libs = ["test/showcase"]
+    t.files = ["test/showcase/**/*_test.rb"]
+    t.bundler = true
+  end
+
+  expand :minitest do |t|
+    t.name = "vision"
+    t.libs = ["test/vision"]
+    t.files = ["test/vision/**/*_test.rb"]
     t.bundler = true
   end
 
@@ -196,6 +203,7 @@ tool "test" do
 
   def run
     exec_tool ["test", "showcase"] + verbosity_flags
+    exec_tool ["test", "vision"] + verbosity_flags
     exec_tool ["test", "output"] + verbosity_flags
   end
 end
