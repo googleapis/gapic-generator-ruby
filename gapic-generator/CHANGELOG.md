@@ -1,5 +1,13 @@
 # Release History for gapic-generator
 
+### 0.27.0 / 2024-01-08
+
+* Feature: update generated samples docs
+* Feature: Update rubocop autofix to use Rubocop 1.59
+* Feature: add @deprecated tags to document items
+* Feature: Generate toys files
+* Feature: Support universe domain in GAPIC
+
 ### 0.26.0 / 2023-12-04
 
 * Feature: Use google-protobuf instead of third-party protobuf library
