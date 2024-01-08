@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.27.0 / 2024-01-08
+
+* Includes changes from gapic-generator 0.27.0
+* Feature: Update rubocop autofix to use Rubocop 1.59
+
 ### 0.26.0 / 2023-12-04
 
 * Includes changes from gapic-generator 0.26.0
