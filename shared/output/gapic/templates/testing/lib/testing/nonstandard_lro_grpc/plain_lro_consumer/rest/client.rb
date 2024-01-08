@@ -143,8 +143,7 @@ module Testing
               config.credentials = credentials
               config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
-              # TODO: Remove guard once updated mixins are released and dependencies are updated accordingly
-              config.universe_domain = @config.universe_domain if config.respond_to? :universe_domain=
+              config.universe_domain = @config.universe_domain
               config.bindings_override = @config.bindings_override
             end
 
@@ -152,8 +151,7 @@ module Testing
               config.credentials = credentials
               config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
-              # TODO: Remove guard once updated mixins are released and dependencies are updated accordingly
-              config.universe_domain = @config.universe_domain if config.respond_to? :universe_domain=
+              config.universe_domain = @config.universe_domain
             end
 
             @plain_lro_consumer_stub = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::ServiceStub.new(

@@ -146,8 +146,7 @@ module Google
                   config.credentials = credentials
                   config.quota_project = @quota_project_id
                   config.endpoint = @config.endpoint
-                  # TODO: Remove guard once updated mixins are released and dependencies are updated accordingly
-                  config.universe_domain = @config.universe_domain if config.respond_to? :universe_domain=
+                  config.universe_domain = @config.universe_domain
                 end
 
                 @region_instance_group_managers_stub = ::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::ServiceStub.new(
