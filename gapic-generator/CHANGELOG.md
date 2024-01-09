@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.27.1 / 2024-01-09
+
+* Fix: Update mixin dependencies to versions that support universe domain
+
 ### 0.27.0 / 2024-01-08
 
 * Feature: update generated samples docs
