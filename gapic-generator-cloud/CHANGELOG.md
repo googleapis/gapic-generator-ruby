@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.27.2 / 2024-01-11
+
+* Includes changes from gapic-generator 0.27.2
+* Fix: Update wrapper configs for universe_domain support
+
 ### 0.27.1 / 2024-01-09
 
 * Includes changes from gapic-generator 0.27.1
