@@ -22,8 +22,18 @@ require "gapic/common"
 require "gapic/rest"
 
 class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
+  class DummyStub
+    def endpoint
+      "endpoint.example.com"
+    end
+
+    def universe_domain
+      "example.com"
+    end
+  end
+
   def test_addresses_rest
-    Gapic::Rest::ClientStub.stub :new, :stub do
+    Gapic::Rest::ClientStub.stub :new, DummyStub.new do
       client = Google::Cloud::Compute.addresses do |config|
         config.credentials = :dummy_credentials
       end
@@ -32,7 +42,7 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
   end
 
   def test_region_operations_rest
-    Gapic::Rest::ClientStub.stub :new, :stub do
+    Gapic::Rest::ClientStub.stub :new, DummyStub.new do
       client = Google::Cloud::Compute.region_operations do |config|
         config.credentials = :dummy_credentials
       end
@@ -41,7 +51,7 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
   end
 
   def test_region_instance_group_managers_rest
-    Gapic::Rest::ClientStub.stub :new, :stub do
+    Gapic::Rest::ClientStub.stub :new, DummyStub.new do
       client = Google::Cloud::Compute.region_instance_group_managers do |config|
         config.credentials = :dummy_credentials
       end
@@ -50,7 +60,7 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
   end
 
   def test_networks_rest
-    Gapic::Rest::ClientStub.stub :new, :stub do
+    Gapic::Rest::ClientStub.stub :new, DummyStub.new do
       client = Google::Cloud::Compute.networks do |config|
         config.credentials = :dummy_credentials
       end
@@ -59,7 +69,7 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
   end
 
   def test_global_operations_rest
-    Gapic::Rest::ClientStub.stub :new, :stub do
+    Gapic::Rest::ClientStub.stub :new, DummyStub.new do
       client = Google::Cloud::Compute.global_operations do |config|
         config.credentials = :dummy_credentials
       end
