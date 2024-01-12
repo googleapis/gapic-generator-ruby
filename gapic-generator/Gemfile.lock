@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.27.2)
+    gapic-generator (0.27.3)
       actionpack (~> 5.2)
       google-cloud-common (~> 1.2)
       google-protobuf (~> 3.25, >= 3.25.1)
@@ -52,7 +52,7 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     method_source (1.0.0)
-    minitest (5.20.0)
+    minitest (5.21.1)
     minitest-autotest (1.1.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.0)
