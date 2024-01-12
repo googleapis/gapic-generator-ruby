@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.27.4 / 2024-01-12
+
+No significant changes
+
 ### 0.27.3 / 2024-01-12
 
 * Fix: Ensure the correct endpoint gets to mixin clients
