@@ -141,13 +141,6 @@ module Testing
           @quota_project_id = @config.quota_project
           @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
-          @location_client = Google::Cloud::Location::Locations::Client.new do |config|
-            config.credentials = credentials
-            config.quota_project = @quota_project_id
-            config.endpoint = @config.endpoint
-            config.universe_domain = @config.universe_domain
-          end
-
           @another_lro_provider_stub = ::Gapic::ServiceStub.new(
             ::Testing::NonstandardLroGrpc::AnotherLroProvider::Stub,
             credentials: credentials,
@@ -158,6 +151,13 @@ module Testing
             interceptors: @config.interceptors,
             channel_pool_config: @config.channel_pool
           )
+
+          @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            config.credentials = credentials
+            config.quota_project = @quota_project_id
+            config.endpoint = @another_lro_provider_stub.endpoint
+            config.universe_domain = @another_lro_provider_stub.universe_domain
+          end
         end
 
         ##

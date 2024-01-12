@@ -150,13 +150,6 @@ module Testing
             config.universe_domain = @config.universe_domain
           end
 
-          @location_client = Google::Cloud::Location::Locations::Client.new do |config|
-            config.credentials = credentials
-            config.quota_project = @quota_project_id
-            config.endpoint = @config.endpoint
-            config.universe_domain = @config.universe_domain
-          end
-
           @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new do |config|
             config.credentials = credentials
             config.quota_project = @quota_project_id
@@ -181,6 +174,13 @@ module Testing
             interceptors: @config.interceptors,
             channel_pool_config: @config.channel_pool
           )
+
+          @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            config.credentials = credentials
+            config.quota_project = @quota_project_id
+            config.endpoint = @all_subclients_consumer_stub.endpoint
+            config.universe_domain = @all_subclients_consumer_stub.universe_domain
+          end
         end
 
         ##

@@ -153,20 +153,20 @@ module Google
                   config.universe_domain = @config.universe_domain
                 end
 
-                @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
-                  config.credentials = credentials
-                  config.quota_project = @quota_project_id
-                  config.endpoint = @config.endpoint
-                  config.universe_domain = @config.universe_domain
-                  config.bindings_override = @config.bindings_override
-                end
-
                 @image_annotator_stub = ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::ServiceStub.new(
                   endpoint: @config.endpoint,
                   endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
                   universe_domain: @config.universe_domain,
                   credentials: credentials
                 )
+
+                @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+                  config.credentials = credentials
+                  config.quota_project = @quota_project_id
+                  config.endpoint = @image_annotator_stub.endpoint
+                  config.universe_domain = @image_annotator_stub.universe_domain
+                  config.bindings_override = @config.bindings_override
+                end
               end
 
               ##

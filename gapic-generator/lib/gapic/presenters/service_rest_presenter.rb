@@ -331,6 +331,10 @@ module Gapic
         [lro_client_presenter, mixin_presenters, nonstandard_lros].flatten.compact
       end
 
+      def lro_subclients
+        [lro_client_presenter, nonstandard_lros].flatten.compact
+      end
+
       ##
       # The method to use for quick start samples. Normally this is simply the
       # first non-client-streaming method defined, but it can be overridden via

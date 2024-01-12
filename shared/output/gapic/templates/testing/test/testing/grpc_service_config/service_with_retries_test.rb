@@ -53,6 +53,14 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
 
       @response
     end
+
+    def endpoint
+      "endpoint.example.com"
+    end
+
+    def universe_domain
+      "example.com"
+    end
   end
 
   def test_service_level_retry_method
@@ -159,7 +167,8 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
 
     client = block_config = config = nil
-    Gapic::ServiceStub.stub :new, nil do
+    dummy_stub = ClientStub.new nil, nil
+    Gapic::ServiceStub.stub :new, dummy_stub do
       client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
         config.credentials = grpc_channel
       end

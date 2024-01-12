@@ -126,8 +126,7 @@ class <%= service.client_name %>
     @quota_project_id = @config.quota_project
     @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
-    <%- if service.subclients? -%>
-    <%- service.subclients.each do |subclient| -%>
+    <%- service.lro_subclients.each do |subclient| -%>
     @<%= subclient.client_var_name %> = <%= subclient.client_class_name %>.new do |config|
       config.credentials = credentials
       config.quota_project = @quota_project_id
@@ -135,7 +134,6 @@ class <%= service.client_name %>
       config.universe_domain = @config.universe_domain
     end
 
-    <%- end -%>
     <%- end -%>
     @<%= service.stub_name %> = ::Gapic::ServiceStub.new(
       <%= service.proto_service_stub_name_full %>,
@@ -147,6 +145,15 @@ class <%= service.client_name %>
       interceptors: @config.interceptors,
       channel_pool_config: @config.channel_pool
     )
+    <%- service.mixin_presenters.each do |subclient| -%>
+
+    @<%= subclient.client_var_name %> = <%= subclient.client_class_name %>.new do |config|
+      config.credentials = credentials
+      config.quota_project = @quota_project_id
+      config.endpoint = @<%= service.stub_name %>.endpoint
+      config.universe_domain = @<%= service.stub_name %>.universe_domain
+    end
+    <%- end -%>
   end
 
   <%- if service.subclients? -%>

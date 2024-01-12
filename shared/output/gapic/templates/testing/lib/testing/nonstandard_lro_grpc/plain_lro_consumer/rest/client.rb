@@ -139,14 +139,6 @@ module Testing
             @quota_project_id = @config.quota_project
             @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
-            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
-              config.credentials = credentials
-              config.quota_project = @quota_project_id
-              config.endpoint = @config.endpoint
-              config.universe_domain = @config.universe_domain
-              config.bindings_override = @config.bindings_override
-            end
-
             @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
               config.credentials = credentials
               config.quota_project = @quota_project_id
@@ -160,6 +152,14 @@ module Testing
               universe_domain: @config.universe_domain,
               credentials: credentials
             )
+
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+              config.credentials = credentials
+              config.quota_project = @quota_project_id
+              config.endpoint = @plain_lro_consumer_stub.endpoint
+              config.universe_domain = @plain_lro_consumer_stub.universe_domain
+              config.bindings_override = @config.bindings_override
+            end
           end
 
           ##
