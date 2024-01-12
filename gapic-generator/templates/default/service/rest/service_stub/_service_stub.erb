@@ -31,6 +31,15 @@ class <%= service.rest.service_stub_name %>
     @client_stub.universe_domain
   end
 
+  ##
+  # The effective endpoint
+  #
+  # @return [String]
+  #
+  def endpoint
+    @client_stub.endpoint
+  end
+
   <%- service.rest.methods.each do |method| -%>
   <%= indent_tail render(partial: "service/rest/service_stub/method/def", locals: { method: method, service_stub_name: service.rest.service_stub_name }), 2 %>
 

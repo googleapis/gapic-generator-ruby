@@ -59,6 +59,15 @@ module Testing
           end
 
           ##
+          # The effective endpoint
+          #
+          # @return [String]
+          #
+          def endpoint
+            @client_stub.endpoint
+          end
+
+          ##
           # Baseline implementation for the get_another REST call
           #
           # @param request_pb [::Testing::NonstandardLroGrpc::LroAnotherGetRequest]

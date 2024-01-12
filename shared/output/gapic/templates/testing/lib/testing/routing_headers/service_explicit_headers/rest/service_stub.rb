@@ -59,6 +59,15 @@ module Testing
           end
 
           ##
+          # The effective endpoint
+          #
+          # @return [String]
+          #
+          def endpoint
+            @client_stub.endpoint
+          end
+
+          ##
           # Baseline implementation for the plain_no_template REST call
           #
           # @param request_pb [::Testing::RoutingHeaders::Request]

@@ -60,6 +60,15 @@ module Google
             end
 
             ##
+            # The effective endpoint
+            #
+            # @return [String]
+            #
+            def endpoint
+              @client_stub.endpoint
+            end
+
+            ##
             # Baseline implementation for the create_sequence REST call
             #
             # @param request_pb [::Google::Showcase::V1beta1::CreateSequenceRequest]

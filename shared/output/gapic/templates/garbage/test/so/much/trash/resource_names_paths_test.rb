@@ -31,9 +31,19 @@ require "gapic/grpc/service_stub"
 require "so/much/trash/resource_names"
 
 class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
+  class DummyStub
+    def endpoint
+      "endpoint.example.com"
+    end
+  
+    def universe_domain
+      "example.com"
+    end
+  end
+
   def test_complex_pattern_log_parent_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -45,7 +55,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_complex_pattern_non_parent_resource_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -57,7 +67,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_complex_pattern_request_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -72,7 +82,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_complex_pattern_resource_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -84,7 +94,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_no_arguments_multi_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -99,7 +109,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_resource_name_pattern_request_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -114,7 +124,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_simple_pattern_log_parent_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -126,7 +136,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_simple_pattern_non_parent_resource_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -138,7 +148,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_simple_pattern_request_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
@@ -153,7 +163,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
 
   def test_simple_pattern_resource_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    ::Gapic::ServiceStub.stub :new, nil do
+    ::Gapic::ServiceStub.stub :new, DummyStub.new do
       client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end

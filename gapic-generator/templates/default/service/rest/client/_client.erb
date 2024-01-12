@@ -122,8 +122,7 @@ class <%= service.rest.client_name %>
     @quota_project_id = @config.quota_project
     @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
-    <%- if service.rest.subclients? -%>
-    <%- service.rest.subclients.each do |subclient| -%>
+    <%- service.rest.lro_subclients.each do |subclient| -%>
     @<%= subclient.client_var_name %> = <%= subclient.client_class_docname %>.new do |config|
       config.credentials = credentials
       config.quota_project = @quota_project_id
@@ -135,13 +134,24 @@ class <%= service.rest.client_name %>
     end
 
     <%- end -%>
-    <%- end -%>
     @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new(
       endpoint: @config.endpoint,
       endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
       universe_domain: @config.universe_domain,
       credentials: credentials
     )
+    <%- service.rest.mixin_presenters.each do |subclient| -%>
+
+    @<%= subclient.client_var_name %> = <%= subclient.client_class_docname %>.new do |config|
+      config.credentials = credentials
+      config.quota_project = @quota_project_id
+      config.endpoint = @<%= service.stub_name %>.endpoint
+      config.universe_domain = @<%= service.stub_name %>.universe_domain
+      <%- if subclient.respond_to?(:bindings_override) && !subclient.bindings_override.empty? -%>
+      config.bindings_override = @config.bindings_override
+      <%- end -%>
+    end
+    <%- end -%>
   end
 
   <%- if service.rest.subclients? -%>

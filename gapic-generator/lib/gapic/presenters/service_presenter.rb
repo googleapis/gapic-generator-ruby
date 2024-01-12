@@ -778,6 +778,10 @@ module Gapic
         [lro_client_presenter, mixin_presenters, nonstandard_lros].flatten.compact
       end
 
+      def lro_subclients
+        [lro_client_presenter, nonstandard_lros].flatten.compact
+      end
+
       ##
       # @private
       # The nonstandard LRO models for the nonstandard LROs that are used by the methods of this service
