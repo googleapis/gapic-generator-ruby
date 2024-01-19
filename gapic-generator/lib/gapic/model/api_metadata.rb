@@ -70,7 +70,21 @@ module Gapic
       #
       attr_reader :doc_tag_prefix
 
+      ##
+      # @return [Hash{String => Hash{String => Array<String>}}] A mapping from method selector
+      #     to individual method settings (e.g. auto_populated_fields).
+      #
+      attr_reader :method_settings
+
+      ##
+      # @return [Hash{String => Array<String>}] A mapping from method name to a list of auto
+      #     populated fields.
+      #
+      attr_reader :auto_populated_methods
+
       ######## Internal ########
+      SELECTOR = "selector"
+      AUTO_POPULATED_FIELDS = "auto_populated_fields"
 
       ##
       # @private
@@ -137,6 +151,21 @@ module Gapic
         str
           .gsub(%r{</?[[:alpha:]]+(?:\s+[[:alpha:]]+\s*=\s*(?:"[^"]+"|'[^']+'|[^\s">]+))*\s*/?>}, "")
           .gsub(%r{\[([^\]]+)\]\([^)]+\)}, "\\1")
+      end
+
+      def auto_populated_methods! service_config
+        @auto_populated_methods = {}
+        return @auto_populated_methods if service_config.nil? || service_config.apis.nil?
+        @method_settings.each do |setting|
+          selector = setting[SELECTOR]
+          methods = service_config.apis.filter_map do |api|
+            # Removes API prefix and trailing period.
+            selector[api.name.length + 1..].downcase if selector.start_with? api.name
+          end
+          if !methods.nil? && setting.key?(AUTO_POPULATED_FIELDS)
+            @auto_populated_methods[methods.first] = setting[AUTO_POPULATED_FIELDS]
+          end
+        end
       end
     end
   end

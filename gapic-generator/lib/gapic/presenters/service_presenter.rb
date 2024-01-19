@@ -76,6 +76,13 @@ module Gapic
       end
 
       ##
+      # @return [Boolean] Whether this service autogenerates UUID fields.
+      #
+      def autogenerates_uuid?
+        @methods.any? { |method| method.auto_populated_fields.length.positive? }
+      end
+
+      ##
       # The address of this service split into an array
       #
       # @return [Array<String>]

@@ -4,6 +4,17 @@ unless request.is_a? ::Enumerable
   request = request.to_enum
 end
 
+<%- if method.auto_populated_fields.length > 0 -%>
+
+# Auto populate fields for this request.
+<%- end -%>
+<% method.auto_populated_fields.each do |field| %>
+if request.is_a? Hash
+  request[:<%= field %>] = SecureRandom.uuid if request.key?(:<%= field %>) && request[:<%= field %>].empty?
+else
+  request.<%= field %> = SecureRandom.uuid if request.respond_to?(:<%= field %>) && request.<%= field %>.empty?
+end
+<% end %>
 request = request.lazy.map do |req|
   ::Gapic::Protobuf.coerce req, to: <%= method.request_type %>
 end

@@ -27,6 +27,7 @@
 require "google/showcase/v1beta1/echo_pb"
 require "google/cloud/location"
 require "google/iam/v1"
+require "securerandom"
 
 module Google
   module Showcase
@@ -261,6 +262,13 @@ module Google
           #
           def echo request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
+
+            # Auto populate fields for this request.
+            if request.is_a? Hash
+              request[:request_id] = SecureRandom.uuid if request.key?(:request_id) && request[:request_id].empty?
+            elsif request.respond_to?(:request_id) && request.request_id.empty?
+              request.request_id = SecureRandom.uuid
+            end
 
             request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::EchoRequest
 
