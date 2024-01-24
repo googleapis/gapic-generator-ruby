@@ -154,7 +154,7 @@ module Gapic
       # Parses a service configuration, mapping method names to their respective
       #     auto populated field lists.
       #
-      def standardize_auto_populated_data! service_config
+      def standardize_auto_populated_fields! service_config
         @auto_populated_fields_by_method_name = {}
         return unless !service_config.nil? && !service_config.apis.nil?
         @method_settings.each do |setting|

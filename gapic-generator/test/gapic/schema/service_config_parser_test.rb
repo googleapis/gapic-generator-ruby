@@ -205,7 +205,7 @@ class ServiceConfigParserTest < Minitest::Test
 
     service_config = Gapic::Schema::ServiceConfigParser.parse_service_yaml yaml
     metadata = Gapic::Schema::ServiceConfigParser.parse_api_metadata yaml
-    metadata.standardize_auto_populated_data! service_config
+    metadata.standardize_auto_populated_fields! service_config
     refute_empty metadata.auto_populated_fields_by_method_name
     assert_equal metadata.auto_populated_fields_by_method_name[method_name], [auto_populated_field_name]
   end
