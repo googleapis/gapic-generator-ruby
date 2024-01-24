@@ -352,7 +352,7 @@ module Gapic
           api_metadata.standardize_names!
           api_metadata.standardize_title! gem_name: configuration.fetch(:gem, nil)&.fetch(:name, "")
           api_metadata.standardize_descriptions!
-          api_metadata.auto_populated_methods! @service_config
+          api_metadata.standardize_auto_populated_data! @service_config
           api_metadata
         end
       end

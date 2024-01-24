@@ -71,19 +71,15 @@ module Gapic
       attr_reader :doc_tag_prefix
 
       ##
-      # @return [Hash{String => Hash{String => Array<String>}}] A mapping from method selector
-      #     to individual method settings (e.g. auto_populated_fields).
-      #
-      attr_reader :method_settings
-
-      ##
       # @return [Hash{String => Array<String>}] A mapping from method name to a list of auto
       #     populated fields.
       #
-      attr_reader :auto_populated_methods
+      attr_reader :auto_populated_fields_by_method_name
 
       ######## Internal ########
+      # @private
       SELECTOR = "selector"
+      # @private
       AUTO_POPULATED_FIELDS = "auto_populated_fields"
 
       ##
@@ -153,9 +149,14 @@ module Gapic
           .gsub(%r{\[([^\]]+)\]\([^)]+\)}, "\\1")
       end
 
-      def auto_populated_methods! service_config
-        @auto_populated_methods = {}
-        return @auto_populated_methods if service_config.nil? || service_config.apis.nil?
+      ##
+      # @private
+      # Parses a service configuration, mapping method names to their respective
+      #     auto populated field lists.
+      #
+      def standardize_auto_populated_data! service_config
+        @auto_populated_fields_by_method_name = {}
+        return unless !service_config.nil? && !service_config.apis.nil?
         @method_settings.each do |setting|
           selector = setting[SELECTOR]
           methods = service_config.apis.filter_map do |api|
@@ -163,9 +164,10 @@ module Gapic
             selector[api.name.length + 1..].downcase if selector.start_with? api.name
           end
           if !methods.nil? && setting.key?(AUTO_POPULATED_FIELDS)
-            @auto_populated_methods[methods.first] = setting[AUTO_POPULATED_FIELDS]
+            @auto_populated_fields_by_method_name[methods.first] = setting[AUTO_POPULATED_FIELDS]
           end
         end
+        self
       end
     end
   end

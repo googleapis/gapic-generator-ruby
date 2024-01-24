@@ -74,7 +74,7 @@ module Gapic
         @lro = Gapic::Model::Method.parse_lro @method, @api
 
         @rest = MethodRestPresenter.new self, @api
-        @auto_populated_fields = @api.api_metadata.auto_populated_methods[name] || []
+        @auto_populated_fields = @api.api_metadata.auto_populated_fields_by_method_name[name] || []
       end
 
       ##

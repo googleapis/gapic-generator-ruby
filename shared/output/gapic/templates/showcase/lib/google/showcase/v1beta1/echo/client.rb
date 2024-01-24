@@ -265,7 +265,7 @@ module Google
 
             # Auto populate fields for this request.
             if request.is_a? Hash
-              request[:request_id] = SecureRandom.uuid if request.key?(:request_id) && request[:request_id].empty?
+              request[:request_id] = SecureRandom.uuid if request.key? :request_id
             elsif request.respond_to?(:request_id) && request.request_id.empty?
               request.request_id = SecureRandom.uuid
             end
