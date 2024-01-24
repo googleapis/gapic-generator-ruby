@@ -10,7 +10,7 @@ end
 <%- end -%>
 <% method.auto_populated_fields.each do |field| %>
 if request.is_a? Hash
-  request[:<%= field %>] = SecureRandom.uuid if request.key? :<%= field %>
+  request[:<%= field %>] = SecureRandom.uuid unless request.key? :<%= field %>
 else
   request.<%= field %> = SecureRandom.uuid if request.respond_to?(:<%= field %>) && request.<%= field %>.empty?
 end

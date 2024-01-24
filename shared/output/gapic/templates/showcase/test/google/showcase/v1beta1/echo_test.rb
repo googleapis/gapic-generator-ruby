@@ -75,6 +75,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
     severity = :UNNECESSARY
     header = "hello world"
     other_header = "hello world"
+    request_id = "hello world"
 
     echo_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :echo, name
@@ -84,6 +85,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       assert_equal :UNNECESSARY, request["severity"]
       assert_equal "hello world", request["header"]
       assert_equal "hello world", request["other_header"]
+      assert_equal "hello world", request["request_id"]
       refute_nil options
     end
 
@@ -94,31 +96,31 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.echo({ content: content, severity: severity, header: header, other_header: other_header }) do |response, operation|
+      client.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.echo content: content, severity: severity, header: header, other_header: other_header do |response, operation|
+      client.echo content: content, severity: severity, header: header, other_header: other_header, request_id: request_id do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header) do |response, operation|
+      client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.echo({ content: content, severity: severity, header: header, other_header: other_header }, grpc_options) do |response, operation|
+      client.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header), grpc_options) do |response, operation|
+      client.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -277,6 +279,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
     severity = :UNNECESSARY
     header = "hello world"
     other_header = "hello world"
+    request_id = "hello world"
 
     collect_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :collect, name
@@ -292,8 +295,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use enumerable object with hash and protobuf object.
-      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id
       enum_input = [request_hash, request_proto].to_enum
       client.collect enum_input do |response, operation|
         assert_equal grpc_response, response
@@ -301,8 +304,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use stream input object (from gapic-common).
-      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id
       stream_input = Gapic::StreamInput.new
       client.collect stream_input do |response, operation|
         assert_equal grpc_response, response
@@ -313,8 +316,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       stream_input.close
 
       # Use enumerable object with hash and protobuf object with options.
-      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id
       enum_input = [request_hash, request_proto].to_enum
       client.collect enum_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
@@ -322,8 +325,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use stream input object (from gapic-common) with options.
-      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id
       stream_input = Gapic::StreamInput.new
       client.collect stream_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
@@ -343,6 +346,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
           assert_equal :UNNECESSARY, r["severity"]
           assert_equal "hello world", r["header"]
           assert_equal "hello world", r["other_header"]
+          assert_equal "hello world", r["request_id"]
         end
       end
     end
@@ -360,6 +364,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
     severity = :UNNECESSARY
     header = "hello world"
     other_header = "hello world"
+    request_id = "hello world"
 
     chat_client_stub = ClientStub.new [grpc_response].to_enum, grpc_operation do |name, request, options:|
       assert_equal :chat, name
@@ -375,8 +380,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use enumerable object with hash and protobuf object.
-      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id
       enum_input = [request_hash, request_proto].to_enum
       client.chat enum_input do |response, operation|
         assert_kind_of Enumerable, response
@@ -387,8 +392,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use stream input object (from gapic-common).
-      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id
       stream_input = Gapic::StreamInput.new
       client.chat stream_input do |response, operation|
         assert_kind_of Enumerable, response
@@ -402,8 +407,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       stream_input.close
 
       # Use enumerable object with hash and protobuf object with options.
-      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id
       enum_input = [request_hash, request_proto].to_enum
       client.chat enum_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
@@ -414,8 +419,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use stream input object (from gapic-common) with options.
-      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id
       stream_input = Gapic::StreamInput.new
       client.chat stream_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
@@ -438,6 +443,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
           assert_equal :UNNECESSARY, r["severity"]
           assert_equal "hello world", r["header"]
           assert_equal "hello world", r["other_header"]
+          assert_equal "hello world", r["request_id"]
         end
       end
     end

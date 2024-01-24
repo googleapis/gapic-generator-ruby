@@ -78,6 +78,7 @@ class ShowcaseTest < Minitest::Test
     server_id = nil
     if ENV['CI'].nil?
       puts "Starting showcase server..." if ENV["VERBOSE"]
+      # Update below
       server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
         "gcr.io/gapic-images/gapic-showcase:0.25.0"
       raise "failed to start showcase" unless status.exitstatus.zero?

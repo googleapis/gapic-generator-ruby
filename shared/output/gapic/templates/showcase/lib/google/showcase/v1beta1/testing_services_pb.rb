@@ -25,6 +25,9 @@ module Google
       module Testing
         # A service to facilitate running discrete sets of tests
         # against Showcase.
+        # Adding this comment with special characters for comment formatting tests:
+        # 1. (abra->kadabra->alakazam)
+        # 2) [Nonsense][]: `pokemon/*/psychic/*`
         class Service
 
           include ::GRPC::GenericService
@@ -34,6 +37,9 @@ module Google
           self.service_name = 'google.showcase.v1beta1.Testing'
 
           # Creates a new testing session.
+          # Adding this comment with special characters for comment formatting tests:
+          # 1. (abra->kadabra->alakazam)
+          # 2) [Nonsense][]: `pokemon/*/psychic/*`
           rpc :CreateSession, ::Google::Showcase::V1beta1::CreateSessionRequest, ::Google::Showcase::V1beta1::Session
           # Gets a testing session.
           rpc :GetSession, ::Google::Showcase::V1beta1::GetSessionRequest, ::Google::Showcase::V1beta1::Session
