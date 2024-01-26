@@ -39,6 +39,9 @@ module Google
           #
           # A service to facilitate running discrete sets of tests
           # against Showcase.
+          # Adding this comment with special characters for comment formatting tests:
+          # 1. (abra->kadabra->alakazam)
+          # 2) [Nonsense][]: `pokemon/*/psychic/*`
           #
           class Client
             # @private
@@ -187,6 +190,9 @@ module Google
 
             ##
             # Creates a new testing session.
+            # Adding this comment with special characters for comment formatting tests:
+            # 1. (abra->kadabra->alakazam)
+            # 2) [Nonsense][]: `pokemon/*/psychic/*`
             #
             # @overload create_session(request, options = nil)
             #   Pass arguments to `create_session` via a request object, either of type

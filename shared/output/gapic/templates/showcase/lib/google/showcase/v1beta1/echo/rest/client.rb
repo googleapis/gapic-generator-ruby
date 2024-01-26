@@ -215,7 +215,7 @@ module Google
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @overload echo(content: nil, error: nil, severity: nil, header: nil, other_header: nil)
+            # @overload echo(content: nil, error: nil, severity: nil, header: nil, other_header: nil, request_id: nil)
             #   Pass arguments to `echo` via keyword arguments. Note that at
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -230,6 +230,8 @@ module Google
             #     Optional. This field can be set to test the routing annotation on the Echo method.
             #   @param other_header [::String]
             #     Optional. This field can be set to test the routing annotation on the Echo method.
+            #   @param request_id [::String]
+            #     Based on go/client-populate-request-id-design; subject to change
             # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::EchoResponse]
             # @yieldparam operation [::Gapic::Rest::TransportOperation]
