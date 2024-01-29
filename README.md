@@ -10,13 +10,13 @@ tool. The following steps describe how do this.
 
 ### Prepare your Ruby environment
 
-The GAPIC Generator for Ruby is written in Ruby and requires the language and
-several related tools.
+The GAPIC Generator for Ruby is written in Ruby and requires the Ruby runtime
+and several related tools.
 
 First, install Ruby, version 3.1 or later, if you have not already done so.
 [This page](https://www.ruby-lang.org/en/documentation/installation/) on the
-official Ruby website includes installation information. We recommend using one
-of the Ruby version managers such as
+official Ruby website includes installation information. We recommend using a
+Ruby version manager such as
 [ASDF](https://www.ruby-lang.org/en/documentation/installation/#asdf-vm).
 
 You will need the [Bundler](https://rubygems.org/gems/bundler) and
