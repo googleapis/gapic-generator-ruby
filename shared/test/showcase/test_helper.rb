@@ -20,6 +20,13 @@ require "fileutils"
 require "open3"
 require "tmpdir"
 
+# @private
+GAPIC_SHOWCASE_VERSION = '0.30.0'
+# @private
+HOST_OS = 'linux'
+# @private
+HOST_ARCH = 'amd64'
+
 def generate_library_for_test imports, protos
   client_lib = Dir.mktmpdir
   FileUtils.mkdir "#{client_lib}/lib"
@@ -39,6 +46,10 @@ def generate_library_for_test imports, protos
   protoc_cmd_output = `#{protoc_cmd}`
   puts protoc_cmd_output if ENV["VERBOSE"]
   client_lib
+end
+
+def gapic_showcase_running?
+  system("ps aux | grep 'gapic-showcase run' | grep -v grep > /dev/null")
 end
 
 class ShowcaseTest < Minitest::Test
@@ -77,13 +88,17 @@ class ShowcaseTest < Minitest::Test
   @showcase_id = begin
     server_id = nil
     if ENV['CI'].nil?
-      puts "Starting showcase server..." if ENV["VERBOSE"]
-      server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
-        "gcr.io/gapic-images/gapic-showcase:0.25.0"
-      raise "failed to start showcase" unless status.exitstatus.zero?
-
-      server_id.chop!
-      puts "Started with container id: #{server_id}" if ENV["VERBOSE"]
+      unless gapic_showcase_running?
+        log_file = "/tmp/gapic-showcase.log"
+        tar_file_name = "gapic-showcase-#{GAPIC_SHOWCASE_VERSION}-#{HOST_OS}-#{HOST_ARCH}.tar.gz"
+        url = "https://github.com/googleapis/gapic-showcase/releases/download/v#{GAPIC_SHOWCASE_VERSION}/#{tar_file_name}"
+        _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory /tmp/"
+        raise "failed to start showcase" unless status.exitstatus.zero?
+        server_id = Process.spawn('/tmp/gapic-showcase run', :out => [log_file, "w"])
+        puts "Started showcase server (id: #{server_id}) > #{log_file}."
+      else
+        puts "Existing showcase server is available. Continuing..."
+      end
     end
 
     server_id
@@ -101,9 +116,8 @@ class ShowcaseTest < Minitest::Test
     FileUtils.remove_dir @showcase_library, true
 
     unless @showcase_id.nil?
-      puts "Stopping showcase server (id: #{@showcase_id})..." if ENV["VERBOSE"]
-
-      _, status = Open3.capture2 "docker kill #{@showcase_id}"
+      puts "Stopping showcase server (id: #{@showcase_id})..."
+      _, status = Open3.capture2 "kill #{@showcase_id}"
       raise "failed to kill showcase" unless status.exitstatus.zero?
     end
   end
