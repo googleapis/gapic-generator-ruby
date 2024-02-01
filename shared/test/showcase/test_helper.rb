@@ -95,9 +95,9 @@ class ShowcaseTest < Minitest::Test
         _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory /tmp/"
         raise "failed to start showcase" unless status.exitstatus.zero?
         server_id = Process.spawn('/tmp/gapic-showcase run', :out => [log_file, "w"])
-        puts "Started showcase server (id: #{server_id}) > #{log_file}."
+        puts "Started showcase server (id: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
       else
-        puts "Existing showcase server is available. Continuing..."
+        puts "Existing showcase server is available. Continuing..." if ENV["VERBOSE"]
       end
     end
 
@@ -116,7 +116,7 @@ class ShowcaseTest < Minitest::Test
     FileUtils.remove_dir @showcase_library, true
 
     unless @showcase_id.nil?
-      puts "Stopping showcase server (id: #{@showcase_id})..."
+      puts "Stopping showcase server (id: #{@showcase_id})..." if ENV["VERBOSE"]
       _, status = Open3.capture2 "kill #{@showcase_id}"
       raise "failed to kill showcase" unless status.exitstatus.zero?
     end
