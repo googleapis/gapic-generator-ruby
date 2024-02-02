@@ -22,10 +22,6 @@ require "tmpdir"
 
 # @private
 GAPIC_SHOWCASE_VERSION = '0.30.0'
-# @private
-HOST_OS = 'linux'
-# @private
-HOST_ARCH = 'amd64'
 
 def generate_library_for_test imports, protos
   client_lib = Dir.mktmpdir
@@ -50,6 +46,23 @@ end
 
 def gapic_showcase_running?
   system("ps aux | grep 'gapic-showcase run' | grep -v grep > /dev/null")
+end
+
+def tar_file_name
+  file_name = "gapic-showcase-#{GAPIC_SHOWCASE_VERSION}-"
+  case RUBY_PLATFORM
+  when /x86_64-linux/
+    file_name += "linux-amd64.tar.gz"
+  when /x86_64-darwin-\d+/
+    file_name += "darwin-amd64.tar.gz"
+  when /arm-linux/
+    file_name += "linux-arm.tar.gz"
+  when /arm64-darwin-\d+/
+    file_name += "darwin-arm64.tar.gz"
+  else
+    raise "Generator not supported for platform #{RUBY_PLATFORM}."
+  end
+  file_name
 end
 
 class ShowcaseTest < Minitest::Test
@@ -90,7 +103,6 @@ class ShowcaseTest < Minitest::Test
     if ENV['CI'].nil?
       unless gapic_showcase_running?
         log_file = "/tmp/gapic-showcase.log"
-        tar_file_name = "gapic-showcase-#{GAPIC_SHOWCASE_VERSION}-#{HOST_OS}-#{HOST_ARCH}.tar.gz"
         url = "https://github.com/googleapis/gapic-showcase/releases/download/v#{GAPIC_SHOWCASE_VERSION}/#{tar_file_name}"
         _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory /tmp/"
         raise "failed to start showcase" unless status.exitstatus.zero?
