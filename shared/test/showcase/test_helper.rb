@@ -53,11 +53,11 @@ def tar_file_name
   case RUBY_PLATFORM
   when /x86_64-linux/
     file_name += "linux-amd64.tar.gz"
-  when /x86_64-darwin-\d+/
+  when /x86_64-darwin\d+/
     file_name += "darwin-amd64.tar.gz"
   when /arm-linux/
     file_name += "linux-arm.tar.gz"
-  when /arm64-darwin-\d+/
+  when /arm64-darwin\d+/
     file_name += "darwin-arm64.tar.gz"
   else
     raise "Generator not supported for platform #{RUBY_PLATFORM}."
@@ -102,11 +102,12 @@ class ShowcaseTest < Minitest::Test
     server_id = nil
     if ENV['CI'].nil?
       unless gapic_showcase_running?
-        log_file = "/tmp/gapic-showcase.log"
+        tmp_dir = Dir.mktmpdir "gapic-show-case-#{Time.now.to_i}"
+        log_file = "#{tmp_dir}/gapic-showcase.log"
         url = "https://github.com/googleapis/gapic-showcase/releases/download/v#{GAPIC_SHOWCASE_VERSION}/#{tar_file_name}"
-        _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory /tmp/"
+        _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory #{tmp_dir}/"
         raise "failed to start showcase" unless status.exitstatus.zero?
-        server_id = Process.spawn('/tmp/gapic-showcase run', :out => [log_file, "w"])
+        server_id = Process.spawn("#{tmp_dir}/gapic-showcase run", :out => [log_file, "w"])
         puts "Started showcase server (id: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
       else
         puts "Existing showcase server is available. Continuing..." if ENV["VERBOSE"]
