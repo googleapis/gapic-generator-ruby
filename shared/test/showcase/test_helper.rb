@@ -20,6 +20,9 @@ require "fileutils"
 require "open3"
 require "tmpdir"
 
+# @private
+GAPIC_SHOWCASE_VERSION = '0.30.0'
+
 def generate_library_for_test imports, protos
   client_lib = Dir.mktmpdir
   FileUtils.mkdir "#{client_lib}/lib"
@@ -39,6 +42,27 @@ def generate_library_for_test imports, protos
   protoc_cmd_output = `#{protoc_cmd}`
   puts protoc_cmd_output if ENV["VERBOSE"]
   client_lib
+end
+
+def gapic_showcase_running?
+  system("ps aux | grep 'gapic-showcase run' | grep -v grep > /dev/null")
+end
+
+def tar_file_name
+  file_name = "gapic-showcase-#{GAPIC_SHOWCASE_VERSION}-"
+  case RUBY_PLATFORM
+  when /x86_64-linux/
+    file_name += "linux-amd64.tar.gz"
+  when /x86_64-darwin\d+/
+    file_name += "darwin-amd64.tar.gz"
+  when /arm-linux/
+    file_name += "linux-arm.tar.gz"
+  when /arm64-darwin\d+/
+    file_name += "darwin-arm64.tar.gz"
+  else
+    raise "Generator not supported for platform #{RUBY_PLATFORM}."
+  end
+  file_name
 end
 
 class ShowcaseTest < Minitest::Test
@@ -77,13 +101,17 @@ class ShowcaseTest < Minitest::Test
   @showcase_id = begin
     server_id = nil
     if ENV['CI'].nil?
-      puts "Starting showcase server..." if ENV["VERBOSE"]
-      server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
-        "gcr.io/gapic-images/gapic-showcase:0.25.0"
-      raise "failed to start showcase" unless status.exitstatus.zero?
-
-      server_id.chop!
-      puts "Started with container id: #{server_id}" if ENV["VERBOSE"]
+      unless gapic_showcase_running?
+        tmp_dir = Dir.mktmpdir "gapic-show-case-#{Time.now.to_i}"
+        log_file = "#{tmp_dir}/gapic-showcase.log"
+        url = "https://github.com/googleapis/gapic-showcase/releases/download/v#{GAPIC_SHOWCASE_VERSION}/#{tar_file_name}"
+        _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory #{tmp_dir}/"
+        raise "failed to start showcase" unless status.exitstatus.zero?
+        server_id = Process.spawn("#{tmp_dir}/gapic-showcase run", :out => [log_file, "w"])
+        puts "Started showcase server (id: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
+      else
+        puts "Existing showcase server is available. Continuing..." if ENV["VERBOSE"]
+      end
     end
 
     server_id
@@ -102,8 +130,7 @@ class ShowcaseTest < Minitest::Test
 
     unless @showcase_id.nil?
       puts "Stopping showcase server (id: #{@showcase_id})..." if ENV["VERBOSE"]
-
-      _, status = Open3.capture2 "docker kill #{@showcase_id}"
+      _, status = Open3.capture2 "kill #{@showcase_id}"
       raise "failed to kill showcase" unless status.exitstatus.zero?
     end
   end
