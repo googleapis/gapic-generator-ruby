@@ -100,20 +100,17 @@ class ShowcaseTest < Minitest::Test
 
   @showcase_id = begin
     server_id = nil
-    if ENV['CI'].nil?
-      unless gapic_showcase_running?
-        tmp_dir = Dir.mktmpdir "gapic-show-case-#{Time.now.to_i}"
-        log_file = "#{tmp_dir}/gapic-showcase.log"
-        url = "https://github.com/googleapis/gapic-showcase/releases/download/v#{GAPIC_SHOWCASE_VERSION}/#{tar_file_name}"
-        _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory #{tmp_dir}/"
-        raise "failed to start showcase" unless status.exitstatus.zero?
-        server_id = Process.spawn("#{tmp_dir}/gapic-showcase run", :out => [log_file, "w"])
-        puts "Started showcase server (id: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
-      else
-        puts "Existing showcase server is available. Continuing..." if ENV["VERBOSE"]
-      end
+    unless gapic_showcase_running?
+      tmp_dir = Dir.mktmpdir "gapic-show-case-#{Time.now.to_i}"
+      log_file = "#{tmp_dir}/gapic-showcase.log"
+      url = "https://github.com/googleapis/gapic-showcase/releases/download/v#{GAPIC_SHOWCASE_VERSION}/#{tar_file_name}"
+      _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory #{tmp_dir}/"
+      raise "failed to start showcase" unless status.exitstatus.zero?
+      server_id = Process.spawn("#{tmp_dir}/gapic-showcase run", :out => [log_file, "w"])
+      puts "Started showcase server (id: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
+    else
+      puts "Existing showcase server is available. Continuing..." if ENV["VERBOSE"]
     end
-
     server_id
   end
 

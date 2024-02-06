@@ -16,11 +16,6 @@ jobs:
   tests:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
     runs-on: ubuntu-latest
-    services:
-      showcase:
-        image: gcr.io/gapic-images/gapic-showcase:0.25.0
-        ports:
-          - "7469:7469"
     steps:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
@@ -32,6 +27,7 @@ jobs:
         run: |
           git submodule set-url shared/googleapis https://github.com/googleapis/googleapis.git
           git submodule set-url shared/api-common-protos https://github.com/googleapis/api-common-protos.git
+          git submodule set-url shared/gapic-showcase https://github.com/googleapis/gapic-showcase.git
           git submodule update --init --recursive
       - name: Install dependencies
         run: |
