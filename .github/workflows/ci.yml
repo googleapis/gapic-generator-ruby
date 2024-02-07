@@ -27,6 +27,7 @@ jobs:
         run: |
           git submodule set-url shared/googleapis https://github.com/googleapis/googleapis.git
           git submodule set-url shared/api-common-protos https://github.com/googleapis/api-common-protos.git
+          git submodule set-url shared/gapic-showcase https://github.com/googleapis/gapic-showcase.git 
           git submodule update --init --recursive
       - name: Install dependencies
         run: |

@@ -4,3 +4,6 @@
 [submodule "shared/googleapis"]
 	path = shared/googleapis
 	url = git@github.com:googleapis/googleapis.git
+[submodule "shared/gapic-showcase"]
+	path = shared/gapic-showcase
+	url = git@github.com:googleapis/gapic-showcase.git
