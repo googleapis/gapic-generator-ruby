@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.27.4)
+    gapic-generator (0.27.5)
       actionpack (~> 5.2)
       google-cloud-common (~> 1.2)
       google-protobuf (~> 3.25, >= 3.25.1)
@@ -32,14 +32,14 @@ GEM
     ast (2.4.2)
     builder (3.2.4)
     coderay (1.1.3)
-    concurrent-ruby (1.2.2)
+    concurrent-ruby (1.2.3)
     crass (1.0.6)
     erubi (1.12.0)
     google-cloud-common (1.4.0)
       google-protobuf (~> 3.18)
       googleapis-common-protos-types (~> 1.7)
     google-protobuf (3.25.2-x86_64-linux)
-    google-style (1.27.0)
+    google-style (1.27.1)
       rubocop (~> 1.56)
     googleapis-common-protos-types (1.11.0)
       google-protobuf (~> 3.18)
@@ -52,7 +52,7 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     method_source (1.0.0)
-    minitest (5.21.1)
+    minitest (5.22.1)
     minitest-autotest (1.1.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.0)
@@ -60,10 +60,10 @@ GEM
       minitest (>= 4, < 6)
     minitest-server (1.0.7)
       minitest (~> 5.16)
-    nokogiri (1.16.0-x86_64-linux)
+    nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
     parallel (1.24.0)
-    parser (3.3.0.2)
+    parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
     path_expander (1.1.1)
@@ -85,11 +85,11 @@ GEM
     redcarpet (3.6.0)
     regexp_parser (2.9.0)
     rexml (3.2.6)
-    rubocop (1.59.0)
+    rubocop (1.60.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.4)
+      parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
@@ -119,4 +119,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.4.10
+   2.4.19
