@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.27.5 / 2024-02-07
+
+No significant changes
+
 ### 0.27.4 / 2024-01-12
 
 No significant changes
