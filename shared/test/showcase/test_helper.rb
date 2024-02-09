@@ -111,6 +111,7 @@ class ShowcaseTest < Minitest::Test
     else
       puts "Existing showcase server is available. Continuing..." if ENV["VERBOSE"]
     end
+
     server_id
   end
 
