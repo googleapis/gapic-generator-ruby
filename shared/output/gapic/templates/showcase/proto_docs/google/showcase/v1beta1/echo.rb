@@ -47,6 +47,9 @@ module Google
       # @!attribute [rw] other_header
       #   @return [::String]
       #     Optional. This field can be set to test the routing annotation on the Echo method.
+      # @!attribute [rw] request_id
+      #   @return [::String]
+      #     Based on go/client-populate-request-id-design; subject to change
       class EchoRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

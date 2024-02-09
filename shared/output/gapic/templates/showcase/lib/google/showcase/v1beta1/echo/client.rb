@@ -27,6 +27,7 @@
 require "google/showcase/v1beta1/echo_pb"
 require "google/cloud/location"
 require "google/iam/v1"
+require "securerandom"
 
 module Google
   module Showcase
@@ -220,7 +221,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload echo(content: nil, error: nil, severity: nil, header: nil, other_header: nil)
+          # @overload echo(content: nil, error: nil, severity: nil, header: nil, other_header: nil, request_id: nil)
           #   Pass arguments to `echo` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -235,6 +236,8 @@ module Google
           #     Optional. This field can be set to test the routing annotation on the Echo method.
           #   @param other_header [::String]
           #     Optional. This field can be set to test the routing annotation on the Echo method.
+          #   @param request_id [::String]
+          #     Based on go/client-populate-request-id-design; subject to change
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::Google::Showcase::V1beta1::EchoResponse]
@@ -261,6 +264,13 @@ module Google
           #
           def echo request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
+
+            # Auto populate fields for this request.
+            if request.is_a? Hash
+              request[:request_id] = SecureRandom.uuid unless request.key? :request_id
+            elsif request.respond_to?(:request_id) && request.request_id.empty?
+              request.request_id = SecureRandom.uuid
+            end
 
             request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::EchoRequest
 

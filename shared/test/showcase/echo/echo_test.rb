@@ -69,4 +69,16 @@ class EchoRestTest < ShowcaseTest
     response = @client.echo content: "hi there!"
     assert_equal "hi there!", response.content
   end
+
+  def test_echo_with_auto_populated_fields
+    uuid_call_count = 0
+    expected_uuid_call_count = 1 # request_id
+    original_uuid_method = SecureRandom.method(:uuid)
+    SecureRandom.define_singleton_method(:uuid) do
+      uuid_call_count += 1
+      original_uuid_method.call
+    end
+    response = @client.echo content: "auto populated fields"
+    assert_equal expected_uuid_call_count, uuid_call_count
+  end
 end

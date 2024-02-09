@@ -10,6 +10,9 @@ require "<%= subclient.require_str %>"
 <%- end -%>
 <%- end -%>
 <%- end -%>
+<%- if service.autogenerates_uuid? -%>
+require "securerandom"
+<%- end -%>
 <% end %>
 ##
 # REST client for the <%= service.name %> service.

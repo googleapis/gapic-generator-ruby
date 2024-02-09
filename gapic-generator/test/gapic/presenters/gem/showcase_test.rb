@@ -44,6 +44,7 @@ class ShowcaseGemPresenterTest < PresenterTest
 
     expected_proto_files = [
       "google/api/field_behavior.proto",
+      "google/api/field_info.proto",
       "google/api/resource.proto",
       "google/api/routing.proto",
       "google/longrunning/operations.proto",

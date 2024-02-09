@@ -1,4 +1,15 @@
 <%- assert_locals method -%>
 raise ::ArgumentError, "request must be provided" if request.nil?
+<%- if method.auto_populated_fields.length > 0 -%>
+
+# Auto populate fields for this request.
+<%- end -%>
+<% method.auto_populated_fields.each do |field| %>
+if request.is_a? Hash
+  request[:<%= field %>] = SecureRandom.uuid unless request.key? :<%= field %>
+else
+  request.<%= field %> = SecureRandom.uuid if request.respond_to?(:<%= field %>) && request.<%= field %>.empty?
+end
+<% end %>
 
 request = ::Gapic::Protobuf.coerce request, to: <%= method.request_type %>

@@ -41,6 +41,9 @@ module Google
       ##
       # A service to facilitate running discrete sets of tests
       # against Showcase.
+      # Adding this comment with special characters for comment formatting tests:
+      # 1. (abra->kadabra->alakazam)
+      # 2) [Nonsense][]: `pokemon/*/psychic/*`
       #
       # @example Load this service and instantiate a gRPC client
       #
