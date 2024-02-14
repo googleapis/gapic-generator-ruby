@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.28.0 / 2024-02-14
+
+* Includes changes from gapic-generator 0.28.0
+* Feature: introduce auto_populated_fields (uuid4) to generator
+
 ### 0.27.4 / 2024-01-12
 
 * Includes changes from gapic-generator 0.27.4
