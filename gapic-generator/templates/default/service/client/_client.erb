@@ -157,6 +157,8 @@ class <%= service.client_name %>
       config.universe_domain = @<%= service.stub_name %>.universe_domain
     end
     <%- end -%>
+
+    @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
   end
 
   <%- if service.subclients? -%>
