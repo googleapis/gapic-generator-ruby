@@ -122,6 +122,7 @@ module Google
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "gapic/grpc"
+            require "gapic/telemetry"
             require "google/showcase/v1beta1/sequence_services_pb"
 
             # Create the configuration object
@@ -169,6 +170,8 @@ module Google
               config.endpoint = @sequence_service_stub.endpoint
               config.universe_domain = @sequence_service_stub.universe_domain
             end
+
+            @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
           end
 
           ##
@@ -231,33 +234,35 @@ module Google
           #   p result
           #
           def create_sequence request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::CreateSequenceRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::CreateSequenceRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.create_sequence.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.create_sequence.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Showcase::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.create_sequence.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.create_sequence.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.create_sequence.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.create_sequence.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @sequence_service_stub.call_rpc :create_sequence, request, options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @sequence_service_stub.call_rpc :create_sequence, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -305,34 +310,37 @@ module Google
           #   p result
           #
           def create_streaming_sequence request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.create_streaming_sequence.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.create_streaming_sequence.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Showcase::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.create_streaming_sequence.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.create_streaming_sequence.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.create_streaming_sequence.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.create_streaming_sequence.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @sequence_service_stub.call_rpc :create_streaming_sequence, request,
-                                            options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @sequence_service_stub.call_rpc :create_streaming_sequence, request,
+                                              options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -380,41 +388,44 @@ module Google
           #   p result
           #
           def get_sequence_report request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::GetSequenceReportRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::GetSequenceReportRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.get_sequence_report.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.get_sequence_report.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Showcase::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {}
-            if request.name
-              header_params["name"] = request.name
-            end
+              header_params = {}
+              if request.name
+                header_params["name"] = request.name
+              end
 
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
-            options.apply_defaults timeout:      @config.rpcs.get_sequence_report.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.get_sequence_report.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.get_sequence_report.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.get_sequence_report.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @sequence_service_stub.call_rpc :get_sequence_report, request, options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @sequence_service_stub.call_rpc :get_sequence_report, request,
+                                              options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -462,43 +473,45 @@ module Google
           #   p result
           #
           def get_streaming_sequence_report request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request,
-                                               to: ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.get_streaming_sequence_report.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.get_streaming_sequence_report.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Showcase::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {}
-            if request.name
-              header_params["name"] = request.name
-            end
+              header_params = {}
+              if request.name
+                header_params["name"] = request.name
+              end
 
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
-            options.apply_defaults timeout:      @config.rpcs.get_streaming_sequence_report.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.get_streaming_sequence_report.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.get_streaming_sequence_report.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.get_streaming_sequence_report.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @sequence_service_stub.call_rpc :get_streaming_sequence_report, request,
-                                            options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @sequence_service_stub.call_rpc :get_streaming_sequence_report, request,
+                                              options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -546,41 +559,43 @@ module Google
           #   p result
           #
           def attempt_sequence request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::AttemptSequenceRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::AttemptSequenceRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.attempt_sequence.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.attempt_sequence.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Showcase::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {}
-            if request.name
-              header_params["name"] = request.name
-            end
+              header_params = {}
+              if request.name
+                header_params["name"] = request.name
+              end
 
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
-            options.apply_defaults timeout:      @config.rpcs.attempt_sequence.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.attempt_sequence.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.attempt_sequence.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.attempt_sequence.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @sequence_service_stub.call_rpc :attempt_sequence, request, options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @sequence_service_stub.call_rpc :attempt_sequence, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -635,42 +650,45 @@ module Google
           #   end
           #
           def attempt_streaming_sequence request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.attempt_streaming_sequence.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.attempt_streaming_sequence.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Showcase::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {}
-            if request.name
-              header_params["name"] = request.name
-            end
+              header_params = {}
+              if request.name
+                header_params["name"] = request.name
+              end
 
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
-            options.apply_defaults timeout:      @config.rpcs.attempt_streaming_sequence.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.attempt_streaming_sequence.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.attempt_streaming_sequence.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.attempt_streaming_sequence.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @sequence_service_stub.call_rpc :attempt_streaming_sequence, request,
-                                            options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @sequence_service_stub.call_rpc :attempt_streaming_sequence, request,
+                                              options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -781,6 +799,7 @@ module Google
             config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
             config_attr :quota_project, nil, ::String, nil
             config_attr :universe_domain, nil, ::String, nil
+            config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
             # @private
             def initialize parent_config = nil

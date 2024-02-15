@@ -118,6 +118,7 @@ module Testing
           # the gRPC module only when it's required.
           # See https://github.com/googleapis/toolkit/issues/446
           require "gapic/grpc"
+          require "gapic/telemetry"
           require "testing/routing_headers/routing_headers_services_pb"
 
           # Create the configuration object
@@ -158,6 +159,8 @@ module Testing
             config.endpoint = @service_explicit_headers_stub.endpoint
             config.universe_domain = @service_explicit_headers_stub.universe_domain
           end
+
+          @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
         end
 
         ##
@@ -222,41 +225,44 @@ module Testing
         #   p result
         #
         def plain_no_template request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.plain_no_template.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.plain_no_template.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name && !request.table_name.empty?
-            header_params["table_name"] = request.table_name
-          end
+            header_params = {}
+            if request.table_name && !request.table_name.empty?
+              header_params["table_name"] = request.table_name
+            end
 
-          request_params_header = URI.encode_www_form header_params
-          metadata[:"x-goog-request-params"] ||= request_params_header
+            request_params_header = URI.encode_www_form header_params
+            metadata[:"x-goog-request-params"] ||= request_params_header
 
-          options.apply_defaults timeout:      @config.rpcs.plain_no_template.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.plain_no_template.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.plain_no_template.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.plain_no_template.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @service_explicit_headers_stub.call_rpc :plain_no_template, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+            @service_explicit_headers_stub.call_rpc :plain_no_template, request,
+                                                    options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
         end
 
@@ -313,42 +319,45 @@ module Testing
         #   p result
         #
         def plain_full_field request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.plain_full_field.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.plain_full_field.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
-            header_params["table_name"] = request.table_name
-          end
+            header_params = {}
+            if request.table_name &&
+               %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
+              header_params["table_name"] = request.table_name
+            end
 
-          request_params_header = URI.encode_www_form header_params
-          metadata[:"x-goog-request-params"] ||= request_params_header
+            request_params_header = URI.encode_www_form header_params
+            metadata[:"x-goog-request-params"] ||= request_params_header
 
-          options.apply_defaults timeout:      @config.rpcs.plain_full_field.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.plain_full_field.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.plain_full_field.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.plain_full_field.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @service_explicit_headers_stub.call_rpc :plain_full_field, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+            @service_explicit_headers_stub.call_rpc :plain_full_field, request,
+                                                    options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
         end
 
@@ -405,44 +414,47 @@ module Testing
         #   p result
         #
         def plain_extract request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.plain_extract.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.plain_extract.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name
-            regex_match = %r{^projects/[^/]+/instances/[^/]+/(?<table_name>tables/[^/]+)/?$}.match request.table_name
-            if regex_match
-              header_params["table_name"] = regex_match["table_name".to_s]
+            header_params = {}
+            if request.table_name
+              regex_match = %r{^projects/[^/]+/instances/[^/]+/(?<table_name>tables/[^/]+)/?$}.match request.table_name
+              if regex_match
+                header_params["table_name"] = regex_match["table_name".to_s]
+              end
             end
-          end
 
-          request_params_header = URI.encode_www_form header_params
-          metadata[:"x-goog-request-params"] ||= request_params_header
+            request_params_header = URI.encode_www_form header_params
+            metadata[:"x-goog-request-params"] ||= request_params_header
 
-          options.apply_defaults timeout:      @config.rpcs.plain_extract.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.plain_extract.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.plain_extract.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.plain_extract.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @service_explicit_headers_stub.call_rpc :plain_extract, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+            @service_explicit_headers_stub.call_rpc :plain_extract, request,
+                                                    options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
         end
 
@@ -499,70 +511,72 @@ module Testing
         #   p result
         #
         def complex request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.complex.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.complex.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name
-            regex_match = %r{^(?<project_id>projects/[^/]+)/instances/[^/]+/tables/[^/]+/?$}.match request.table_name
-            if regex_match
-              header_params["project_id"] = regex_match["project_id".to_s]
+            header_params = {}
+            if request.table_name
+              regex_match = %r{^(?<project_id>projects/[^/]+)/instances/[^/]+/tables/[^/]+/?$}.match request.table_name
+              if regex_match
+                header_params["project_id"] = regex_match["project_id".to_s]
+              end
             end
-          end
-          if request.table_name
-            regex_match = %r{^projects/[^/]+/(?<instance_id>instances/[^/]+)/tables/[^/]+/?$}.match request.table_name
-            if regex_match
-              header_params["instance_id"] = regex_match["instance_id".to_s]
+            if request.table_name
+              regex_match = %r{^projects/[^/]+/(?<instance_id>instances/[^/]+)/tables/[^/]+/?$}.match request.table_name
+              if regex_match
+                header_params["instance_id"] = regex_match["instance_id".to_s]
+              end
             end
-          end
-          if request.table_name
-            regex_match = %r{^projects/[^/]+/instances/[^/]+/(?<table_id>tables/[^/]+)/?$}.match request.table_name
-            if regex_match
-              header_params["table_id"] = regex_match["table_id".to_s]
+            if request.table_name
+              regex_match = %r{^projects/[^/]+/instances/[^/]+/(?<table_id>tables/[^/]+)/?$}.match request.table_name
+              if regex_match
+                header_params["table_id"] = regex_match["table_id".to_s]
+              end
             end
-          end
-          if request.table_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
-            header_params["table_name"] = request.table_name
-          end
-          if request.table_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/aliases(?:/.*)?$}.match?(request.table_name)
-            header_params["table_name"] = request.table_name
-          end
-          if request.app_profile_id && !request.app_profile_id.empty?
-            header_params["app_profile_id"] = request.app_profile_id
-          end
-          if request.app_profile_id && !request.app_profile_id.empty?
-            header_params["app_profile_id_renamed"] = request.app_profile_id
-          end
+            if request.table_name &&
+               %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
+              header_params["table_name"] = request.table_name
+            end
+            if request.table_name &&
+               %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/aliases(?:/.*)?$}.match?(request.table_name)
+              header_params["table_name"] = request.table_name
+            end
+            if request.app_profile_id && !request.app_profile_id.empty?
+              header_params["app_profile_id"] = request.app_profile_id
+            end
+            if request.app_profile_id && !request.app_profile_id.empty?
+              header_params["app_profile_id_renamed"] = request.app_profile_id
+            end
 
-          request_params_header = URI.encode_www_form header_params
-          metadata[:"x-goog-request-params"] ||= request_params_header
+            request_params_header = URI.encode_www_form header_params
+            metadata[:"x-goog-request-params"] ||= request_params_header
 
-          options.apply_defaults timeout:      @config.rpcs.complex.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.complex.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.complex.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.complex.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @service_explicit_headers_stub.call_rpc :complex, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+            @service_explicit_headers_stub.call_rpc :complex, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
         end
 
@@ -619,45 +633,48 @@ module Testing
         #   p result
         #
         def with_sub_message request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.with_sub_message.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.with_sub_message.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.resource&.resource_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.resource.resource_name)
-            header_params["table_name"] = request.resource.resource_name
-          end
-          if request.app_profile_id && !request.app_profile_id.empty?
-            header_params["app_profile_id"] = request.app_profile_id
-          end
+            header_params = {}
+            if request.resource&.resource_name &&
+               %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.resource.resource_name)
+              header_params["table_name"] = request.resource.resource_name
+            end
+            if request.app_profile_id && !request.app_profile_id.empty?
+              header_params["app_profile_id"] = request.app_profile_id
+            end
 
-          request_params_header = URI.encode_www_form header_params
-          metadata[:"x-goog-request-params"] ||= request_params_header
+            request_params_header = URI.encode_www_form header_params
+            metadata[:"x-goog-request-params"] ||= request_params_header
 
-          options.apply_defaults timeout:      @config.rpcs.with_sub_message.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.with_sub_message.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.with_sub_message.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.with_sub_message.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @service_explicit_headers_stub.call_rpc :with_sub_message, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+            @service_explicit_headers_stub.call_rpc :with_sub_message, request,
+                                                    options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
         end
 
@@ -768,6 +785,7 @@ module Testing
           config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
           config_attr :quota_project, nil, ::String, nil
           config_attr :universe_domain, nil, ::String, nil
+          config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
           # @private
           def initialize parent_config = nil

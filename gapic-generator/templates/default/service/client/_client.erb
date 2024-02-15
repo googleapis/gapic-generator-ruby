@@ -104,6 +104,7 @@ class <%= service.client_name %>
     # the gRPC module only when it's required.
     # See https://github.com/googleapis/toolkit/issues/446
     require "gapic/grpc"
+    require "gapic/telemetry"
     require "<%= service.proto_services_require %>"
 
     # Create the configuration object

@@ -123,6 +123,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "gapic/grpc"
+              require "gapic/telemetry"
               require "google/cloud/speech/v1/cloud_speech_services_pb"
 
               # Create the configuration object
@@ -163,6 +164,8 @@ module Google
                 interceptors: @config.interceptors,
                 channel_pool_config: @config.channel_pool
               )
+
+              @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
             end
 
             ##
@@ -223,36 +226,38 @@ module Google
             #   p result
             #
             def recognize request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::RecognizeRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::RecognizeRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.recognize.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.recognize.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.recognize.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.recognize.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.recognize.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.recognize.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @speech_stub.call_rpc :recognize, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
+                @speech_stub.call_rpc :recognize, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -317,37 +322,39 @@ module Google
             #   end
             #
             def long_running_recognize request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::LongRunningRecognizeRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::LongRunningRecognizeRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.long_running_recognize.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.long_running_recognize.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.long_running_recognize.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.long_running_recognize.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.long_running_recognize.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.long_running_recognize.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @speech_stub.call_rpc :long_running_recognize, request, options: options do |response, operation|
-                response = ::Gapic::Operation.new response, @operations_client, options: options
-                yield response, operation if block_given?
-                return response
+                @speech_stub.call_rpc :long_running_recognize, request, options: options do |response, operation|
+                  response = ::Gapic::Operation.new response, @operations_client, options: options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -392,41 +399,43 @@ module Google
             #   end
             #
             def streaming_recognize request, options = nil
-              unless request.is_a? ::Enumerable
-                raise ::ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
-                request = request.to_enum
+              @tracer_method.call __method__ do
+                unless request.is_a? ::Enumerable
+                  raise ::ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+                  request = request.to_enum
+                end
+
+                request = request.lazy.map do |req|
+                  ::Gapic::Protobuf.coerce req, to: ::Google::Cloud::Speech::V1::StreamingRecognizeRequest
+                end
+
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                metadata = @config.rpcs.streaming_recognize.metadata.to_h
+
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+                options.apply_defaults timeout:      @config.rpcs.streaming_recognize.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.streaming_recognize.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @speech_stub.call_rpc :streaming_recognize, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request = request.lazy.map do |req|
-                ::Gapic::Protobuf.coerce req, to: ::Google::Cloud::Speech::V1::StreamingRecognizeRequest
-              end
-
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
-
-              # Customize the options with defaults
-              metadata = @config.rpcs.streaming_recognize.metadata.to_h
-
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
-
-              options.apply_defaults timeout:      @config.rpcs.streaming_recognize.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.streaming_recognize.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @speech_stub.call_rpc :streaming_recognize, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -536,6 +545,7 @@ module Google
               config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
               config_attr :universe_domain, nil, ::String, nil
+              config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
               # @private
               def initialize parent_config = nil

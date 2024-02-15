@@ -129,6 +129,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "gapic/grpc"
+              require "gapic/telemetry"
               require "google/cloud/secrets/v1beta1/service_services_pb"
 
               # Create the configuration object
@@ -162,6 +163,8 @@ module Google
                 interceptors: @config.interceptors,
                 channel_pool_config: @config.channel_pool
               )
+
+              @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
             end
 
             # Service calls
@@ -223,45 +226,47 @@ module Google
             #   end
             #
             def list_secrets request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::ListSecretsRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::ListSecretsRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.list_secrets.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.list_secrets.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.list_secrets.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.list_secrets.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :list_secrets, request, options: options do |response, operation|
+                  response = ::Gapic::PagedEnumerable.new @secret_manager_service_stub, :list_secrets, request, response, operation, options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.list_secrets.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.list_secrets.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :list_secrets, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @secret_manager_service_stub, :list_secrets, request, response, operation, options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -318,44 +323,46 @@ module Google
             #   p result
             #
             def create_secret request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::CreateSecretRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::CreateSecretRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.create_secret.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.create_secret.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.create_secret.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.create_secret.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :create_secret, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.create_secret.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.create_secret.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :create_secret, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -407,44 +414,46 @@ module Google
             #   p result
             #
             def add_secret_version request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::AddSecretVersionRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::AddSecretVersionRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.add_secret_version.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.add_secret_version.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.add_secret_version.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.add_secret_version.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :add_secret_version, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.add_secret_version.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.add_secret_version.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :add_secret_version, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -492,44 +501,46 @@ module Google
             #   p result
             #
             def get_secret request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::GetSecretRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::GetSecretRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.get_secret.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.get_secret.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.get_secret.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.get_secret.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :get_secret, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.get_secret.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.get_secret.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :get_secret, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -579,44 +590,46 @@ module Google
             #   p result
             #
             def update_secret request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::UpdateSecretRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::UpdateSecretRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.update_secret.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.update_secret.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.secret&.name
-                header_params["secret.name"] = request.secret.name
+                header_params = {}
+                if request.secret&.name
+                  header_params["secret.name"] = request.secret.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.update_secret.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.update_secret.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :update_secret, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.update_secret.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.update_secret.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :update_secret, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -665,44 +678,46 @@ module Google
             #   p result
             #
             def delete_secret request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DeleteSecretRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DeleteSecretRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.delete_secret.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.delete_secret.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.delete_secret.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.delete_secret.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :delete_secret, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.delete_secret.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.delete_secret.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :delete_secret, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -764,45 +779,47 @@ module Google
             #   end
             #
             def list_secret_versions request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::ListSecretVersionsRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::ListSecretVersionsRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.list_secret_versions.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.list_secret_versions.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.list_secret_versions.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.list_secret_versions.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :list_secret_versions, request, options: options do |response, operation|
+                  response = ::Gapic::PagedEnumerable.new @secret_manager_service_stub, :list_secret_versions, request, response, operation, options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.list_secret_versions.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.list_secret_versions.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :list_secret_versions, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @secret_manager_service_stub, :list_secret_versions, request, response, operation, options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -856,44 +873,46 @@ module Google
             #   p result
             #
             def get_secret_version request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::GetSecretVersionRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::GetSecretVersionRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.get_secret_version.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.get_secret_version.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.get_secret_version.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.get_secret_version.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :get_secret_version, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.get_secret_version.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.get_secret_version.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :get_secret_version, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -945,44 +964,46 @@ module Google
             #   p result
             #
             def access_secret_version request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::AccessSecretVersionRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::AccessSecretVersionRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.access_secret_version.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.access_secret_version.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.access_secret_version.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.access_secret_version.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :access_secret_version, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.access_secret_version.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.access_secret_version.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :access_secret_version, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1034,44 +1055,46 @@ module Google
             #   p result
             #
             def disable_secret_version request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DisableSecretVersionRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DisableSecretVersionRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.disable_secret_version.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.disable_secret_version.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.disable_secret_version.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.disable_secret_version.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :disable_secret_version, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.disable_secret_version.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.disable_secret_version.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :disable_secret_version, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1123,44 +1146,46 @@ module Google
             #   p result
             #
             def enable_secret_version request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::EnableSecretVersionRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::EnableSecretVersionRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.enable_secret_version.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.enable_secret_version.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.enable_secret_version.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.enable_secret_version.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :enable_secret_version, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.enable_secret_version.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.enable_secret_version.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :enable_secret_version, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1213,44 +1238,46 @@ module Google
             #   p result
             #
             def destroy_secret_version request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DestroySecretVersionRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DestroySecretVersionRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.destroy_secret_version.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.destroy_secret_version.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.destroy_secret_version.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.destroy_secret_version.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :destroy_secret_version, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.destroy_secret_version.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.destroy_secret_version.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :destroy_secret_version, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1308,44 +1335,46 @@ module Google
             #   p result
             #
             def set_iam_policy request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::SetIamPolicyRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::SetIamPolicyRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.set_iam_policy.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.set_iam_policy.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.resource
-                header_params["resource"] = request.resource
+                header_params = {}
+                if request.resource
+                  header_params["resource"] = request.resource
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.set_iam_policy.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.set_iam_policy.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :set_iam_policy, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.set_iam_policy.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.set_iam_policy.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :set_iam_policy, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1398,44 +1427,46 @@ module Google
             #   p result
             #
             def get_iam_policy request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::GetIamPolicyRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::GetIamPolicyRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.get_iam_policy.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.get_iam_policy.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.resource
-                header_params["resource"] = request.resource
+                header_params = {}
+                if request.resource
+                  header_params["resource"] = request.resource
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.get_iam_policy.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.get_iam_policy.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :get_iam_policy, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.get_iam_policy.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.get_iam_policy.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :get_iam_policy, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1495,44 +1526,46 @@ module Google
             #   p result
             #
             def test_iam_permissions request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::TestIamPermissionsRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::TestIamPermissionsRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.test_iam_permissions.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.test_iam_permissions.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.resource
-                header_params["resource"] = request.resource
+                header_params = {}
+                if request.resource
+                  header_params["resource"] = request.resource
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.test_iam_permissions.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.test_iam_permissions.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @secret_manager_service_stub.call_rpc :test_iam_permissions, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.test_iam_permissions.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.test_iam_permissions.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @secret_manager_service_stub.call_rpc :test_iam_permissions, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1642,6 +1675,7 @@ module Google
               config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
               config_attr :universe_domain, nil, ::String, nil
+              config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
               # @private
               def initialize parent_config = nil

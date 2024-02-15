@@ -120,6 +120,7 @@ module Testing
           # the gRPC module only when it's required.
           # See https://github.com/googleapis/toolkit/issues/446
           require "gapic/grpc"
+          require "gapic/telemetry"
           require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_services_pb"
 
           # Create the configuration object
@@ -181,6 +182,8 @@ module Testing
             config.endpoint = @all_subclients_consumer_stub.endpoint
             config.universe_domain = @all_subclients_consumer_stub.universe_domain
           end
+
+          @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
         end
 
         ##
@@ -257,41 +260,43 @@ module Testing
         #   p result
         #
         def plain_lro_rpc request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.plain_lro_rpc.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.plain_lro_rpc.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          options.apply_defaults timeout:      @config.rpcs.plain_lro_rpc.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.plain_lro_rpc.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.plain_lro_rpc.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.plain_lro_rpc.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @all_subclients_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |result, response|
-            result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
-              operation: result,
-              client: plain_lro_provider,
-              request_values: {
-                "initial_request_id" => request.request_id
-              },
-              options: options
-            )
-            yield result, response if block_given?
-            return result
+            @all_subclients_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |result, response|
+              result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+                operation: result,
+                client: plain_lro_provider,
+                request_values: {
+                  "initial_request_id" => request.request_id
+                },
+                options: options
+              )
+              yield result, response if block_given?
+              return result
+            end
           end
         end
 
@@ -339,41 +344,43 @@ module Testing
         #   p result
         #
         def another_lro_rpc request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::AnotherRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::AnotherRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.another_lro_rpc.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.another_lro_rpc.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          options.apply_defaults timeout:      @config.rpcs.another_lro_rpc.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.another_lro_rpc.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.another_lro_rpc.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.another_lro_rpc.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @all_subclients_consumer_stub.call_rpc :another_lro_rpc, request, options: options do |result, response|
-            result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
-              operation: result,
-              client: another_lro_provider,
-              request_values: {
-                "another_request_id" => request.request_id
-              },
-              options: options
-            )
-            yield result, response if block_given?
-            return result
+            @all_subclients_consumer_stub.call_rpc :another_lro_rpc, request, options: options do |result, response|
+              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+                operation: result,
+                client: another_lro_provider,
+                request_values: {
+                  "another_request_id" => request.request_id
+                },
+                options: options
+              )
+              yield result, response if block_given?
+              return result
+            end
           end
         end
 
@@ -416,40 +423,42 @@ module Testing
         #   p result
         #
         def non_copy_another_lro_rpc request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::NonCopyRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::NonCopyRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.non_copy_another_lro_rpc.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.non_copy_another_lro_rpc.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          options.apply_defaults timeout:      @config.rpcs.non_copy_another_lro_rpc.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.non_copy_another_lro_rpc.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.non_copy_another_lro_rpc.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.non_copy_another_lro_rpc.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @all_subclients_consumer_stub.call_rpc :non_copy_another_lro_rpc, request,
-                                                 options: options do |result, response|
-            result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
-              operation: result,
-              client: another_lro_provider,
-              request_values: {},
-              options: options
-            )
-            yield result, response if block_given?
-            return result
+            @all_subclients_consumer_stub.call_rpc :non_copy_another_lro_rpc, request,
+                                                   options: options do |result, response|
+              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+                operation: result,
+                client: another_lro_provider,
+                request_values: {},
+                options: options
+              )
+              yield result, response if block_given?
+              return result
+            end
           end
         end
 
@@ -504,34 +513,36 @@ module Testing
         #   end
         #
         def aip_lro request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.aip_lro.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.aip_lro.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          options.apply_defaults timeout:      @config.rpcs.aip_lro.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.aip_lro.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.aip_lro.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.aip_lro.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @all_subclients_consumer_stub.call_rpc :aip_lro, request, options: options do |response, operation|
-            response = ::Gapic::Operation.new response, @operations_client, options: options
-            yield response, operation if block_given?
-            return response
+            @all_subclients_consumer_stub.call_rpc :aip_lro, request, options: options do |response, operation|
+              response = ::Gapic::Operation.new response, @operations_client, options: options
+              yield response, operation if block_given?
+              return response
+            end
           end
         end
 
@@ -579,33 +590,35 @@ module Testing
         #   p result
         #
         def no_lro request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.no_lro.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.no_lro.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          options.apply_defaults timeout:      @config.rpcs.no_lro.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.no_lro.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.no_lro.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.no_lro.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @all_subclients_consumer_stub.call_rpc :no_lro, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+            @all_subclients_consumer_stub.call_rpc :no_lro, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
         end
 
@@ -716,6 +729,7 @@ module Testing
           config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
           config_attr :quota_project, nil, ::String, nil
           config_attr :universe_domain, nil, ::String, nil
+          config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
           # @private
           def initialize parent_config = nil

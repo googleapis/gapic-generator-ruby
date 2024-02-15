@@ -119,6 +119,7 @@ module Testing
           # the gRPC module only when it's required.
           # See https://github.com/googleapis/toolkit/issues/446
           require "gapic/grpc"
+          require "gapic/telemetry"
           require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_services_pb"
 
           # Create the configuration object
@@ -166,6 +167,8 @@ module Testing
             config.endpoint = @plain_lro_consumer_stub.endpoint
             config.universe_domain = @plain_lro_consumer_stub.universe_domain
           end
+
+          @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
         end
 
         ##
@@ -226,41 +229,43 @@ module Testing
         #   p result
         #
         def plain_lro_rpc request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.plain_lro_rpc.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.plain_lro_rpc.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          options.apply_defaults timeout:      @config.rpcs.plain_lro_rpc.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.plain_lro_rpc.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.plain_lro_rpc.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.plain_lro_rpc.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @plain_lro_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |result, response|
-            result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
-              operation: result,
-              client: plain_lro_provider,
-              request_values: {
-                "initial_request_id" => request.request_id
-              },
-              options: options
-            )
-            yield result, response if block_given?
-            return result
+            @plain_lro_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |result, response|
+              result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+                operation: result,
+                client: plain_lro_provider,
+                request_values: {
+                  "initial_request_id" => request.request_id
+                },
+                options: options
+              )
+              yield result, response if block_given?
+              return result
+            end
           end
         end
 
@@ -371,6 +376,7 @@ module Testing
           config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
           config_attr :quota_project, nil, ::String, nil
           config_attr :universe_domain, nil, ::String, nil
+          config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
           # @private
           def initialize parent_config = nil

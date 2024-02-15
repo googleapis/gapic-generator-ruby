@@ -118,6 +118,7 @@ module Testing
           # the gRPC module only when it's required.
           # See https://github.com/googleapis/toolkit/issues/446
           require "gapic/grpc"
+          require "gapic/telemetry"
           require "testing/grpc_service_config/grpc_service_config_services_pb"
 
           # Create the configuration object
@@ -158,6 +159,8 @@ module Testing
             config.endpoint = @service_no_retry_stub.endpoint
             config.universe_domain = @service_no_retry_stub.universe_domain
           end
+
+          @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
         end
 
         ##
@@ -204,33 +207,35 @@ module Testing
         #   p result
         #
         def no_retry_method request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Testing::GrpcServiceConfig::Request
+            request = ::Gapic::Protobuf.coerce request, to: ::Testing::GrpcServiceConfig::Request
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.no_retry_method.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.no_retry_method.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Testing::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Testing::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          options.apply_defaults timeout:      @config.rpcs.no_retry_method.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.no_retry_method.retry_policy
+            options.apply_defaults timeout:      @config.rpcs.no_retry_method.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.no_retry_method.retry_policy
 
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
-          @service_no_retry_stub.call_rpc :no_retry_method, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+            @service_no_retry_stub.call_rpc :no_retry_method, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
         end
 
@@ -341,6 +346,7 @@ module Testing
           config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
           config_attr :quota_project, nil, ::String, nil
           config_attr :universe_domain, nil, ::String, nil
+          config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
           # @private
           def initialize parent_config = nil

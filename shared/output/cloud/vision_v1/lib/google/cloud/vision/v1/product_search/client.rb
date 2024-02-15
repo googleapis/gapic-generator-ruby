@@ -137,6 +137,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "gapic/grpc"
+              require "gapic/telemetry"
               require "google/cloud/vision/v1/product_search_service_services_pb"
 
               # Create the configuration object
@@ -184,6 +185,8 @@ module Google
                 config.endpoint = @product_search_stub.endpoint
                 config.universe_domain = @product_search_stub.universe_domain
               end
+
+              @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
             end
 
             ##
@@ -261,44 +264,46 @@ module Google
             #   p result
             #
             def create_product_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::CreateProductSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::CreateProductSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.create_product_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.create_product_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.create_product_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.create_product_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :create_product_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.create_product_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.create_product_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :create_product_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -361,45 +366,47 @@ module Google
             #   end
             #
             def list_product_sets request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListProductSetsRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListProductSetsRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.list_product_sets.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.list_product_sets.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.list_product_sets.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.list_product_sets.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :list_product_sets, request, options: options do |response, operation|
+                  response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, operation, options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.list_product_sets.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.list_product_sets.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :list_product_sets, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, operation, options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -454,44 +461,46 @@ module Google
             #   p result
             #
             def get_product_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::GetProductSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::GetProductSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.get_product_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.get_product_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.get_product_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.get_product_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :get_product_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.get_product_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.get_product_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :get_product_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -551,44 +560,46 @@ module Google
             #   p result
             #
             def update_product_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::UpdateProductSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::UpdateProductSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.update_product_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.update_product_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.product_set&.name
-                header_params["product_set.name"] = request.product_set.name
+                header_params = {}
+                if request.product_set&.name
+                  header_params["product_set.name"] = request.product_set.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.update_product_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.update_product_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :update_product_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.update_product_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.update_product_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :update_product_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -642,44 +653,46 @@ module Google
             #   p result
             #
             def delete_product_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::DeleteProductSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::DeleteProductSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.delete_product_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.delete_product_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.delete_product_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.delete_product_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :delete_product_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.delete_product_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.delete_product_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :delete_product_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -744,44 +757,46 @@ module Google
             #   p result
             #
             def create_product request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::CreateProductRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::CreateProductRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.create_product.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.create_product.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.create_product.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.create_product.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :create_product, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.create_product.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.create_product.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :create_product, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -844,45 +859,47 @@ module Google
             #   end
             #
             def list_products request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListProductsRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListProductsRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.list_products.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.list_products.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.list_products.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.list_products.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :list_products, request, options: options do |response, operation|
+                  response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, operation, options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.list_products.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.list_products.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :list_products, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, operation, options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -937,44 +954,46 @@ module Google
             #   p result
             #
             def get_product request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::GetProductRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::GetProductRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.get_product.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.get_product.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.get_product.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.get_product.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :get_product, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.get_product.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.get_product.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :get_product, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1043,44 +1062,46 @@ module Google
             #   p result
             #
             def update_product request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::UpdateProductRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::UpdateProductRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.update_product.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.update_product.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.product&.name
-                header_params["product.name"] = request.product.name
+                header_params = {}
+                if request.product&.name
+                  header_params["product.name"] = request.product.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.update_product.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.update_product.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :update_product, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.update_product.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.update_product.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :update_product, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1135,44 +1156,46 @@ module Google
             #   p result
             #
             def delete_product request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::DeleteProductRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::DeleteProductRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.delete_product.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.delete_product.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.delete_product.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.delete_product.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :delete_product, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.delete_product.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.delete_product.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :delete_product, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1249,44 +1272,46 @@ module Google
             #   p result
             #
             def create_reference_image request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::CreateReferenceImageRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::CreateReferenceImageRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.create_reference_image.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.create_reference_image.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.create_reference_image.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.create_reference_image.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :create_reference_image, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.create_reference_image.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.create_reference_image.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :create_reference_image, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1343,44 +1368,46 @@ module Google
             #   p result
             #
             def delete_reference_image request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::DeleteReferenceImageRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::DeleteReferenceImageRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.delete_reference_image.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.delete_reference_image.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.delete_reference_image.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.delete_reference_image.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :delete_reference_image, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.delete_reference_image.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.delete_reference_image.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :delete_reference_image, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1448,45 +1475,47 @@ module Google
             #   end
             #
             def list_reference_images request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListReferenceImagesRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListReferenceImagesRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.list_reference_images.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.list_reference_images.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.list_reference_images.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.list_reference_images.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :list_reference_images, request, options: options do |response, operation|
+                  response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, operation, options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.list_reference_images.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.list_reference_images.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :list_reference_images, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, operation, options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1541,44 +1570,46 @@ module Google
             #   p result
             #
             def get_reference_image request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::GetReferenceImageRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::GetReferenceImageRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.get_reference_image.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.get_reference_image.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.get_reference_image.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.get_reference_image.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :get_reference_image, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.get_reference_image.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.get_reference_image.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :get_reference_image, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1641,44 +1672,46 @@ module Google
             #   p result
             #
             def add_product_to_product_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AddProductToProductSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AddProductToProductSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.add_product_to_product_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.add_product_to_product_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.add_product_to_product_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.add_product_to_product_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :add_product_to_product_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.add_product_to_product_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.add_product_to_product_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :add_product_to_product_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1734,44 +1767,46 @@ module Google
             #   p result
             #
             def remove_product_from_product_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.remove_product_from_product_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.remove_product_from_product_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.remove_product_from_product_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.remove_product_from_product_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.remove_product_from_product_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.remove_product_from_product_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1836,45 +1871,47 @@ module Google
             #   end
             #
             def list_products_in_product_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.list_products_in_product_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.list_products_in_product_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.list_products_in_product_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.list_products_in_product_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :list_products_in_product_set, request, options: options do |response, operation|
+                  response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, operation, options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.list_products_in_product_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.list_products_in_product_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :list_products_in_product_set, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, operation, options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1943,45 +1980,47 @@ module Google
             #   end
             #
             def import_product_sets request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ImportProductSetsRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ImportProductSetsRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.import_product_sets.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.import_product_sets.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.import_product_sets.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.import_product_sets.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :import_product_sets, request, options: options do |response, operation|
+                  response = ::Gapic::Operation.new response, @operations_client, options: options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.import_product_sets.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.import_product_sets.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :import_product_sets, request, options: options do |response, operation|
-                response = ::Gapic::Operation.new response, @operations_client, options: options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -2069,45 +2108,47 @@ module Google
             #   end
             #
             def purge_products request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::PurgeProductsRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::PurgeProductsRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.purge_products.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.purge_products.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.purge_products.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.purge_products.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @product_search_stub.call_rpc :purge_products, request, options: options do |response, operation|
+                  response = ::Gapic::Operation.new response, @operations_client, options: options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.purge_products.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.purge_products.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @product_search_stub.call_rpc :purge_products, request, options: options do |response, operation|
-                response = ::Gapic::Operation.new response, @operations_client, options: options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -2217,6 +2258,7 @@ module Google
               config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
               config_attr :universe_domain, nil, ::String, nil
+              config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
               # @private
               def initialize parent_config = nil

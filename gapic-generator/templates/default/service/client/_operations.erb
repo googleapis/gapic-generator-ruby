@@ -1,6 +1,7 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
 require "gapic/operation"
+require "gapic/telemetry"
 require "<%= service.lro_service.proto_service_require %>"
 <% end %>
 # Service that implements Longrunning Operations API.
@@ -92,6 +93,8 @@ class <%= service.operations_name %>
 
     # Used by an LRO wrapper for some methods of this service
     @operations_client = self
+    
+    @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
   end
 
   # Service calls

@@ -126,6 +126,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "gapic/grpc"
+              require "gapic/telemetry"
               require "google/cloud/vision/v1/image_annotator_services_pb"
 
               # Create the configuration object
@@ -173,6 +174,8 @@ module Google
                 config.endpoint = @image_annotator_stub.endpoint
                 config.universe_domain = @image_annotator_stub.universe_domain
               end
+
+              @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
             end
 
             ##
@@ -249,36 +252,38 @@ module Google
             #   p result
             #
             def batch_annotate_images request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.batch_annotate_images.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.batch_annotate_images.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.batch_annotate_images.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.batch_annotate_images.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.batch_annotate_images.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.batch_annotate_images.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :batch_annotate_images, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
+                @image_annotator_stub.call_rpc :batch_annotate_images, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -346,36 +351,38 @@ module Google
             #   p result
             #
             def batch_annotate_files request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::BatchAnnotateFilesRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::BatchAnnotateFilesRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.batch_annotate_files.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.batch_annotate_files.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.batch_annotate_files.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.batch_annotate_files.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.batch_annotate_files.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.batch_annotate_files.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :batch_annotate_files, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
+                @image_annotator_stub.call_rpc :batch_annotate_files, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -453,37 +460,39 @@ module Google
             #   end
             #
             def async_batch_annotate_images request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.async_batch_annotate_images.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.async_batch_annotate_images.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_images.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.async_batch_annotate_images.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_images.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.async_batch_annotate_images.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options do |response, operation|
-                response = ::Gapic::Operation.new response, @operations_client, options: options
-                yield response, operation if block_given?
-                return response
+                @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options do |response, operation|
+                  response = ::Gapic::Operation.new response, @operations_client, options: options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -556,37 +565,39 @@ module Google
             #   end
             #
             def async_batch_annotate_files request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.async_batch_annotate_files.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.async_batch_annotate_files.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Vision::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Vision::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_files.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.async_batch_annotate_files.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_files.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.async_batch_annotate_files.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options do |response, operation|
-                response = ::Gapic::Operation.new response, @operations_client, options: options
-                yield response, operation if block_given?
-                return response
+                @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options do |response, operation|
+                  response = ::Gapic::Operation.new response, @operations_client, options: options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -696,6 +707,7 @@ module Google
               config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
               config_attr :universe_domain, nil, ::String, nil
+              config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
               # @private
               def initialize parent_config = nil

@@ -134,6 +134,7 @@ module Grafeas
           # the gRPC module only when it's required.
           # See https://github.com/googleapis/toolkit/issues/446
           require "gapic/grpc"
+          require "gapic/telemetry"
           require "grafeas/v1/grafeas_services_pb"
 
           # Create the configuration object
@@ -157,6 +158,8 @@ module Grafeas
             interceptors: @config.interceptors,
             channel_pool_config: @config.channel_pool
           )
+
+          @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
         end
 
         # Service calls
@@ -207,44 +210,46 @@ module Grafeas
         #   p result
         #
         def get_occurrence request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::GetOccurrenceRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::GetOccurrenceRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.get_occurrence.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.get_occurrence.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
+            header_params = {}
+            if request.name
+              header_params["name"] = request.name
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.get_occurrence.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_occurrence.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :get_occurrence, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.get_occurrence.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.get_occurrence.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :get_occurrence, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -304,45 +309,47 @@ module Grafeas
         #   end
         #
         def list_occurrences request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::ListOccurrencesRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::ListOccurrencesRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.list_occurrences.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.list_occurrences.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
+            header_params = {}
+            if request.parent
+              header_params["parent"] = request.parent
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.list_occurrences.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.list_occurrences.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :list_occurrences, request, options: options do |response, operation|
+              response = ::Gapic::PagedEnumerable.new @grafeas_stub, :list_occurrences, request, response, operation, options
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.list_occurrences.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.list_occurrences.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :list_occurrences, request, options: options do |response, operation|
-            response = ::Gapic::PagedEnumerable.new @grafeas_stub, :list_occurrences, request, response, operation, options
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -393,44 +400,46 @@ module Grafeas
         #   p result
         #
         def delete_occurrence request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::DeleteOccurrenceRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::DeleteOccurrenceRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.delete_occurrence.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.delete_occurrence.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
+            header_params = {}
+            if request.name
+              header_params["name"] = request.name
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.delete_occurrence.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.delete_occurrence.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :delete_occurrence, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.delete_occurrence.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.delete_occurrence.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :delete_occurrence, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -481,44 +490,46 @@ module Grafeas
         #   p result
         #
         def create_occurrence request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::CreateOccurrenceRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::CreateOccurrenceRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.create_occurrence.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.create_occurrence.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
+            header_params = {}
+            if request.parent
+              header_params["parent"] = request.parent
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.create_occurrence.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.create_occurrence.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :create_occurrence, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.create_occurrence.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.create_occurrence.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :create_occurrence, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -569,44 +580,46 @@ module Grafeas
         #   p result
         #
         def batch_create_occurrences request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::BatchCreateOccurrencesRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::BatchCreateOccurrencesRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.batch_create_occurrences.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.batch_create_occurrences.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
+            header_params = {}
+            if request.parent
+              header_params["parent"] = request.parent
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.batch_create_occurrences.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.batch_create_occurrences.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :batch_create_occurrences, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.batch_create_occurrences.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.batch_create_occurrences.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :batch_create_occurrences, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -659,44 +672,46 @@ module Grafeas
         #   p result
         #
         def update_occurrence request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::UpdateOccurrenceRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::UpdateOccurrenceRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.update_occurrence.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.update_occurrence.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
+            header_params = {}
+            if request.name
+              header_params["name"] = request.name
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.update_occurrence.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.update_occurrence.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :update_occurrence, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.update_occurrence.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.update_occurrence.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :update_occurrence, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -746,44 +761,46 @@ module Grafeas
         #   p result
         #
         def get_occurrence_note request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::GetOccurrenceNoteRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::GetOccurrenceNoteRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.get_occurrence_note.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.get_occurrence_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
+            header_params = {}
+            if request.name
+              header_params["name"] = request.name
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.get_occurrence_note.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_occurrence_note.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :get_occurrence_note, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.get_occurrence_note.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.get_occurrence_note.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :get_occurrence_note, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -832,44 +849,46 @@ module Grafeas
         #   p result
         #
         def get_note request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::GetNoteRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::GetNoteRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.get_note.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.get_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
+            header_params = {}
+            if request.name
+              header_params["name"] = request.name
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.get_note.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_note.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :get_note, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.get_note.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.get_note.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :get_note, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -929,45 +948,47 @@ module Grafeas
         #   end
         #
         def list_notes request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::ListNotesRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::ListNotesRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.list_notes.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.list_notes.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
+            header_params = {}
+            if request.parent
+              header_params["parent"] = request.parent
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.list_notes.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.list_notes.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :list_notes, request, options: options do |response, operation|
+              response = ::Gapic::PagedEnumerable.new @grafeas_stub, :list_notes, request, response, operation, options
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.list_notes.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.list_notes.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :list_notes, request, options: options do |response, operation|
-            response = ::Gapic::PagedEnumerable.new @grafeas_stub, :list_notes, request, response, operation, options
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -1016,44 +1037,46 @@ module Grafeas
         #   p result
         #
         def delete_note request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::DeleteNoteRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::DeleteNoteRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.delete_note.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.delete_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
+            header_params = {}
+            if request.name
+              header_params["name"] = request.name
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.delete_note.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.delete_note.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :delete_note, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.delete_note.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.delete_note.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :delete_note, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -1106,44 +1129,46 @@ module Grafeas
         #   p result
         #
         def create_note request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::CreateNoteRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::CreateNoteRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.create_note.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.create_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
+            header_params = {}
+            if request.parent
+              header_params["parent"] = request.parent
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.create_note.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.create_note.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :create_note, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.create_note.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.create_note.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :create_note, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -1194,44 +1219,46 @@ module Grafeas
         #   p result
         #
         def batch_create_notes request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::BatchCreateNotesRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::BatchCreateNotesRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.batch_create_notes.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.batch_create_notes.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
+            header_params = {}
+            if request.parent
+              header_params["parent"] = request.parent
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.batch_create_notes.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.batch_create_notes.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :batch_create_notes, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.batch_create_notes.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.batch_create_notes.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :batch_create_notes, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -1284,44 +1311,46 @@ module Grafeas
         #   p result
         #
         def update_note request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::UpdateNoteRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::UpdateNoteRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.update_note.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.update_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
+            header_params = {}
+            if request.name
+              header_params["name"] = request.name
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.update_note.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.update_note.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :update_note, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.update_note.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.update_note.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :update_note, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -1382,45 +1411,47 @@ module Grafeas
         #   end
         #
         def list_note_occurrences request, options = nil
-          raise ::ArgumentError, "request must be provided" if request.nil?
+          @tracer_method.call __method__ do
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::ListNoteOccurrencesRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Grafeas::V1::ListNoteOccurrencesRequest
 
-          # Converts hash and nil to an options object
-          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-          # Customize the options with defaults
-          metadata = @config.rpcs.list_note_occurrences.metadata.to_h
+            # Customize the options with defaults
+            metadata = @config.rpcs.list_note_occurrences.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-            lib_name: @config.lib_name, lib_version: @config.lib_version,
-            gapic_version: ::Grafeas::V1::VERSION
-          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Grafeas::V1::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
+            header_params = {}
+            if request.name
+              header_params["name"] = request.name
+            end
+
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.list_note_occurrences.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.list_note_occurrences.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @grafeas_stub.call_rpc :list_note_occurrences, request, options: options do |response, operation|
+              response = ::Gapic::PagedEnumerable.new @grafeas_stub, :list_note_occurrences, request, response, operation, options
+              yield response, operation if block_given?
+              return response
+            end
+          rescue ::GRPC::BadStatus => e
+            raise ::Google::Cloud::Error.from_error(e)
           end
-
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-          metadata[:"x-goog-request-params"] ||= request_params_header
-
-          options.apply_defaults timeout:      @config.rpcs.list_note_occurrences.timeout,
-                                 metadata:     metadata,
-                                 retry_policy: @config.rpcs.list_note_occurrences.retry_policy
-
-          options.apply_defaults timeout:      @config.timeout,
-                                 metadata:     @config.metadata,
-                                 retry_policy: @config.retry_policy
-
-          @grafeas_stub.call_rpc :list_note_occurrences, request, options: options do |response, operation|
-            response = ::Gapic::PagedEnumerable.new @grafeas_stub, :list_note_occurrences, request, response, operation, options
-            yield response, operation if block_given?
-            return response
-          end
-        rescue ::GRPC::BadStatus => e
-          raise ::Google::Cloud::Error.from_error(e)
         end
 
         ##
@@ -1530,6 +1561,7 @@ module Grafeas
           config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
           config_attr :quota_project, nil, ::String, nil
           config_attr :universe_domain, nil, ::String, nil
+          config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
           # @private
           def initialize parent_config = nil

@@ -122,6 +122,7 @@ module So
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "gapic/grpc"
+            require "gapic/telemetry"
             require "garbage/resource_names_services_pb"
 
             # Create the configuration object
@@ -155,6 +156,8 @@ module So
               interceptors: @config.interceptors,
               channel_pool_config: @config.channel_pool
             )
+
+            @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
           end
 
           # Service calls
@@ -203,33 +206,36 @@ module So
           #   p result
           #
           def simple_pattern_method request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SimplePatternRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SimplePatternRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.simple_pattern_method.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.simple_pattern_method.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Garbage::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Garbage::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.simple_pattern_method.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.simple_pattern_method.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.simple_pattern_method.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.simple_pattern_method.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @resource_names_stub.call_rpc :simple_pattern_method, request, options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @resource_names_stub.call_rpc :simple_pattern_method, request,
+                                            options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -277,33 +283,36 @@ module So
           #   p result
           #
           def complex_pattern_method request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::ComplexPatternRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::ComplexPatternRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.complex_pattern_method.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.complex_pattern_method.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Garbage::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Garbage::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.complex_pattern_method.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.complex_pattern_method.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.complex_pattern_method.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.complex_pattern_method.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @resource_names_stub.call_rpc :complex_pattern_method, request, options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @resource_names_stub.call_rpc :complex_pattern_method, request,
+                                            options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -349,34 +358,36 @@ module So
           #   p result
           #
           def resource_name_pattern_method request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::ResourceNamePatternRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::ResourceNamePatternRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.resource_name_pattern_method.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.resource_name_pattern_method.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Garbage::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Garbage::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.resource_name_pattern_method.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.resource_name_pattern_method.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.resource_name_pattern_method.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.resource_name_pattern_method.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @resource_names_stub.call_rpc :resource_name_pattern_method, request,
-                                          options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @resource_names_stub.call_rpc :resource_name_pattern_method, request,
+                                            options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -422,33 +433,35 @@ module So
           #   p result
           #
           def multiparent_method request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::MultiparentRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::MultiparentRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.multiparent_method.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.multiparent_method.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Garbage::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Garbage::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.multiparent_method.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.multiparent_method.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.multiparent_method.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.multiparent_method.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @resource_names_stub.call_rpc :multiparent_method, request, options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @resource_names_stub.call_rpc :multiparent_method, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -494,33 +507,36 @@ module So
           #   p result
           #
           def no_arguments_multi_method request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::NoArgumentsMultiRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::NoArgumentsMultiRequest
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.no_arguments_multi_method.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.no_arguments_multi_method.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Garbage::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Garbage::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.no_arguments_multi_method.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.no_arguments_multi_method.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.no_arguments_multi_method.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.no_arguments_multi_method.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @resource_names_stub.call_rpc :no_arguments_multi_method, request, options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @resource_names_stub.call_rpc :no_arguments_multi_method, request,
+                                            options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -631,6 +647,7 @@ module So
             config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
             config_attr :quota_project, nil, ::String, nil
             config_attr :universe_domain, nil, ::String, nil
+            config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
             # @private
             def initialize parent_config = nil

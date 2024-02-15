@@ -120,6 +120,7 @@ module So
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "gapic/grpc"
+            require "gapic/telemetry"
             require "garbage/garbage_services_pb"
 
             # Create the configuration object
@@ -153,6 +154,8 @@ module So
               interceptors: @config.interceptors,
               channel_pool_config: @config.channel_pool
             )
+
+            @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
           end
 
           # Service calls
@@ -192,33 +195,35 @@ module So
           #   p result
           #
           def deprecated_get request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
+            @tracer_method.call __method__ do
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::EmptyGarbage
+              request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::EmptyGarbage
 
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-            # Customize the options with defaults
-            metadata = @config.rpcs.deprecated_get.metadata.to_h
+              # Customize the options with defaults
+              metadata = @config.rpcs.deprecated_get.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Garbage::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              # Set x-goog-api-client and x-goog-user-project headers
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Garbage::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.deprecated_get.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.deprecated_get.retry_policy
+              options.apply_defaults timeout:      @config.rpcs.deprecated_get.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.deprecated_get.retry_policy
 
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
-            @deprecated_service_stub.call_rpc :deprecated_get, request, options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
+              @deprecated_service_stub.call_rpc :deprecated_get, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
           end
 
@@ -329,6 +334,7 @@ module So
             config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
             config_attr :quota_project, nil, ::String, nil
             config_attr :universe_domain, nil, ::String, nil
+            config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
             # @private
             def initialize parent_config = nil

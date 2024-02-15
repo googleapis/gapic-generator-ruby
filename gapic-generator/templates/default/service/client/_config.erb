@@ -109,6 +109,7 @@ class Configuration
   config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
   config_attr :quota_project, nil, ::String, nil
   config_attr :universe_domain, nil, ::String, nil
+  config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
   # @private
   def initialize parent_config = nil

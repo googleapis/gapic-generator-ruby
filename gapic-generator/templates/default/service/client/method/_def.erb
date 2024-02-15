@@ -14,10 +14,12 @@
 <%= render partial: "service/client/method/docs/snippets", locals: { method: method } -%>
 <%= render partial: "service/client/method/docs/samples", locals: { method: method } -%>
 def <%= method.name %> request, options = nil
-<%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
+  @tracer_method.call __method__ do
+    <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
 
-<%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
+    <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
-<%= indent render(partial: "service/client/method/def/response", locals: { method: method }), 2 %>
-<%= render partial: "service/client/method/def/rescue", locals: { method: method } -%>
+    <%= indent render(partial: "service/client/method/def/response", locals: { method: method }), 2 %>
+    <%= render partial: "service/client/method/def/rescue", locals: { method: method } -%>
+  end
 end

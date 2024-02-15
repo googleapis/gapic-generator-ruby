@@ -123,6 +123,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "gapic/grpc"
+              require "gapic/telemetry"
               require "google/cloud/speech/v1/cloud_speech_adaptation_services_pb"
 
               # Create the configuration object
@@ -156,6 +157,8 @@ module Google
                 interceptors: @config.interceptors,
                 channel_pool_config: @config.channel_pool
               )
+
+              @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
             end
 
             # Service calls
@@ -224,44 +227,46 @@ module Google
             #   p result
             #
             def create_phrase_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::CreatePhraseSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::CreatePhraseSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.create_phrase_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.create_phrase_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.create_phrase_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.create_phrase_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :create_phrase_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.create_phrase_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.create_phrase_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :create_phrase_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -317,44 +322,46 @@ module Google
             #   p result
             #
             def get_phrase_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::GetPhraseSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::GetPhraseSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.get_phrase_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.get_phrase_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.get_phrase_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.get_phrase_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :get_phrase_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.get_phrase_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.get_phrase_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :get_phrase_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -425,45 +432,47 @@ module Google
             #   end
             #
             def list_phrase_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::ListPhraseSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::ListPhraseSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.list_phrase_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.list_phrase_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.list_phrase_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.list_phrase_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :list_phrase_set, request, options: options do |response, operation|
+                  response = ::Gapic::PagedEnumerable.new @adaptation_stub, :list_phrase_set, request, response, operation, options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.list_phrase_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.list_phrase_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :list_phrase_set, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @adaptation_stub, :list_phrase_set, request, response, operation, options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -524,44 +533,46 @@ module Google
             #   p result
             #
             def update_phrase_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::UpdatePhraseSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::UpdatePhraseSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.update_phrase_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.update_phrase_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.phrase_set&.name
-                header_params["phrase_set.name"] = request.phrase_set.name
+                header_params = {}
+                if request.phrase_set&.name
+                  header_params["phrase_set.name"] = request.phrase_set.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.update_phrase_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.update_phrase_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :update_phrase_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.update_phrase_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.update_phrase_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :update_phrase_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -611,44 +622,46 @@ module Google
             #   p result
             #
             def delete_phrase_set request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::DeletePhraseSetRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::DeletePhraseSetRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.delete_phrase_set.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.delete_phrase_set.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.delete_phrase_set.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.delete_phrase_set.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :delete_phrase_set, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.delete_phrase_set.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.delete_phrase_set.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :delete_phrase_set, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -734,44 +747,46 @@ module Google
             #   return created_custom_class
             #
             def create_custom_class request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::CreateCustomClassRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::CreateCustomClassRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.create_custom_class.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.create_custom_class.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.create_custom_class.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.create_custom_class.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :create_custom_class, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.create_custom_class.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.create_custom_class.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :create_custom_class, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -821,44 +836,46 @@ module Google
             #   p result
             #
             def get_custom_class request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::GetCustomClassRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::GetCustomClassRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.get_custom_class.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.get_custom_class.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.get_custom_class.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.get_custom_class.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :get_custom_class, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.get_custom_class.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.get_custom_class.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :get_custom_class, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -929,45 +946,47 @@ module Google
             #   end
             #
             def list_custom_classes request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::ListCustomClassesRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::ListCustomClassesRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.list_custom_classes.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.list_custom_classes.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
+                header_params = {}
+                if request.parent
+                  header_params["parent"] = request.parent
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.list_custom_classes.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.list_custom_classes.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :list_custom_classes, request, options: options do |response, operation|
+                  response = ::Gapic::PagedEnumerable.new @adaptation_stub, :list_custom_classes, request, response, operation, options
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.list_custom_classes.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.list_custom_classes.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :list_custom_classes, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @adaptation_stub, :list_custom_classes, request, response, operation, options
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1028,44 +1047,46 @@ module Google
             #   p result
             #
             def update_custom_class request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::UpdateCustomClassRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::UpdateCustomClassRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.update_custom_class.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.update_custom_class.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.custom_class&.name
-                header_params["custom_class.name"] = request.custom_class.name
+                header_params = {}
+                if request.custom_class&.name
+                  header_params["custom_class.name"] = request.custom_class.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.update_custom_class.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.update_custom_class.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :update_custom_class, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.update_custom_class.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.update_custom_class.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :update_custom_class, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1121,44 +1142,46 @@ module Google
             #   p result
             #
             def delete_custom_class request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::DeleteCustomClassRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Speech::V1::DeleteCustomClassRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.delete_custom_class.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.delete_custom_class.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Speech::V1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Speech::V1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
+                header_params = {}
+                if request.name
+                  header_params["name"] = request.name
+                end
+
+                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                metadata[:"x-goog-request-params"] ||= request_params_header
+
+                options.apply_defaults timeout:      @config.rpcs.delete_custom_class.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.delete_custom_class.retry_policy
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
+
+                @adaptation_stub.call_rpc :delete_custom_class, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata[:"x-goog-request-params"] ||= request_params_header
-
-              options.apply_defaults timeout:      @config.rpcs.delete_custom_class.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.delete_custom_class.retry_policy
-
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
-
-              @adaptation_stub.call_rpc :delete_custom_class, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
-              end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -1268,6 +1291,7 @@ module Google
               config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
               config_attr :universe_domain, nil, ::String, nil
+              config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
               # @private
               def initialize parent_config = nil

@@ -122,6 +122,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "gapic/grpc"
+              require "gapic/telemetry"
               require "google/cloud/language/v1beta1/language_service_services_pb"
 
               # Create the configuration object
@@ -155,6 +156,8 @@ module Google
                 interceptors: @config.interceptors,
                 channel_pool_config: @config.channel_pool
               )
+
+              @tracer_method = ::Gapic::Telemetry::Tracer.new.get_trace_wrapper @config
             end
 
             # Service calls
@@ -207,36 +210,38 @@ module Google
             #   p result
             #
             def analyze_sentiment request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.analyze_sentiment.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.analyze_sentiment.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Language::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Language::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.analyze_sentiment.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.analyze_sentiment.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.analyze_sentiment.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.analyze_sentiment.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @language_service_stub.call_rpc :analyze_sentiment, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
+                @language_service_stub.call_rpc :analyze_sentiment, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -288,36 +293,38 @@ module Google
             #   p result
             #
             def analyze_entities request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.analyze_entities.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.analyze_entities.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Language::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Language::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.analyze_entities.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.analyze_entities.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.analyze_entities.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.analyze_entities.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @language_service_stub.call_rpc :analyze_entities, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
+                @language_service_stub.call_rpc :analyze_entities, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -369,36 +376,38 @@ module Google
             #   p result
             #
             def analyze_syntax request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.analyze_syntax.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.analyze_syntax.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Language::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Language::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.analyze_syntax.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.analyze_syntax.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.analyze_syntax.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.analyze_syntax.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @language_service_stub.call_rpc :analyze_syntax, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
+                @language_service_stub.call_rpc :analyze_syntax, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -451,36 +460,38 @@ module Google
             #   p result
             #
             def annotate_text request, options = nil
-              raise ::ArgumentError, "request must be provided" if request.nil?
+              @tracer_method.call __method__ do
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta1::AnnotateTextRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta1::AnnotateTextRequest
 
-              # Converts hash and nil to an options object
-              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-              # Customize the options with defaults
-              metadata = @config.rpcs.annotate_text.metadata.to_h
+                # Customize the options with defaults
+                metadata = @config.rpcs.annotate_text.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version,
-                gapic_version: ::Google::Cloud::Language::V1beta1::VERSION
-              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                # Set x-goog-api-client and x-goog-user-project headers
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Language::V1beta1::VERSION
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              options.apply_defaults timeout:      @config.rpcs.annotate_text.timeout,
-                                     metadata:     metadata,
-                                     retry_policy: @config.rpcs.annotate_text.retry_policy
+                options.apply_defaults timeout:      @config.rpcs.annotate_text.timeout,
+                                       metadata:     metadata,
+                                       retry_policy: @config.rpcs.annotate_text.retry_policy
 
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
-                                     retry_policy: @config.retry_policy
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
-              @language_service_stub.call_rpc :annotate_text, request, options: options do |response, operation|
-                yield response, operation if block_given?
-                return response
+                @language_service_stub.call_rpc :annotate_text, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
+              rescue ::GRPC::BadStatus => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
-            rescue ::GRPC::BadStatus => e
-              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -590,6 +601,7 @@ module Google
               config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
               config_attr :universe_domain, nil, ::String, nil
+              config_attr :tracing_enabled, false, ::TrueClass, ::FalseClass, nil
 
               # @private
               def initialize parent_config = nil
