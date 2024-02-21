@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.29.0 / 2024-02-21
+
+* Includes changes from gapic-generator 0.29.0
+* Feature: Update minimum Ruby version of generated libraries to 2.7
+
 ### 0.28.0 / 2024-02-14
 
 * Includes changes from gapic-generator 0.28.0
