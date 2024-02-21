@@ -38,7 +38,7 @@ GEM
     google-cloud-common (1.5.0)
       google-protobuf (~> 3.18)
       googleapis-common-protos-types (~> 1.7)
-    google-protobuf (3.25.2-x86_64-linux)
+    google-protobuf (3.25.3-x86_64-linux)
     google-style (1.27.1)
       rubocop (~> 1.56)
     googleapis-common-protos-types (1.12.0)
@@ -71,7 +71,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     racc (1.7.3)
-    rack (2.2.8)
+    rack (2.2.8.1)
     rack-test (2.1.0)
       rack (>= 1.3)
     rails-dom-testing (2.2.0)
@@ -119,4 +119,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.4.19
+   2.4.22
