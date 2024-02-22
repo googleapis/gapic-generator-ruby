@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.29.0 / 2024-02-22
+
+* Feature: Update minimum Ruby version of generated libraries to 2.7
+* Fix: update gemfiles and set bundle platforms to x86_64-linux
+
 ### 0.28.0 / 2024-02-14
 
 * Feature: introduce auto_populated_fields (uuid4) to generator

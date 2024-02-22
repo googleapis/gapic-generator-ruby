@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.29.0 / 2024-02-22
+
+* Includes changes from gapic-generator 0.29.0
+* Fix: update gemfiles and set bundle platforms to x86_64-linux
+
 ### 0.28.0 / 2024-02-14
 
 * Includes changes from gapic-generator 0.28.0
