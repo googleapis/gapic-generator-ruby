@@ -44,6 +44,7 @@ GEM
     google-cloud-common (1.5.0)
       google-protobuf (~> 3.18)
       googleapis-common-protos-types (~> 1.7)
+    google-protobuf (3.25.2-x86_64-darwin)
     google-protobuf (3.25.2-x86_64-linux)
     google-style (1.27.1)
       rubocop (~> 1.56)
@@ -66,6 +67,8 @@ GEM
       minitest (>= 4, < 6)
     minitest-server (1.0.7)
       minitest (~> 5.16)
+    nokogiri (1.16.2-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
     parallel (1.24.0)
@@ -112,6 +115,7 @@ GEM
     yard (0.9.34)
 
 PLATFORMS
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -126,4 +130,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.4.19
+   2.5.5
