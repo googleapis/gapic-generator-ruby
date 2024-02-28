@@ -109,7 +109,7 @@ GEM
     tzinfo (1.2.11)
       thread_safe (~> 0.1)
     unicode-display_width (2.5.0)
-    yard (0.9.34)
+    yard (0.9.35)
 
 PLATFORMS
   x86_64-linux
