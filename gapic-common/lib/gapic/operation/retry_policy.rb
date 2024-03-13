@@ -12,13 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/common/retry_policy"
+
 module Gapic
   class Operation
     ##
     # The policy for retrying operation reloads using an incremental backoff. A new object instance should be used for
     # every Operation invocation.
     #
-    class RetryPolicy
+    class RetryPolicy < Gapic::Common::RetryPolicy
+      DEFAULT_INITIAL_DELAY = 10
+      DEFAULT_MAX_DELAY = 300 # Five minutes
+      DEFAULT_MULTIPLIER = 1.3
+      DEFAULT_TIMEOUT = 3600 # One hour
       ##
       # Create new Operation RetryPolicy.
       #
@@ -28,64 +34,12 @@ module Gapic
       # @param timeout [Numeric] client-side timeout
       #
       def initialize initial_delay: nil, multiplier: nil, max_delay: nil, timeout: nil
-        @initial_delay = initial_delay
-        @multiplier    = multiplier
-        @max_delay     = max_delay
-        @timeout       = timeout
-        @delay         = nil
-      end
-
-      def initial_delay
-        @initial_delay || 10
-      end
-
-      def multiplier
-        @multiplier || 1.3
-      end
-
-      def max_delay
-        @max_delay || 300 # Five minutes
-      end
-
-      def timeout
-        @timeout || 3600 # One hour
-      end
-
-      def call
-        return unless retry?
-
-        delay!
-        increment_delay!
-
-        true
-      end
-
-      private
-
-      def deadline
-        # memoize the deadline
-        @deadline ||= Time.now + timeout
-      end
-
-      def retry?
-        deadline > Time.now
-      end
-
-      ##
-      # The current delay value.
-      def delay
-        @delay || initial_delay
-      end
-
-      def delay!
-        # Call Kernel.sleep so we can stub it.
-        Kernel.sleep delay
-      end
-
-      ##
-      # Calculate and set the next delay value.
-      def increment_delay!
-        @delay = [delay * multiplier, max_delay].min
+        super(
+          initial_delay: initial_delay || DEFAULT_INITIAL_DELAY,
+          max_delay: max_delay || DEFAULT_MAX_DELAY,
+          multiplier: multiplier || DEFAULT_MULTIPLIER,
+          timeout: timeout || DEFAULT_TIMEOUT
+        )
       end
     end
   end
