@@ -23,14 +23,6 @@ class RetryPolicyTest < Minitest::Test
     assert_equal 1.7, retry_policy.multiplier
   end
 
-  def test_perform_delay_with_custom_retry
-    retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 1, max_delay: 3, multiplier: 1.5, timeout: 0
-    retry_policy.customize_retry do |**kwargs|
-      return kwargs[:retry_now]
-    end
-    assert retry_policy.perform_delay retry_node: true
-  end
-
   def test_perform_delay_increment
     retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 1, max_delay: 5, multiplier: 1.3
     retry_policy.perform_delay!

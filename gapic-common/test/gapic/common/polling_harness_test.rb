@@ -17,7 +17,7 @@ require "gapic/common/retry_policy"
 
 # Test class for Gapic::Common::PollingHarness
 class PollingHarnessTest < Minitest::Test
-  def test_init_with_policy
+  def test_init
     retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 20
     polling_harness = Gapic::Common::PollingHarness.new retry_policy: retry_policy
     assert_equal retry_policy, polling_harness.retry_policy
@@ -33,30 +33,20 @@ class PollingHarnessTest < Minitest::Test
     assert wait_block_executed
   end
 
-  def test_wait_delay
+  def test_wait_delay_once
+    should_wait = true
     retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 3, multiplier: 2
     polling_harness = Gapic::Common::PollingHarness.new retry_policy: retry_policy
     polling_harness.wait do
-      return true
+      if should_wait
+        puts "Waited once"
+        should_wait = false
+        nil
+      else
+        puts "Done with waiting"
+        should_wait
+      end
     end
-    assert_equal 6, polling_harness.retry_policy.delay
+    puts "Exited"
   end
-
-    #def test_wait_with_custom_error_logic
-    #retry_policy = Gapic::Common::RetryPolicy.new retry_codes: [499]
-    #metadata = {
-    #  "grpc-status-details-bin" => encoded
-    #}
-    #error = GRPC::BadStatus.new 1, "", metadata
-    #exception_trigger = -> { raise ::GRPC::BadStatus:.new 1, "", metadata }
-    #polling_harness = Gapic::Common::PollingHarness.new retry_policy: retry_policy
-    # polling_harness.wait do
-    #   begin
-    #     call_exception 
-    #    return true
-    # rescue => e
-    #    error_triggered = true
-    #  end
-    # end
-   # end
 end

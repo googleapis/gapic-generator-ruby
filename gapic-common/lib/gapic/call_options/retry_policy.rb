@@ -17,10 +17,10 @@ require "gapic/common/retry_policy"
 module Gapic
   class CallOptions
     ##
-    # The policy for retrying failed RPC calls using an incremental backoff. A new object instance should be used for
-    # every RpcCall invocation.
+    # The policy for retrying failed RPC calls using an incremental backoff. A new object instance
+    # should be used for every RpcCall invocation.
     #
-    # Only errors orginating from GRPC will be retried.
+    # Only errors originating from GRPC will be retried.
     #
     class RetryPolicy < Gapic::Common::RetryPolicy
       ##
@@ -35,7 +35,7 @@ module Gapic
           initial_delay: initial_delay,
           max_delay: max_delay,
           multiplier: multiplier,
-          retry_codes: (convert_codes retry_codes),
+          retry_codes: retry_codes,
         )
       end
     end

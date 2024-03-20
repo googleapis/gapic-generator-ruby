@@ -14,17 +14,27 @@
 
 module Gapic
   module Common
-    # Add docs
+    # Provides a generic mechanism for periodic polling an operation.
+    #
+    # Polling is based on retry policy settings and support with exponential backoff.
+    #
+    # an operation based on time intervals
+    # determined by retry policy.
     class PollingHarness
+      # @return [Gapic::Common::RetryPolicy] The retry policy associated with this instance.
+      attr_reader :retry_policy
+
       def initialize retry_policy:
         @retry_policy = retry_policy
       end
 
       ##
-      # Perform polling with delay. The provided block MUST yield `nil` in cases where the operation should
-      # continue. Otherwise, the yielded value will be returned.
+      # Perform polling with exponential backoff.
       #
-      # @param [Block] Custom logic to be retriable.
+      # The provided block MUST evaluate to `nil` in cases where the operation
+      # should continue. Otherwise, the evaluated result will be returned.
+      #
+      # @yieldreturn [Object, nil] Custom logic to be retriable.
       def wait
         unless block_given?
           raise ArgumentError, "No callback provided to wait method."
@@ -34,14 +44,10 @@ module Gapic
             response = yield
             return response unless response.nil?
           rescue ::GRPC::BadStatus => e
-            return e unless retry_policy.retry_error? e
+            raise e unless retry_policy.retry_error? e
           end
           retry_policy.perform_delay!
         end
-      end
-
-      def retry_policy
-        @retry_policy
       end
     end
   end

@@ -18,14 +18,21 @@ module Gapic
   module Common
     # Gapic Common retry policy base class.
     class RetryPolicy
+      # @return [Numeric] Default initial delay in seconds.
       DEFAULT_INITIAL_DELAY = 1
+      # @return [Numeric] Default maximum delay in seconds.
       DEFAULT_MAX_DELAY = 15
+      # @return [Numeric] Default delay scaling factor for subsequent retry attempts.
       DEFAULT_MULTIPLIER = 1.3
+      # @return [Array<String|Numeric>] Default list of retry codes.
       DEFAULT_RETRY_CODES = [].freeze
+      # @return [Numeric] Default timeout threshold value in seconds.
       DEFAULT_TIMEOUT = 3600 # One hour
 
       ##
       # Create new Gapic::Common:RetryPolicy instance.
+      #
+      # Instance values are set as `nil` to determine whether values are overriden from default.
       #
       # @param initial_delay [Numeric] Initial delay in seconds for this policy.
       # @param max_delay [Numeric] Maximum delay in seconds for this policy.
@@ -34,12 +41,11 @@ module Gapic
       # @param timeout [Numeric] Timeout threshold value in seconds.
       #
       def initialize initial_delay: nil, max_delay: nil, multiplier: nil, retry_codes: nil, timeout: nil
-        instance_variable_set "@initial_delay", initial_delay
-        instance_variable_set "@max_delay", max_delay
-        instance_variable_set "@multiplier", multiplier
-        instance_variable_set "@retry_codes", convert_codes(retry_codes)
-        instance_variable_set "@timeout", timeout
-        instance_variable_set "@retry_block", nil
+        @initial_delay = initial_delay
+        @max_delay = max_delay
+        @multiplier = multiplier
+        @retry_codes = convert_codes retry_codes
+        @timeout = timeout
         @delay = nil
       end
 
@@ -61,19 +67,6 @@ module Gapic
 
       def timeout
         @timeout || DEFAULT_TIMEOUT
-      end
-
-      ##
-      # Customize retry logic based on keyword arguments.
-      #
-      # @param [Block] Custom block yielding whether this policy is retriable based on keyword arguments.
-      def customize_retry &retry_block
-        if retry_block.nil?
-          raise ArgumentError, "A block must be provided for custom retry logic."
-        end
-        @retry_block = retry_block
-
-        self
       end
 
       ##
@@ -113,16 +106,6 @@ module Gapic
 
       ##
       # @private
-      # @return [Boolean] Whether this error should be retried.
-      #
-      def retry_error? error
-        (defined?(::GRPC) && error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
-          (error.respond_to?(:response_status) &&
-            retry_codes.include?(ErrorCodes.grpc_error_for(error.response_status)))
-      end
-
-      ##
-      # @private
       # Apply default values to the policy object. This does not replace user-provided values, it only overrides empty
       # values.
       #
@@ -138,7 +121,6 @@ module Gapic
 
         self
       end
-
 
       # @private Equality test
       def eql? other
@@ -159,6 +141,16 @@ module Gapic
 
       private
 
+      ##
+      # @private
+      # @return [Boolean] Whether this error should be retried.
+      #
+      def retry_error? error
+        (defined?(::GRPC) && error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
+          (error.respond_to?(:response_status) &&
+            retry_codes.include?(ErrorCodes.grpc_error_for(error.response_status)))
+      end
+
       def retry? **kwargs
         @retry_block.nil? ? retry_with_deadline? : @retry_block.call(**kwargs)
       end
@@ -171,7 +163,6 @@ module Gapic
         @delay = [delay * multiplier, max_delay].min
       end
 
-      # @private Timeout block
       def deadline
         @deadline ||= Time.now + timeout
       end
