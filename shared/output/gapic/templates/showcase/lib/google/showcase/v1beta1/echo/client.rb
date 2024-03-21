@@ -267,16 +267,18 @@ module Google
           def echo request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
-            # Auto populate fields for this request.
+            # Auto populate request field `request_id`.
             if request.is_a? Hash
               request[:request_id] = SecureRandom.uuid unless request.key? :request_id
             elsif request.respond_to?(:request_id) && request.request_id.empty?
               request.request_id = SecureRandom.uuid
             end
+
+            # Auto populate request field `other_request_id`.
             if request.is_a? Hash
               request[:other_request_id] = SecureRandom.uuid unless request.key? :other_request_id
-            elsif request.respond_to?(:other_request_id) && request.other_request_id.empty?
-              request.other_request_id = SecureRandom.uuid
+            else
+              request.other_request_id = SecureRandom.uuid unless request.has_other_request_id?
             end
 
             request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::EchoRequest

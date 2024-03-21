@@ -47,9 +47,6 @@ module Gapic
       # @return [String] String representation of this presenter type.
       attr_reader :type
 
-      # @return [Array<String>] Fields to auto populate in the request.
-      attr_reader :auto_populated_fields
-
       ##
       # @param service_presenter [Gapic::Presenters::ServicePresenter]
       # @param api [Gapic::Schema::Api]
@@ -74,7 +71,6 @@ module Gapic
         @lro = Gapic::Model::Method.parse_lro @method, @api
 
         @rest = MethodRestPresenter.new self, @api
-        @auto_populated_fields = @api.api_metadata.auto_populated_fields_by_method_name[name] || []
       end
 
       ##
@@ -174,6 +170,14 @@ module Gapic
       def arguments
         arguments = @method.input.fields.reject(&:output_only?)
         arguments.map { |arg| FieldPresenter.new @api, @method.input, arg }
+      end
+
+      # @return [Array<Gapic::Presenters::FieldPresenter>] List of auto populated fields.
+      def auto_populated_fields
+        field_names_to_filter = @api.api_metadata.auto_populated_fields_by_method_name[name] || []
+        @method.input.fields.filter_map do |field|
+          FieldPresenter.new @api, @method.input, field if field_names_to_filter.include? field.name
+        end
       end
 
       def fields

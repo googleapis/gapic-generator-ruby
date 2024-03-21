@@ -3,18 +3,21 @@ unless request.is_a? ::Enumerable
   raise ::ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
   request = request.to_enum
 end
-
-<%- if method.auto_populated_fields.length > 0 -%>
-
-# Auto populate fields for this request.
-<%- end -%>
 <% method.auto_populated_fields.each do |field| %>
+<% name = field.name %>
+
+# Auto populate request field `<%= name %>`.
 if request.is_a? Hash
-  request[:<%= field %>] = SecureRandom.uuid unless request.key? :<%= field %>
+  request[:<%= name %>] = SecureRandom.uuid unless request.key? :<%= name %>
 else
-  request.<%= field %> = SecureRandom.uuid if request.respond_to?(:<%= field %>) && request.<%= field %>.empty?
+<%- if field.proto3_optional? -%>
+  request.<%= name %> = SecureRandom.uuid unless request.has_<%= name %>?
+<%- else -%>
+  request.<%= name %> = SecureRandom.uuid if request.respond_to?(:<%= name %>) && request.<%= name %>.empty?
+<%- end -%>
 end
 <% end %>
+
 request = request.lazy.map do |req|
   ::Gapic::Protobuf.coerce req, to: <%= method.request_type %>
 end
