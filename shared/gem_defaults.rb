@@ -36,6 +36,7 @@ def gem_defaults
         "grafeas/v1/intoto_statement.proto",
         "grafeas/v1/package.proto",
         "grafeas/v1/provenance.proto",
+        "grafeas/v1/sbom.proto",
         "grafeas/v1/severity.proto",
         "grafeas/v1/slsa_provenance.proto",
         "grafeas/v1/slsa_provenance_zero_two.proto",
