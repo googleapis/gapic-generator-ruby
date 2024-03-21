@@ -72,13 +72,13 @@ module Gapic
       ##
       # Perform delay if and only if retriable.
       #
-      # Positional argument `error` takes precedence over keyword arguments, meaning the latter
-      # will only be used iff `error` is not present.
+      # Positional argument `error` takes precedence over positional arguments, meaning the latter
+      # will only be used if and only if `error` is not present.
       #
       # @return [Boolean] Whether the delay was executed.
       #
-      def call error = nil, **kwargs
-        should_retry = error.nil? ? retry?(**kwargs) : retry_error?(error)
+      def call error = nil, *args
+        should_retry = error.nil? ? retry?(*args) : retry_error?(error)
         return false unless should_retry
         perform_delay!
       end
@@ -106,8 +106,18 @@ module Gapic
 
       ##
       # @private
-      # Apply default values to the policy object. This does not replace user-provided values, it only overrides empty
-      # values.
+      # @return [Boolean] Whether this error should be retried.
+      #
+      def retry_error? error
+        (defined?(::GRPC) && error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
+          (error.respond_to?(:response_status) &&
+            retry_codes.include?(ErrorCodes.grpc_error_for(error.response_status)))
+      end
+
+      ##
+      # @private
+      # Apply default values to the policy object. This does not replace user-provided values,
+      # it only overrides empty values.
       #
       # @param retry_policy [Hash] The policy for error retry. Keys must match the arguments for
       #   {Gapic::Common::RetryPolicy.new}.
@@ -141,18 +151,8 @@ module Gapic
 
       private
 
-      ##
-      # @private
-      # @return [Boolean] Whether this error should be retried.
-      #
-      def retry_error? error
-        (defined?(::GRPC) && error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
-          (error.respond_to?(:response_status) &&
-            retry_codes.include?(ErrorCodes.grpc_error_for(error.response_status)))
-      end
-
-      def retry? **kwargs
-        @retry_block.nil? ? retry_with_deadline? : @retry_block.call(**kwargs)
+      def retry? *args
+        args.empty? ? retry_with_deadline? : retry_error?(*args.first)
       end
 
       def delay!
@@ -164,11 +164,11 @@ module Gapic
       end
 
       def deadline
-        @deadline ||= Time.now + timeout
+        @deadline ||= Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
       end
 
       def retry_with_deadline?
-        deadline > Time.now
+        deadline > Process.clock_gettime(Process::CLOCK_MONOTONIC)
       end
 
       def convert_codes input_codes

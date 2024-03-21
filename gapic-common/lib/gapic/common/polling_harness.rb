@@ -43,8 +43,8 @@ module Gapic
           begin
             response = yield
             return response unless response.nil?
-          rescue ::GRPC::BadStatus => e
-            raise e unless retry_policy.retry_error? e
+          rescue ::GRPC::BadStatus => e # Currently retry_error only account for this type.
+            raise unless retry_policy.retry_error? e
           end
           retry_policy.perform_delay!
         end

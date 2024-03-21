@@ -17,20 +17,25 @@ require "gapic/common/retry_policy"
 # Test class for Gapic::Common::RetryPolicy
 class RetryPolicyTest < Minitest::Test
   def test_init_with_values
-    retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 2, max_delay: 20, multiplier: 1.7
+    retry_policy = Gapic::Common::RetryPolicy.new(
+      initial_delay: 2, max_delay: 20, multiplier: 1.7,
+      retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE], timeout: 600
+    )
     assert_equal 2, retry_policy.initial_delay
     assert_equal 20, retry_policy.max_delay
     assert_equal 1.7, retry_policy.multiplier
+    assert_equal [GRPC::Core::StatusCodes::UNAVAILABLE], retry_policy.retry_codes
+    assert_equal 600, retry_policy.timeout
   end
 
-  def test_perform_delay_increment
+  def test_perform_delay_increment_delay
     retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 1, max_delay: 5, multiplier: 1.3
     retry_policy.perform_delay!
     refute_equal retry_policy.initial_delay, retry_policy.delay
     assert_equal 1.3, retry_policy.delay
   end
 
-  def test_perform_delay_retry_logic
+  def test_perform_delay_retry_common_logic
     retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 3, max_delay: 10, multiplier: 2
     retry_policy.define_singleton_method :retry? do
       true
@@ -39,7 +44,16 @@ class RetryPolicyTest < Minitest::Test
     assert_equal 6, retry_policy.delay
   end
 
-  def test_max_delay
+  def test_perform_delay_retry_error_logic
+    retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 5, max_delay: 30, multiplier: 3
+    retry_policy.define_singleton_method :retry_error? do |_error|
+      true
+    end
+    retry_policy.perform_delay
+    assert_equal 15, retry_policy.delay
+  end
+
+  def test_max_delay_limit
     retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 10, max_delay: 12, multiplier: 1.5
     retry_policy.perform_delay!
     assert_equal 12, retry_policy.delay
