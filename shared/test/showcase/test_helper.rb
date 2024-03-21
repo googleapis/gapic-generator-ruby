@@ -21,7 +21,7 @@ require "open3"
 require "tmpdir"
 
 # @private
-GAPIC_SHOWCASE_VERSION = '0.30.0'
+GAPIC_SHOWCASE_VERSION = '0.32.1'
 
 def generate_library_for_test imports, protos
   client_lib = Dir.mktmpdir
@@ -107,7 +107,7 @@ class ShowcaseTest < Minitest::Test
       _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory #{tmp_dir}/"
       raise "failed to start showcase" unless status.exitstatus.zero?
       server_id = Process.spawn("#{tmp_dir}/gapic-showcase run", :out => [log_file, "w"])
-      puts "Started showcase server (id: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
+      puts "Started showcase server v#{GAPIC_SHOWCASE_VERSION} (pid: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
     else
       puts "Existing showcase server is available. Continuing..." if ENV["VERBOSE"]
     end
