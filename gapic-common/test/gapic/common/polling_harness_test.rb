@@ -93,4 +93,12 @@ class PollingHarnessTest < Minitest::Test
     end
     assert_equal 0, perform_delay_count
   end
+
+  def test_wait_argument_error
+    retry_policy = Gapic::Common::RetryPolicy.new
+    polling_harness = Gapic::Common::PollingHarness.new retry_policy: retry_policy
+    assert_raises ArgumentError do
+      polling_harness.wait
+    end
+  end
 end
