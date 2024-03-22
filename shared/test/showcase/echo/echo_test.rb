@@ -73,6 +73,7 @@ class EchoRestTest < ShowcaseTest
   def test_echo_auto_populate
     uuid_call_count = 0
     expected_uuid_call_count = 2 # request_id, other_request_id
+    original_uuid_method = SecureRandom.method(:uuid)
     SecureRandom.define_singleton_method(:uuid) do
       uuid_call_count += 1
       case uuid_call_count
@@ -88,6 +89,7 @@ class EchoRestTest < ShowcaseTest
     assert_equal expected_uuid_call_count, uuid_call_count
     assert_equal "request_id", response.request_id
     assert_equal "other_request_id", response.other_request_id
+    SecureRandom.define_singleton_method :uuid, original_uuid_method
   end
 
   def test_echo_auto_populate_non_explicit_presence_value_set_default
@@ -122,5 +124,23 @@ class EchoRestTest < ShowcaseTest
     response = @client.echo request
     assert_equal expected_content, response.content
     assert_equal "", response.other_request_id
+  end
+
+  def test_echo_not_auto_populate_hash_key_as_string
+    expected_content = "hash_key_as_string"
+    expected_request_id = "request_id_from_string"
+    request = { "content" => expected_content, "request_id" => expected_request_id }
+    response = @client.echo request
+    assert_equal expected_content, response.content
+    assert_equal expected_request_id, response.request_id
+  end
+
+  def test_echo_not_auto_populate_hash_key_as_symbol
+    expected_content = "hash_key_as_symbol"
+    expected_request_id = "request_id_from_symbol"
+    request = { content: expected_content, request_id: expected_request_id }
+    response = @client.echo request
+    assert_equal expected_content, response.content
+    assert_equal expected_request_id, response.request_id
   end
 end

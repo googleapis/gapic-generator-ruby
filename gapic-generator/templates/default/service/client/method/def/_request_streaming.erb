@@ -8,7 +8,7 @@ end
 
 # Auto populate request field `<%= name %>`.
 if request.is_a? Hash
-  request[:<%= name %>] = SecureRandom.uuid unless request.key? :<%= name %>
+  request[:<%= name %>] = SecureRandom.uuid unless request.key?(:<%= name %>) || request.key?("<%= name %>")
 else
 <%- if field.proto3_optional? -%>
   request.<%= name %> = SecureRandom.uuid unless request.has_<%= name %>?
