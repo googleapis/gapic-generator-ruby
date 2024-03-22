@@ -17,21 +17,28 @@ require "gapic/common/retry_policy"
 module Gapic
   class Operation
     ##
-    # The policy for retrying operation reloads using an incremental backoff. A new object instance should be used for
-    # every Operation invocation.
+    # The policy for retrying operation reloads using an incremental backoff.
+    #
+    # A new object instance should be used for every Operation invocation.
     #
     class RetryPolicy < Gapic::Common::RetryPolicy
+      # @return [Numeric] Default initial delay in seconds.
       DEFAULT_INITIAL_DELAY = 10
+      # @return [Numeric] Default maximum delay in seconds.
       DEFAULT_MAX_DELAY = 300 # Five minutes
+      # @return [Numeric] Default delay scaling factor for subsequent retry attempts.
       DEFAULT_MULTIPLIER = 1.3
+      # @return [Numeric] Default timeout threshold value in seconds.
       DEFAULT_TIMEOUT = 3600 # One hour
+
       ##
       # Create new Operation RetryPolicy.
       #
-      # @param initial_delay [Numeric] client-side timeout
-      # @param multiplier [Numeric] client-side timeout
-      # @param max_delay [Numeric] client-side timeout
-      # @param timeout [Numeric] client-side timeout
+      # @param initial_delay [Numeric] Initial delay in seconds.
+      # @param max_delay [Numeric] Maximum delay in seconds.
+      # @param multiplier [Numeric] The delay scaling factor for each subsequent retry attempt.
+      # @param retry_codes [Array<String|Numeric>] List of retry codes.
+      # @param timeout [Numeric] Timeout threshold value in seconds.
       #
       def initialize initial_delay: nil, multiplier: nil, max_delay: nil, timeout: nil
         super(

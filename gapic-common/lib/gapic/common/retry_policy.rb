@@ -34,8 +34,8 @@ module Gapic
       #
       # Instance values are set as `nil` to determine whether values are overriden from default.
       #
-      # @param initial_delay [Numeric] Initial delay in seconds for this policy.
-      # @param max_delay [Numeric] Maximum delay in seconds for this policy.
+      # @param initial_delay [Numeric] Initial delay in seconds.
+      # @param max_delay [Numeric] Maximum delay in seconds.
       # @param multiplier [Numeric] The delay scaling factor for each subsequent retry attempt.
       # @param retry_codes [Array<String|Numeric>] List of retry codes.
       # @param timeout [Numeric] Timeout threshold value in seconds.
@@ -49,22 +49,27 @@ module Gapic
         @delay = nil
       end
 
+      # @return [Numeric] Initial delay in seconds.
       def initial_delay
         @initial_delay || DEFAULT_INITIAL_DELAY
       end
 
+      # @return [Numeric] Maximum delay in seconds.
       def max_delay
         @max_delay || DEFAULT_MAX_DELAY
       end
 
+      # @return [Numeric] The delay scaling factor for each subsequent retry attempt.
       def multiplier
         @multiplier || DEFAULT_MULTIPLIER
       end
 
+      # @return [Array<Numeric>] List of retry codes.
       def retry_codes
         @retry_codes || DEFAULT_RETRY_CODES
       end
 
+      # @return [Numeric] Timeout threshold value in seconds.
       def timeout
         @timeout || DEFAULT_TIMEOUT
       end
@@ -72,13 +77,13 @@ module Gapic
       ##
       # Perform delay if and only if retriable.
       #
-      # Positional argument `error` takes precedence over positional arguments, meaning the latter
-      # will only be used if and only if `error` is not present.
+      # If positional argument `error` is provided, the retriable logic uses
+      # `retry_codes`. Otherwise, `timeout` is used.
       #
       # @return [Boolean] Whether the delay was executed.
       #
-      def call error = nil, *args
-        should_retry = error.nil? ? retry?(*args) : retry_error?(error)
+      def call error = nil
+        should_retry = error.nil? ? retry_with_deadline? : retry_error?(error)
         return false unless should_retry
         perform_delay!
       end
@@ -151,26 +156,32 @@ module Gapic
 
       private
 
-      def retry? *args
-        args.empty? ? retry_with_deadline? : retry_error?(*args.first)
-      end
-
+      # @private
+      # @return [Numeric] The performed delay.
       def delay!
         Kernel.sleep delay
       end
 
+      # @private
+      # @return [Numeric] The new delay in seconds.
       def increment_delay!
         @delay = [delay * multiplier, max_delay].min
       end
 
+      # @private
+      # @return [Numeric] The deadline for timeout-based policies based policies.
       def deadline
         @deadline ||= Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
       end
 
+      # @private
+      # @return [Boolean] Whether this policy should be retried based on the deadline.
       def retry_with_deadline?
         deadline > Process.clock_gettime(Process::CLOCK_MONOTONIC)
       end
 
+      # @private
+      # @return [Array<Numeric> Error codes converted to their respective integer values.
       def convert_codes input_codes
         return nil if input_codes.nil?
         Array(input_codes).map do |obj|
