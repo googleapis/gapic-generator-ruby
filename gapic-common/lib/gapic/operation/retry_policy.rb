@@ -35,9 +35,8 @@ module Gapic
       # Create new Operation RetryPolicy.
       #
       # @param initial_delay [Numeric] Initial delay in seconds.
-      # @param max_delay [Numeric] Maximum delay in seconds.
       # @param multiplier [Numeric] The delay scaling factor for each subsequent retry attempt.
-      # @param retry_codes [Array<String|Numeric>] List of retry codes.
+      # @param max_delay [Numeric] Maximum delay in seconds.
       # @param timeout [Numeric] Timeout threshold value in seconds.
       #
       def initialize initial_delay: nil, multiplier: nil, max_delay: nil, timeout: nil

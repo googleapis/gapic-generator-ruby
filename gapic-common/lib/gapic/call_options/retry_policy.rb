@@ -26,11 +26,10 @@ module Gapic
       ##
       # Create new API Call RetryPolicy.
       #
+      # @Param retry_codes [Array<String|Numeric] List of retry codes.
       # @param initial_delay [Numeric] Initial delay in seconds.
       # @param max_delay [Numeric] Maximum delay in seconds.
       # @param multiplier [Numeric] The delay scaling factor for each subsequent retry attempt.
-      # @param retry_codes [Array<String|Numeric>] List of retry codes.
-      # @param timeout [Numeric] Timeout threshold value in seconds.
       #
       def initialize retry_codes: nil, initial_delay: nil, multiplier: nil, max_delay: nil
         super
