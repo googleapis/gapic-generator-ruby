@@ -29,8 +29,8 @@ require_relative "./fixtures/transcoding_example_pb"
 
 class FakeFaradayError < ::Faraday::Error
   def initialize code
-    if code < 100 && ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP.invert.key?(code)
-      code = ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP.invert[code]
+    if code < 100 && ::Gapic::Common::ErrorCodes::HTTP_GRPC_CODE_MAP.invert.key?(code)
+      code = ::Gapic::Common::ErrorCodes::HTTP_GRPC_CODE_MAP.invert[code]
     end
 
     @code = code
@@ -41,7 +41,7 @@ class FakeFaradayError < ::Faraday::Error
   end
 
   def grpc_code
-    ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP[@code]
+    ::Gapic::Common::ErrorCodes::HTTP_GRPC_CODE_MAP[@code]
   end
 
   def response_status
