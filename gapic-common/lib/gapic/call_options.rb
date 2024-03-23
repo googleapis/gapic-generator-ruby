@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/call_options/error_codes"
 require "gapic/call_options/retry_policy"
+require "gapic/common/error_codes"
 
 module Gapic
   ##
