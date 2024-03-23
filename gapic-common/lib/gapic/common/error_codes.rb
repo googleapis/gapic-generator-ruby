@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 # limitations under the License.
 
 module Gapic
-  class CallOptions
+  module Common
     ##
     # @private
     # The gRPC error codes and their HTTP mapping
