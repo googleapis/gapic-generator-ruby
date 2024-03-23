@@ -49,7 +49,10 @@ module Google
       #     Optional. This field can be set to test the routing annotation on the Echo method.
       # @!attribute [rw] request_id
       #   @return [::String]
-      #     Based on go/client-populate-request-id-design; subject to change
+      #     To facilitate testing of https://google.aip.dev/client-libraries/4235
+      # @!attribute [rw] other_request_id
+      #   @return [::String]
+      #     To facilitate testing of https://google.aip.dev/client-libraries/4235
       class EchoRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -62,6 +65,12 @@ module Google
       # @!attribute [rw] severity
       #   @return [::Google::Showcase::V1beta1::Severity]
       #     The severity specified in the request.
+      # @!attribute [rw] request_id
+      #   @return [::String]
+      #     The request ID specified or autopopulated in the request.
+      # @!attribute [rw] other_request_id
+      #   @return [::String]
+      #     The other request ID specified or autopopulated in the request.
       class EchoResponse
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

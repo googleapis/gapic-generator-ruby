@@ -204,7 +204,7 @@ module Google
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            # @overload batch_annotate_images(requests: nil, parent: nil)
+            # @overload batch_annotate_images(requests: nil, parent: nil, labels: nil)
             #   Pass arguments to `batch_annotate_images` via keyword arguments. Note that at
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -224,6 +224,13 @@ module Google
             #         `eu`: The European Union.
             #
             #     Example: `projects/project-A/locations/eu`.
+            #   @param labels [::Hash{::String => ::String}]
+            #     Optional. The labels with user-defined metadata for the request.
+            #
+            #     Label keys and values can be no longer than 63 characters
+            #     (Unicode codepoints), can only contain lowercase letters, numeric
+            #     characters, underscores and dashes. International characters are allowed.
+            #     Label values are optional. Label keys must start with a letter.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [::Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
@@ -300,14 +307,14 @@ module Google
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            # @overload batch_annotate_files(requests: nil, parent: nil)
+            # @overload batch_annotate_files(requests: nil, parent: nil, labels: nil)
             #   Pass arguments to `batch_annotate_files` via keyword arguments. Note that at
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
             #   @param requests [::Array<::Google::Cloud::Vision::V1::AnnotateFileRequest, ::Hash>]
-            #     Required. The list of file annotation requests. Right now we support only one
-            #     AnnotateFileRequest in BatchAnnotateFilesRequest.
+            #     Required. The list of file annotation requests. Right now we support only
+            #     one AnnotateFileRequest in BatchAnnotateFilesRequest.
             #   @param parent [::String]
             #     Optional. Target project and location to make a call.
             #
@@ -321,6 +328,13 @@ module Google
             #         `eu`: The European Union.
             #
             #     Example: `projects/project-A/locations/eu`.
+            #   @param labels [::Hash{::String => ::String}]
+            #     Optional. The labels with user-defined metadata for the request.
+            #
+            #     Label keys and values can be no longer than 63 characters
+            #     (Unicode codepoints), can only contain lowercase letters, numeric
+            #     characters, underscores and dashes. International characters are allowed.
+            #     Label values are optional. Label keys must start with a letter.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [::Google::Cloud::Vision::V1::BatchAnnotateFilesResponse]
@@ -399,7 +413,7 @@ module Google
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            # @overload async_batch_annotate_images(requests: nil, output_config: nil, parent: nil)
+            # @overload async_batch_annotate_images(requests: nil, output_config: nil, parent: nil, labels: nil)
             #   Pass arguments to `async_batch_annotate_images` via keyword arguments. Note that at
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -421,6 +435,13 @@ module Google
             #         `eu`: The European Union.
             #
             #     Example: `projects/project-A/locations/eu`.
+            #   @param labels [::Hash{::String => ::String}]
+            #     Optional. The labels with user-defined metadata for the request.
+            #
+            #     Label keys and values can be no longer than 63 characters
+            #     (Unicode codepoints), can only contain lowercase letters, numeric
+            #     characters, underscores and dashes. International characters are allowed.
+            #     Label values are optional. Label keys must start with a letter.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [::Gapic::Operation]
@@ -504,7 +525,7 @@ module Google
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            # @overload async_batch_annotate_files(requests: nil, parent: nil)
+            # @overload async_batch_annotate_files(requests: nil, parent: nil, labels: nil)
             #   Pass arguments to `async_batch_annotate_files` via keyword arguments. Note that at
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -524,6 +545,13 @@ module Google
             #         `eu`: The European Union.
             #
             #     Example: `projects/project-A/locations/eu`.
+            #   @param labels [::Hash{::String => ::String}]
+            #     Optional. The labels with user-defined metadata for the request.
+            #
+            #     Label keys and values can be no longer than 63 characters
+            #     (Unicode codepoints), can only contain lowercase letters, numeric
+            #     characters, underscores and dashes. International characters are allowed.
+            #     Label values are optional. Label keys must start with a letter.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [::Gapic::Operation]

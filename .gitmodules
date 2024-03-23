@@ -7,3 +7,4 @@
 [submodule "shared/gapic-showcase"]
 	path = shared/gapic-showcase
 	url = git@github.com:googleapis/gapic-showcase.git
+	ignore = dirty
