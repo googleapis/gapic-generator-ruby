@@ -135,6 +135,17 @@ tool "gen" do
   include :exec, e: true
   include :terminal
 
+  Signal.trap("SIGINT") do
+    puts "SIGINT received. Cleaning up processes."
+    toys_gen_pids = `ps aux`.each_line.filter_map { |line| line.split[1].to_i if line.match?(/ruby.*protoc/)}
+    puts "No toys gen processes running." if toys_gen_pids.empty?
+    toys_gen_pids.each do |pid|
+        puts "Terminating pid #{pid}"
+        Process.kill("TERM", pid)
+    end
+    exit
+  end
+
   def run
     Dir.chdir "#{context_directory}/shared" do
       cmd = ["gen"] + services + verbosity_flags
