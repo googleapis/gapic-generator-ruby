@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2018 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,30 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/ruby_info"
+require "test_helper"
 
-module Gapic
-  module Presenters
-    ##
-    # A presenter for proto enum values.
-    #
-    class EnumValuePresenter
-      def initialize value
-        @value = value
-      end
+class EnumValuePresenterTest < PresenterTest
+  def typical_garbage_enum_value enum_value
+    enum_value_presenter :garbage, "garbage/garbage.proto", "GarbageEnum", enum_value 
+  end
+  
+  def test_enum_value_name_no_keyword_collision
+    evp = typical_garbage_enum_value 3
+    assert_equal "DUMPSTER", evp.name
+  end
 
-      # @return [String] The enum value without keyword collision.
-      def name
-        Gapic::RubyInfo.keywords.include?(@value.name) ? "self::#{@value.name}" : @value.name
-      end
-
-      def doc_description
-        @value.docs_leading_comments
-      end
-
-      def number
-        @value.number
-      end
-    end
+  def test_enum_value_name_with_keyword_collision
+    evp = typical_garbage_enum_value 4
+    assert_equal "self::END", evp.name
   end
 end
+

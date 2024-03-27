@@ -454,6 +454,9 @@ module So
 
         # When this is on fire it resembles politics.
         DUMPSTER = 3
+
+        # The end of garbage.
+        self::END = 4
       end
     end
   end

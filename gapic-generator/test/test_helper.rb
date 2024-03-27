@@ -155,6 +155,14 @@ class PresenterTest < GeneratorTest
     Gapic::Presenters::FieldPresenter.new api_obj, message, field
   end
 
+  def enum_value_presenter api_name, file_name, enum_name, enum_value_number
+    api_obj = api api_name
+    file = api_obj.files.find { |f| f.name == file_name }
+    fp = Gapic::Presenters::FilePresenter.new api_obj, file
+    ep = fp.enums.find { |e| e.name == enum_name }
+    ep.values.find { |evp| evp.number == enum_value_number}
+  end
+
   def resource_presenter api_name, message_name
     api_obj = api api_name
     message = api_obj.messages.find { |m| m.address.join(".") == message_name }

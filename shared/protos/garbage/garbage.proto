@@ -484,6 +484,8 @@ enum GarbageEnum {
   GARBAGE_HEAP = 2;
   // When this is on fire it resembles politics.
   DUMPSTER = 3;
+  // The end of garbage.
+  END = 4;
 }
 
 // The most recursive garbage ever made. Garbage stacked on garbage stacked on
