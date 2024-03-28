@@ -1,5 +1,11 @@
 # Release History
 
+### 0.22.0 (2024-03-28)
+
+#### Features
+
+* introduce gapic polling harness ([#1057](https://github.com/googleapis/gapic-generator-ruby/issues/1057)) 
+
 ### 0.21.1 (2023-12-14)
 
 #### Bug Fixes
