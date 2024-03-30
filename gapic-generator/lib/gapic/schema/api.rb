@@ -352,6 +352,7 @@ module Gapic
           api_metadata.standardize_names!
           api_metadata.standardize_title! gem_name: configuration.fetch(:gem, nil)&.fetch(:name, "")
           api_metadata.standardize_descriptions!
+          api_metadata.standardize_auto_populated_fields! @service_config
           api_metadata
         end
       end
@@ -456,7 +457,7 @@ module Gapic
           file.resources.each { |resource| populate_resource_lookups resource, types, patterns }
           file.messages.each { |message| populate_message_resource_lookups message, types, patterns }
         end
-        types.each do |_type, resource|
+        types.each_value do |resource|
           parents = resource.parsed_parent_patterns
                             .flat_map { |pat| Array(patterns[pat]) }
                             .uniq

@@ -7,6 +7,16 @@ require "gapic/grpc/service_stub"
 require "<%= service.service_require %>"
 
 class <%= service.client_name_full %>PathsTest < Minitest::Test
+  class DummyStub
+    def endpoint
+      "endpoint.example.com"
+    end
+  
+    def universe_domain
+      "example.com"
+    end
+  end
+
 <%- start_line_spacer -%>
 <%- service.deduped_references.each do |resource| -%>
 <%- locals = { resource: resource, service: service } -%>

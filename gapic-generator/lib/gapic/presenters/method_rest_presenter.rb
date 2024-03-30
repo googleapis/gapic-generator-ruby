@@ -27,6 +27,9 @@ module Gapic
 
       attr_reader :http_bindings
 
+      # @return [String] String representation of this presenter type.
+      attr_reader :type
+
       ##
       # @param main_method [Gapic::Presenters::MethodPresenter] the main presenter for this method.
       # @param api [Gapic::Schema::Api]
@@ -35,6 +38,7 @@ module Gapic
         @main_method = main_method
         @http_bindings = main_method.http_bindings
         @pagination = Gapic::Presenters::Method::RestPaginationInfo.new main_method.method, api
+        @type = "method"
       end
 
       ##
@@ -144,6 +148,13 @@ module Gapic
       #
       def server_streaming?
         @main_method.server_streaming?
+      end
+
+      ##
+      # @return [Boolean] Whether the method is marked as deprecated.
+      #
+      def is_deprecated?
+        @main_method.is_deprecated?
       end
     end
   end

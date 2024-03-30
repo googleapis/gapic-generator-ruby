@@ -18,7 +18,7 @@ require "test_helper"
 
 class ComputeSmallTest < PresenterTest
   def test_compute_addresses
-    main_service = service_presenter(:compute_small, "Addresses")
+    main_service = service_presenter :compute_small, "Addresses"
     presenter = main_service.rest
 
     refute main_service.nonstandard_lro_provider?
@@ -30,8 +30,19 @@ class ComputeSmallTest < PresenterTest
     refute presenter.mixin_binding_overrides?
   end
 
+  def test_client_endpoint
+    main_service = service_presenter :compute_small, "Addresses"
+    assert_equal "compute.googleapis.com", main_service.client_endpoint
+  end
+
+  def test_client_endpoint_template
+    main_service = service_presenter :compute_small, "Addresses"
+    assert_equal "compute.$UNIVERSE_DOMAIN$", main_service.client_endpoint_template
+    assert_equal "compute.$UNIVERSE_DOMAIN$", main_service.rest.client_endpoint_template
+  end
+
   def test_compute_region_operations
-    main_service = service_presenter(:compute_small, "RegionOperations")
+    main_service = service_presenter :compute_small, "RegionOperations"
     presenter = main_service.rest
 
     assert main_service.nonstandard_lro_provider?

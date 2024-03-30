@@ -37,6 +37,8 @@ module So
   module Much
     module Trash
       ##
+      # @deprecated This service is deprecated and may be removed in the next major version update.
+      #
       # @example Load this service and instantiate a gRPC client
       #
       #     require "so/much/trash/deprecated_service"

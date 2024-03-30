@@ -18,22 +18,18 @@ require "test_helper"
 require "google/showcase/v1beta1/echo"
 require "grpc"
 
-class EchoTest < ShowcaseTest
-  def setup client=nil
-    @client = client
+class EchoGRPCTest < ShowcaseTest
+  def setup
+    @client = new_echo_client
+  end
+
+  def test_universe_domain
+    assert_equal "googleapis.com", @client.universe_domain
   end
 
   def test_echo
-    return unless @client
-
     response = @client.echo content: "hi there!"
     assert_equal "hi there!", response.content
-  end
-end
-
-class EchoGRPCTest < EchoTest
-  def setup
-    super new_echo_client
   end
 
   def test_echo_with_block
@@ -60,8 +56,91 @@ class EchoGRPCTest < EchoTest
   end
 end
 
-class EchoRestTest < EchoTest
+class EchoRestTest < ShowcaseTest
   def setup
-    super new_echo_rest_client
+    @client = new_echo_rest_client
+  end
+
+  def test_universe_domain
+    assert_equal "googleapis.com", @client.universe_domain
+  end
+
+  def test_echo
+    response = @client.echo content: "hi there!"
+    assert_equal "hi there!", response.content
+  end
+
+  def test_echo_auto_populate
+    uuid_call_count = 0
+    expected_uuid_call_count = 2 # request_id, other_request_id
+    original_uuid_method = SecureRandom.method(:uuid)
+    SecureRandom.define_singleton_method(:uuid) do
+      uuid_call_count += 1
+      case uuid_call_count
+      when 1
+        "request_id"
+      when 2
+        "other_request_id"
+      else
+        "default-id-should-not-be-set"
+      end
+    end
+    response = @client.echo content: "auto_populate"
+    assert_equal expected_uuid_call_count, uuid_call_count
+    assert_equal "request_id", response.request_id
+    assert_equal "other_request_id", response.other_request_id
+    SecureRandom.define_singleton_method :uuid, original_uuid_method
+  end
+
+  def test_echo_auto_populate_non_explicit_presence_value_set_default
+    expected_content = "non_explicit_presence_value_set_default"
+    request = Google::Showcase::V1beta1::EchoRequest.new content: expected_content
+    assert_raises NoMethodError do
+      request.has_request_id?
+    end
+    request.request_id = ""
+
+    response = @client.echo request
+    assert_equal expected_content, request.content
+    refute_equal "", request.request_id
+  end
+
+  def test_echo_auto_populate_with_explicit_presence_value_not_set
+    expected_content = "with_explicit_presence_value_not_set"
+    request = Google::Showcase::V1beta1::EchoRequest.new content: expected_content
+    refute request.has_other_request_id?
+
+    response = @client.echo request
+    assert_equal expected_content, response.content
+    refute_equal "", response.other_request_id
+  end
+
+  def test_echo_auto_populate_with_explicit_presence_value_set_default
+    expected_content = "with_explicit_presence_value_set_default"
+    request = Google::Showcase::V1beta1::EchoRequest.new content: expected_content
+    refute request.has_other_request_id?
+
+    request.other_request_id = "" # Empty string sets field presence.
+    response = @client.echo request
+    assert_equal expected_content, response.content
+    assert_equal "", response.other_request_id
+  end
+
+  def test_echo_not_auto_populate_hash_key_as_string
+    expected_content = "hash_key_as_string"
+    expected_request_id = "request_id_from_string"
+    request = { "content" => expected_content, "request_id" => expected_request_id }
+    response = @client.echo request
+    assert_equal expected_content, response.content
+    assert_equal expected_request_id, response.request_id
+  end
+
+  def test_echo_not_auto_populate_hash_key_as_symbol
+    expected_content = "hash_key_as_symbol"
+    expected_request_id = "request_id_from_symbol"
+    request = { content: expected_content, request_id: expected_request_id }
+    response = @client.echo request
+    assert_equal expected_content, response.content
+    assert_equal expected_request_id, response.request_id
   end
 end

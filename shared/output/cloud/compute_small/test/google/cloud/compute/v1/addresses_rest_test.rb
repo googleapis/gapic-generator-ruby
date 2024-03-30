@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -59,6 +59,14 @@ class ::Google::Cloud::Compute::V1::Addresses::Rest::ClientTest < Minitest::Test
       @requests << @block&.call(*args, **kwargs)
 
       @response
+    end
+
+    def endpoint
+      "endpoint.example.com"
+    end
+
+    def universe_domain
+      "example.com"
     end
   end
 
@@ -356,7 +364,8 @@ class ::Google::Cloud::Compute::V1::Addresses::Rest::ClientTest < Minitest::Test
     credentials_token = :dummy_value
 
     client = block_config = config = nil
-    Gapic::Rest::ClientStub.stub :new, nil do
+    dummy_stub = ClientStub.new nil
+    Gapic::Rest::ClientStub.stub :new, dummy_stub do
       client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new do |config|
         config.credentials = credentials_token
       end

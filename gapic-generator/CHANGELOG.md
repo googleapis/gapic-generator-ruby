@@ -1,5 +1,38 @@
 # Release History for gapic-generator
 
+### 0.29.0 / 2024-02-22
+
+* Feature: Update minimum Ruby version of generated libraries to 2.7
+* Fix: update gemfiles and set bundle platforms to x86_64-linux
+
+### 0.28.0 / 2024-02-14
+
+* Feature: introduce auto_populated_fields (uuid4) to generator
+
+### 0.27.4 / 2024-01-12
+
+No significant changes
+
+### 0.27.3 / 2024-01-12
+
+* Fix: Ensure the correct endpoint gets to mixin clients
+
+### 0.27.2 / 2024-01-11
+
+No significant changes
+
+### 0.27.1 / 2024-01-09
+
+* Fix: Update mixin dependencies to versions that support universe domain
+
+### 0.27.0 / 2024-01-08
+
+* Feature: update generated samples docs
+* Feature: Update rubocop autofix to use Rubocop 1.59
+* Feature: add @deprecated tags to document items
+* Feature: Generate toys files
+* Feature: Support universe domain in GAPIC
+
 ### 0.26.0 / 2023-12-04
 
 * Feature: Use google-protobuf instead of third-party protobuf library

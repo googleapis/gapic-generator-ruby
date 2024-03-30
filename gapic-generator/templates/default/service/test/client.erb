@@ -23,7 +23,8 @@ class <%= service.client_name_full %>Test < Minitest::Test
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
 
     client = nil
-    Gapic::ServiceStub.stub :new, nil do
+    dummy_stub = ClientStub.new nil, nil
+    Gapic::ServiceStub.stub :new, dummy_stub do
       client = <%= service.client_name_full =%>.new do |config|
         config.credentials = grpc_channel
       end

@@ -12,80 +12,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/common/retry_policy"
+
 module Gapic
   class Operation
     ##
-    # The policy for retrying operation reloads using an incremental backoff. A new object instance should be used for
-    # every Operation invocation.
+    # The policy for retrying operation reloads using an incremental backoff.
     #
-    class RetryPolicy
+    # A new object instance should be used for every Operation invocation.
+    #
+    class RetryPolicy < Gapic::Common::RetryPolicy
+      # @return [Numeric] Default initial delay in seconds.
+      DEFAULT_INITIAL_DELAY = 10
+      # @return [Numeric] Default maximum delay in seconds.
+      DEFAULT_MAX_DELAY = 300 # Five minutes
+      # @return [Numeric] Default delay scaling factor for subsequent retry attempts.
+      DEFAULT_MULTIPLIER = 1.3
+      # @return [Numeric] Default timeout threshold value in seconds.
+      DEFAULT_TIMEOUT = 3600 # One hour
+
       ##
       # Create new Operation RetryPolicy.
       #
-      # @param initial_delay [Numeric] client-side timeout
-      # @param multiplier [Numeric] client-side timeout
-      # @param max_delay [Numeric] client-side timeout
-      # @param timeout [Numeric] client-side timeout
+      # @param initial_delay [Numeric] Initial delay in seconds.
+      # @param multiplier [Numeric] The delay scaling factor for each subsequent retry attempt.
+      # @param max_delay [Numeric] Maximum delay in seconds.
+      # @param timeout [Numeric] Timeout threshold value in seconds.
       #
       def initialize initial_delay: nil, multiplier: nil, max_delay: nil, timeout: nil
-        @initial_delay = initial_delay
-        @multiplier    = multiplier
-        @max_delay     = max_delay
-        @timeout       = timeout
-        @delay         = nil
-      end
-
-      def initial_delay
-        @initial_delay || 10
-      end
-
-      def multiplier
-        @multiplier || 1.3
-      end
-
-      def max_delay
-        @max_delay || 300 # Five minutes
-      end
-
-      def timeout
-        @timeout || 3600 # One hour
-      end
-
-      def call
-        return unless retry?
-
-        delay!
-        increment_delay!
-
-        true
-      end
-
-      private
-
-      def deadline
-        # memoize the deadline
-        @deadline ||= Time.now + timeout
-      end
-
-      def retry?
-        deadline > Time.now
-      end
-
-      ##
-      # The current delay value.
-      def delay
-        @delay || initial_delay
-      end
-
-      def delay!
-        # Call Kernel.sleep so we can stub it.
-        Kernel.sleep delay
-      end
-
-      ##
-      # Calculate and set the next delay value.
-      def increment_delay!
-        @delay = [delay * multiplier, max_delay].min
+        super(
+          initial_delay: initial_delay || DEFAULT_INITIAL_DELAY,
+          max_delay: max_delay || DEFAULT_MAX_DELAY,
+          multiplier: multiplier || DEFAULT_MULTIPLIER,
+          timeout: timeout || DEFAULT_TIMEOUT
+        )
       end
     end
   end

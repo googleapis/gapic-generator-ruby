@@ -1,5 +1,36 @@
 # Release History for gapic-generator-ads
 
+### 0.29.0 / 2024-02-22
+
+* Includes changes from gapic-generator 0.29.0
+* Fix: update gemfiles and set bundle platforms to x86_64-linux
+
+### 0.28.0 / 2024-02-14
+
+* Includes changes from gapic-generator 0.28.0
+* Feature: introduce auto_populated_fields (uuid4) to generator
+
+### 0.27.4 / 2024-01-12
+
+* Includes changes from gapic-generator 0.27.4
+
+### 0.27.3 / 2024-01-12
+
+* Includes changes from gapic-generator 0.27.3
+
+### 0.27.2 / 2024-01-11
+
+* Includes changes from gapic-generator 0.27.2
+
+### 0.27.1 / 2024-01-09
+
+* Includes changes from gapic-generator 0.27.1
+
+### 0.27.0 / 2024-01-08
+
+* Includes changes from gapic-generator 0.27.0
+* Feature: Update rubocop autofix to use Rubocop 1.59
+
 ### 0.26.0 / 2023-12-04
 
 * Includes changes from gapic-generator 0.26.0

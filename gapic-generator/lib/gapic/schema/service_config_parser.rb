@@ -40,6 +40,7 @@ module Gapic
         PUBS_ORGANIZATION_KEY = "organization"
         PUBS_DOCURL_KEY = "documentation_uri"
         PUBS_DOCTAG_KEY = "doc_tag_prefix"
+        PUBS_METHOD_SETTINGS = "method_settings"
         DOCS_KEY = "documentation"
         DOCS_SUMMARY_KEY = "summary"
         DOCS_OVERVIEW_KEY = "overview"
@@ -89,7 +90,8 @@ module Gapic
                                  description: docs_yaml[DOCS_OVERVIEW_KEY],
                                  organization: pubs_yaml[PUBS_ORGANIZATION_KEY],
                                  documentation_url: pubs_yaml[PUBS_DOCURL_KEY],
-                                 doc_tag_prefix: pubs_yaml[PUBS_DOCTAG_KEY]
+                                 doc_tag_prefix: pubs_yaml[PUBS_DOCTAG_KEY],
+                                 method_settings: pubs_yaml[PUBS_METHOD_SETTINGS] || {}
           end
           api_metadata
         end

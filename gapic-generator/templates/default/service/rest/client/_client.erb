@@ -10,6 +10,9 @@ require "<%= subclient.require_str %>"
 <%- end -%>
 <%- end -%>
 <%- end -%>
+<%- if service.autogenerates_uuid? -%>
+require "securerandom"
+<%- end -%>
 <% end %>
 ##
 # REST client for the <%= service.name %> service.
@@ -19,6 +22,9 @@ require "<%= subclient.require_str %>"
 #
 <%- end -%>
 class <%= service.rest.client_name %>
+  # @private
+  DEFAULT_ENDPOINT_TEMPLATE = <%= service.client_endpoint_template.inspect %>
+
 <%- if service.paths? -%>
   include <%= service.paths_name %>
 
@@ -31,10 +37,7 @@ class <%= service.rest.client_name %>
   #
   # See {<%= service.rest.client_name_full %>::Configuration}
   # for a description of the configuration fields.
-<%- if service.is_deprecated? -%>
-  #
-  # @deprecated This service is deprecated and may be removed in the next major version update.
-<%- end -%>
+<%= render partial: "proto_docs/deprecated", locals: { presenter: service } -%>
   #
   # @example
   #
@@ -73,6 +76,15 @@ class <%= service.rest.client_name %>
   end
 
   ##
+  # The effective universe domain
+  #
+  # @return [String]
+  #
+  def universe_domain
+    @<%= service.stub_name %>.universe_domain
+  end
+
+  ##
   # Create a new <%= service.name %> REST client object.
   #
   # @example
@@ -100,7 +112,8 @@ class <%= service.rest.client_name %>
     <%- unless service.generic_endpoint? -%>
     # Use self-signed JWT if the endpoint is unchanged from default,
     # but only if the default endpoint does not have a region prefix.
-    enable_self_signed_jwt = @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
+    enable_self_signed_jwt = @config.endpoint.nil? ||
+                             @config.endpoint == Configuration::DEFAULT_ENDPOINT &&
                              !@config.endpoint.split(".").first.include?("-")
     credentials ||= Credentials.default scope: @config.scope,
                                         enable_self_signed_jwt: enable_self_signed_jwt
@@ -112,20 +125,36 @@ class <%= service.rest.client_name %>
     @quota_project_id = @config.quota_project
     @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
-    <%- if service.rest.subclients? -%>
-    <%- service.rest.subclients.each do |subclient| -%>
+    <%- service.rest.lro_subclients.each do |subclient| -%>
     @<%= subclient.client_var_name %> = <%= subclient.client_class_docname %>.new do |config|
       config.credentials = credentials
       config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
+      config.universe_domain = @config.universe_domain
       <%- if subclient.respond_to?(:bindings_override) && !subclient.bindings_override.empty? -%>
       config.bindings_override = @config.bindings_override
       <%- end -%>
     end
 
     <%- end -%>
+    @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new(
+      endpoint: @config.endpoint,
+      endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
+      universe_domain: @config.universe_domain,
+      credentials: credentials
+    )
+    <%- service.rest.mixin_presenters.each do |subclient| -%>
+
+    @<%= subclient.client_var_name %> = <%= subclient.client_class_docname %>.new do |config|
+      config.credentials = credentials
+      config.quota_project = @quota_project_id
+      config.endpoint = @<%= service.stub_name %>.endpoint
+      config.universe_domain = @<%= service.stub_name %>.universe_domain
+      <%- if subclient.respond_to?(:bindings_override) && !subclient.bindings_override.empty? -%>
+      config.bindings_override = @config.bindings_override
+      <%- end -%>
+    end
     <%- end -%>
-    @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new endpoint: @config.endpoint, credentials: credentials
   end
 
   <%- if service.rest.subclients? -%>

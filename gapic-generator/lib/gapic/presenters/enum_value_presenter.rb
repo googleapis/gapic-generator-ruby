@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/ruby_info"
+
 module Gapic
   module Presenters
     ##
@@ -24,8 +26,9 @@ module Gapic
         @value = value
       end
 
+      # @return [String] The enum value name without keyword collision.
       def name
-        @value.name
+        Gapic::RubyInfo.keywords.include?(@value.name) ? "self::#{@value.name}" : @value.name
       end
 
       def doc_description

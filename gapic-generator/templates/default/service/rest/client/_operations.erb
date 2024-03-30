@@ -5,6 +5,9 @@ require "gapic/operation"
 # Service that implements Longrunning Operations API.
 class <%= service.operations_name %>
   # @private
+  DEFAULT_ENDPOINT_TEMPLATE = <%= service.client_endpoint_template.inspect %>
+
+  # @private
   attr_reader :<%= service.lro_service.stub_name %>
 
   ##
@@ -39,6 +42,15 @@ class <%= service.operations_name %>
   end
 
   ##
+  # The effective universe domain
+  #
+  # @return [String]
+  #
+  def universe_domain
+    @<%= service.lro_service.stub_name %>.universe_domain
+  end
+
+  ##
   # Create a new <%= service.operations_name %> client object.
   #
   # @yield [config] Configure the <%= service.client_name %> client.
@@ -62,8 +74,10 @@ class <%= service.operations_name %>
     @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
     @<%= service.lro_service.stub_name %> = <%= service.operations_stub_name %>.new(
-      endpoint:     @config.endpoint,
-      credentials:  credentials
+      endpoint: @config.endpoint,
+      endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
+      universe_domain: @config.universe_domain,
+      credentials: credentials
     )
 
     # Used by an LRO wrapper for some methods of this service
@@ -85,12 +99,15 @@ end
 # Service stub contains baseline method implementations
 # including transcoding, making the REST call, and deserialing the response.
 class <%= service.operations_stub_name %>
-  def initialize endpoint:, credentials:
+  def initialize endpoint:, endpoint_template:, universe_domain:, credentials:
     # These require statements are intentionally placed here to initialize
     # the REST modules only when it's required.
     require "gapic/rest"
 
-    @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials
+    @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint,
+                                                 endpoint_template: endpoint_template,
+                                                 universe_domain: universe_domain,
+                                                 credentials: credentials
   end
 
   <%- service.lro_service.rest.methods.each do |method| -%>

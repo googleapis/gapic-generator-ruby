@@ -1,11 +1,11 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.26.0)
+    gapic-generator (0.29.0)
       actionpack (~> 5.2)
       google-cloud-common (~> 1.2)
       google-protobuf (~> 3.25, >= 3.25.1)
-      google-style (~> 1.26.4)
+      google-style (~> 1.27.0)
       googleapis-common-protos-types (~> 1.8)
 
 GEM
@@ -32,27 +32,27 @@ GEM
     ast (2.4.2)
     builder (3.2.4)
     coderay (1.1.3)
-    concurrent-ruby (1.2.2)
+    concurrent-ruby (1.2.3)
     crass (1.0.6)
     erubi (1.12.0)
-    google-cloud-common (1.4.0)
+    google-cloud-common (1.5.0)
       google-protobuf (~> 3.18)
       googleapis-common-protos-types (~> 1.7)
-    google-protobuf (3.25.1-x86_64-linux)
-    google-style (1.26.4)
-      rubocop (~> 1.57.2)
-    googleapis-common-protos-types (1.11.0)
+    google-protobuf (3.25.3-x86_64-linux)
+    google-style (1.27.1)
+      rubocop (~> 1.56)
+    googleapis-common-protos-types (1.12.0)
       google-protobuf (~> 3.18)
-    grpc-tools (1.59.2)
+    grpc-tools (1.60.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    json (2.7.0)
+    json (2.7.1)
     language_server-protocol (3.17.0.3)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     method_source (1.0.0)
-    minitest (5.20.0)
+    minitest (5.22.2)
     minitest-autotest (1.1.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.0)
@@ -60,10 +60,10 @@ GEM
       minitest (>= 4, < 6)
     minitest-server (1.0.7)
       minitest (~> 5.16)
-    nokogiri (1.15.5-x86_64-linux)
+    nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
-    parallel (1.23.0)
-    parser (3.2.2.4)
+    parallel (1.24.0)
+    parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
     path_expander (1.1.1)
@@ -71,7 +71,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     racc (1.7.3)
-    rack (2.2.8)
+    rack (2.2.8.1)
     rack-test (2.1.0)
       rack (>= 1.3)
     rails-dom-testing (2.2.0)
@@ -83,17 +83,17 @@ GEM
       nokogiri (~> 1.14)
     rainbow (3.1.1)
     redcarpet (3.6.0)
-    regexp_parser (2.8.3)
+    regexp_parser (2.9.0)
     rexml (3.2.6)
-    rubocop (1.57.2)
+    rubocop (1.60.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.4)
+      parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.28.1, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
@@ -103,14 +103,14 @@ GEM
     tzinfo (1.2.11)
       thread_safe (~> 0.1)
     unicode-display_width (2.5.0)
-    yard (0.9.34)
+    yard (0.9.36)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
   gapic-generator!
-  grpc-tools (~> 1.59.2)
+  grpc-tools (~> 1.60.0)
   minitest (~> 5.16)
   minitest-autotest (~> 1.0)
   minitest-focus (~> 1.0)
@@ -119,4 +119,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.4.10
+   2.4.19

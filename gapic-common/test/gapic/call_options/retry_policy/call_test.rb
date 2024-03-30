@@ -54,7 +54,7 @@ class RetryPolicyCallTest < Minitest::Test
     )
     faraday_error = OpenStruct.new response_status: 503
 
-    assert_includes retry_policy.retry_codes, Gapic::CallOptions::ErrorCodes.grpc_error_for(faraday_error.response_status)
+    assert_includes retry_policy.retry_codes, Gapic::Common::ErrorCodes.grpc_error_for(faraday_error.response_status)
 
     sleep_mock = Minitest::Mock.new
     sleep_mock.expect :sleep, nil, [1]
@@ -73,7 +73,7 @@ class RetryPolicyCallTest < Minitest::Test
     )
     faraday_error = OpenStruct.new response_status: nil
 
-    assert_includes retry_policy.retry_codes, Gapic::CallOptions::ErrorCodes.grpc_error_for(faraday_error.response_status)
+    assert_includes retry_policy.retry_codes, Gapic::Common::ErrorCodes.grpc_error_for(faraday_error.response_status)
 
     sleep_mock = Minitest::Mock.new
     sleep_mock.expect :sleep, nil, [1]

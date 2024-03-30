@@ -184,4 +184,29 @@ class ServiceConfigParserTest < Minitest::Test
     assert_nil metadata.documentation_url
     assert_equal expected_doctag, metadata.doc_tag_prefix
   end
+
+  def test_parse_api_metadata_with_auto_populate_settings
+    api_name = "MyService"
+    selector_name = "MyService.Test"
+    method_name = "test"
+    auto_populated_field_name = "request_id"
+    yaml = <<~HEREDOC
+      type: google.api.Service
+      config_version: 2
+      name: my_service
+      apis:
+      - name: #{api_name}
+      publishing:
+        method_settings:
+        - selector: #{selector_name}
+          auto_populated_fields:
+          - #{auto_populated_field_name}
+    HEREDOC
+
+    service_config = Gapic::Schema::ServiceConfigParser.parse_service_yaml yaml
+    metadata = Gapic::Schema::ServiceConfigParser.parse_api_metadata yaml
+    metadata.standardize_auto_populated_fields! service_config
+    refute_empty metadata.auto_populated_fields_by_method_name
+    assert_equal metadata.auto_populated_fields_by_method_name[method_name], [auto_populated_field_name]
+  end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,6 +44,14 @@ class ::Google::Cloud::Vision::V1::ProductSearch::OperationsTest < Minitest::Tes
       yield @response, @operation if block_given?
 
       @response
+    end
+
+    def endpoint
+      "endpoint.example.com"
+    end
+
+    def universe_domain
+      "example.com"
     end
   end
 
@@ -364,7 +372,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::OperationsTest < Minitest::Tes
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
 
     client = block_config = config = nil
-    Gapic::ServiceStub.stub :new, nil do
+    dummy_stub = ClientStub.new nil, nil
+    Gapic::ServiceStub.stub :new, dummy_stub do
       client = ::Google::Cloud::Vision::V1::ProductSearch::Operations.new do |config|
         config.credentials = grpc_channel
       end

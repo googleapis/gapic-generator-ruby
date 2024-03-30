@@ -122,6 +122,7 @@ module Gapic
         files << g("gem/readme.erb",                "README.md",                    gem: gem)
         files << g("gem/changelog.erb",             "CHANGELOG.md",                 gem: gem)
         files << g("gem/rubocop.erb",               ".rubocop.yml",                 gem: gem)
+        files << g("gem/toys.erb",                  ".toys.rb",                     gem: gem)
         files << g("gem/yardopts.erb",              ".yardopts",                    gem: gem)
         files << g("gem/license.erb",               "LICENSE.md",                   gem: gem)
         files << g("gem/entrypoint.erb",            "lib/#{gem.name}.rb",           gem: gem)

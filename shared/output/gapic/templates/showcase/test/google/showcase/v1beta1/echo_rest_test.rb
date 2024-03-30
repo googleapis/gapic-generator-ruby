@@ -68,6 +68,14 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
       @response
     end
+
+    def endpoint
+      "endpoint.example.com"
+    end
+
+    def universe_domain
+      "example.com"
+    end
   end
 
   def test_echo
@@ -82,6 +90,8 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     severity = :UNNECESSARY
     header = "hello world"
     other_header = "hello world"
+    request_id = "hello world"
+    other_request_id = "hello world"
 
     echo_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
@@ -97,27 +107,27 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
         end
 
         # Use hash object
-        client.echo({ content: content, severity: severity, header: header, other_header: other_header }) do |_result, response|
+        client.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.echo content: content, severity: severity, header: header, other_header: other_header do |_result, response|
+        client.echo content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header) do |_result, response|
+        client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.echo({ content: content, severity: severity, header: header, other_header: other_header }, call_options) do |_result, response|
+        client.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header), call_options) do |_result, response|
+        client.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -520,7 +530,8 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     credentials_token = :dummy_value
 
     client = block_config = config = nil
-    Gapic::Rest::ClientStub.stub :new, nil do
+    dummy_stub = ClientStub.new nil
+    Gapic::Rest::ClientStub.stub :new, dummy_stub do
       client = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
         config.credentials = credentials_token
       end

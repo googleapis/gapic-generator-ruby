@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,16 +36,18 @@ module Google
         # Manages Products and ProductSets of reference images for use in product
         # search. It uses the following resource model:
         #
-        # - The API has a collection of {::Google::Cloud::Vision::V1::ProductSet ProductSet} resources, named
-        # `projects/*/locations/*/productSets/*`, which acts as a way to put different
-        # products into groups to limit identification.
+        # - The API has a collection of {::Google::Cloud::Vision::V1::ProductSet ProductSet}
+        # resources, named `projects/*/locations/*/productSets/*`, which acts as a way
+        # to put different products into groups to limit identification.
         #
         # In parallel,
         #
-        # - The API has a collection of {::Google::Cloud::Vision::V1::Product Product} resources, named
+        # - The API has a collection of {::Google::Cloud::Vision::V1::Product Product}
+        # resources, named
         #   `projects/*/locations/*/products/*`
         #
-        # - Each {::Google::Cloud::Vision::V1::Product Product} has a collection of {::Google::Cloud::Vision::V1::ReferenceImage ReferenceImage} resources, named
+        # - Each {::Google::Cloud::Vision::V1::Product Product} has a collection of
+        # {::Google::Cloud::Vision::V1::ReferenceImage ReferenceImage} resources, named
         #   `projects/*/locations/*/products/*/referenceImages/*`
         #
         # @example Load this service and instantiate a gRPC client

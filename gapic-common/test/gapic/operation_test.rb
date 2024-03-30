@@ -420,12 +420,12 @@ describe Gapic::Operation do
       sleep_proc = ->(count) { sleep_mock.sleep count }
 
       Kernel.stub :sleep, sleep_proc do
-        time_now = Time.now
-        incrementing_time = lambda do
+        time_now = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        incrementing_time = lambda do |_clock|
           delay = sleep_counts.shift || 160
           time_now += delay
         end
-        Time.stub :now, incrementing_time do
+        Process.stub :clock_gettime, incrementing_time do
           retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: 400 }
           op.wait_until_done! retry_policy: retry_config
           _(op).wont_be :done?

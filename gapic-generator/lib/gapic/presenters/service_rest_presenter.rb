@@ -32,7 +32,7 @@ module Gapic
       def_delegators :@main_service, :name, :helpers_file_name, :is_hosted_mixin?, :is_main_mixin_service?, :mixins?,
                      :mixin_binding_overrides?, :grpc_service_config, :grpc_service_config_presenter, :lro_service,
                      :lro_client_var, :nonstandard_lro_provider?, :credentials_class_xref, :client_name, :module_name,
-                     :grpc_full_name, :client_suffix_for_default_transport
+                     :grpc_full_name, :client_suffix_for_default_transport, :client_endpoint_template
 
       # The namespace of the service. (not the client)
       # Intentionally does not include "Rest", since
@@ -47,6 +47,7 @@ module Gapic
       def initialize main_service, api
         @main_service = main_service
         @api = api
+        @type = "service"
       end
 
       ##
@@ -330,6 +331,10 @@ module Gapic
         [lro_client_presenter, mixin_presenters, nonstandard_lros].flatten.compact
       end
 
+      def lro_subclients
+        [lro_client_presenter, nonstandard_lros].flatten.compact
+      end
+
       ##
       # The method to use for quick start samples. Normally this is simply the
       # first non-client-streaming method defined, but it can be overridden via
@@ -369,12 +374,21 @@ module Gapic
         main_service.gem.rest_numeric_enums?
       end
 
+      ##
+      # @return [Boolean] Whether the service is marked as deprecated.
+      #
+      def is_deprecated?
+        @main_service.is_deprecated?
+      end
+
       private
 
       # @return [Gapic::Presenters::ServicePresenter]
       attr_reader :main_service
       # @return [Gapic::Schema::Api]
       attr_reader :api
+      # @return [String] String representation of this presenter type.
+      attr_reader :type
     end
   end
 end

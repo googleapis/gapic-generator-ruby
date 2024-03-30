@@ -2,83 +2,104 @@
 
 Create Ruby clients from a protocol buffer description of an API.
 
-**Note** This project is a preview. Please try it out and let us know what you think,
-but there are currently no guarantees of stability or support.
+This code is used to generate client libraries for many Google APIs including
+Cloud and Ads services. The `gapic-generator` gem itself includes the main
+generator, whereas the `gapic-generator-cloud` and `gapic-generator-ads` gems
+provide modifications specific to Google Cloud and Google Ads APIs.
 
-## Usage
-### Install the Proto Compiler
-This generator relies on the Protocol Buffer Compiler to [orchestrate] the
-client generation.
+These gems can also be used to create clients for any other API, for Google or
+non-Google services, that use protocol buffers as the description language. The
+generators will work best for APIs that follow the design guidance documented
+in the [Google AIPs](https://aip.dev/). An API that is not AIP-compliant should
+still yield a usable client library, but it may be missing features such as
+idiomatic naming, pagination, or retry configuration.
 
-```sh
-# Declare the protobuf version to use.
-$ export PROTOBUF_VERSION=3.6.1
+**Important:** This is not an official Google project. While it is being used
+internally to generate official Google API client libraries, there is no
+guarantee of support or stability for any other use.
 
-# Declare the target installation system.
-# export SYSTEM=osx
-$ export SYSTEM=linux
+## Using the Ruby gem
 
-# Get the precompiled protobuf compiler.
-$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip > usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
-$ cd /usr/src/protoc/
-$ unzip protoc-${PROTOBUF_VERSION}.zip
-$ rm protoc-${PROTOBUF_VERSION}.zip
+This section provides a brief getting started guide for the Ruby gem. However,
+we do not release the Ruby gems often, and they may be substantially behind the
+current generator code. In most cases, we recommend generating from the
+GitHub repository directly. See the main README for
+https://github.com/googleapis/gapic-generator-ruby for more information.
 
-# Link the protoc to the path.
-$ ln -s /usr/src/protoc/bin/protoc /usr/local/bin/protoc
-$ mkdir -p /protos/
+### Install the Generator
 
-# Move the common protobuf files to the local include folder.
-$ cp -R /usr/src/protoc/include/* /usr/local/include/
+The generator is a plugin for **protoc**, the protocol buffers compiler, so
+you'll need to install it first, along with the standard protobuf and grpc
+plugins for Ruby. The easiest way to do this is to install the `grpc-tools` gem
+which will provide all three. You can also follow the
+[official install instructions](https://github.com/protocolbuffers/protobuf#protobuf-compiler-installation).
+Note that if you installed protoc using `grpc-tools`, the compiler binary name
+will be named `grpc_tools_ruby_protoc`; otherwise it will likely be `protoc`.
+
+Install the `gapic-generator` gem to get access to the gapic generator plugin.
+Since you are looking at the `gapic-generator-cloud` gem's README, we will
+assume you want Cloud-specific output, so also install `gapic-generator-cloud`.
+
+Alternatively, add all the above to a Gemfile:
+
+```ruby
+# Gemfile
+source "https://rubygems.org/"
+
+gem "grpc-tools"
+gem "gapic-generator"
+gem "gapic-generator-cloud"
 ```
 
-[orchestrate]: https://developers.google.com/protocol-buffers/docs/reference/ruby-generated
-
-### Build and Install the Generator
-This tool is in pre-alpha so it is not yet released to RubyGems. You will have to
-build the generator from scratch.
+And install using bundler:
 
 ```sh
-$ git clone https://github.com/googleapis/gapic-generator-ruby.git
-$ cd gapic-generator-ruby
-$ gem build gapic-generator.gemspec
-$ gem install gapic-generator-0.1.0.gem
-$ which protoc-gen-ruby_gapic
-> {Non-empty path}
+$ bundle install
 ```
 
 ### Generate an API
-Installing this generator exposes `protoc-gen-ruby_gapic` on the PATH. By doing
-so, it gives the protobuf compiler the CLI option `--ruby_gapic_out` on which
-you can specify an output path for this generator.
 
-If you want to experiment with an already-existing API, one example is available.
-Note: You need to clone the googleapis repository from GitHub, and change
-to a special branch:
+Installing the cloud-specific generator exposes `protoc-gen-ruby_cloud` on the
+PATH. (Note that this name is different from the `protoc-gen-ruby_gapic` plugin
+exposed by the basic generator.) By doing so, it gives the protobuf compiler
+the CLI option `--ruby_cloud_out` on which you can specify an output path for
+this generator.
+
+In most cases, in order to generate a functional client library, you must also
+include the Ruby proto and grpc plugins, using the CLI options `--ruby_out` and
+`--grpc_out`.
+
+If you want to experiment with an already-existing API, you can use one of the
+existing Google APIs from https://github.com/googleapis/googleapis.
+First you should get the protos and dependencies:
+
 ```sh
-# Get the protos and it's dependencies.
-$ git clone git@github.com:googleapis/api-common-protos.git
 $ git clone git@github.com:googleapis/googleapis.git
-$ cd googleapis
-$ git checkout --track -b input-contract origin/input-contract
-
-# Now you're ready to compile the API.
-$ protoc google/cloud/vision/v1/*.proto \
-    --proto_path=../api-common-protos/ --proto_path=. \
-    --ruby_gapic_out=/dest/
 ```
 
-## Contributing
+Now you're ready to compile the API. For example, to compile the Vision V1 API:
 
-Contributions to this library are always welcome and highly encouraged.
+```sh
+$ grpc_tools_ruby_protoc google/cloud/vision/v1/*.proto \
+    --proto_path=googleapis/ \
+    --ruby_out=/path/to/dest/ \
+    --grpc_out=/path/to/dest/ \
+    --ruby_cloud_out=/path/to/dest/ \
+```
 
-See the [CONTRIBUTING](CONTRIBUTING.md) documentation for more information on how to get started.
+Note: most real-world client libraries require additional options to be passed
+to the generator, via the `--ruby_cloud_opt` flag. Those options are not
+covered in this document.
 
-## Versioning
+## Support
 
-This library is currently a **preview** with no guarantees of stability or support. Please get
-involved and let us know if you find it useful and we'll work towards a stable version.
+This is not an official Google project. While it is being used internally to
+generate official Google API client libraries, there is no guarantee of support
+or stability for any other use.
 
-## Disclaimer
+As of January 2024, this generator can be run on Ruby 3.0 or later. In general,
+we will make an effort to ensure it is supported on non-end-of-life versions of
+Ruby.
 
-This is not an official Google product.
+Issues can be filed on GitHub at
+https://github.com/googleapis/gapic-generator-ruby/issues.

@@ -328,11 +328,11 @@ class GenericLROTest < Minitest::Test
 
     Kernel.stub :sleep, sleep_proc do
       time_now = Time.now
-      incrementing_time = lambda do
+      incrementing_time = lambda do |_clock|
         delay = sleep_counts.shift || 160
         time_now += delay
       end
-      Time.stub :now, incrementing_time do
+      Process.stub :clock_gettime, incrementing_time do
         retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: 400 }
         op.wait_until_done! retry_policy: retry_config
         refute op.done?

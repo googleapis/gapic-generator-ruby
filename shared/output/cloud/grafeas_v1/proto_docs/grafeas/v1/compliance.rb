@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,6 +39,8 @@ module Grafeas
     # @!attribute [rw] scan_instructions
     #   @return [::String]
     #     Serialized scan instructions with a predefined format.
+    # @!attribute [rw] impact
+    #   @return [::String]
     class ComplianceNote
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods

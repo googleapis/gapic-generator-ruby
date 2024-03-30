@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,8 @@ module Google
         #     If it is not specified, system discretion will be applied.
         # @!attribute [rw] product_set
         #   @return [::String]
-        #     The resource name of a {::Google::Cloud::Vision::V1::ProductSet ProductSet} to be searched for similar images.
+        #     The resource name of a {::Google::Cloud::Vision::V1::ProductSet ProductSet} to
+        #     be searched for similar images.
         #
         #     Format is:
         #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`.

@@ -2,8 +2,10 @@
 <%- if message.doc_description -%>
 <%= indent message.doc_description, "# " %>
 <%- end -%>
+<%= render partial: "proto_docs/deprecated", locals: { presenter: message } -%>
 <%- message.fields.each do |field| -%>
 <%= indent field.doc_attribute_type, "# " %>
+<%= render(partial: "proto_docs/deprecated", locals: { presenter:field, indentation: "#   " }) -%>
 #   @return [<%= field.output_doc_types %>]
 <%- if field.doc_description -%>
 <%= indent field.doc_description, "#     " %>
