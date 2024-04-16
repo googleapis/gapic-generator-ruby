@@ -50,6 +50,10 @@
 # @!attribute [rw] scope
 #   The OAuth scopes
 #   @return [::Array<::String>]
+# @!attribute [rw] api_version
+#   The API Version. The default is nil, indicating that the annotation does not exist for
+#   the given service.
+#   @return [::String,nil]
 # @!attribute [rw] lib_name
 #   The library name as recorded in instrumentation and logging
 #   @return [::String]
@@ -100,6 +104,7 @@ class Configuration
     allowed.any? { |klass| klass === value }
   end
   config_attr :scope,         nil, ::String, ::Array, nil
+  config_attr :api_version,   nil, ::String, nil
   config_attr :lib_name,      nil, ::String, nil
   config_attr :lib_version,   nil, ::String, nil
   config_attr(:channel_args,  <%= service.config_channel_args.inspect %>, ::Hash, nil)

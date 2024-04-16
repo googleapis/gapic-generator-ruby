@@ -51,5 +51,9 @@ module Gapic
       x_goog_api_client_header << "pb/#{protobuf_version}" if protobuf_version
       x_goog_api_client_header.join " ".freeze
     end
+
+    def self.x_goog_api_version version: nil
+      version
+    end
   end
 end

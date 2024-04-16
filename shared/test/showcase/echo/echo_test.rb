@@ -54,6 +54,12 @@ class EchoGRPCTest < ShowcaseTest
       )
     end
   end
+
+  focus
+  def test_echo_api_version_header
+    response = @client.echo content: "api_version_header"
+    puts response
+  end
 end
 
 class EchoRestTest < ShowcaseTest

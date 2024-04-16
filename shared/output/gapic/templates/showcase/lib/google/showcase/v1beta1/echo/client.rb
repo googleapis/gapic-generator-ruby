@@ -292,11 +292,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.echo.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             header_params = {}
             if request.header && !request.header.empty?
@@ -416,11 +419,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.echo_error_details.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.echo_error_details.timeout,
                                    metadata:     metadata,
@@ -499,11 +505,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.expand.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.expand.timeout,
                                    metadata:     metadata,
@@ -574,11 +583,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.collect.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.collect.timeout,
                                    metadata:     metadata,
@@ -652,11 +664,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.chat.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.chat.timeout,
                                    metadata:     metadata,
@@ -736,11 +751,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.paged_expand.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.paged_expand.timeout,
                                    metadata:     metadata,
@@ -820,11 +838,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.paged_expand_legacy.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.paged_expand_legacy.timeout,
                                    metadata:     metadata,
@@ -907,11 +928,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.paged_expand_legacy_mapped.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.paged_expand_legacy_mapped.timeout,
                                    metadata:     metadata,
@@ -999,11 +1023,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.wait.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.wait.timeout,
                                    metadata:     metadata,
@@ -1082,11 +1109,14 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.block.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+            metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
             options.apply_defaults timeout:      @config.rpcs.block.timeout,
                                    metadata:     metadata,
@@ -1150,6 +1180,10 @@ module Google
           # @!attribute [rw] scope
           #   The OAuth scopes
           #   @return [::Array<::String>]
+          # @!attribute [rw] api_version
+          #   The API Version. The default is nil, indicating that the annotation does not exist for
+          #   the given service.
+          #   @return [::String,nil]
           # @!attribute [rw] lib_name
           #   The library name as recorded in instrumentation and logging
           #   @return [::String]
@@ -1200,6 +1234,7 @@ module Google
               allowed.any? { |klass| klass === value }
             end
             config_attr :scope,         nil, ::String, ::Array, nil
+            config_attr :api_version,   nil, ::String, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
             config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)

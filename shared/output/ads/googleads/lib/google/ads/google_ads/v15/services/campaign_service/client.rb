@@ -260,11 +260,14 @@ module Google
                 # Customize the options with defaults
                 metadata = @config.rpcs.mutate_campaigns.metadata.to_h
 
-                # Set x-goog-api-client and x-goog-user-project headers
+                # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
                 metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Ads::GoogleAds::VERSION
                 metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+                api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+                metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
                 header_params = {}
                 if request.customer_id
@@ -338,6 +341,10 @@ module Google
               # @!attribute [rw] scope
               #   The OAuth scopes
               #   @return [::Array<::String>]
+              # @!attribute [rw] api_version
+              #   The API Version. The default is nil, indicating that the annotation does not exist for
+              #   the given service.
+              #   @return [::String,nil]
               # @!attribute [rw] lib_name
               #   The library name as recorded in instrumentation and logging
               #   @return [::String]
@@ -389,6 +396,7 @@ module Google
                   allowed.any? { |klass| klass === value }
                 end
                 config_attr :scope,         nil, ::String, ::Array, nil
+                config_attr :api_version,   nil, ::String, nil
                 config_attr :lib_name,      nil, ::String, nil
                 config_attr :lib_version,   nil, ::String, nil
                 config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)

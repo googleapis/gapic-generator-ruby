@@ -238,13 +238,16 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.create_user.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
+              # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+              call_metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
               options.apply_defaults timeout:      @config.rpcs.create_user.timeout,
                                      metadata:     call_metadata,
@@ -316,13 +319,16 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.get_user.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
+              # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+              call_metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
               options.apply_defaults timeout:      @config.rpcs.get_user.timeout,
                                      metadata:     call_metadata,
@@ -397,13 +403,16 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.update_user.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
+              # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+              call_metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
               options.apply_defaults timeout:      @config.rpcs.update_user.timeout,
                                      metadata:     call_metadata,
@@ -475,13 +484,16 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.delete_user.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
+              # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+              call_metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
               options.apply_defaults timeout:      @config.rpcs.delete_user.timeout,
                                      metadata:     call_metadata,
@@ -562,13 +574,16 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.list_users.metadata.to_h
 
-              # Set x-goog-api-client and x-goog-user-project headers
+              # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              api_version = ::Gapic::Headers.x_goog_api_version version: @config.api_version
+              call_metadata[:"x-goog-api-version"] = api_version unless api_version.nil?
 
               options.apply_defaults timeout:      @config.rpcs.list_users.timeout,
                                      metadata:     call_metadata,
