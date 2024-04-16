@@ -1,6 +1,7 @@
 [submodule "shared/api-common-protos"]
 	path = shared/api-common-protos
 	url = git@github.com:googleapis/api-common-protos.git
+	ignore = dirty
 [submodule "shared/googleapis"]
 	path = shared/googleapis
 	url = git@github.com:googleapis/googleapis.git
