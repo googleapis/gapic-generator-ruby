@@ -29,3 +29,5 @@ require "minitest/focus"
 require "minitest/rg"
 
 require "grpc"
+
+require "ostruct"
