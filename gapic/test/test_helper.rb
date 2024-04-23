@@ -20,3 +20,5 @@ require "minitest/focus"
 require "minitest/rg"
 
 require "gapic"
+
+require "ostruct"
