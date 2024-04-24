@@ -251,6 +251,10 @@ module Gapic
         gem.generic_endpoint?
       end
 
+      def api_version
+        @api_version
+      end
+
       def client_scopes
         scopes = Array(common_service_delegate&.client_scopes)
         return scopes unless scopes.empty?

@@ -288,7 +288,8 @@ module Gapic
 
       OPTION_EXTENSION_NAMES = {
         "google.api.default_host" => [1049, :string],
-        "google.api.oauth_scopes" => [1050, :string]
+        "google.api.oauth_scopes" => [1050, :string],
+	"google.api.api_version" => [525000001, :string]
       }.freeze
 
       ##
@@ -308,6 +309,11 @@ module Gapic
       # @return [Array<String>] The OAuth scopes information for the client.
       def scopes
         String(option_named("google.api.oauth_scopes")).split ","
+      end
+
+      # @return [String] The API version for this service.
+      def api_version
+        option_named "google.api.api_version"
       end
 
       # @return [String] Ruby Package
