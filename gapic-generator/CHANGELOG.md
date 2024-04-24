@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.30.0 / 2024-04-24
+
+* Feature: support auto populating request fields with explicit presence
+* Feature: avoid keyword collision for enum value names
+* Fix: Start requiring ostruct in generated test helper files
+
 ### 0.29.0 / 2024-02-22
 
 * Feature: Update minimum Ruby version of generated libraries to 2.7
