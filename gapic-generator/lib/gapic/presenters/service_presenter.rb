@@ -251,8 +251,9 @@ module Gapic
         gem.generic_endpoint?
       end
 
+      # @return [String] The api_version for this service, or empty if not defined. 
       def api_version
-        @api_version
+        @api_version.nil? ? "" : @api_version
       end
 
       def client_scopes
