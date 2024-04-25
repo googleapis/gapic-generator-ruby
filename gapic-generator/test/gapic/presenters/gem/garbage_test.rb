@@ -44,7 +44,9 @@ class GarbageGemPresenterTest < PresenterTest
 
     assert_equal ["garbage/garbage.proto",
       "garbage/resource_names.proto",
+      "google/api/client.proto",
       "google/api/field_behavior.proto",
+      "google/api/launch_stage.proto",
       "google/api/resource.proto",
       "google/iam/v1/iam_policy.proto", 
       "google/iam/v1/options.proto",
@@ -53,6 +55,7 @@ class GarbageGemPresenterTest < PresenterTest
       "google/protobuf/any.proto",
       "google/protobuf/duration.proto",
       "google/protobuf/empty.proto",
+      "google/protobuf/field_mask.proto",
       "google/protobuf/timestamp.proto",
       "google/rpc/status.proto",
       "google/type/expr.proto"].sort, presenter.proto_files.map(&:name).sort
