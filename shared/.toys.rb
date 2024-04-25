@@ -32,7 +32,6 @@ mixin "golden-tools" do
       "bundle", "exec", "grpc_tools_ruby_protoc",
       "--experimental_allow_proto3_optional=1",
       "-I", "../shared/protos",
-      "-I", "../shared/api-common-protos",
       "-I", "../shared/googleapis"
     ]
 

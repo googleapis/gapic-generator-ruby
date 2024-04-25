@@ -37,7 +37,8 @@ module So
   module Much
     module Trash
       ##
-      # ## API Overview
+      # API Overview
+      #
       #
       # Manages Identity and Access Management (IAM) policies.
       #

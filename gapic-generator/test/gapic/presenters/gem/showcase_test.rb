@@ -43,8 +43,10 @@ class ShowcaseGemPresenterTest < PresenterTest
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
 
     expected_proto_files = [
+      "google/api/client.proto",
       "google/api/field_behavior.proto",
       "google/api/field_info.proto",
+      "google/api/launch_stage.proto",
       "google/api/resource.proto",
       "google/api/routing.proto",
       "google/longrunning/operations.proto",
