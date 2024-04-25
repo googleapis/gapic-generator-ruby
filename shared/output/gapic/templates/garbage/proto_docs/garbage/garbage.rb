@@ -456,7 +456,7 @@ module So
         DUMPSTER = 3
 
         # The end of garbage.
-        self::END = 4
+        GarbageEnum::END = 4
       end
     end
   end
