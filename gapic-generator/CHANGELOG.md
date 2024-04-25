@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.31.0 / 2024-04-25
+
+* Feature: Remove api-common-protos dependency
+* Feature: Use module name to prevent keyword collision with enum values
+
 ### 0.30.0 / 2024-04-24
 
 * Feature: support auto populating request fields with explicit presence
