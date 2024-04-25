@@ -28,7 +28,7 @@ module Gapic
 
       # @return [String] The enum value name without keyword collision.
       def name
-        Gapic::RubyInfo.keywords.include?(@value.name) ? "self::#{@value.name}" : @value.name
+        Gapic::RubyInfo.keywords.include?(@value.name) ? "#{@value.parent.name}::#{@value.name}" : @value.name
       end
 
       def doc_description

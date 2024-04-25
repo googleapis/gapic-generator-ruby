@@ -18,9 +18,9 @@ require "test_helper"
 
 class EnumValuePresenterTest < PresenterTest
   def typical_garbage_enum_value enum_value
-    enum_value_presenter :garbage, "garbage/garbage.proto", "GarbageEnum", enum_value 
+    enum_value_presenter :garbage, "garbage/garbage.proto", "GarbageEnum", enum_value
   end
-  
+
   def test_enum_value_name_no_keyword_collision
     evp = typical_garbage_enum_value 3
     assert_equal "DUMPSTER", evp.name
@@ -28,7 +28,6 @@ class EnumValuePresenterTest < PresenterTest
 
   def test_enum_value_name_with_keyword_collision
     evp = typical_garbage_enum_value 4
-    assert_equal "self::END", evp.name
+    assert_equal "GarbageEnum::END", evp.name
   end
 end
-
