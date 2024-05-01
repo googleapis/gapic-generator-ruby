@@ -381,6 +381,11 @@ module Gapic
         @main_service.is_deprecated?
       end
 
+      # @return [String] The api_version for this service, or empty if not defined.
+      def api_version
+        @main_service.api_version.nil? ? "" : @main_service.api_version
+      end
+
       private
 
       # @return [Gapic::Presenters::ServicePresenter]

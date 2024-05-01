@@ -54,6 +54,18 @@ class EchoGRPCTest < ShowcaseTest
       )
     end
   end
+
+  def test_echo_with_api_version_metadata
+    @client.echo({ content: "api version" }) do |response, operation|
+      assert_equal "api version", response.content
+      assert_instance_of GRPC::ActiveCall::Operation, operation
+      assert_equal "v1_20240408", operation.trailing_metadata["x-goog-api-version"]
+    end
+  end
+
+  def test_echo_api_version_constant
+    assert_equal "v1_20240408", Google::Showcase::V1beta1::Echo::Client::API_VERSION
+  end
 end
 
 class EchoRestTest < ShowcaseTest
@@ -142,5 +154,17 @@ class EchoRestTest < ShowcaseTest
     response = @client.echo request
     assert_equal expected_content, response.content
     assert_equal expected_request_id, response.request_id
+  end
+
+  def test_echo_with_api_version_rest_metadata
+    @client.echo({ content: "api version rest" }) do |response, operation|
+      assert_equal "api version rest", response.content
+      assert_instance_of Gapic::Rest::TransportOperation, operation
+      assert_equal "v1_20240408", operation.underlying_op.headers["x-showcase-request-x-goog-api-version"]
+    end
+  end
+
+  def test_echo_api_version_constant
+    assert_equal "v1_20240408", Google::Showcase::V1beta1::Echo::Rest::Client::API_VERSION
   end
 end
