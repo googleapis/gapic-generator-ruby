@@ -55,10 +55,8 @@ class EchoGRPCTest < ShowcaseTest
     end
   end
 
-  focus
-  def test_echo_api_version_header
-    response = @client.echo content: "with api version header"
-    puts response
+  def test_echo_api_version_constant
+    assert_equal "v1_20240408", @client::API_VERSION
   end
 end
 
@@ -148,5 +146,9 @@ class EchoRestTest < ShowcaseTest
     response = @client.echo request
     assert_equal expected_content, response.content
     assert_equal expected_request_id, response.request_id
+  end
+
+  def test_echo_api_version_constant
+    assert_equal "v1_20240408", @client::API_VERSION
   end
 end

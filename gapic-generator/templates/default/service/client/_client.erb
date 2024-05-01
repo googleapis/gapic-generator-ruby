@@ -23,6 +23,7 @@ require "securerandom"
 class <%= service.client_name %>
   # @private
   API_VERSION = "<%= service.api_version %>".freeze
+
   # @private
   DEFAULT_ENDPOINT_TEMPLATE = <%= service.client_endpoint_template.inspect %>
 

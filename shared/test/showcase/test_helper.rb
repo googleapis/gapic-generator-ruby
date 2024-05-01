@@ -21,7 +21,7 @@ require "open3"
 require "tmpdir"
 
 # @private
-GAPIC_SHOWCASE_VERSION = '0.33.0'
+GAPIC_SHOWCASE_VERSION = '0.35.0'
 
 def generate_library_for_test imports, protos
   client_lib = Dir.mktmpdir
