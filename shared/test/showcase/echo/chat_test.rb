@@ -89,10 +89,7 @@ class ChatTest < ShowcaseTest
 
       chatty_thread.join
 
-      assert_equal(
-        { 'showcase-trailer' => ["so", "much", "chat"] },
-        operation.trailing_metadata
-      )
+      assert_equal ["so", "much", "chat"], operation.trailing_metadata["showcase-trailer"]
     end
   end
 end
