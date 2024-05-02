@@ -289,7 +289,7 @@ module Gapic
       OPTION_EXTENSION_NAMES = {
         "google.api.default_host" => [1049, :string],
         "google.api.oauth_scopes" => [1050, :string],
-        "google.api.api_version" => [525000001, :string]
+        "google.api.api_version" => [525_000_001, :string]
       }.freeze
 
       ##
