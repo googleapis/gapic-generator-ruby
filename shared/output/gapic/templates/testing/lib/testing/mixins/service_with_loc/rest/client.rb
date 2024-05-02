@@ -37,6 +37,9 @@ module Testing
         #
         class Client
           # @private
+          API_VERSION = ""
+
+          # @private
           DEFAULT_ENDPOINT_TEMPLATE = "servicewithloc.example.com"
 
           # @private
@@ -207,12 +210,13 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.call_method.metadata.to_h
 
-            # Set x-goog-api-client and x-goog-user-project headers
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
             call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
             options.apply_defaults timeout:      @config.rpcs.call_method.timeout,
