@@ -6,6 +6,9 @@ require "<%= service.lro_service.proto_service_require %>"
 # Service that implements Longrunning Operations API.
 class <%= service.operations_name %>
   # @private
+  API_VERSION = "<%= service.api_version %>".freeze
+
+  # @private
   DEFAULT_ENDPOINT_TEMPLATE = <%= service.client_endpoint_template.inspect %>
 
   # @private

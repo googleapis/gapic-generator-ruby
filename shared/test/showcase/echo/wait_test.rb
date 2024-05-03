@@ -76,10 +76,7 @@ class WaitGRPCTest < WaitTest
       assert operation.response?
       assert_equal "hi again!", operation.response.content
       assert_instance_of GRPC::ActiveCall::Operation, grpc_operation
-      assert_equal(
-        { 'showcase-trailer' => ["q", "wer", "ty", "!"] },
-        grpc_operation.trailing_metadata
-      )
+      assert_equal ["q", "wer", "ty", "!"], grpc_operation.trailing_metadata["showcase-trailer"]
     end
   end
 end

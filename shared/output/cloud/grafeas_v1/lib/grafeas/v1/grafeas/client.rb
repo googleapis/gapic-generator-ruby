@@ -42,6 +42,9 @@ module Grafeas
       #
       class Client
         # @private
+        API_VERSION = ""
+
+        # @private
         DEFAULT_ENDPOINT_TEMPLATE = nil
 
         include Paths
@@ -217,10 +220,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.get_occurrence.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -314,10 +318,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.list_occurrences.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -403,10 +408,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.delete_occurrence.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -491,10 +497,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.create_occurrence.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -579,10 +586,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.batch_create_occurrences.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -669,10 +677,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.update_occurrence.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -756,10 +765,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.get_occurrence_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -842,10 +852,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.get_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -939,10 +950,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.list_notes.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -1026,10 +1038,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.delete_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -1116,10 +1129,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.create_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -1204,10 +1218,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.batch_create_notes.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -1294,10 +1309,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.update_note.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
@@ -1392,10 +1408,11 @@ module Grafeas
           # Customize the options with defaults
           metadata = @config.rpcs.list_note_occurrences.metadata.to_h
 
-          # Set x-goog-api-client and x-goog-user-project headers
+          # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
           metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Grafeas::V1::VERSION
+          metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
