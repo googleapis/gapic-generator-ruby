@@ -383,7 +383,7 @@ module Gapic
 
       # @return [String] The api_version for this service, or empty if not defined.
       def api_version
-        @main_service.api_version.nil? ? "" : @main_service.api_version
+        @main_service.api_version.to_s
       end
 
       private

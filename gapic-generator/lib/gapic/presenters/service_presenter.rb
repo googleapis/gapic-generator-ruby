@@ -253,7 +253,7 @@ module Gapic
 
       # @return [String] The api_version for this service, or empty if not defined.
       def api_version
-        @service.api_version.nil? ? "" : @service.api_version
+        @service.api_version.to_s
       end
 
       def client_scopes
