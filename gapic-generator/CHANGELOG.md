@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.32.0 / 2024-05-13
+
+* Feature: Introduce google.api.api_version option to generated clients
+
 ### 0.31.0 / 2024-04-25
 
 * Feature: Remove api-common-protos dependency
