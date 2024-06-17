@@ -101,4 +101,15 @@ class PollingHarnessTest < Minitest::Test
       polling_harness.wait
     end
   end
+
+  def test_wait_with_timeout
+    retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 2, multiplier: 1, timeout: 3
+    polling_harness = Gapic::Common::PollingHarness.new retry_policy: retry_policy
+    wait_count = 0
+    polling_harness.wait do
+      wait_count += 1
+      nil
+    end
+    assert_equal 2, wait_count
+  end
 end
