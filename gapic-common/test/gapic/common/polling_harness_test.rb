@@ -26,7 +26,9 @@ class PollingHarnessTest < Minitest::Test
   def test_wait_perform_delay_once
     should_wait = true
     retry_policy_mock = Minitest::Mock.new
+    retry_policy_mock.expect :update_deadline!, nil, []
     retry_policy_mock.expect :perform_delay!, nil, []
+    retry_policy_mock.expect :retry_with_deadline?, true, []
     polling_harness = Gapic::Common::PollingHarness.new retry_policy: retry_policy_mock
 
     polling_harness.wait do
@@ -44,11 +46,13 @@ class PollingHarnessTest < Minitest::Test
   def test_wait_perform_delay_many
     perform_delay_total = 5
     retry_policy_mock = Minitest::Mock.new
+    retry_policy_mock.expect :update_deadline!, nil, []
     polling_harness = Gapic::Common::PollingHarness.new retry_policy: retry_policy_mock
 
     polling_harness.wait do
       if perform_delay_total.positive?
         retry_policy_mock.expect :perform_delay!, nil, []
+        retry_policy_mock.expect :retry_with_deadline?, true, []
         perform_delay_total -= 1
         nil
       else
