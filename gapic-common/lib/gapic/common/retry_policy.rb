@@ -110,6 +110,14 @@ module Gapic
       end
 
       ##
+      # Sets a deadline based on the current time.
+      #
+      # @return [Numeric] The deadline for timeout-based retry policies.
+      def update_deadline!
+        @deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
+      end
+
+      ##
       # @private
       # @return [Boolean] Whether this error should be retried.
       #
@@ -117,6 +125,12 @@ module Gapic
         (defined?(::GRPC) && error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
           (error.respond_to?(:response_status) &&
             retry_codes.include?(ErrorCodes.grpc_error_for(error.response_status)))
+      end
+
+      # @private
+      # @return [Boolean] Whether this policy should be retried based on the deadline.
+      def retry_with_deadline?
+        deadline > Process.clock_gettime(Process::CLOCK_MONOTONIC)
       end
 
       ##
@@ -153,7 +167,6 @@ module Gapic
         [initial_delay, max_delay, multiplier, retry_codes, timeout].hash
       end
 
-
       private
 
       # @private
@@ -169,15 +182,9 @@ module Gapic
       end
 
       # @private
-      # @return [Numeric] The deadline for timeout-based policies based policies.
+      # @return [Numeric] The deadline for timeout-based policies.
       def deadline
-        @deadline ||= Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
-      end
-
-      # @private
-      # @return [Boolean] Whether this policy should be retried based on the deadline.
-      def retry_with_deadline?
-        deadline > Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        @deadline ||= update_deadline!
       end
 
       # @private
