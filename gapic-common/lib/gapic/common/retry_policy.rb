@@ -130,7 +130,7 @@ module Gapic
       # @private
       # @return [Boolean] Whether this policy should be retried based on the deadline.
       def retry_with_deadline?
-        deadline > Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        deadline >= Process.clock_gettime(Process::CLOCK_MONOTONIC).floor
       end
 
       ##
@@ -184,7 +184,7 @@ module Gapic
       # @private
       # @return [Numeric] The deadline for timeout-based policies.
       def deadline
-        @deadline ||= update_deadline!
+        @deadline || update_deadline!
       end
 
       # @private

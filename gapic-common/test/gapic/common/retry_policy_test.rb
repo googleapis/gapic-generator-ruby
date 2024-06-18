@@ -65,4 +65,16 @@ class RetryPolicyTest < Minitest::Test
       assert_equal 123456799.0, retry_policy.send(:deadline)
     end
   end
+
+  def test_retry_policy_deadline_with_float
+    retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 1, multiplier: 1, timeout: 1 
+    
+    Process.stub :clock_gettime, 1000 do
+      retry_policy.update_deadline!
+    end
+
+    Process.stub :clock_gettime, 1001.582 do
+      assert retry_policy.retry_with_deadline?
+    end
+  end
 end

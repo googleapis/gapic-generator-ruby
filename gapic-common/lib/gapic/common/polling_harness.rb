@@ -46,6 +46,8 @@ module Gapic
       # The block will be re-attempted indefinitely as long as the retry condition
       # passes or while a timeout has not been reached.
       #
+      # A `nil` value is returned if the operation deadline has been reached.
+      #
       # @yieldreturn [Object, nil] Custom logic to be retriable.
       def wait
         unless block_given?
@@ -60,7 +62,7 @@ module Gapic
             raise unless retry_policy.retry_error? e
           end
           retry_policy.perform_delay!
-          return response unless retry_policy.retry_with_deadline?
+          return nil unless retry_policy.retry_with_deadline?
         end
       end
     end
