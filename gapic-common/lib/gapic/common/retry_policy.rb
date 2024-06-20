@@ -47,6 +47,7 @@ module Gapic
         @retry_codes = convert_codes retry_codes
         @timeout = timeout
         @delay = nil
+        @elapsed_time = 0
       end
 
       # @return [Numeric] Initial delay in seconds.
@@ -83,7 +84,7 @@ module Gapic
       # @return [Boolean] Whether the delay was executed.
       #
       def call error = nil
-        should_retry = error.nil? ? retry_with_deadline? : retry_error?(error)
+        should_retry = error.nil? ? retry_with_timeout? : retry_error?(error)
         return false unless should_retry
         perform_delay!
       end
@@ -96,6 +97,7 @@ module Gapic
       #
       def perform_delay!
         delay!
+        increment_elapsed_time!
         increment_delay!
         true
       end
@@ -110,11 +112,11 @@ module Gapic
       end
 
       ##
-      # Sets a deadline based on the current time.
+      # Re-initializes elapsed time to zero.
       #
-      # @return [Numeric] The deadline for timeout-based retry policies.
-      def update_deadline!
-        @deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
+      # @return [Numeric] The reset value for elapsed time.
+      def reset_elapsed_time!
+        @elapsed_time = 0
       end
 
       ##
@@ -128,9 +130,9 @@ module Gapic
       end
 
       # @private
-      # @return [Boolean] Whether this policy should be retried based on the deadline.
-      def retry_with_deadline?
-        deadline >= Process.clock_gettime(Process::CLOCK_MONOTONIC).floor
+      # @return [Boolean] Whether this policy should be retried based on timeout.
+      def retry_with_timeout?
+        @elapsed_time <= timeout
       end
 
       ##
@@ -150,6 +152,15 @@ module Gapic
 
         self
       end
+
+      # @private
+      # @raise [ArgumentError] if values for this retry policy configuration are not valid.
+      def validate_policy!
+        [initial_delay, max_delay, multiplier, timeout].each do |value|
+          raise ArgumentError unless value >= 0
+        end
+      end
+
 
       # @private Equality test
       def eql? other
@@ -182,9 +193,9 @@ module Gapic
       end
 
       # @private
-      # @return [Numeric] The deadline for timeout-based policies.
-      def deadline
-        @deadline || update_deadline!
+      # @return [Numeric] The new elapsed time value in seconds.
+      def increment_elapsed_time!
+        @elapsed_time += delay
       end
 
       # @private

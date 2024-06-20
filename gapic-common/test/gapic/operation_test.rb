@@ -412,7 +412,7 @@ describe Gapic::Operation do
       mock_client = MockLroClient.new get_method: get_method
       op = create_op GrpcOp.new(done: false), client: mock_client
 
-      sleep_counts = [10, 20, 40, 80]
+      sleep_counts = [10, 20, 40, 80, 160, 300]
       sleep_mock = Minitest::Mock.new
       sleep_counts.each do |sleep_count|
         sleep_mock.expect :sleep, nil, [sleep_count]
@@ -420,16 +420,9 @@ describe Gapic::Operation do
       sleep_proc = ->(count) { sleep_mock.sleep count }
 
       Kernel.stub :sleep, sleep_proc do
-        time_now = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-        incrementing_time = lambda do |_clock|
-          delay = sleep_counts.shift || 160
-          time_now += delay
-        end
-        Process.stub :clock_gettime, incrementing_time do
-          retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: 400 }
-          op.wait_until_done! retry_policy: retry_config
-          _(op).wont_be :done?
-        end
+        retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: 400 }
+        op.wait_until_done! retry_policy: retry_config
+        _(op).wont_be :done?
       end
 
       sleep_mock.verify
@@ -456,16 +449,9 @@ describe Gapic::Operation do
       sleep_proc = ->(count) { sleep_mock.sleep count }
 
       Kernel.stub :sleep, sleep_proc do
-        time_now = Time.now
-        incrementing_time = lambda do
-          delay = sleep_counts.shift || 300
-          time_now += delay
-        end
-        Time.stub :now, incrementing_time do
-          retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: (60 * 60) }
-          op.wait_until_done! retry_policy: retry_config
-          _(op).must_be :done?
-        end
+        retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: (60 * 60) }
+        op.wait_until_done! retry_policy: retry_config
+        _(op).must_be :done?
       end
 
       sleep_mock.verify

@@ -264,10 +264,7 @@ class GenericLROTest < Minitest::Test
     end
 
     Kernel.stub :sleep, sleep_proc do
-      time_now = Time.now
-      Time.stub :now, time_now do
-        op.wait_until_done!
-      end
+      op.wait_until_done!
     end
 
     sleep_mock.verify
@@ -319,7 +316,7 @@ class GenericLROTest < Minitest::Test
     mock_client = MockLroClient.new get_method: get_method
     op = create_op MockOperation.new(status: :NOTDONE, name: NAME), client: mock_client
 
-    sleep_counts = [10, 20, 40, 80]
+    sleep_counts = [10, 20, 40, 80, 160, 300]
     sleep_mock = Minitest::Mock.new
     sleep_counts.each do |sleep_count|
       sleep_mock.expect :sleep, nil, [sleep_count]
@@ -327,16 +324,9 @@ class GenericLROTest < Minitest::Test
     sleep_proc = ->(count) { sleep_mock.sleep count }
 
     Kernel.stub :sleep, sleep_proc do
-      time_now = Time.now
-      incrementing_time = lambda do |_clock|
-        delay = sleep_counts.shift || 160
-        time_now += delay
-      end
-      Process.stub :clock_gettime, incrementing_time do
-        retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: 400 }
-        op.wait_until_done! retry_policy: retry_config
-        refute op.done?
-      end
+      retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: 400 }
+      op.wait_until_done! retry_policy: retry_config
+      refute op.done?
     end
 
     sleep_mock.verify

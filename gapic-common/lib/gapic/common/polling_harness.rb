@@ -53,7 +53,8 @@ module Gapic
         unless block_given?
           raise ArgumentError, "No callback provided to wait method."
         end
-        retry_policy.update_deadline!
+        retry_policy.validate_policy!
+        retry_policy.reset_elapsed_time!
         loop do
           begin
             response = yield
@@ -62,7 +63,7 @@ module Gapic
             raise unless retry_policy.retry_error? e
           end
           retry_policy.perform_delay!
-          return nil unless retry_policy.retry_with_deadline?
+          return nil unless retry_policy.retry_with_timeout?
         end
       end
     end
