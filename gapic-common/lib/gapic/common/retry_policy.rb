@@ -161,7 +161,6 @@ module Gapic
         end
       end
 
-
       # @private Equality test
       def eql? other
         other.is_a?(RetryPolicy) &&
