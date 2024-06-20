@@ -43,15 +43,18 @@ module Gapic
       #
       # Errors are raised if not listed in `retry_codes`, and re-attempted otherwise.
       #
-      # The retry policy's `timeout` value is _NOT_ taken into consideration. The block
-      # will be re-attempted indefinitely as long as the retry conditions above
-      # passes.
+      # The block will be re-attempted indefinitely as long as the retry condition
+      # passes or while a timeout has not been reached.
+      #
+      # A `nil` value is returned if the operation deadline has been reached.
       #
       # @yieldreturn [Object, nil] Custom logic to be retriable.
       def wait
         unless block_given?
           raise ArgumentError, "No callback provided to wait method."
         end
+        retry_policy.validate_policy!
+        retry_policy.reset_elapsed_time!
         loop do
           begin
             response = yield
@@ -60,6 +63,7 @@ module Gapic
             raise unless retry_policy.retry_error? e
           end
           retry_policy.perform_delay!
+          return nil unless retry_policy.retry_with_timeout?
         end
       end
     end

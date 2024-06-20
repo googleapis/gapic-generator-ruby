@@ -26,6 +26,7 @@ class RetryPolicyTest < Minitest::Test
     assert_equal 1.7, retry_policy.multiplier
     assert_equal [GRPC::Core::StatusCodes::UNAVAILABLE], retry_policy.retry_codes
     assert_equal 600, retry_policy.timeout
+    assert_equal 0, retry_policy.instance_variable_get(:@elapsed_time)
   end
 
   def test_perform_delay_increment_delay
@@ -57,5 +58,12 @@ class RetryPolicyTest < Minitest::Test
     retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 10, max_delay: 12, multiplier: 1.5
     retry_policy.perform_delay!
     assert_equal 12, retry_policy.delay
+  end
+
+  def test_validate_policy
+    retry_policy = Gapic::Common::RetryPolicy.new initial_delay: 1, max_delay: 12, multiplier: -2
+    assert_raises ArgumentError do
+      retry_policy.validate_policy!
+    end
   end
 end
