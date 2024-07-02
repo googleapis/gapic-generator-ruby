@@ -143,7 +143,7 @@ module Gapic
         [segment, remainder]
       end
 
-      # Formats path pattern variables to snake case if non-conforming.
+      # Formats path pattern variables to snake case if nonconforming.
       # @private
       def self.format_pattern pattern
         pattern.gsub(/\{([a-z][a-zA-Z0-9]*)\}/) do |match|
