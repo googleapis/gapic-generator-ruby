@@ -53,11 +53,11 @@ class AnnotationResourceTest < AnnotationTest
 
     resource = message.option_named "resource"
     assert_kind_of Google::Api::ResourceDescriptor, resource
-    assert_equal ["projects/{project}/simple_garbage/{simple_garbage}"], resource.pattern
+    assert_equal ["projects/{project}/simpleGarbage/{simpleGarbage}"], resource.pattern
 
     assert_kind_of Gapic::Schema::Resource, message.resource
-    assert_equal ["projects/{project}/simple_garbage/{simple_garbage}"], message.resource.pattern
-    assert_equal ["projects/*/simple_garbage/*"], message.resource.parsed_patterns
+    assert_equal ["projects/{project}/simpleGarbage/{simpleGarbage}"], message.resource.pattern
+    assert_equal ["projects/*/simpleGarbage/*"], message.resource.parsed_patterns
     assert_equal ["projects/*"], message.resource.parsed_parent_patterns
     assert_equal message.resource, garbage.lookup_resource_type("endlesstrash.example.net/SimpleGarbage")
 
