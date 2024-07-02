@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.33.0 / 2024-07-02
+
+* Fix: Resolve BigDecimal warning
+* Feature: Format path pattern variables to snake case
+
 ### 0.32.0 / 2024-05-13
 
 * Feature: Introduce google.api.api_version option to generated clients
