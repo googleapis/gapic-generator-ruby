@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "gapic/path_pattern"
-require "active_support/inflector"
 
 module Gapic
   module Presenters
@@ -58,12 +57,10 @@ module Gapic
       #
       class PatternPresenter
         def initialize pattern_string
-          @pattern = pattern_string
           @parsed_pattern = Gapic::PathPattern.parse pattern_string
           @path_string = build_path_string
         end
 
-        attr_reader :pattern
         attr_reader :path_string
 
         def pattern_template
@@ -101,6 +98,10 @@ module Gapic
               segment.pattern
             end
           end.join "/"
+        end
+
+        def pattern
+          @parsed_pattern.path_pattern
         end
 
         private

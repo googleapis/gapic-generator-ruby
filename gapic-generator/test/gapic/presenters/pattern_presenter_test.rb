@@ -63,4 +63,12 @@ class PatternPresenterTest < PresenterTest
     assert_equal "hello/value0/world/value1~value2", presenter.expected_path_for_dummy_values
     assert_equal "hello/\#{foo}/world/\#{world_a}~\#{world_b}", presenter.path_string
   end
+
+  def test_snake_case_segment_pattern
+    pattern = "snakeCase/{snakeCase}/patternTest/{patternTest}"
+    presenter = Gapic::Presenters::ResourcePresenter::PatternPresenter.new pattern
+    assert_equal ["snake_case", "pattern_test"], presenter.arguments
+    assert_equal "snakeCase/{snake_case}/patternTest/{pattern_test}", presenter.pattern
+    assert_equal "snakeCase/\#{snake_case}/patternTest/\#{pattern_test}", presenter.path_string
+  end
 end

@@ -50,7 +50,7 @@ module So
           #
           # The resource will be in the following format:
           #
-          # `projects/{project}/simple_garbage/{simple_garbage}`
+          # `projects/{project}/simpleGarbage/{simple_garbage}`
           #
           # @param project [String]
           # @param simple_garbage [String]
@@ -59,7 +59,7 @@ module So
           def simple_garbage_path project:, simple_garbage:
             raise ::ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
-            "projects/#{project}/simple_garbage/#{simple_garbage}"
+            "projects/#{project}/simpleGarbage/#{simple_garbage}"
           end
 
           ##

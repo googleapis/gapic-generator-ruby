@@ -39,7 +39,7 @@ class GarbageServiceTest < PresenterTest
                  presenter.references.map(&:name).sort
     expected_patterns = [
       "projects/{project}",
-      "projects/{project}/simple_garbage/{simple_garbage}",
+      "projects/{project}/simpleGarbage/{simple_garbage}",
       "projects/{project}/specific_garbage/{specific_garbage}",
       "projects/{project}/typical_garbage_1/{typical_garbage_1}"
     ]

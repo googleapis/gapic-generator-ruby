@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "active_support/inflector"
 require "gapic/path_pattern/segment"
 require "gapic/path_pattern/pattern"
 
@@ -39,7 +40,7 @@ module Gapic
           segments << segment
         end
 
-        Pattern.new path_pattern, segments
+        Pattern.new format_pattern(path_pattern), segments
       end
 
       # @private
@@ -117,7 +118,7 @@ module Gapic
         match = simple_resource_id_regex.match url_pattern
         segment_pattern = match[:segment_pattern]
 
-        resource_name = match[:resource_name]
+        resource_name = ActiveSupport::Inflector.underscore match[:resource_name]
         resource_pattern = match[:resource_pattern] if match.names.include? "resource_pattern"
         resource_patterns = resource_pattern.nil? ? [] : [resource_pattern]
 
@@ -140,6 +141,14 @@ module Gapic
         segment = CollectionIdSegment.new collection_name
         remainder = match.post_match
         [segment, remainder]
+      end
+
+      # Formats path pattern variables to snake case if non-conforming.
+      # @private
+      def self.format_pattern pattern
+        pattern.gsub(/\{([a-z][a-zA-Z0-9]*)\}/) do |match|
+          ActiveSupport::Inflector.underscore match
+        end
       end
     end
   end
