@@ -258,7 +258,7 @@ message EmptyGarbage {}
 message SimpleGarbage {
   option (google.api.resource) = {
     type: "endlesstrash.example.net/SimpleGarbage"
-    pattern: "projects/{project}/simple_garbage/{simple_garbage}"
+    pattern: "projects/{project}/simpleGarbage/{simpleGarbage}"
   };
 
   // The name of this garbage.

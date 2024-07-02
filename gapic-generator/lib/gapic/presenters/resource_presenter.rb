@@ -103,6 +103,10 @@ module Gapic
           end.join "/"
         end
 
+        def formatted_pattern
+          @parsed_pattern.snake_case_pattern
+        end
+
         private
 
         def build_path_string

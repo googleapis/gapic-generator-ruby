@@ -61,7 +61,7 @@ class ::So::Much::Trash::GarbageService::ClientPathsTest < Minitest::Test
       end
 
       path = client.simple_garbage_path project: "value0", simple_garbage: "value1"
-      assert_equal "projects/value0/simple_garbage/value1", path
+      assert_equal "projects/value0/simpleGarbage/value1", path
     end
   end
 

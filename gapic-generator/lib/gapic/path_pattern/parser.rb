@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'active_support/inflector'
 require "gapic/path_pattern/segment"
 require "gapic/path_pattern/pattern"
 
@@ -121,7 +122,7 @@ module Gapic
         resource_pattern = match[:resource_pattern] if match.names.include? "resource_pattern"
         resource_patterns = resource_pattern.nil? ? [] : [resource_pattern]
 
-        segment = ResourceIdSegment.new :simple_resource_id, segment_pattern, [resource_name], resource_patterns
+        segment = ResourceIdSegment.new :simple_resource_id, segment_pattern, [ActiveSupport::Inflector.underscore(resource_name)], resource_patterns
         remainder = match.post_match
         [segment, remainder]
       end

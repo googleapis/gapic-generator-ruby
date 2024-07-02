@@ -139,6 +139,14 @@ module Gapic
       def simplified_pattern
         @segments.map(&:simplified_pattern).join("/")
       end
+
+      # The pattern string with resource names in snake case format.
+      # @return String
+      def snake_case_pattern
+        @path_pattern.gsub(/\{([^}]+)\}/) do |match|
+          ActiveSupport::Inflector.underscore match
+        end
+      end
     end
   end
 end
