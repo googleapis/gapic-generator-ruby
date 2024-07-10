@@ -1,5 +1,11 @@
 # Release History
 
+### 0.21.2 (2024-07-02)
+
+#### Bug Fixes
+
+* Start requiring ostruct in generated test helper files ([#1065](https://github.com/googleapis/gapic-generator-ruby/issues/1065)) 
+
 ### 0.21.1 (2023-12-14)
 
 #### Bug Fixes
