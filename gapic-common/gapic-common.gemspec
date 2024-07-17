@@ -33,13 +33,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.platform =      Gem::Platform::RUBY
 
-  spec.required_ruby_version = ">= 2.7"
+  spec.required_ruby_version = ">= 3.0"
 
   spec.add_dependency "faraday", ">= 1.9", "< 3.a"
   spec.add_dependency "faraday-retry", ">= 1.0", "< 3.a"
-  spec.add_dependency "googleapis-common-protos", ">= 1.4.0", "< 2.a"
-  spec.add_dependency "googleapis-common-protos-types", ">= 1.11.0", "< 2.a"
-  spec.add_dependency "googleauth", "~> 1.9"
-  spec.add_dependency "google-protobuf", "~> 3.18"
-  spec.add_dependency "grpc", "~> 1.59"
+  spec.add_dependency "googleapis-common-protos", "~> 1.6"
+  spec.add_dependency "googleapis-common-protos-types", "~> 1.15"
+  spec.add_dependency "googleauth", "~> 1.11"
+  spec.add_dependency "google-protobuf", ">= 3.25", "< 5.a"
+  spec.add_dependency "grpc", "~> 1.65"
 end
