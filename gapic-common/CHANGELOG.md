@@ -4,62 +4,8 @@
 
 #### Features
 
-* add a REST PUT method helper to Gapic::Rest ([#594](https://github.com/googleapis/gapic-generator-ruby/issues/594)) 
-* add a transport operation class in Rest ([#911](https://github.com/googleapis/gapic-generator-ruby/issues/911)) 
-* add alias for details field in Rest Error ([#928](https://github.com/googleapis/gapic-generator-ruby/issues/928)) 
-* Add CallOptions#merge and CallOptions equality checking ([#802](https://github.com/googleapis/gapic-generator-ruby/issues/802)) 
-* Add channel pooling for gapic clients ([#969](https://github.com/googleapis/gapic-generator-ruby/issues/969)) 
-* add full grpc transcoding to gapic-common ([#756](https://github.com/googleapis/gapic-generator-ruby/issues/756)) 
-* Add LRU hash ([#970](https://github.com/googleapis/gapic-generator-ruby/issues/970)) 
-* add REST support and usher in a 0.4.0 release ([#558](https://github.com/googleapis/gapic-generator-ruby/issues/558)) 
-* add support for different types of credentials to REST 
-* add support for nonstandard LRO to gapic-common ([#696](https://github.com/googleapis/gapic-generator-ruby/issues/696)) 
-* classic (AIP-151) LROs in REST ([#770](https://github.com/googleapis/gapic-generator-ruby/issues/770)) 
-* Support for protobuf 4.x ([#1085](https://github.com/googleapis/gapic-generator-ruby/issues/1085)) 
-* custom regapic exception wrapping ([#866](https://github.com/googleapis/gapic-generator-ruby/issues/866)) 
-* gapic-common 0.5.0 allows sending separate transport headers ([#605](https://github.com/googleapis/gapic-generator-ruby/issues/605)) 
-* Compatibility with protobuf v23 generated map fields ([#948](https://github.com/googleapis/gapic-generator-ruby/issues/948)) 
-* Drop support for Ruby 2.6 ([#1009](https://github.com/googleapis/gapic-generator-ruby/issues/1009)) 
-* Honor universe domain in stubs ([#1008](https://github.com/googleapis/gapic-generator-ruby/issues/1008)) 
-* Require at least Ruby 2.6 
-* Require googleauth 0.17 for proper support of JWT creds with scopes ([#647](https://github.com/googleapis/gapic-generator-ruby/issues/647)) 
-* Support faraday 2.0 
-* Support numeric_enums in the ClientStub ([#817](https://github.com/googleapis/gapic-generator-ruby/issues/817)) 
-* grpc transcoding with `additional_bindings` ([#795](https://github.com/googleapis/gapic-generator-ruby/issues/795)) 
-* implement sever-side stream changes to gapic-common ([#826](https://github.com/googleapis/gapic-generator-ruby/issues/826)) 
-* parse details information from REST errors  ([#815](https://github.com/googleapis/gapic-generator-ruby/issues/815)) 
-* retry policy works with REST 
-* rewrap certain grpc errors ([#810](https://github.com/googleapis/gapic-generator-ruby/issues/810)) 
-* send protobuf version in headers ([#816](https://github.com/googleapis/gapic-generator-ruby/issues/816)) 
-* Update minimum Ruby version to 2.5 
-#### Bug Fixes
-
-* add new class to the rest imports ([#913](https://github.com/googleapis/gapic-generator-ruby/issues/913)) 
-* clean up and update gem dependencies ([#1005](https://github.com/googleapis/gapic-generator-ruby/issues/1005)) 
-* Rerelease with fixed file permissions ([#600](https://github.com/googleapis/gapic-generator-ruby/issues/600)) 
-* date in the changelog ([#710](https://github.com/googleapis/gapic-generator-ruby/issues/710)) 
-* deadlock fix ([#845](https://github.com/googleapis/gapic-generator-ruby/issues/845)) 
-* error code of 0 is not an error, body template field can be nil ([#805](https://github.com/googleapis/gapic-generator-ruby/issues/805)) 
-* Fix retries by ensuring string error names get converted to their integer codes 
-* Alias PagedEnumerable#next_page to PagedEnumerable#next_page! 
-* Expand googleauth dependency to include 1.x ([#591](https://github.com/googleapis/gapic-generator-ruby/issues/591)) 
-* Fix a crash when resetting a config field to nil when it has a parent but no default 
-* Fix precision issues in protobuf timestamp conversion 
-* Fix some Ruby 3.0 keyword argument usage errors 
-* Fixed handling of optional fields in coerce ([#954](https://github.com/googleapis/gapic-generator-ruby/issues/954)) 
-* Fixed uninitialized constant when checking retry policy for a REST call ([#857](https://github.com/googleapis/gapic-generator-ruby/issues/857)) 
-* add missing module import for universe_domain_concerns ([#1016](https://github.com/googleapis/gapic-generator-ruby/issues/1016)) 
-* PR commits 
-* provide a default value for the  param in the post method ([#575](https://github.com/googleapis/gapic-generator-ruby/issues/575)) 
-* rename service_config to grpc_serivce_config ([#681](https://github.com/googleapis/gapic-generator-ruby/issues/681)) 
-* revert migration of AIP lros to generic until properly tested ([#709](https://github.com/googleapis/gapic-generator-ruby/issues/709)) 
-* small fixes for combined libraries and testing ([#762](https://github.com/googleapis/gapic-generator-ruby/issues/762)) 
-* Start requiring ostruct in generated test helper files ([#1065](https://github.com/googleapis/gapic-generator-ruby/issues/1065)) 
-* Support symbol credentials as a special case for grpc ([#505](https://github.com/googleapis/gapic-generator-ruby/issues/505)) 
-* Workaround for grpc windows issue during tests ([#987](https://github.com/googleapis/gapic-generator-ruby/issues/987)) 
-#### Documentation
-
-* Minor fixes to YARD documentation links and parameters ([#959](https://github.com/googleapis/gapic-generator-ruby/issues/959)) 
+* Support for google-protobuf 4.x
+* Requires at least Ruby 3.0
 
 ### 0.21.2 (2024-07-02)
 
