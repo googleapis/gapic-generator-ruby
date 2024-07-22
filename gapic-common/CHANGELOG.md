@@ -1,5 +1,12 @@
 # Release History
 
+### 0.22.0 (2024-07-17)
+
+#### Features
+
+* Support for google-protobuf 4.x
+* Requires at least Ruby 3.0
+
 ### 0.21.2 (2024-07-02)
 
 #### Bug Fixes
