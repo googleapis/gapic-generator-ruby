@@ -2,7 +2,11 @@
 
 <%= gem.summary %>
 
-<%= gem.description %>
+<%- if gem.summary != gem.description %>
+<% gem.readme_description.each do |line| %>
+<%= line %>
+<% end %>
+<%- end %>
 
 Actual client classes for the various versions of this API are defined in
 _versioned_ client gems, with names of the form `<%= gem.name %>-v*`.
@@ -46,7 +50,7 @@ In order to use this library, you first need to go through the following steps:
 <%- if gem.api_id -%>
 1. [Enable the API.](https://console.cloud.google.com/apis/library/<%= gem.api_id %>)
 <%- end -%>
-1. {file:AUTHENTICATION.md Set up authentication.}
+1. [Set up authentication.](AUTHENTICATION.md)
 
 <%- end -%>
 <%- if gem.migration? %>

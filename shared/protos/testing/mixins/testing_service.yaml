@@ -1,4 +1,9 @@
 type: google.api.Service
+documentation:
+  summary: |-
+    Typical Garbage Service.  
+  overview: |-
+    Typical Garbage Service.
 config_version: 3
 
 apis:

@@ -135,7 +135,8 @@ def gem_defaults
         "../shared/samples/garbage/*.yaml",
         "../shared/samples/garbage/test/*.yaml",
         "../shared/samples/garbage/inline/*.yaml"
-      ])
+      ]),
+      service_yaml: "../shared/samples/garbage/inline/typical.yaml"
     },
     noservice: {
       protos: [
