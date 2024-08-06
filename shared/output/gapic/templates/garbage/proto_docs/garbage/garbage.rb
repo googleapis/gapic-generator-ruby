@@ -203,6 +203,9 @@ module So
       #     This is a multiple-field oneof's double field.
       # @!attribute [rw] optional_int32
       #   @return [::Integer]
+      # @!attribute [rw] case
+      #   @return [::String]
+      #     This field tests for collisions against Ruby reserved keywords.
       class TypicalGarbage
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

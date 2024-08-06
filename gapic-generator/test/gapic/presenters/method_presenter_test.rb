@@ -37,7 +37,7 @@ class MethodPresenterTest < PresenterTest
   def test_garbage_GetTypical
     presenter = method_presenter :garbage, "GarbageService", "GetTypicalGarbage"
 
-    non_oneof_fields = 14
+    non_oneof_fields = 15
     oneof_fields = 8
     oneof_groups = 4
 
