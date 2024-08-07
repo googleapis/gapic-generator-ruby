@@ -71,4 +71,12 @@ class PatternPresenterTest < PresenterTest
     assert_equal "snakeCase/{snake_case}/patternTest/{pattern_test}", presenter.pattern
     assert_equal "snakeCase/\#{snake_case}/patternTest/\#{pattern_test}", presenter.path_string
   end
+
+  def test_reserved_keyword_segment_pattern
+    pattern = "modules/{module}/cases/{case}"
+    presenter = Gapic::Presenters::ResourcePresenter::PatternPresenter.new pattern
+    assert_equal ["module_param", "case_param"], presenter.arguments
+    assert_equal "modules/{module_param}/cases/{case_param}", presenter.pattern
+    assert_equal "modules/\#{module_param}/cases/\#{case_param}", presenter.path_string
+  end
 end

@@ -135,6 +135,7 @@ message ResourceNamePatternRequest {
     type: "resourcenames.example.com/ResourceNamePatternRequest"
     pattern: "customers/{customer}/path/{path=**}"
     pattern: "patternrequests/{request}"
+    pattern: "customers/{customer}/cases/{case}"
   };
 
   string name = 1;
