@@ -44,6 +44,14 @@ module Gapic
         @field.name
       end
 
+      ##
+      # @return [String] The field name to be used as a value without reserved keywords.
+      #
+      def value_name
+        name = @field.name
+        Gapic::RubyInfo.keywords.include?(name) ? "#{name}_param" : name
+      end
+
       def doc_types
         field_doc_types @field, false
       end
@@ -75,7 +83,7 @@ module Gapic
       end
 
       def as_kwarg value: nil
-        "#{name}: #{value || name}"
+        "#{name}: #{value || value_name}"
       end
 
       # TODO: remove, only used in tests

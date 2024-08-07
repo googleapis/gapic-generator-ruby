@@ -10,7 +10,7 @@ def test_<%= method.name %>
 
   # Create request parameters for a client streaming method.
   <%- fields.each do |field| -%>
-  <%= field.name %> = <%= field.default_value %>
+  <%= field.value_name %> = <%= field.default_value %>
   <%- end -%>
 
   <%= method.name %>_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
