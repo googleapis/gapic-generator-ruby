@@ -22,7 +22,7 @@ class EnumTest < AnnotationTest
     message = garbage.messages.find { |s| s.name == "TypicalGarbage" }
     refute_nil message
 
-    assert_equal 22, message.fields.count
+    assert_equal 23, message.fields.count
 
     assert_equal "enum", message.fields[12].name
     assert_equal :TYPE_ENUM, message.fields[12].type

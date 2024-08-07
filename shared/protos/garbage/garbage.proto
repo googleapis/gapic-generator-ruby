@@ -336,6 +336,9 @@ message TypicalGarbage {
   }
 
   optional int32 optional_int32 = 22;
+
+  // This field tests for collisions against Ruby reserved keywords.
+  string case = 23;
 }
 
 // This is one specific garbage, man.
