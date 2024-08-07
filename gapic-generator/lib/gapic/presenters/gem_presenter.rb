@@ -125,6 +125,12 @@ module Gapic
         description.gsub(/\s+/, " ").strip
       end
 
+      ##
+      # Generates a description text for README files, accounting for markdown
+      # rendering and properly escaping variables.
+      #
+      # @return [Array<String>] The description text as an array of lines.
+      #
       def readme_description
         has_markdown = description.strip.start_with? "#"
         desc = has_markdown ? description.split("\n") : [description.gsub(/\s+/, " ").strip]

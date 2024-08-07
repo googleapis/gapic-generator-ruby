@@ -70,8 +70,8 @@ module Gapic
       end
 
       ##
-      # Overrides the gemspec description including a note that users should
-      # consider installing the wrapper instead of this versioned gem.
+      # Increments the original gemspec description for versioned gems, including a
+      # note that users should consider installing the wrapper gem instead.
       #
       # @return [String]
       #
