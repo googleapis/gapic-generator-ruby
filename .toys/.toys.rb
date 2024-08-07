@@ -22,7 +22,7 @@ mixin "repo_info" do
   # directory name to the block.
   #
   def in_directories_with_bundles generator_only: false, include_toys: false
-    non_generator_directories = ["gapic", "gapic-common"]
+    non_generator_directories = ["gapic-common"]
     Dir.chdir context_directory do
       gemfiles = Dir.glob "*/Gemfile"
       gemfiles += Dir.glob ".toys/**/Gemfile" if include_toys && !generator_only

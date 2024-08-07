@@ -11,10 +11,6 @@
   "tag-separator": "/",
   "sequential-calls": true,
   "packages": {
-    "gapic": {
-      "component": "gapic",
-      "version-file": "lib/gapic/version.rb"
-    },
     "gapic-common": {
       "component": "gapic-common",
       "version-file": "lib/gapic/common/version.rb"
