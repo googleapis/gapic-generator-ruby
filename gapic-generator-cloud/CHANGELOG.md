@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.34.0 / 2024-08-07
+
+* Includes changes from gapic-generator 0.34.0
+* Feature: Refactor README.md and gemspec files
+
 ### 0.33.0 / 2024-07-02
 
 * Includes changes from gapic-generator 0.33.0
