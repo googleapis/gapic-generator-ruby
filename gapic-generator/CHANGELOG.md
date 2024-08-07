@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.34.0 / 2024-08-07
+
+* Feature: Resolve keyword conflicts with path pattern variable names
+* Feature: Prevent keyword collision with field names as values
+* Feature: Refactor README.md and gemspec files
+
 ### 0.33.0 / 2024-07-02
 
 * Fix: Resolve BigDecimal warning
