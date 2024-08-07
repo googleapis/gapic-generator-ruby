@@ -1,8 +1,7 @@
 # Ruby Client for the Testing API
 
-API Client library for the Testing API
+Typical Garbage Service.
 
-testing is the official client library for the Testing API.
 
 https://github.com/googleapis/googleapis
 

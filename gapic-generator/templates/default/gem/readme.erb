@@ -2,7 +2,11 @@
 
 <%= gem.summary %>
 
-<%= gem.description %>
+<%- if gem.summary != gem.description %>
+<% gem.readme_description.each do |line| %>
+<%= line %>
+<% end %>
+<%- end %>
 
 <%= gem.homepage %>
 

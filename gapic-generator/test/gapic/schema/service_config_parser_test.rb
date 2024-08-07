@@ -113,7 +113,7 @@ class ServiceConfigParserTest < Minitest::Test
     expected_title = "My Test"
     expected_organization = "CLOUD"
     expected_summary = "This is the summary for My Test API."
-    expected_description = "This is the description for My Test API."
+    expected_description = "This is the description\nfor My Test API."
     expected_doctag = "testapitag"
 
     yaml = <<~YAML
