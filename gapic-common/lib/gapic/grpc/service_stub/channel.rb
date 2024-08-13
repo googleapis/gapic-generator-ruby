@@ -32,12 +32,13 @@ module Gapic
       # Creates a new Channel instance
       #
       def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil,
-                     on_channel_create: nil
+                     on_channel_create: nil, stub_logger: nil
         @grpc_stub_class = grpc_stub_class
         @endpoint = endpoint
         @credentials = credentials
         @channel_args = Hash channel_args
         @interceptors = Array interceptors
+        @stub_logger = stub_logger
         @concurrent_streams = 0
         @mutex = Mutex.new
         setup_grpc_stub
@@ -88,7 +89,8 @@ module Gapic
       def call_rpc method_name, request, options: nil, &block
         @mutex.synchronize { @concurrent_streams += 1 }
         begin
-          rpc_call = RpcCall.new @grpc_stub.method method_name
+          meth = @grpc_stub.method method_name
+          rpc_call = RpcCall.new meth, stub_logger: @stub_logger, method_name: method_name
           response = rpc_call.call request, options: options, &block
           response
         ensure
