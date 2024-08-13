@@ -17,6 +17,7 @@ require "googleauth"
 require "gapic/grpc/service_stub/rpc_call"
 require "gapic/grpc/service_stub/channel"
 require "gapic/grpc/service_stub/channel_pool"
+require "gapic/logging_concerns"
 require "gapic/universe_domain_concerns"
 
 module Gapic
@@ -32,6 +33,7 @@ module Gapic
   #
   class ServiceStub
     include UniverseDomainConcerns
+    include LoggingConcerns
 
     attr_reader :grpc_stub
     attr_reader :channel_pool
@@ -64,6 +66,9 @@ module Gapic
     #   be used for intercepting calls before they are executed Interceptors are an EXPERIMENTAL API.
     # @param channel_pool_config [::Gapic::ServiceStub:ChannelPool::Configuration] The configuration for channel
     #     pool. This argument will raise error when `credentials` is provided as a `::GRPC::Core::Channel`.
+    # @param logger [Logger,:default,nil] An explicit logger to use, or one
+    #   of the values `:default` (the default) to construct a default logger,
+    #   or `nil` to disable logging explicitly.
     #
     def initialize grpc_stub_class,
                    credentials:,
@@ -72,13 +77,19 @@ module Gapic
                    universe_domain: nil,
                    channel_args: nil,
                    interceptors: nil,
-                   channel_pool_config: nil
+                   channel_pool_config: nil,
+                   logger: :default
       raise ArgumentError, "grpc_stub_class is required" if grpc_stub_class.nil?
 
       setup_universe_domain universe_domain: universe_domain,
                             endpoint: endpoint,
                             endpoint_template: endpoint_template,
                             credentials: credentials
+      setup_logging logger: logger,
+                    system_name: grpc_stub_class,
+                    service: grpc_stub_class,
+                    endpoint: self.endpoint,
+                    client_id: object_id
 
       @channel_pool = nil
       @grpc_stub = nil
@@ -102,7 +113,7 @@ module Gapic
       end
       @channel_pool = ChannelPool.new grpc_stub_class, endpoint: endpoint, credentials: credentials,
                         channel_args: channel_args, interceptors: interceptors,
-                        config: channel_pool_config
+                        config: channel_pool_config, stub_logger: stub_logger
     end
 
     def create_grpc_stub grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil
@@ -201,7 +212,8 @@ module Gapic
     #
     def call_rpc method_name, request, options: nil, &block
       if @channel_pool.nil?
-        rpc_call = RpcCall.new @grpc_stub.method method_name
+        meth = @grpc_stub.method method_name
+        rpc_call = RpcCall.new meth, stub_logger: stub_logger, method_name: method_name
         rpc_call.call request, options: options, &block
       else
         @channel_pool.call_rpc method_name, request, options: options, &block
