@@ -27,7 +27,8 @@ class ClientStubRetryRetryTest < ClientStubTestBase
     inner_responses = Array.new 4 do
       FakeFaradayError.new(GRPC::Core::StatusCodes::UNAVAILABLE)
     end
-    inner_responses += [1729]
+    final_response = Struct.new(:body).new
+    inner_responses += [final_response]
 
     call_count = 0
     make_request_proc = lambda do |args|
@@ -63,7 +64,7 @@ class ClientStubRetryRetryTest < ClientStubTestBase
     Kernel.stub :sleep, sleep_proc do
       ::Process.stub :clock_gettime, time_proc do
         client_stub.stub :base_make_http_request, make_request_proc do
-          assert_equal 1729, client_stub.make_get_request(uri: "/foo", options: options)
+          assert_equal final_response, client_stub.make_get_request(uri: "/foo", options: options)
         end
       end
     end
@@ -83,7 +84,8 @@ class ClientStubRetryRetryTest < ClientStubTestBase
     inner_responses = Array.new 4 do
       FakeFaradayError.new(GRPC::Core::StatusCodes::UNAVAILABLE)
     end
-    inner_responses += [1729]
+    final_response = Struct.new(:body).new
+    inner_responses += [final_response]
 
     call_count = 0
     make_request_proc = lambda do |args|
@@ -118,7 +120,7 @@ class ClientStubRetryRetryTest < ClientStubTestBase
 
     Kernel.stub :sleep, sleep_proc do
       client_stub.stub :base_make_http_request, make_request_proc do
-        assert_equal 1729, client_stub.make_get_request(uri: "/foo", options: options)
+        assert_equal final_response, client_stub.make_get_request(uri: "/foo", options: options)
       end
     end
 
