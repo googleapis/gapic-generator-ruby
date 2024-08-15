@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.35.0 / 2024-08-15
+
+* Feature: Disable xrefs for README files in wrapper gems
+
 ### 0.34.1 / 2024-08-08
 
 No significant changes
