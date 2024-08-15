@@ -142,4 +142,13 @@ class WrapperGemPresenterTest < PresenterTest
     presenter_param = Gapic::Presenters::WrapperGemPresenter.new api_param
     refute_includes presenter_param.services.map { |s| s.address.join "." }, "google.cloud.location.Locations"
   end
+
+  def test_gem_readme_disabled_xrefs
+    complex_version_param = {
+      ":gem.:description" => "Typical Garbage Service using [MixIns][testing.mixins.ServiceWithLoc]"
+    }
+    api_param = api :testing, params_override: complex_version_param
+    presenter_param = Gapic::Presenters::WrapperGemPresenter.new api_param
+    assert_equal ["Typical Garbage Service using MixIns"], presenter_param.readme_description
+  end
 end
