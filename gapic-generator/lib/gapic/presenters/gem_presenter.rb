@@ -134,7 +134,7 @@ module Gapic
       def readme_description
         has_markdown = description.strip.start_with? "#"
         desc = has_markdown ? description.split("\n") : [description.gsub(/\s+/, " ").strip]
-        Gapic::FormattingUtils.format_doc_lines @api, desc
+        Gapic::FormattingUtils.format_doc_lines @api, desc, disable_xrefs: true
       end
 
       def summary
