@@ -210,7 +210,13 @@ module Gapic
       # Path string for this segment
       # @return [String]
       def path_string
-        type == :simple_resource_id ? "\#{#{resource_names[0]}}" : pattern.gsub("{", "\#{")
+        if type == :simple_resource_id
+          name = resource_names[0]
+          name = "binding.local_variable_get :#{name}" if Gapic::RubyInfo.keywords.include? name
+          "\#{#{name}}"
+        else
+          pattern.gsub "{", "\#{"
+        end
       end
 
       ##
