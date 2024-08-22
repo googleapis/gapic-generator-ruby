@@ -120,7 +120,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
       path = client.resource_name_pattern_request_path request: "value0"
       assert_equal "patternrequests/value0", path
 
-      path = client.resource_name_pattern_request_path customer: "value0", case_param: "value1"
+      path = client.resource_name_pattern_request_path customer: "value0", case: "value1"
       assert_equal "customers/value0/cases/value1", path
     end
   end

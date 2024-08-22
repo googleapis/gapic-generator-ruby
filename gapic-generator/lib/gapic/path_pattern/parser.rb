@@ -118,7 +118,7 @@ module Gapic
         match = simple_resource_id_regex.match url_pattern
         segment_pattern = match[:segment_pattern]
 
-        resource_name = format_variable match[:resource_name]
+        resource_name = ActiveSupport::Inflector.underscore match[:resource_name]
         resource_pattern = match[:resource_pattern] if match.names.include? "resource_pattern"
         resource_patterns = resource_pattern.nil? ? [] : [resource_pattern]
 
@@ -147,17 +147,8 @@ module Gapic
       # @private
       def self.format_pattern pattern
         pattern.gsub(/\{([a-zA-Z0-9_]+)\}/) do
-          "{#{format_variable(::Regexp.last_match(1))}}"
+          "{#{ActiveSupport::Inflector.underscore ::Regexp.last_match(1)}}"
         end
-      end
-
-      # Formats path pattern variables to snake case and resolves
-      # naming conflicts with reserved keywords.
-      # @private
-      def self.format_variable name
-        name = ActiveSupport::Inflector.underscore name
-        name = "#{name}_param" if Gapic::RubyInfo.keywords.include? name
-        name
       end
     end
   end

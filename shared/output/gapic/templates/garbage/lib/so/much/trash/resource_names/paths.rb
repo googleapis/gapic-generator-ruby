@@ -186,13 +186,13 @@ module So
           #
           #   @param request [String]
           #
-          # @overload resource_name_pattern_request_path(customer:, case_param:)
+          # @overload resource_name_pattern_request_path(customer:, case:)
           #   The resource will be in the following format:
           #
-          #   `customers/{customer}/cases/{case_param}`
+          #   `customers/{customer}/cases/{case}`
           #
           #   @param customer [String]
-          #   @param case_param [String]
+          #   @param case [String]
           #
           # @return [::String]
           def resource_name_pattern_request_path **args
@@ -205,10 +205,10 @@ module So
               "request" => (proc do |request:|
                 "patternrequests/#{request}"
               end),
-              "case_param:customer" => (proc do |customer:, case_param:|
+              "case:customer" => (proc do |customer:, case:|
                 raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
 
-                "customers/#{customer}/cases/#{case_param}"
+                "customers/#{customer}/cases/#{binding.local_variable_get :case}"
               end)
             }
 
