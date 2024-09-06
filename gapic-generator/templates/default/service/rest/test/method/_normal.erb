@@ -13,7 +13,7 @@ def test_<%= method.name %>
   <%= field.value_name %> = <%= field.default_value %>
   <%- end -%>
 
-  <%= method.name %>_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+  <%= method.name %>_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
     assert options.metadata.key? :"x-goog-api-client"
     assert options.metadata[:"x-goog-api-client"].include? "rest"
     refute options.metadata[:"x-goog-api-client"].include? "grpc"
