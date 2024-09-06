@@ -39,6 +39,10 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientPathsTest < Minitest::
     def universe_domain
       "example.com"
     end
+
+    def stub_logger
+      nil
+    end
   end
 
   def test_sequence_path
