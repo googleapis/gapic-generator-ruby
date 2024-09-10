@@ -204,9 +204,26 @@ module Google
     # @!attribute [rw] common
     #   @return [::Google::Api::CommonLanguageSettings]
     #     Some settings.
+    # @!attribute [rw] experimental_features
+    #   @return [::Google::Api::PythonSettings::ExperimentalFeatures]
+    #     Experimental features to be included during client library generation.
     class PythonSettings
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods
+
+      # Experimental features to be included during client library generation.
+      # These fields will be deprecated once the feature graduates and is enabled
+      # by default.
+      # @!attribute [rw] rest_async_io_enabled
+      #   @return [::Boolean]
+      #     Enables generation of asynchronous REST clients if `rest` transport is
+      #     enabled. By default, asynchronous REST clients will not be generated.
+      #     This feature will be enabled by default 1 month after launching the
+      #     feature in preview packages.
+      class ExperimentalFeatures
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
     end
 
     # Settings for Node client libraries.
@@ -298,6 +315,13 @@ module Google
     #   @return [::String]
     #     The fully qualified name of the method, for which the options below apply.
     #     This is used to find the method to apply the options.
+    #
+    #     Example:
+    #
+    #        publishing:
+    #          method_settings:
+    #          - selector: google.storage.control.v2.StorageControl.CreateFolder
+    #            # method settings for CreateFolder...
     # @!attribute [rw] long_running
     #   @return [::Google::Api::MethodSettings::LongRunning]
     #     Describes settings to use for long-running operations when generating
@@ -306,17 +330,14 @@ module Google
     #
     #     Example of a YAML configuration::
     #
-    #      publishing:
-    #        method_settings:
+    #        publishing:
+    #          method_settings:
     #          - selector: google.cloud.speech.v2.Speech.BatchRecognize
     #            long_running:
-    #              initial_poll_delay:
-    #                seconds: 60 # 1 minute
+    #              initial_poll_delay: 60s # 1 minute
     #              poll_delay_multiplier: 1.5
-    #              max_poll_delay:
-    #                seconds: 360 # 6 minutes
-    #              total_poll_timeout:
-    #                 seconds: 54000 # 90 minutes
+    #              max_poll_delay: 360s # 6 minutes
+    #              total_poll_timeout: 54000s # 90 minutes
     # @!attribute [rw] auto_populated_fields
     #   @return [::Array<::String>]
     #     List of top-level fields of the request message, that should be
@@ -325,8 +346,8 @@ module Google
     #
     #     Example of a YAML configuration:
     #
-    #      publishing:
-    #        method_settings:
+    #        publishing:
+    #          method_settings:
     #          - selector: google.example.v1.ExampleService.CreateExample
     #            auto_populated_fields:
     #            - request_id
