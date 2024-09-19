@@ -44,6 +44,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "bigdecimal", "~> 3.0"
   spec.add_dependency "googleapis-common-protos-types", "~> 1.8"
   spec.add_dependency "google-cloud-common", "~> 1.2"
-  spec.add_dependency "google-protobuf", "~> 3.25", ">= 3.25.1"
+  spec.add_dependency "google-protobuf", ">= 3.25.1", "< 5.0"
   spec.add_dependency "google-style", "~> 1.27.0"
 end
