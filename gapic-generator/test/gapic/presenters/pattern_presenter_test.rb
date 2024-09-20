@@ -76,7 +76,7 @@ class PatternPresenterTest < PresenterTest
     pattern = "modules/{module}/cases/{case}"
     presenter = Gapic::Presenters::ResourcePresenter::PatternPresenter.new pattern
     assert_equal ["module", "case"], presenter.arguments
-    assert_equal ["binding.local_variable_get :module", "binding.local_variable_get :case"], presenter.arguments.map { |arg| presenter.escape_argument arg }
+    assert_equal ["binding.local_variable_get(:module)", "binding.local_variable_get(:case)"], presenter.arguments.map { |arg| presenter.escape_argument arg }
     assert_equal "modules/{module}/cases/{case}", presenter.pattern
     assert_equal "modules/\#{binding.local_variable_get :module}/cases/\#{binding.local_variable_get :case}", presenter.path_string
   end
