@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.36.1 / 2024-09-20
+
+* Fix: Add missing local binding in resource path methods
+
 ### 0.36.0 / 2024-08-22
 
 * Feature: Support local binding for variables with keyword collision
