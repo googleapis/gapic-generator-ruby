@@ -25,6 +25,7 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
 
     make_request_proc = lambda do |args|
       call_count += 1
+      nil
     end
 
     options = Gapic::CallOptions.new(
