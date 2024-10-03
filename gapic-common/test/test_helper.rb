@@ -21,6 +21,7 @@ require "pp"
 require "grpc"
 require "gapic/common"
 require "gapic/rest"
+require "google/cloud/env"
 require "google/protobuf/any_pb"
 require "ostruct"
 require_relative "./fixtures/fixture_pb"
@@ -109,4 +110,26 @@ class ClientStubTestBase < Minitest::Test
                                   numeric_enums: numeric_enums,
                                   raise_faraday_errors: raise_faraday_errors
   end
+end
+
+def spoof_logging_env enabled: nil, rubygems: nil, level: nil, cloud_run: false
+  old_enabled = ENV["GOOGLE_SDK_DEBUG_LOGGING"]
+  old_rubygems = ENV["GOOGLE_SDK_DEBUG_LOGGING_RUBYGEMS"]
+  old_level = ENV["GOOGLE_SDK_DEBUG_LOGGING_RUBY_LEVEL"]
+  ENV["GOOGLE_SDK_DEBUG_LOGGING"] = enabled
+  ENV["GOOGLE_SDK_DEBUG_LOGGING_RUBYGEMS"] = rubygems
+  ENV["GOOGLE_SDK_DEBUG_LOGGING_RUBY_LEVEL"] = level
+  if cloud_run
+    Google::Cloud.env.compute_smbios.with_override_product_name "Fake Google" do
+      Google::Cloud.env.variables.with_backing_data({ "K_SERVICE" => "123" }) do
+        yield
+      end
+    end
+  else
+    yield
+  end
+ensure
+  ENV["GOOGLE_SDK_DEBUG_LOGGING"] = old_enabled
+  ENV["GOOGLE_SDK_DEBUG_LOGGING_RUBYGEMS"] = old_rubygems
+  ENV["GOOGLE_SDK_DEBUG_LOGGING_RUBY_LEVEL"] = old_level
 end

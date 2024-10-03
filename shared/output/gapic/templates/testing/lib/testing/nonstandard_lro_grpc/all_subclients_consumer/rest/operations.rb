@@ -211,7 +211,7 @@ module Testing
               result = ::Gapic::Rest::PagedEnumerable.new @operations_stub, :list_operations, "operations", request,
                                                           result, options
               yield result, operation if block_given?
-              return result
+              throw :response, result
             end
           rescue ::Faraday::Error => e
             raise ::Gapic::Rest::Error.wrap_faraday_error e
@@ -300,7 +300,7 @@ module Testing
             @operations_stub.get_operation request, options do |result, operation|
               result = ::Gapic::Operation.new result, @operations_client, options: options
               yield result, operation if block_given?
-              return result
+              throw :response, result
             end
           rescue ::Faraday::Error => e
             raise ::Gapic::Rest::Error.wrap_faraday_error e
@@ -382,7 +382,6 @@ module Testing
 
             @operations_stub.delete_operation request, options do |result, operation|
               yield result, operation if block_given?
-              return result
             end
           rescue ::Faraday::Error => e
             raise ::Gapic::Rest::Error.wrap_faraday_error e
@@ -470,7 +469,6 @@ module Testing
 
             @operations_stub.cancel_operation request, options do |result, operation|
               yield result, operation if block_given?
-              return result
             end
           rescue ::Faraday::Error => e
             raise ::Gapic::Rest::Error.wrap_faraday_error e
@@ -550,6 +548,11 @@ module Testing
           #   default endpoint URL. The default value of nil uses the environment
           #   universe (usually the default "googleapis.com" universe).
           #   @return [::String,nil]
+          # @!attribute [rw] logger
+          #   A custom logger to use for request/response debug logging, or the value
+          #   `:default` (the default) to construct a default logger, or `nil` to
+          #   explicitly disable logging.
+          #   @return [::Logger,:default,nil]
           #
           class Configuration
             extend ::Gapic::Config
@@ -571,6 +574,7 @@ module Testing
             config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
             config_attr :quota_project, nil, ::String, nil
             config_attr :universe_domain, nil, ::String, nil
+            config_attr :logger, :default, ::Logger, nil, :default
 
             # @private
             def initialize parent_config = nil
@@ -690,17 +694,19 @@ module Testing
 
             response = @client_stub.make_http_request(
               verb,
-              uri:     uri,
-              body:    body || "",
-              params:  query_string_params,
+              uri: uri,
+              body: body || "",
+              params: query_string_params,
+              method_name: "list_operations",
               options: options
             )
             operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Google::Longrunning::ListOperationsResponse.decode_json response.body,
                                                                                ignore_unknown_fields: true
-
-            yield result, operation if block_given?
-            result
+            catch :response do
+              yield result, operation if block_given?
+              result
+            end
           end
 
           ##
@@ -729,16 +735,18 @@ module Testing
 
             response = @client_stub.make_http_request(
               verb,
-              uri:     uri,
-              body:    body || "",
-              params:  query_string_params,
+              uri: uri,
+              body: body || "",
+              params: query_string_params,
+              method_name: "get_operation",
               options: options
             )
             operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Google::Longrunning::Operation.decode_json response.body, ignore_unknown_fields: true
-
-            yield result, operation if block_given?
-            result
+            catch :response do
+              yield result, operation if block_given?
+              result
+            end
           end
 
           ##
@@ -767,16 +775,18 @@ module Testing
 
             response = @client_stub.make_http_request(
               verb,
-              uri:     uri,
-              body:    body || "",
-              params:  query_string_params,
+              uri: uri,
+              body: body || "",
+              params: query_string_params,
+              method_name: "delete_operation",
               options: options
             )
             operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Google::Protobuf::Empty.decode_json response.body, ignore_unknown_fields: true
-
-            yield result, operation if block_given?
-            result
+            catch :response do
+              yield result, operation if block_given?
+              result
+            end
           end
 
           ##
@@ -805,16 +815,18 @@ module Testing
 
             response = @client_stub.make_http_request(
               verb,
-              uri:     uri,
-              body:    body || "",
-              params:  query_string_params,
+              uri: uri,
+              body: body || "",
+              params: query_string_params,
+              method_name: "cancel_operation",
               options: options
             )
             operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Google::Protobuf::Empty.decode_json response.body, ignore_unknown_fields: true
-
-            yield result, operation if block_given?
-            result
+            catch :response do
+              yield result, operation if block_given?
+              result
+            end
           end
 
           ##
