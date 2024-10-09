@@ -52,6 +52,12 @@ class ServiceStubTest < Minitest::Test
     end
   end
 
+  FakeCredentialsWithDisabledCheck = Class.new FakeCredentials do
+    def disable_universe_domain_check
+      true
+    end
+  end
+
   FakeRpcCall = Class.new do
     def initialize method_stub
       @method_stub = method_stub
@@ -268,6 +274,14 @@ class ServiceStubTest < Minitest::Test
                              endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
                              credentials: creds
     end
+  end
+
+  def test_universe_domain_credentials_with_mismatch_disabled
+    creds = FakeCredentialsWithDisabledCheck.new universe_domain: "myuniverse.com"
+    service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+                                          endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
+                                          credentials: creds
+    assert_equal "googleapis.com", service_stub.universe_domain
   end
 
   def test_endpoint_override
