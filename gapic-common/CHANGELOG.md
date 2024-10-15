@@ -1,5 +1,11 @@
 # Release History
 
+### 0.23.0 (2024-10-15)
+
+#### Features
+
+* Disable universe domain check if credentials include an explicit request to do so ([#1119](https://github.com/googleapis/gapic-generator-ruby/issues/1119)) 
+
 ### 0.22.0 (2024-07-17)
 
 #### Features
