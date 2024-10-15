@@ -63,10 +63,11 @@ module Gapic
       universe_domain ||= ENV["GOOGLE_CLOUD_UNIVERSE_DOMAIN"] || "googleapis.com"
       endpoint ||= endpoint_template.sub ENDPOINT_SUBSTITUTION, universe_domain
 
-      if credentials.respond_to?(:universe_domain) && credentials.universe_domain != universe_domain &&
-         !(credentials.respond_to?(:disable_universe_domain_check) && credentials.disable_universe_domain_check)
-        raise UniverseDomainMismatch,
-              "Universe domain is #{universe_domain} but credentials are in #{credentials.universe_domain}"
+      unless credentials.respond_to?(:disable_universe_domain_check) && credentials.disable_universe_domain_check
+        if credentials.respond_to?(:universe_domain) && credentials.universe_domain != universe_domain
+          raise UniverseDomainMismatch,
+                "Universe domain is #{universe_domain} but credentials are in #{credentials.universe_domain}"
+        end
       end
 
       @universe_domain = universe_domain
