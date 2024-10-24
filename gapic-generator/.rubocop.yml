@@ -17,6 +17,9 @@ Metrics/AbcSize:
     - test/gapic/schema/**/*_test.rb
     - test/gapic/routing_headers/**/*_test.rb
 
+Lint/SafeNavigationConsistency:
+  Enabled: false
+
 Metrics/ClassLength:
   Exclude:
     - lib/gapic/presenters/**/*
