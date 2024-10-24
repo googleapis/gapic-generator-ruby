@@ -94,7 +94,7 @@ module Gapic
             files << g("service/rest/test/client.erb",       "test/#{service.rest.test_client_file_path}",       service: service) if should_generate_rest
 
             # Unit tests for `paths.rb`
-            files << g("service/test/client_paths.erb",      "test/#{service.test_paths_file_path}",             service: service) if service.paths?
+            files << g("service/test/client_paths.erb",      "test/#{service.test_paths_file_path}",             service: service) if service.paths? && should_generate_grpc
 
             # Unit tests for standard LRO shim
             files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro? && should_generate_grpc
