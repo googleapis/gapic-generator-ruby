@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.37.0 / 2024-10-24
+
+* Feature: Remove path tests for clients using REST without gRPC
+
 ### 0.36.1 / 2024-09-20
 
 * Fix: Add missing local binding in resource path methods
