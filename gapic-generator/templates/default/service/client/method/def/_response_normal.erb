@@ -1,8 +1,4 @@
 <%- assert_locals method -%>
 @<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options do |response, operation|
-  <%- if method.lro? -%>
-  response = ::Gapic::Operation.new response, <%= method.service.lro_client_ivar %>, options: options
-  <%- end -%>
   yield response, operation if block_given?
-  return response
 end

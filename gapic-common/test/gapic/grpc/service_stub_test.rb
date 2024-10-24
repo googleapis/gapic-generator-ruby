@@ -58,13 +58,26 @@ class ServiceStubTest < Minitest::Test
     end
   end
 
-  FakeRpcCall = Class.new do
-    def initialize method_stub
-      @method_stub = method_stub
-    end
+  module FakeServiceModule
+    class Stub
+      def initialize *args, **kwargs
+      end
 
-    def call request, options: nil, &block
-      @method_stub&.call(request, options)
+      def sample_rpc request, **kwargs
+        Stub.last_request = request
+        Stub.call_count += 1
+        self
+      end
+
+      def execute
+        Stub.response
+      end
+
+      class << self
+        attr_accessor :response
+        attr_accessor :last_request
+        attr_accessor :call_count
+      end
     end
   end
 
@@ -72,62 +85,42 @@ class ServiceStubTest < Minitest::Test
     fake_channel = FakeChannel.new
     channel_pool_config = Gapic::ServiceStub::ChannelPool::Configuration.new
     channel_pool_config.channel_count = 2
-    mock = Minitest::Mock.new
-    mock.expect :nil?, false
-    mock.expect :nil?, false
-    mock.expect :new, nil, ["service:port", nil], channel_override: fake_channel, interceptors: []
 
     assert_raises ArgumentError do
-      Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel,
+      Gapic::ServiceStub.new FakeServiceModule::Stub, endpoint: "service:port", credentials: fake_channel,
                              channel_pool_config: channel_pool_config
     end
 
-    service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub, endpoint: "service:port", credentials: fake_channel
     assert service_stub.instance_variable_get(:@channel_pool).nil?
-
-    mock.verify
   end
 
   def test_with_channel_credentials
     fake_channel_creds = FakeChannelCredentials.new
     channel_pool_config = Gapic::ServiceStub::ChannelPool::Configuration.new
     channel_pool_config.channel_count = 2
-    mock = Minitest::Mock.new
-    mock.expect :nil?, false
-    (1..3).each do
-      mock.expect :nil?, false
-      mock.expect :new, nil, ["service:port", fake_channel_creds], channel_args: {}, interceptors: []
-    end
 
-    service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel_creds,
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
+                                          endpoint: "service:port", credentials: fake_channel_creds,
                                           channel_pool_config: channel_pool_config
     assert service_stub.instance_variable_get(:@grpc_stub).nil?
 
-    service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel_creds
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
+                                          endpoint: "service:port", credentials: fake_channel_creds
     assert service_stub.instance_variable_get(:@channel_pool).nil?
-
-    mock.verify
   end
 
   def test_with_symbol_credentials
     creds = :this_channel_is_insecure
     channel_pool_config = Gapic::ServiceStub::ChannelPool::Configuration.new
     channel_pool_config.channel_count = 2
-    mock = Minitest::Mock.new
-    mock.expect :nil?, false
-    (1..3).each do
-      mock.expect :nil?, false
-      mock.expect :new, nil, ["service:port", creds], channel_args: {}, interceptors: []
-    end
 
-    service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: creds,
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub, endpoint: "service:port", credentials: creds,
                                           channel_pool_config: channel_pool_config
     assert service_stub.instance_variable_get(:@grpc_stub).nil?
 
-    service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: creds
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub, endpoint: "service:port", credentials: creds
     assert service_stub.instance_variable_get(:@channel_pool).nil?
-
-    mock.verify
   end
 
   def test_with_credentials
@@ -135,21 +128,15 @@ class ServiceStubTest < Minitest::Test
       GRPC::Core::ChannelCredentials.stub :new, FakeChannelCredentials.method(:new) do
         channel_pool_config = Gapic::ServiceStub::ChannelPool::Configuration.new
         channel_pool_config.channel_count = 2
-        mock = Minitest::Mock.new
-        mock.expect :nil?, false
-        (1..3).each do
-          mock.expect :nil?, false
-          mock.expect :new, nil, ["service:port", FakeCallCredentials], channel_args: {}, interceptors: []
-        end
 
-        service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: FakeCredentials.new,
+        service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
+                                              endpoint: "service:port", credentials: FakeCredentials.new,
                                               channel_pool_config: channel_pool_config
         assert service_stub.instance_variable_get(:@grpc_stub).nil?
 
-        service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: FakeCredentials.new
+        service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
+                                              endpoint: "service:port", credentials: FakeCredentials.new
         assert service_stub.instance_variable_get(:@channel_pool).nil?
-
-        mock.verify
       end
     end
   end
@@ -159,23 +146,17 @@ class ServiceStubTest < Minitest::Test
       GRPC::Core::ChannelCredentials.stub :new, FakeChannelCredentials.method(:new) do
         channel_pool_config = Gapic::ServiceStub::ChannelPool::Configuration.new
         channel_pool_config.channel_count = 2
-        mock = Minitest::Mock.new
-        mock.expect :nil?, false
-        (1..3).each do
-          mock.expect :nil?, false
-          mock.expect :new, nil, ["service:port", FakeCallCredentials], channel_args: {}, interceptors: []
-        end
 
         credentials_proc = ->{}
 
-        service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: credentials_proc,
+        service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
+                                              endpoint: "service:port", credentials: credentials_proc,
                                               channel_pool_config: channel_pool_config
         assert service_stub.instance_variable_get(:@grpc_stub).nil?
 
-        service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: credentials_proc
+        service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
+                                              endpoint: "service:port", credentials: credentials_proc
         assert service_stub.instance_variable_get(:@channel_pool).nil?
-
-        mock.verify
       end
     end
   end
@@ -184,58 +165,31 @@ class ServiceStubTest < Minitest::Test
     creds = :this_channel_is_insecure
     channel_pool_config = Gapic::ServiceStub::ChannelPool::Configuration.new
     channel_pool_config.channel_count = 2
-    rpc_count = 0
-    method_stub = Proc.new do |request, options|
-      rpc_count += 1
-      true
-    end
-    mock = Minitest::Mock.new
-    mock.expect :nil?, false
-    (1..2).each do
-      mock.expect :nil?, false
-      mock.expect :new, mock, ["service:port", creds], channel_args: {}, interceptors: []
-    end
-    mock.expect :method, method_stub, ["sample_rpc"]
+    FakeServiceModule::Stub.call_count = 0
+    FakeServiceModule::Stub.response = :my_response
 
-    Gapic::ServiceStub::RpcCall.stub :new, FakeRpcCall.method(:new) do
-      service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: creds,
-                                            channel_pool_config: channel_pool_config
-      assert_equal true, service_stub.call_rpc("sample_rpc", nil)
-      mock.verify
-    end
-
-    assert_equal rpc_count, 1
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub, endpoint: "service:port", credentials: creds,
+                                          channel_pool_config: channel_pool_config, logger: nil
+    assert_equal :my_response, service_stub.call_rpc("sample_rpc", :my_request)
+    assert_equal :my_request, FakeServiceModule::Stub.last_request
+    assert_equal 1, FakeServiceModule::Stub.call_count
   end
 
   def test_call_rpc_without_channel_pool
     creds = :this_channel_is_insecure
-    rpc_count = 0
-    method_stub = Proc.new do |request, options|
-      rpc_count += 1
-      true
-    end
-    mock = Minitest::Mock.new
-    mock.expect :nil?, false
-    mock.expect :new, mock, ["service:port", creds], channel_args: {}, interceptors: []
-    mock.expect :method, method_stub, ["sample_rpc"]
+    FakeServiceModule::Stub.call_count = 0
+    FakeServiceModule::Stub.response = :my_response
 
-    Gapic::ServiceStub::RpcCall.stub :new, FakeRpcCall.method(:new) do
-      service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: creds
-      assert_equal true, service_stub.call_rpc("sample_rpc", nil)
-      mock.verify
-    end
-
-    assert_equal rpc_count, 1
-  end
-
-  class FakeGrpcStub
-    def initialize *args, **kwargs
-    end
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub, endpoint: "service:port", credentials: creds,
+                                          logger: nil
+    assert_equal :my_response, service_stub.call_rpc("sample_rpc", :my_request)
+    assert_equal :my_request, FakeServiceModule::Stub.last_request
+    assert_equal 1, FakeServiceModule::Stub.call_count
   end
 
   def test_default_universe_domain
     creds = FakeCredentials.new
-    service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
                                           endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
                                           credentials: creds
     assert_equal "googleapis.com", service_stub.universe_domain
@@ -244,7 +198,7 @@ class ServiceStubTest < Minitest::Test
 
   def test_custom_universe_domain
     creds = FakeCredentials.new universe_domain: "myuniverse.com"
-    service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
                                           universe_domain: "myuniverse.com",
                                           endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
                                           credentials: creds
@@ -257,7 +211,7 @@ class ServiceStubTest < Minitest::Test
     ENV["GOOGLE_CLOUD_UNIVERSE_DOMAIN"] = "myuniverse.com"
     begin
       creds = FakeCredentials.new universe_domain: "myuniverse.com"
-      service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+      service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
                                             endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
                                             credentials: creds
       assert_equal "myuniverse.com", service_stub.universe_domain
@@ -270,7 +224,7 @@ class ServiceStubTest < Minitest::Test
   def test_universe_domain_credentials_mismatch
     creds = FakeCredentials.new universe_domain: "myuniverse.com"
     assert_raises Gapic::UniverseDomainMismatch do
-      Gapic::ServiceStub.new FakeGrpcStub,
+      Gapic::ServiceStub.new FakeServiceModule::Stub,
                              endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
                              credentials: creds
     end
@@ -278,7 +232,7 @@ class ServiceStubTest < Minitest::Test
 
   def test_universe_domain_credentials_with_mismatch_disabled
     creds = FakeCredentialsWithDisabledCheck.new universe_domain: "myuniverse.com"
-    service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
                                           endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
                                           credentials: creds
     assert_equal "googleapis.com", service_stub.universe_domain
@@ -286,7 +240,7 @@ class ServiceStubTest < Minitest::Test
 
   def test_endpoint_override
     creds = FakeCredentials.new universe_domain: "myuniverse.com"
-    service_stub = Gapic::ServiceStub.new FakeGrpcStub,
+    service_stub = Gapic::ServiceStub.new FakeServiceModule::Stub,
                                           universe_domain: "myuniverse.com",
                                           endpoint_template: "myservice.$UNIVERSE_DOMAIN$",
                                           endpoint: "myservice.otheruniverse.com",

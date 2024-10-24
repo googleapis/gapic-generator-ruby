@@ -19,5 +19,5 @@
     options: options
   )
   yield result, response if block_given?
-  return result
+  throw :response, result
 end
