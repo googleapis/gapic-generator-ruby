@@ -21,9 +21,7 @@ class RpcCallRaiseTest < Minitest::Test
       raise GRPC::Unknown
     end
 
-    rpc_call = Gapic::ServiceStub::RpcCall.new(
-      api_meth_stub
-    )
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     assert_raises GRPC::BadStatus do
       rpc_call.call Object.new
@@ -36,9 +34,7 @@ class RpcCallRaiseTest < Minitest::Test
                               GRPC::Core::StatusCodes::UNAVAILABLE)
     end
 
-    rpc_call = Gapic::ServiceStub::RpcCall.new(
-      api_meth_stub
-    )
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     assert_raises FakeCodeError do
       rpc_call.call Object.new
@@ -104,9 +100,7 @@ class RpcCallRaiseTest < Minitest::Test
       raise GRPC::Unavailable.new(signet_error_text)
     end
 
-    rpc_call = Gapic::ServiceStub::RpcCall.new(
-      api_meth_stub
-    )
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     ex = assert_raises Gapic::GRPC::AuthorizationError do
       rpc_call.call Object.new
