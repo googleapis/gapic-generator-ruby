@@ -1,5 +1,14 @@
 # Release History
 
+### 0.24.0 (2024-12-05)
+
+#### Features
+
+* Log requests and responses ([#1112](https://github.com/googleapis/gapic-generator-ruby/issues/1112)) 
+#### Bug Fixes
+
+* Hardened deadline determination against Time.now hacking ([#942](https://github.com/googleapis/gapic-generator-ruby/issues/942)) 
+
 ### 0.23.0 (2024-10-15)
 
 #### Features
