@@ -48,7 +48,7 @@ class ChannelPoolTest < Minitest::Test
   end
 
   FakeRpcCall = Class.new do
-    def initialize method_stub
+    def initialize method_stub, **_kwargs
       @method_stub = method_stub
     end
 

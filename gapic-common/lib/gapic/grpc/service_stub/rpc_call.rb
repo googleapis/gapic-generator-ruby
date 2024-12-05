@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "gapic/call_options"
+require "gapic/logging_concerns"
 require "grpc/errors"
 
 module Gapic
@@ -32,8 +33,11 @@ module Gapic
       #
       # @param stub_method [Proc] Used to make a bare rpc call.
       #
-      def initialize stub_method
+      def initialize stub_method, stub_logger: nil, method_name: nil
         @stub_method = stub_method
+        @stub_logger = stub_logger
+        @method_name = method_name
+        @request_id = LoggingConcerns.random_uuid4
       end
 
       ##
@@ -44,7 +48,8 @@ module Gapic
       #   customize the options object, using keys that match the arguments for {Gapic::CallOptions.new}. This object
       #   should only be used once.
       #
-      # @yield [response, operation] Access the response along with the RPC operation.
+      # @yield [response, operation] Access the response along with the RPC operation. Additionally, throwing
+      #   `:response, obj` within the block will change the return value to `obj`.
       # @yieldparam response [Object] The response object.
       # @yieldparam operation [::GRPC::ActiveCall::Operation] The RPC operation for the response.
       #
@@ -91,7 +96,7 @@ module Gapic
       #   )
       #   response = echo_call.call request, options: options
       #
-      # @example Accessing the response and RPC operation using a block:
+      # @example Accessing the RPC operation using a block:
       #   require "google/showcase/v1beta1/echo_pb"
       #   require "google/showcase/v1beta1/echo_services_pb"
       #   require "gapic"
@@ -107,8 +112,8 @@ module Gapic
       #   echo_call = Gapic::ServiceStub::RpcCall.new echo_stub.method :echo
       #
       #   request = Google::Showcase::V1beta1::EchoRequest.new
-      #   echo_call.call request do |response, operation|
-      #     operation.trailing_metadata
+      #   metadata = echo_call.call request do |_response, operation|
+      #     throw :response, operation.trailing_metadata
       #   end
       #
       def call request, options: nil
@@ -117,21 +122,27 @@ module Gapic
         deadline = calculate_deadline options
         metadata = options.metadata
 
+        try_number = 1
         retried_exception = nil
         begin
+          request = log_request request, metadata, try_number
           operation = stub_method.call request, deadline: deadline, metadata: metadata, return_op: true
           response = operation.execute
-          yield response, operation if block_given?
-          response
+          catch :response do
+            response = log_response response, try_number
+            yield response, operation if block_given?
+            response
+          end
         rescue ::GRPC::DeadlineExceeded => e
+          log_response e, try_number
           raise Gapic::GRPC::DeadlineExceededError.new e.message, root_cause: retried_exception
         rescue StandardError => e
-          if e.is_a?(::GRPC::Unavailable) && /Signet::AuthorizationError/ =~ e.message
-            e = Gapic::GRPC::AuthorizationError.new e.message.gsub(%r{^\d+:}, "")
-          end
+          e = normalize_exception e
+          log_response e, try_number
 
           if check_retry?(deadline) && options.retry_policy.call(e)
             retried_exception = e
+            try_number += 1
             retry
           end
 
@@ -162,6 +173,93 @@ module Gapic
         secs_part = nanos / 1_000_000_000
         nsecs_part = nanos % 1_000_000_000
         Time.at secs_part, nsecs_part, :nanosecond
+      end
+
+      def normalize_exception exception
+        if exception.is_a?(::GRPC::Unavailable) && /Signet::AuthorizationError/ =~ exception.message
+          exception = Gapic::GRPC::AuthorizationError.new exception.message.gsub(%r{^\d+:}, "")
+        end
+        exception
+      end
+
+      def log_request request, metadata, try_number
+        return request unless @stub_logger
+        @stub_logger.info do |entry|
+          entry.set_system_name
+          entry.set_service
+          entry.set "rpcName", @method_name
+          entry.set "retryAttempt", try_number
+          entry.set "requestId", @request_id
+          entry.message =
+            if request.is_a? Enumerable
+              "Sending stream to #{entry.service}.#{@method_name} (try #{try_number})"
+            else
+              "Sending request to #{entry.service}.#{@method_name} (try #{try_number})"
+            end
+        end
+        loggable_metadata = metadata.to_h rescue {}
+        if request.is_a? Enumerable
+          request.lazy.map do |req|
+            log_single_request req, loggable_metadata
+          end
+        else
+          log_single_request request, loggable_metadata
+        end
+      end
+
+      def log_single_request request, metadata
+        request_content = request.respond_to?(:to_h) ? (request.to_h rescue {}) : request.to_s
+        if !request_content.empty? || !metadata.empty?
+          @stub_logger.debug do |entry|
+            entry.set "requestId", @request_id
+            entry.set "request", request_content
+            entry.set "headers", metadata
+            entry.message = "(request payload as #{request.class})"
+          end
+        end
+        request
+      end
+
+      def log_response response, try_number
+        return response unless @stub_logger
+        @stub_logger.info do |entry|
+          entry.set_system_name
+          entry.set_service
+          entry.set "rpcName", @method_name
+          entry.set "retryAttempt", try_number
+          entry.set "requestId", @request_id
+          case response
+          when StandardError
+            entry.set "exception", response.to_s
+            entry.message = "Received error for #{entry.service}.#{@method_name} (try #{try_number}): #{response}"
+          when Enumerable
+            entry.message = "Receiving stream for #{entry.service}.#{@method_name} (try #{try_number})"
+          else
+            entry.message = "Received response for #{entry.service}.#{@method_name} (try #{try_number})"
+          end
+        end
+        case response
+        when StandardError
+          response
+        when Enumerable
+          response.lazy.map do |resp|
+            log_single_response resp
+          end
+        else
+          log_single_response response
+        end
+      end
+
+      def log_single_response response
+        response_content = response.respond_to?(:to_h) ? (response.to_h rescue {}) : response.to_s
+        unless response_content.empty?
+          @stub_logger.debug do |entry|
+            entry.set "requestId", @request_id
+            entry.set "response", response_content
+            entry.message = "(response payload as #{response.class})"
+          end
+        end
+        response
       end
     end
   end

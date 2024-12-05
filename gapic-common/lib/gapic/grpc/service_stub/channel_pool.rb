@@ -30,7 +30,12 @@ module Gapic
       ##
       # Initialize an instance of ServiceStub::ChannelPool
       #
-      def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil, config: nil
+      def initialize grpc_stub_class,
+                     endpoint:, credentials:,
+                     channel_args: nil,
+                     interceptors: nil,
+                     config: nil,
+                     stub_logger: nil
         if credentials.is_a? ::GRPC::Core::Channel
           raise ArgumentError, "Can't create a channel pool with GRPC::Core::Channel as credentials"
         end
@@ -41,6 +46,7 @@ module Gapic
         @channel_args = channel_args
         @interceptors = interceptors
         @config = config || Configuration.new
+        @stub_logger = stub_logger
 
         @channels = (1..@config.channel_count).map { create_channel }
       end
@@ -49,7 +55,8 @@ module Gapic
       # Creates a new channel.
       def create_channel
         Channel.new @grpc_stub_class, endpoint: @endpoint, credentials: @credentials, channel_args: @channel_args,
-                    interceptors: @interceptors, on_channel_create: @config.on_channel_create
+                    interceptors: @interceptors, on_channel_create: @config.on_channel_create,
+                    stub_logger: @stub_logger
       end
 
       ##
