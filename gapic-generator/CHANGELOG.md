@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.38.0 / 2024-12-06
+
+* Feature: Support request-response debug logging from generated GAPICs
+
 ### 0.37.0 / 2024-10-24
 
 * Feature: Remove path tests for clients using REST without gRPC
