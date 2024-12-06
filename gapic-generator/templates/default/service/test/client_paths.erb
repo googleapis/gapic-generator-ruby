@@ -15,6 +15,10 @@ class <%= service.client_name_full %>PathsTest < Minitest::Test
     def universe_domain
       "example.com"
     end
+
+    def stub_logger
+      nil
+    end
   end
 
 <%- start_line_spacer -%>

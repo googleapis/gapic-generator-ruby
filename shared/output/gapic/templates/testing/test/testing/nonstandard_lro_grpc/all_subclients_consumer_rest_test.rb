@@ -41,24 +41,24 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
       @requests = []
     end
 
-    def make_get_request uri:, params: {}, options: {}
-      make_http_request :get, uri: uri, body: nil, params: params, options: options
+    def make_get_request uri:, params: {}, options: {}, method_name: nil
+      make_http_request :get, uri: uri, body: nil, params: params, options: options, method_name: method_name
     end
 
-    def make_delete_request uri:, params: {}, options: {}
-      make_http_request :delete, uri: uri, body: nil, params: params, options: options
+    def make_delete_request uri:, params: {}, options: {}, method_name: nil
+      make_http_request :delete, uri: uri, body: nil, params: params, options: options, method_name: method_name
     end
 
-    def make_post_request uri:, body: nil, params: {}, options: {}
-      make_http_request :post, uri: uri, body: body, params: params, options: options
+    def make_post_request uri:, body: nil, params: {}, options: {}, method_name: nil
+      make_http_request :post, uri: uri, body: body, params: params, options: options, method_name: method_name
     end
 
-    def make_patch_request uri:, body:, params: {}, options: {}
-      make_http_request :patch, uri: uri, body: body, params: params, options: options
+    def make_patch_request uri:, body:, params: {}, options: {}, method_name: nil
+      make_http_request :patch, uri: uri, body: body, params: params, options: options, method_name: method_name
     end
 
-    def make_put_request uri:, body:, params: {}, options: {}
-      make_http_request :put, uri: uri, body: body, params: params, options: options
+    def make_put_request uri:, body:, params: {}, options: {}, method_name: nil
+      make_http_request :put, uri: uri, body: body, params: params, options: options, method_name: method_name
     end
 
     def make_http_request *args, **kwargs
@@ -76,6 +76,10 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     def universe_domain
       "example.com"
     end
+
+    def stub_logger
+      nil
+    end
   end
 
   def test_plain_lro_rpc
@@ -88,7 +92,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     # Create request parameters for a unary method.
     request_id = "hello world"
 
-    plain_lro_rpc_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    plain_lro_rpc_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -142,7 +146,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     # Create request parameters for a unary method.
     request_id = "hello world"
 
-    another_lro_rpc_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    another_lro_rpc_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -195,7 +199,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
 
     # Create request parameters for a unary method.
 
-    non_copy_another_lro_rpc_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    non_copy_another_lro_rpc_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -244,7 +248,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     # Create request parameters for a unary method.
     request_id = "hello world"
 
-    aip_lro_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    aip_lro_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -298,7 +302,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     # Create request parameters for a unary method.
     request_id = "hello world"
 
-    no_lro_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    no_lro_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"

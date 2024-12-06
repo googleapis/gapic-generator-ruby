@@ -5,5 +5,5 @@
   <%- end -%>
   response = ::Gapic::PagedEnumerable.new @<%= method.service.stub_name %>, :<%= method.name %>, request, response, operation, options<%- if method.lro? -%>, format_resource: wrap_lro_operation<%- end -%>
   yield response, operation if block_given?
-  return response
+  throw :response, response
 end

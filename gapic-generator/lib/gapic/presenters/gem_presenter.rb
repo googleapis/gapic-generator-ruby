@@ -256,7 +256,7 @@ module Gapic
 
       def dependencies
         @dependencies ||= begin
-          deps = { "gapic-common" => [">= 0.21.1", "< 2.a"] }
+          deps = { "gapic-common" => [">= 0.24.0", "< 2.a"] }
           deps["grpc-google-iam-v1"] = "~> 1.1" if iam_dependency?
           extra_deps = gem_config_dependencies
           deps.merge! mixins_model.dependencies if mixins_model.mixins?
@@ -309,14 +309,13 @@ module Gapic
       end
 
       ##
-      # Whether the "Enabling (gRPC) Logging" section of the readme should
-      # appear. This is true if there is a quick-start service displayed in the
-      # readme, AND it uses gRPC.
+      # Whether the "Enabling Logging" section of the readme should appear.
+      # This is true if there is a quick-start service displayed in the readme.
       #
       # @return [Boolean]
       #
-      def show_grpc_logging_docs?
-        packages? && quick_start_service.usable_service_presenter.is_a?(ServicePresenter)
+      def show_logging_docs?
+        packages? && !quick_start_service.usable_service_presenter.nil?
       end
 
       ##

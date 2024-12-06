@@ -13,6 +13,7 @@ response = @client_stub.make_http_request(
   uri: uri,
   body: body || "",
   params: query_string_params,
+  method_name: "<%= method.name %>",
   options: options,
   is_server_streaming: true,
   &block
@@ -21,14 +22,16 @@ response = @client_stub.make_http_request(
 <%- else -%>
 response = @client_stub.make_http_request(
   verb,
-  uri:     uri,
-  body:    body || "",
-  params:  query_string_params,
+  uri: uri,
+  body: body || "",
+  params: query_string_params,
+  method_name: "<%= method.name %>",
   options: options
 )
 operation = ::Gapic::Rest::TransportOperation.new response
 result = <%= method.return_type %>.decode_json response.body, ignore_unknown_fields: true
-
-yield result, operation if block_given?
-result
+catch :response do
+  yield result, operation if block_given?
+  result
+end
 <%- end -%>

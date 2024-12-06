@@ -21,7 +21,7 @@ require "open3"
 require "tmpdir"
 
 # @private
-GAPIC_SHOWCASE_VERSION = '0.35.0'
+GAPIC_SHOWCASE_VERSION = '0.35.1'
 
 def generate_library_for_test imports, protos
   client_lib = Dir.mktmpdir
@@ -116,15 +116,21 @@ class ShowcaseTest < Minitest::Test
   end
 
   @showcase_library = begin
-    library = generate_library_for_test(
-      %w[protos googleapis],
-      %w[google/showcase/v1beta1/compliance.proto google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
+    library =
+      if ENV["SHOWCASE_USE_EXISTING_LIBRARY"]
+        shared_dir = File.dirname File.dirname __dir__
+        File.join(shared_dir, "output", "gapic", "templates", "showcase")
+      else
+        generate_library_for_test(
+          %w[protos googleapis],
+          %w[google/showcase/v1beta1/compliance.proto google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
+      end
     $LOAD_PATH.unshift "#{library}/lib"
     library
   end
 
   Minitest.after_run do
-    FileUtils.remove_dir @showcase_library, true
+    FileUtils.remove_dir @showcase_library, true unless ENV["SHOWCASE_USE_EXISTING_LIBRARY"]
 
     unless @showcase_id.nil?
       puts "Stopping showcase server (id: #{@showcase_id})..." if ENV["VERBOSE"]
