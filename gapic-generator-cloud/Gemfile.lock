@@ -1,7 +1,7 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.37.0)
+    gapic-generator (0.38.0)
       actionpack (~> 5.2)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
@@ -12,8 +12,8 @@ PATH
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.37.0)
-      gapic-generator (= 0.37.0)
+    gapic-generator-cloud (0.38.0)
+      gapic-generator (= 0.38.0)
 
 GEM
   remote: https://rubygems.org/
@@ -55,13 +55,13 @@ GEM
     grpc-tools (1.60.2)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
-    json (2.7.3)
+    json (2.9.0)
     language_server-protocol (3.17.0.3)
-    loofah (2.23.0)
+    loofah (2.23.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     method_source (1.1.0)
-    minitest (5.25.1)
+    minitest (5.25.4)
     minitest-autotest (1.1.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.0)
@@ -70,14 +70,14 @@ GEM
     minitest-server (1.0.8)
       drb (~> 2.0)
       minitest (~> 5.16)
-    nokogiri (1.16.7-x86_64-linux)
+    nokogiri (1.16.8-x86_64-linux)
       racc (~> 1.4)
     parallel (1.26.3)
-    parser (3.3.5.0)
+    parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
     path_expander (1.1.3)
-    pry (0.14.2)
+    pry (0.15.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
     racc (1.8.1)
@@ -88,29 +88,31 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.6.0)
+    rails-html-sanitizer (1.6.1)
       loofah (~> 2.21)
-      nokogiri (~> 1.14)
+      nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     rainbow (3.1.1)
     redcarpet (3.6.0)
-    regexp_parser (2.9.2)
-    rubocop (1.67.0)
+    regexp_parser (2.9.3)
+    rubocop (1.69.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 2.4, < 3.0)
-      rubocop-ast (>= 1.32.2, < 2.0)
+      regexp_parser (>= 2.9.3, < 3.0)
+      rubocop-ast (>= 1.36.2, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.32.3)
+      unicode-display_width (>= 2.4.0, < 4.0)
+    rubocop-ast (1.36.2)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
     thread_safe (0.3.6)
     tzinfo (1.2.11)
       thread_safe (~> 0.1)
-    unicode-display_width (2.6.0)
+    unicode-display_width (3.1.2)
+      unicode-emoji (~> 4.0, >= 4.0.4)
+    unicode-emoji (4.0.4)
     yard (0.9.37)
 
 PLATFORMS
@@ -128,4 +130,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.5.16
+   2.4.19

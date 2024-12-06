@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.38.0 / 2024-12-06
+
+* Includes changes from gapic-generator 0.38.0
+* Feature: Support request-response debug logging from generated GAPICs
+
 ### 0.37.0 / 2024-10-24
 
 * Includes changes from gapic-generator 0.37.0
