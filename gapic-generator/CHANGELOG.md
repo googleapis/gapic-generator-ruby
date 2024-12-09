@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.38.1 / 2024-12-09
+
+* Fix: fix wrapper gem tests by stubbing the stub_logger method
+
 ### 0.38.0 / 2024-12-06
 
 * Feature: Support request-response debug logging from generated GAPICs

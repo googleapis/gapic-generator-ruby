@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.38.1 / 2024-12-09
+
+* Includes changes from gapic-generator 0.38.1
+* Fix: fix wrapper gem tests by stubbing the stub_logger method
+
 ### 0.38.0 / 2024-12-06
 
 * Includes changes from gapic-generator 0.38.0
