@@ -1,7 +1,7 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.38.2)
+    gapic-generator (0.38.3)
       actionpack (~> 5.2)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
@@ -12,8 +12,8 @@ PATH
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.38.2)
-      gapic-generator (= 0.38.2)
+    gapic-generator-cloud (0.38.3)
+      gapic-generator (= 0.38.3)
 
 GEM
   remote: https://rubygems.org/
