@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.38.3 / 2024-12-10
+
+* Fix: Added logger methods to generated dummy stub classes in generated tests
+
 ### 0.38.2 / 2024-12-10
 
 * Fix: Throw the correct result object for REST with nonstandard LRO

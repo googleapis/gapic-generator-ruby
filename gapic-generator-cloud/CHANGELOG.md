@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.38.3 / 2024-12-10
+
+* Includes changes from gapic-generator 0.38.3
+* Fix: Added logger methods to generated dummy stub classes in generated tests
+
 ### 0.38.2 / 2024-12-10
 
 * Includes changes from gapic-generator 0.38.2
