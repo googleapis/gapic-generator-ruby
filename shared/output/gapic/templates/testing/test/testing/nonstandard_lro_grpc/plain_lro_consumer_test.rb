@@ -66,6 +66,10 @@ class ::Testing::NonstandardLroGrpc::PlainLroConsumer::ClientTest < Minitest::Te
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_plain_lro_rpc

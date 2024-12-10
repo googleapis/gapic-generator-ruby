@@ -43,6 +43,10 @@ class ::Google::Showcase::V1beta1::Identity::ClientPathsTest < Minitest::Test
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_user_path

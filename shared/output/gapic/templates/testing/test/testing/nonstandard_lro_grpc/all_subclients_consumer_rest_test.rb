@@ -80,6 +80,10 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_plain_lro_rpc

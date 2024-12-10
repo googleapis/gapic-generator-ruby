@@ -24,6 +24,10 @@ class <%= gem.namespace %>::ClientConstructionMinitest < Minitest::Test
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
 <%- start_line_spacer -%>

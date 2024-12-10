@@ -80,6 +80,10 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ClientTest < Minit
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_service_level_retry_method
