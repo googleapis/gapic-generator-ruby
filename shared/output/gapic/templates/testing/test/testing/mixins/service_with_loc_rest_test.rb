@@ -80,6 +80,10 @@ class ::Testing::Mixins::ServiceWithLoc::Rest::ClientTest < Minitest::Test
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_call_method

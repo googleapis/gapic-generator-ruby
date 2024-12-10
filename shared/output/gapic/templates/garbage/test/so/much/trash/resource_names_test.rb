@@ -66,6 +66,10 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_simple_pattern_method

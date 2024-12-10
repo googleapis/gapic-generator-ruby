@@ -66,6 +66,10 @@ class ::So::Much::Trash::ReallyRenamedService::ClientTest < Minitest::Test
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_get_empty_garbage

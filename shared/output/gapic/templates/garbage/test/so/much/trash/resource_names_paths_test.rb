@@ -43,6 +43,10 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_complex_pattern_log_parent_path

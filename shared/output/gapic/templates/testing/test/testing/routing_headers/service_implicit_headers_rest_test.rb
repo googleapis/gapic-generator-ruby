@@ -80,6 +80,10 @@ class ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::ClientTest < Mini
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_plain

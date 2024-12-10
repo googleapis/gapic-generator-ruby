@@ -80,6 +80,10 @@ class ::Google::Showcase::V1beta1::SequenceService::Rest::ClientTest < Minitest:
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_create_sequence

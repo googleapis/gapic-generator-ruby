@@ -66,6 +66,10 @@ class ::Google::Showcase::V1beta1::Compliance::ClientTest < Minitest::Test
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_repeat_data_body

@@ -80,6 +80,10 @@ class ::Testing::GrpcServiceConfig::ServiceNoRetry::Rest::ClientTest < Minitest:
     def stub_logger
       nil
     end
+
+    def logger
+      nil
+    end
   end
 
   def test_no_retry_method
