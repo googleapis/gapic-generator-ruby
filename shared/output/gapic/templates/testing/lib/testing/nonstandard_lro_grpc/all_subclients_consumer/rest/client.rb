@@ -311,7 +311,7 @@ module Testing
                 options: options
               )
               yield result, response if block_given?
-              result
+              throw :response, result
             end
           rescue ::Faraday::Error => e
             raise ::Gapic::Rest::Error.wrap_faraday_error e
@@ -397,7 +397,7 @@ module Testing
                 options: options
               )
               yield result, response if block_given?
-              result
+              throw :response, result
             end
           rescue ::Faraday::Error => e
             raise ::Gapic::Rest::Error.wrap_faraday_error e
@@ -476,7 +476,7 @@ module Testing
                 options: options
               )
               yield result, response if block_given?
-              result
+              throw :response, result
             end
           rescue ::Faraday::Error => e
             raise ::Gapic::Rest::Error.wrap_faraday_error e
