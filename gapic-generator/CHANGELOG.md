@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.38.2 / 2024-12-10
+
+* Fix: Throw the correct result object for REST with nonstandard LRO
+
 ### 0.38.1 / 2024-12-09
 
 * Fix: fix wrapper gem tests by stubbing the stub_logger method
