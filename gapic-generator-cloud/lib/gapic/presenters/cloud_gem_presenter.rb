@@ -69,19 +69,14 @@ module Gapic
         minfo ? minfo[1] : nil
       end
 
-      alias_method :readme_description, :description # rubocop:disable Style/Alias
-
       ##
-      # Overrides the gemspec description including a note that users should
-      # consider installing the wrapper instead of this versioned gem.
-      #
-      # Note: The method `readme_description` was aliased to the superclass
-      # method because the description without this note is used in the readme.
+      # Increments the original gemspec description for versioned gems, including a
+      # note that users should consider installing the wrapper gem instead.
       #
       # @return [String]
       #
-      def description
-        desc = readme_description
+      def gemspec_description
+        desc = super
         if has_wrapper?
           desc += " Note that #{name} is a version-specific client library. " \
                   "For most uses, we recommend installing the main client library " \
@@ -100,7 +95,7 @@ module Gapic
       #
       def generator_args_for_metadata
         result = {}
-        result["ruby-cloud-description"] = description
+        result["ruby-cloud-description"] = gemspec_description
         result["ruby-cloud-env-prefix"] = env_prefix if env_prefix
         result["ruby-cloud-product-url"] = product_documentation_url if product_documentation_url
         path_overrides = @api.overrides_of(:file_path).map { |k, v| "#{k}=#{v}" }.join ";"

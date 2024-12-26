@@ -135,7 +135,6 @@ module Gapic
           @summary = "#{summary}." if summary =~ /\w\z/
           @summary = remove_html_tags summary
         end
-        @description = description.gsub(/\s+/, " ").strip
         @description = "#{description}." if description =~ /\w\z/
         @description = remove_html_tags description
         self

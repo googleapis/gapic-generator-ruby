@@ -1,8 +1,14 @@
 # Ruby Client for the Google Garbage API
 
-API Client library for the Google Garbage API
+Typical Garbage Service Summary.
 
-google-garbage is the official client library for the Google Garbage API.
+## Overview
+
+Typical Garbage Service overview.
+
+## Resources
+
+Typical Garbage Service \\{typical.garbage}
 
 https://github.com/googleapis/googleapis
 

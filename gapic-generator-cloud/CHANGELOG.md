@@ -1,5 +1,50 @@
 # Release History for gapic-generator-cloud
 
+### 0.38.3 / 2024-12-10
+
+* Includes changes from gapic-generator 0.38.3
+* Fix: Added logger methods to generated dummy stub classes in generated tests
+
+### 0.38.2 / 2024-12-10
+
+* Includes changes from gapic-generator 0.38.2
+
+### 0.38.1 / 2024-12-09
+
+* Includes changes from gapic-generator 0.38.1
+* Fix: fix wrapper gem tests by stubbing the stub_logger method
+
+### 0.38.0 / 2024-12-06
+
+* Includes changes from gapic-generator 0.38.0
+* Feature: Support request-response debug logging from generated GAPICs
+
+### 0.37.0 / 2024-10-24
+
+* Includes changes from gapic-generator 0.37.0
+
+### 0.36.1 / 2024-09-20
+
+* Includes changes from gapic-generator 0.36.1
+
+### 0.36.0 / 2024-08-22
+
+* Includes changes from gapic-generator 0.36.0
+
+### 0.35.0 / 2024-08-15
+
+* Includes changes from gapic-generator 0.35.0
+* Feature: Disable xrefs for README files in wrapper gems
+
+### 0.34.1 / 2024-08-08
+
+* Includes changes from gapic-generator 0.34.1
+
+### 0.34.0 / 2024-08-07
+
+* Includes changes from gapic-generator 0.34.0
+* Feature: Refactor README.md and gemspec files
+
 ### 0.33.0 / 2024-07-02
 
 * Includes changes from gapic-generator 0.33.0

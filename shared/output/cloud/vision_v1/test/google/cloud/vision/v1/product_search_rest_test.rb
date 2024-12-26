@@ -33,24 +33,24 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
       @requests = []
     end
 
-    def make_get_request uri:, params: {}, options: {}
-      make_http_request :get, uri: uri, body: nil, params: params, options: options
+    def make_get_request uri:, params: {}, options: {}, method_name: nil
+      make_http_request :get, uri: uri, body: nil, params: params, options: options, method_name: method_name
     end
 
-    def make_delete_request uri:, params: {}, options: {}
-      make_http_request :delete, uri: uri, body: nil, params: params, options: options
+    def make_delete_request uri:, params: {}, options: {}, method_name: nil
+      make_http_request :delete, uri: uri, body: nil, params: params, options: options, method_name: method_name
     end
 
-    def make_post_request uri:, body: nil, params: {}, options: {}
-      make_http_request :post, uri: uri, body: body, params: params, options: options
+    def make_post_request uri:, body: nil, params: {}, options: {}, method_name: nil
+      make_http_request :post, uri: uri, body: body, params: params, options: options, method_name: method_name
     end
 
-    def make_patch_request uri:, body:, params: {}, options: {}
-      make_http_request :patch, uri: uri, body: body, params: params, options: options
+    def make_patch_request uri:, body:, params: {}, options: {}, method_name: nil
+      make_http_request :patch, uri: uri, body: body, params: params, options: options, method_name: method_name
     end
 
-    def make_put_request uri:, body:, params: {}, options: {}
-      make_http_request :put, uri: uri, body: body, params: params, options: options
+    def make_put_request uri:, body:, params: {}, options: {}, method_name: nil
+      make_http_request :put, uri: uri, body: body, params: params, options: options, method_name: method_name
     end
 
     def make_http_request *args, **kwargs
@@ -68,6 +68,14 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     def universe_domain
       "example.com"
     end
+
+    def stub_logger
+      nil
+    end
+
+    def logger
+      nil
+    end
   end
 
   def test_create_product_set
@@ -82,7 +90,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     product_set = {}
     product_set_id = "hello world"
 
-    create_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    create_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -138,7 +146,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     page_size = 42
     page_token = "hello world"
 
-    list_product_sets_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    list_product_sets_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -192,7 +200,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     # Create request parameters for a unary method.
     name = "hello world"
 
-    get_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    get_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -247,7 +255,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     product_set = {}
     update_mask = {}
 
-    update_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    update_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -301,7 +309,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     # Create request parameters for a unary method.
     name = "hello world"
 
-    delete_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    delete_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -357,7 +365,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     product = {}
     product_id = "hello world"
 
-    create_product_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    create_product_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -413,7 +421,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     page_size = 42
     page_token = "hello world"
 
-    list_products_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    list_products_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -467,7 +475,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     # Create request parameters for a unary method.
     name = "hello world"
 
-    get_product_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    get_product_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -522,7 +530,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     product = {}
     update_mask = {}
 
-    update_product_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    update_product_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -576,7 +584,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     # Create request parameters for a unary method.
     name = "hello world"
 
-    delete_product_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    delete_product_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -632,7 +640,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     reference_image = {}
     reference_image_id = "hello world"
 
-    create_reference_image_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    create_reference_image_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -686,7 +694,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     # Create request parameters for a unary method.
     name = "hello world"
 
-    delete_reference_image_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    delete_reference_image_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -742,7 +750,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     page_size = 42
     page_token = "hello world"
 
-    list_reference_images_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    list_reference_images_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -796,7 +804,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     # Create request parameters for a unary method.
     name = "hello world"
 
-    get_reference_image_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    get_reference_image_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -851,7 +859,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     name = "hello world"
     product = "hello world"
 
-    add_product_to_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    add_product_to_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -906,7 +914,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     name = "hello world"
     product = "hello world"
 
-    remove_product_from_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    remove_product_from_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -962,7 +970,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     page_size = 42
     page_token = "hello world"
 
-    list_products_in_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    list_products_in_product_set_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -1017,7 +1025,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     parent = "hello world"
     input_config = {}
 
-    import_product_sets_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    import_product_sets_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -1073,7 +1081,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     parent = "hello world"
     force = true
 
-    purge_products_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    purge_products_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, method_name:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"

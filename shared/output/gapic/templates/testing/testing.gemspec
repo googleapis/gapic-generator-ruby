@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "testing is the official client library for the Testing API."
-  gem.summary       = "API Client library for the Testing API"
+  gem.description   = "Typical Garbage Service."
+  gem.summary       = "Typical Garbage Service."
   gem.homepage      = "https://github.com/googleapis/googleapis"
   gem.license       = "MIT"
 
@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.7"
 
-  gem.add_dependency "gapic-common", ">= 0.21.1", "< 2.a"
+  gem.add_dependency "gapic-common", ">= 0.24.0", "< 2.a"
   gem.add_dependency "google-cloud-common", "~> 1.0"
   gem.add_dependency "google-cloud-location", ">= 0.7", "< 2.a"
 end

@@ -31,7 +31,7 @@ class ShowcaseGemPresenterTest < PresenterTest
     assert_equal "Google::Showcase::VERSION", presenter.version_name_full
     assert_equal ["Google LLC"], presenter.authors
     assert_equal "googleapis-packages@google.com", presenter.email
-    assert_equal "Showcase represents both a model API and an integration testing surface for client library generator consumption.", presenter.description
+    assert_equal "Showcase represents both a model API and an integration testing surface for\nclient library generator consumption.", presenter.description
     assert_equal "Showcase represents both a model API and an integration testing surface for client library generator consumption.", presenter.summary
     assert_equal "https://github.com/googleapis/googleapis", presenter.homepage
     assert_equal "SHOWCASE", presenter.env_prefix

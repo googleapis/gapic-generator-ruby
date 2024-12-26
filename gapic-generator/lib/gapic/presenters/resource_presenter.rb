@@ -75,6 +75,11 @@ module Gapic
           @parsed_pattern.arguments
         end
 
+        # @return [String] The conflicting argument name escaped with local binding.
+        def escape_argument arg
+          Gapic::RubyInfo.keywords.include?(arg) ? "binding.local_variable_get(:#{arg})" : arg
+        end
+
         def formal_arguments
           @parsed_pattern.arguments.map { |name| "#{name}:" }.join ", "
         end

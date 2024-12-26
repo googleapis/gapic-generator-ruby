@@ -49,9 +49,10 @@ class ::Testing::RoutingHeaders::ServiceImplicitHeaders::ClientTest < Minitest::
 
       @requests << @block&.call(*args, **kwargs)
 
-      yield @response, @operation if block_given?
-
-      @response
+      catch :response do
+        yield @response, @operation if block_given?
+        @response
+      end
     end
 
     def endpoint
@@ -60,6 +61,14 @@ class ::Testing::RoutingHeaders::ServiceImplicitHeaders::ClientTest < Minitest::
 
     def universe_domain
       "example.com"
+    end
+
+    def stub_logger
+      nil
+    end
+
+    def logger
+      nil
     end
   end
 

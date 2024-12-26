@@ -49,9 +49,10 @@ class ::So::Much::Trash::GarbageService::OperationsTest < Minitest::Test
 
       @requests << @block&.call(*args, **kwargs)
 
-      yield @response, @operation if block_given?
-
-      @response
+      catch :response do
+        yield @response, @operation if block_given?
+        @response
+      end
     end
 
     def endpoint
@@ -60,6 +61,14 @@ class ::So::Much::Trash::GarbageService::OperationsTest < Minitest::Test
 
     def universe_domain
       "example.com"
+    end
+
+    def stub_logger
+      nil
+    end
+
+    def logger
+      nil
     end
   end
 

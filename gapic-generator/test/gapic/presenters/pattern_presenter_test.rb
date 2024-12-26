@@ -75,8 +75,9 @@ class PatternPresenterTest < PresenterTest
   def test_reserved_keyword_segment_pattern
     pattern = "modules/{module}/cases/{case}"
     presenter = Gapic::Presenters::ResourcePresenter::PatternPresenter.new pattern
-    assert_equal ["module_param", "case_param"], presenter.arguments
-    assert_equal "modules/{module_param}/cases/{case_param}", presenter.pattern
-    assert_equal "modules/\#{module_param}/cases/\#{case_param}", presenter.path_string
+    assert_equal ["module", "case"], presenter.arguments
+    assert_equal ["binding.local_variable_get(:module)", "binding.local_variable_get(:case)"], presenter.arguments.map { |arg| presenter.escape_argument arg }
+    assert_equal "modules/{module}/cases/{case}", presenter.pattern
+    assert_equal "modules/\#{binding.local_variable_get :module}/cases/\#{binding.local_variable_get :case}", presenter.path_string
   end
 end

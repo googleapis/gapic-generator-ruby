@@ -114,7 +114,6 @@ module Gapic
                        operation_err_code_field,
                        operation_err_msg_field,
                        operation_response_fields
-
           @service_full_name = service_full_name
           @polling_method_name = polling_method_name
           @lro_object_full_name = lro_object_full_name

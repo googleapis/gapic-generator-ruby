@@ -58,12 +58,13 @@ class RpcCallRetryTest < Minitest::Test
     end
     sleep_proc = ->(count) { sleep_mock.sleep count }
 
-    time_now = Time.now
-    Time.stub :now, time_now do
+    nanos = Process.clock_gettime Process::CLOCK_REALTIME, :nanosecond
+    Process.stub :clock_gettime, nanos do
       Kernel.stub :sleep, sleep_proc do
         assert_equal 1729, rpc_call.call(Object.new, options: options)
         assert_equal 5, inner_attempts
-        assert_equal time_now + 300, deadline_arg
+        expected_time = Time.at(nanos / 1_000_000_000, nanos % 1_000_000_000, :nanosecond)
+        assert_equal(expected_time + 300, deadline_arg)
       end
     end
 

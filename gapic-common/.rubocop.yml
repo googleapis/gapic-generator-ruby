@@ -6,19 +6,19 @@ AllCops:
     - "test/**/*"
 
 Metrics/ClassLength:
-  Exclude:
-    - "lib/gapic/generic_lro/operation.rb"
-    - "lib/gapic/rest/grpc_transcoder.rb"
+  Max: 200
 
 Metrics/CyclomaticComplexity:
-  Exclude:
-    - "lib/gapic/headers.rb"
-    - "lib/gapic/rest/client_stub.rb"
+  Max: 15
+
+Metrics/MethodLength:
+  Max: 30
 
 Metrics/PerceivedComplexity:
-  Exclude:
-    - "lib/gapic/headers.rb"
-    - "lib/gapic/rest/client_stub.rb"
+  Max: 15
+
+Naming/AccessorMethodName:
+  Enabled: false
 
 Naming/FileName:
   Exclude:

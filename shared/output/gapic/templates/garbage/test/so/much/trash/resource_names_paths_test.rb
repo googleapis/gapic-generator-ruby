@@ -39,6 +39,14 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
     def universe_domain
       "example.com"
     end
+
+    def stub_logger
+      nil
+    end
+
+    def logger
+      nil
+    end
   end
 
   def test_complex_pattern_log_parent_path
@@ -120,7 +128,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
       path = client.resource_name_pattern_request_path request: "value0"
       assert_equal "patternrequests/value0", path
 
-      path = client.resource_name_pattern_request_path customer: "value0", case_param: "value1"
+      path = client.resource_name_pattern_request_path customer: "value0", case: "value1"
       assert_equal "customers/value0/cases/value1", path
     end
   end

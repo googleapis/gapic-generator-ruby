@@ -229,7 +229,7 @@ module So
               response = ::Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation,
                                                       options, format_resource: wrap_lro_operation
               yield response, operation if block_given?
-              return response
+              throw :response, response
             end
           end
 
@@ -323,7 +323,7 @@ module So
             @operations_stub.call_rpc :get_operation, request, options: options do |response, operation|
               response = ::Gapic::Operation.new response, @operations_client, options: options
               yield response, operation if block_given?
-              return response
+              throw :response, response
             end
           end
 
@@ -410,7 +410,6 @@ module So
 
             @operations_stub.call_rpc :delete_operation, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -503,7 +502,6 @@ module So
 
             @operations_stub.call_rpc :cancel_operation, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -599,7 +597,7 @@ module So
             @operations_stub.call_rpc :wait_operation, request, options: options do |response, operation|
               response = ::Gapic::Operation.new response, @operations_client, options: options
               yield response, operation if block_given?
-              return response
+              throw :response, response
             end
           end
 
@@ -686,6 +684,11 @@ module So
           #   default endpoint URL. The default value of nil uses the environment
           #   universe (usually the default "googleapis.com" universe).
           #   @return [::String,nil]
+          # @!attribute [rw] logger
+          #   A custom logger to use for request/response debug logging, or the value
+          #   `:default` (the default) to construct a default logger, or `nil` to
+          #   explicitly disable logging.
+          #   @return [::Logger,:default,nil]
           #
           class Configuration
             extend ::Gapic::Config
@@ -710,6 +713,7 @@ module So
             config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
             config_attr :quota_project, nil, ::String, nil
             config_attr :universe_domain, nil, ::String, nil
+            config_attr :logger, :default, ::Logger, nil, :default
 
             # @private
             def initialize parent_config = nil

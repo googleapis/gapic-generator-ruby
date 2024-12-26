@@ -387,6 +387,16 @@ class FormattingUtilsTest < Minitest::Test
     assert_equal ["Hello, {::Google::Cloud::Example::Earth::Client World}!\n"], result
   end
 
+  def test_disable_xref_for_service
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_service! "Earth"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth]!\n"], disable_xrefs: true
+    assert_equal ["Hello, World!\n"], result
+  end
+
   def test_xref_service_rest
     api = FakeApi.new do |api|
       api.add_file! "google.cloud.example" do

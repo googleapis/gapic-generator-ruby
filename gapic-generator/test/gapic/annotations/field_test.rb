@@ -22,7 +22,7 @@ class AnnotationFieldTest < AnnotationTest
     message = garbage.messages.find { |s| s.name == "TypicalGarbage" }
     refute_nil message
 
-    assert_equal 22, message.fields.count
+    assert_equal 23, message.fields.count
 
     assert_equal "name", message.fields[0].name
     refute_nil message.fields[0].options

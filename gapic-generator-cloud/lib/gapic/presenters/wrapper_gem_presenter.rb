@@ -66,6 +66,18 @@ module Gapic
         gem_config :migration_version
       end
 
+      ##
+      # Generates a description text for README files, accounting for markdown
+      # rendering, properly escaping variables and disabling xrefs in the wrapper.
+      #
+      # @return [Array<String>] The description text as an array of lines.
+      #
+      def readme_description
+        has_markdown = description.strip.start_with? "#"
+        desc = has_markdown ? description.split("\n") : [description.gsub(/\s+/, " ").strip]
+        Gapic::FormattingUtils.format_doc_lines @api, desc, disable_xrefs: true
+      end
+
       # A description of the versions prior to the migration version.
       # Could be "a.x" if the migration version is 1.0 or later, otherwise
       # falls back to "pre-a.b".

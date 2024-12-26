@@ -163,8 +163,19 @@ module So
               universe_domain: @config.universe_domain,
               channel_args: @config.channel_args,
               interceptors: @config.interceptors,
-              channel_pool_config: @config.channel_pool
+              channel_pool_config: @config.channel_pool,
+              logger: @config.logger
             )
+
+            @garbage_service_stub.stub_logger&.info do |entry|
+              entry.set_system_name
+              entry.set_service
+              entry.message = "Created client for #{entry.service}"
+              entry.set_credentials_fields credentials
+              entry.set "customEndpoint", @config.endpoint if @config.endpoint
+              entry.set "defaultTimeout", @config.timeout if @config.timeout
+              entry.set "quotaProject", @quota_project_id if @quota_project_id
+            end
           end
 
           ##
@@ -173,6 +184,15 @@ module So
           # @return [::So::Much::Trash::GarbageService::Operations]
           #
           attr_reader :operations_client
+
+          ##
+          # The logger used for request/response debug logging.
+          #
+          # @return [Logger]
+          #
+          def logger
+            @garbage_service_stub.logger
+          end
 
           # Service calls
 
@@ -240,7 +260,6 @@ module So
 
             @garbage_service_stub.call_rpc :get_empty_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -365,7 +384,6 @@ module So
 
             @garbage_service_stub.call_rpc :get_simple_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -461,7 +479,6 @@ module So
 
             @garbage_service_stub.call_rpc :get_specific_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -555,7 +572,6 @@ module So
 
             @garbage_service_stub.call_rpc :get_nested_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -649,7 +665,6 @@ module So
 
             @garbage_service_stub.call_rpc :get_repeated_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -666,7 +681,7 @@ module So
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil, amap: nil, oneof_singular_str: nil, oneof_pair_int32: nil, oneof_pair_float: nil, oneof_multiple_message: nil, oneof_multiple_bytes: nil, oneof_multiple_enum: nil, oneof_multiple_double: nil, optional_int32: nil)
+          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil, amap: nil, oneof_singular_str: nil, oneof_pair_int32: nil, oneof_pair_float: nil, oneof_multiple_message: nil, oneof_multiple_bytes: nil, oneof_multiple_enum: nil, oneof_multiple_double: nil, optional_int32: nil, case: nil)
           #   Pass arguments to `get_typical_garbage` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -712,6 +727,8 @@ module So
           #   @param oneof_multiple_double [::Float]
           #     This is a multiple-field oneof's double field.
           #   @param optional_int32 [::Integer]
+          #   @param case [::String]
+          #     This field tests for collisions against Ruby reserved keywords.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::So::Much::Trash::TypicalGarbage]
@@ -820,7 +837,6 @@ module So
 
             @garbage_service_stub.call_rpc :get_typical_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -899,7 +915,6 @@ module So
             @garbage_service_stub.call_rpc :get_typical_garbage_by_request, request,
                                            options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -1018,7 +1033,6 @@ module So
 
             @garbage_service_stub.call_rpc :get_complex_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -1094,7 +1108,6 @@ module So
 
             @garbage_service_stub.call_rpc :get_garbage_node, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -1197,7 +1210,7 @@ module So
               response = ::Gapic::PagedEnumerable.new @garbage_service_stub, :get_paged_garbage, request, response,
                                                       operation, options
               yield response, operation if block_given?
-              return response
+              throw :response, response
             end
           end
 
@@ -1282,7 +1295,7 @@ module So
             @garbage_service_stub.call_rpc :long_running_garbage, request, options: options do |response, operation|
               response = ::Gapic::Operation.new response, @operations_client, options: options
               yield response, operation if block_given?
-              return response
+              throw :response, response
             end
           end
 
@@ -1356,7 +1369,6 @@ module So
 
             @garbage_service_stub.call_rpc :client_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -1452,7 +1464,6 @@ module So
 
             @garbage_service_stub.call_rpc :server_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -1529,7 +1540,6 @@ module So
 
             @garbage_service_stub.call_rpc :bidi_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -1606,7 +1616,6 @@ module So
 
             @garbage_service_stub.call_rpc :bidi_typical_garbage, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -1674,7 +1683,6 @@ module So
 
             @garbage_service_stub.call_rpc :call_send, request, options: options do |response, operation|
               yield response, operation if block_given?
-              return response
             end
           end
 
@@ -1761,6 +1769,11 @@ module So
           #   default endpoint URL. The default value of nil uses the environment
           #   universe (usually the default "googleapis.com" universe).
           #   @return [::String,nil]
+          # @!attribute [rw] logger
+          #   A custom logger to use for request/response debug logging, or the value
+          #   `:default` (the default) to construct a default logger, or `nil` to
+          #   explicitly disable logging.
+          #   @return [::Logger,:default,nil]
           #
           class Configuration
             extend ::Gapic::Config
@@ -1785,6 +1798,7 @@ module So
             config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
             config_attr :quota_project, nil, ::String, nil
             config_attr :universe_domain, nil, ::String, nil
+            config_attr :logger, :default, ::Logger, nil, :default
 
             # @private
             def initialize parent_config = nil

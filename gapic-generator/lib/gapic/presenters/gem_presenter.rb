@@ -121,6 +121,22 @@ module Gapic
           "#{name} is the official client library for the #{title} API."
       end
 
+      def gemspec_description
+        description.gsub(/\s+/, " ").strip
+      end
+
+      ##
+      # Generates a description text for README files, accounting for markdown
+      # rendering and properly escaping variables.
+      #
+      # @return [Array<String>] The description text as an array of lines.
+      #
+      def readme_description
+        has_markdown = description.strip.start_with? "#"
+        desc = has_markdown ? description.split("\n") : [description.gsub(/\s+/, " ").strip]
+        Gapic::FormattingUtils.format_doc_lines @api, desc
+      end
+
       def summary
         gem_config(:summary) ||
           @api.api_metadata.summary ||
@@ -240,7 +256,7 @@ module Gapic
 
       def dependencies
         @dependencies ||= begin
-          deps = { "gapic-common" => [">= 0.21.1", "< 2.a"] }
+          deps = { "gapic-common" => [">= 0.24.0", "< 2.a"] }
           deps["grpc-google-iam-v1"] = "~> 1.1" if iam_dependency?
           extra_deps = gem_config_dependencies
           deps.merge! mixins_model.dependencies if mixins_model.mixins?
@@ -293,14 +309,13 @@ module Gapic
       end
 
       ##
-      # Whether the "Enabling (gRPC) Logging" section of the readme should
-      # appear. This is true if there is a quick-start service displayed in the
-      # readme, AND it uses gRPC.
+      # Whether the "Enabling Logging" section of the readme should appear.
+      # This is true if there is a quick-start service displayed in the readme.
       #
       # @return [Boolean]
       #
-      def show_grpc_logging_docs?
-        packages? && quick_start_service.usable_service_presenter.is_a?(ServicePresenter)
+      def show_logging_docs?
+        packages? && !quick_start_service.usable_service_presenter.nil?
       end
 
       ##

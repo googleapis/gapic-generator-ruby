@@ -14,6 +14,6 @@
 
 module Gapic
   module Common
-    VERSION = "0.22.0".freeze
+    VERSION = "0.24.0".freeze
   end
 end

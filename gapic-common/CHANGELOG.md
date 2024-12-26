@@ -1,5 +1,20 @@
 # Release History
 
+### 0.24.0 (2024-12-05)
+
+#### Features
+
+* Log requests and responses ([#1112](https://github.com/googleapis/gapic-generator-ruby/issues/1112)) 
+#### Bug Fixes
+
+* Hardened deadline determination against Time.now hacking ([#942](https://github.com/googleapis/gapic-generator-ruby/issues/942)) 
+
+### 0.23.0 (2024-10-15)
+
+#### Features
+
+* Disable universe domain check if credentials include an explicit request to do so ([#1119](https://github.com/googleapis/gapic-generator-ruby/issues/1119)) 
+
 ### 0.22.0 (2024-07-17)
 
 #### Features

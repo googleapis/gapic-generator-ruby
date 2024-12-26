@@ -74,9 +74,9 @@ class RpcCallRetryRaiseTest < Minitest::Test
 
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    time_now = Time.now
-    time_proc = lambda do
-      time_now += 60
+    nanos = Process.clock_gettime Process::CLOCK_REALTIME, :nanosecond
+    time_proc = lambda do |*|
+      nanos += 60_000_000_000
     end
 
     sleep_mock = Minitest::Mock.new
@@ -92,12 +92,13 @@ class RpcCallRetryRaiseTest < Minitest::Test
     )
 
     Kernel.stub :sleep, sleep_proc do
-      Time.stub :now, time_proc do
+      Process.stub :clock_gettime, time_proc do
         assert_raises GRPC::BadStatus do
           rpc_call.call Object.new, options: options
         end
 
-        assert_equal time_now, deadline_arg
+        expected_time = Time.at(nanos / 1_000_000_000, nanos % 1_000_000_000, :nanosecond)
+        assert_equal expected_time, deadline_arg
         assert_equal to_attempt, call_count
       end
     end

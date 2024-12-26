@@ -39,6 +39,14 @@ class ::Google::Showcase::V1beta1::Testing::ClientPathsTest < Minitest::Test
     def universe_domain
       "example.com"
     end
+
+    def stub_logger
+      nil
+    end
+
+    def logger
+      nil
+    end
   end
 
   def test_session_path

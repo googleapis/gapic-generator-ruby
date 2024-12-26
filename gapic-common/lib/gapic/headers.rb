@@ -19,6 +19,8 @@ require "gapic/common/version"
 module Gapic
   # A collection of common header values.
   module Headers
+    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+
     ##
     # @param ruby_version [String] The ruby version. Defaults to `RUBY_VERSION`.
     # @param lib_name [String] The client library name.
@@ -32,10 +34,10 @@ module Gapic
     #     `:grpc` to send the GRPC library version (if defined)
     #     `:rest` to send the REST library version (if defined)
     #   Defaults to `[:grpc]`
+    #
     def self.x_goog_api_client ruby_version: nil, lib_name: nil, lib_version: nil, gax_version: nil,
                                gapic_version: nil, grpc_version: nil, rest_version: nil, protobuf_version: nil,
                                transports_version_send: [:grpc]
-
       ruby_version ||= ::RUBY_VERSION
       gax_version  ||= ::Gapic::Common::VERSION
       grpc_version ||= ::GRPC::VERSION if defined? ::GRPC::VERSION
@@ -52,4 +54,6 @@ module Gapic
       x_goog_api_client_header.join " ".freeze
     end
   end
+
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 end

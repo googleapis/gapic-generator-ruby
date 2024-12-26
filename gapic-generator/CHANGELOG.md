@@ -1,5 +1,47 @@
 # Release History for gapic-generator
 
+### 0.38.3 / 2024-12-10
+
+* Fix: Added logger methods to generated dummy stub classes in generated tests
+
+### 0.38.2 / 2024-12-10
+
+* Fix: Throw the correct result object for REST with nonstandard LRO
+
+### 0.38.1 / 2024-12-09
+
+* Fix: fix wrapper gem tests by stubbing the stub_logger method
+
+### 0.38.0 / 2024-12-06
+
+* Feature: Support request-response debug logging from generated GAPICs
+
+### 0.37.0 / 2024-10-24
+
+* Feature: Remove path tests for clients using REST without gRPC
+
+### 0.36.1 / 2024-09-20
+
+* Fix: Add missing local binding in resource path methods
+
+### 0.36.0 / 2024-08-22
+
+* Feature: Support local binding for variables with keyword collision
+
+### 0.35.0 / 2024-08-15
+
+* Feature: Disable xrefs for README files in wrapper gems
+
+### 0.34.1 / 2024-08-08
+
+No significant changes
+
+### 0.34.0 / 2024-08-07
+
+* Feature: Resolve keyword conflicts with path pattern variable names
+* Feature: Prevent keyword collision with field names as values
+* Feature: Refactor README.md and gemspec files
+
 ### 0.33.0 / 2024-07-02
 
 * Fix: Resolve BigDecimal warning
