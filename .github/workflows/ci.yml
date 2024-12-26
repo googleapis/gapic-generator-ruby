@@ -34,4 +34,4 @@ jobs:
           toys bundle install
       - name: Run CI
         run: |
-          toys ci --generator-only
+          toys ci
