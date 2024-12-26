@@ -21,15 +21,13 @@ mixin "repo_info" do
   # with the current directory set to that directory, and also passing the
   # directory name to the block.
   #
-  def in_directories_with_bundles generator_only: false, include_toys: false
-    non_generator_directories = ["gapic-common"]
+  def in_directories_with_bundles include_toys: false
     Dir.chdir context_directory do
       gemfiles = Dir.glob "*/Gemfile"
-      gemfiles += Dir.glob ".toys/**/Gemfile" if include_toys && !generator_only
+      gemfiles += Dir.glob ".toys/**/Gemfile" if include_toys
       gemfiles.each do |gemfile|
         dir = File.dirname gemfile
         next if dir == "tmp"
-        next if generator_only && non_generator_directories.include?(dir)
         Dir.chdir dir do
           yield dir
         end
@@ -96,15 +94,13 @@ end
 tool "ci" do
   desc "Runs CI in all directories"
 
-  flag :generator_only
-
   include :exec
   include :terminal
   include "repo_info"
 
   def run
     failures = []
-    in_directories_with_bundles generator_only: generator_only do |dirname|
+    in_directories_with_bundles do |dirname|
       ["test", "rubocop"].each do |task_name|
         if tool_defined? task_name
           full_task_name = "#{dirname}: #{task_name}"
