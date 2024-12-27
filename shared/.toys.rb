@@ -122,6 +122,13 @@ tool "gen" do
       end
     end
   end
+  on_interrupt do
+    protoc_pids = `ps aux`.each_line.filter_map { |line| line.split[1].to_i if line.match?(/protoc-gen-ruby_/) }
+    puts "Terminating protoc-gen-ruby processes."
+    protoc_pids.each do |pid|
+      Process.kill("TERM", pid)
+    end
+  end
 
   def run_gem_builder service, output_dir
     require "gapic/gem_builder"
