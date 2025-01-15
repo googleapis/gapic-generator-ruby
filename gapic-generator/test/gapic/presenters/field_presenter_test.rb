@@ -136,7 +136,11 @@ class FieldPresenterTest < PresenterTest
     assert_equal "oneof_multiple_enum", fp.name
     assert_equal "@!attribute [rw] oneof_multiple_enum", fp.doc_attribute_type
     assert_equal "::So::Much::Trash::GarbageEnum", fp.output_doc_types
-    assert_equal fp.doc_description, "This is a multiple-field oneof's enum field.\n"
+    expected_description = "This is a multiple-field oneof's enum field.\n\n" \
+      "Note: The following fields are mutually exclusive: `oneof_multiple_enum`, `oneof_multiple_message`, " \
+      "`oneof_multiple_bytes`, `oneof_multiple_double`. If a field in that set is populated, all other fields in " \
+      "the set will automatically be cleared."
+    assert_equal expected_description, fp.doc_description
     assert_equal ":DEFAULT_GARBAGE", fp.default_value
     assert_equal ".endless.trash.forever.GarbageEnum", fp.type_name
     assert_equal "::So::Much::Trash::GarbageEnum", fp.type_name_full
