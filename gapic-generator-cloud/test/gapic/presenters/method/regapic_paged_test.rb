@@ -53,6 +53,6 @@ class MethodPresenterRegapicPagedTest < PresenterTest
     assert_equal "::Google::Cloud::Compute::V1::AddressAggregatedList", presenter.return_type
 
     assert presenter.rest.paged?
-    assert presenter.rest.pagination.repeated_field_is_a_map?
+    assert presenter.rest.compute_pagination.repeated_field_is_a_map?
   end
 end
