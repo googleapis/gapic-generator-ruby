@@ -248,8 +248,12 @@ module Google
             #
             #   @param content [::String]
             #     The content to be echoed by the server.
+            #
+            #     Note: The following fields are mutually exclusive: `content`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
             #   @param error [::Google::Rpc::Status, ::Hash]
             #     The error to be thrown by the server.
+            #
+            #     Note: The following fields are mutually exclusive: `error`, `content`. If a field in that set is populated, all other fields in the set will automatically be cleared.
             #   @param severity [::Google::Showcase::V1beta1::Severity]
             #     The severity to be echoed by the server.
             #   @param header [::String]
@@ -803,13 +807,21 @@ module Google
             #
             #   @param end_time [::Google::Protobuf::Timestamp, ::Hash]
             #     The time that this operation will complete.
+            #
+            #     Note: The following fields are mutually exclusive: `end_time`, `ttl`. If a field in that set is populated, all other fields in the set will automatically be cleared.
             #   @param ttl [::Google::Protobuf::Duration, ::Hash]
             #     The duration of this operation.
+            #
+            #     Note: The following fields are mutually exclusive: `ttl`, `end_time`. If a field in that set is populated, all other fields in the set will automatically be cleared.
             #   @param error [::Google::Rpc::Status, ::Hash]
             #     The error that will be returned by the server. If this code is specified
             #     to be the OK rpc code, an empty response will be returned.
+            #
+            #     Note: The following fields are mutually exclusive: `error`, `success`. If a field in that set is populated, all other fields in the set will automatically be cleared.
             #   @param success [::Google::Showcase::V1beta1::WaitResponse, ::Hash]
             #     The response to be returned on operation completion.
+            #
+            #     Note: The following fields are mutually exclusive: `success`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
             # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Operation]
             # @yieldparam operation [::Gapic::Rest::TransportOperation]
@@ -902,8 +914,12 @@ module Google
             #   @param error [::Google::Rpc::Status, ::Hash]
             #     The error that will be returned by the server. If this code is specified
             #     to be the OK rpc code, an empty response will be returned.
+            #
+            #     Note: The following fields are mutually exclusive: `error`, `success`. If a field in that set is populated, all other fields in the set will automatically be cleared.
             #   @param success [::Google::Showcase::V1beta1::BlockResponse, ::Hash]
             #     The response to be returned that will signify successful method call.
+            #
+            #     Note: The following fields are mutually exclusive: `success`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
             # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::BlockResponse]
             # @yieldparam operation [::Gapic::Rest::TransportOperation]

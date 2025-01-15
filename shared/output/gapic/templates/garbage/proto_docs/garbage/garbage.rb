@@ -102,9 +102,13 @@ module So
       # @!attribute [rw] a
       #   @return [::String]
       #     The string item.
+      #
+      #     Note: The following fields are mutually exclusive: `a`, `b`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] b
       #   @return [::Integer]
       #     The integer item.
+      #
+      #     Note: The following fields are mutually exclusive: `b`, `a`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       class GarbageItem
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -131,8 +135,10 @@ module So
       #     The name of the garbage this item belongs to.
       # @!attribute [rw] a
       #   @return [::String]
+      #     Note: The following fields are mutually exclusive: `a`, `b`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] b
       #   @return [::Integer]
+      #     Note: The following fields are mutually exclusive: `b`, `a`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       class SimpleGarbageItem
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -186,21 +192,33 @@ module So
       # @!attribute [rw] oneof_pair_int32
       #   @return [::Integer]
       #     This is a pair oneof's int32 field.
+      #
+      #     Note: The following fields are mutually exclusive: `oneof_pair_int32`, `oneof_pair_float`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] oneof_pair_float
       #   @return [::Float]
       #     This is a pair oneof's float field.
+      #
+      #     Note: The following fields are mutually exclusive: `oneof_pair_float`, `oneof_pair_int32`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] oneof_multiple_message
       #   @return [::So::Much::Trash::SimpleGarbageItem]
       #     This is a multiple-field oneof's message field.
+      #
+      #     Note: The following fields are mutually exclusive: `oneof_multiple_message`, `oneof_multiple_bytes`, `oneof_multiple_enum`, `oneof_multiple_double`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] oneof_multiple_bytes
       #   @return [::String]
       #     This is a multiple-field oneof's bytes field.
+      #
+      #     Note: The following fields are mutually exclusive: `oneof_multiple_bytes`, `oneof_multiple_message`, `oneof_multiple_enum`, `oneof_multiple_double`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] oneof_multiple_enum
       #   @return [::So::Much::Trash::GarbageEnum]
       #     This is a multiple-field oneof's enum field.
+      #
+      #     Note: The following fields are mutually exclusive: `oneof_multiple_enum`, `oneof_multiple_message`, `oneof_multiple_bytes`, `oneof_multiple_double`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] oneof_multiple_double
       #   @return [::Float]
       #     This is a multiple-field oneof's double field.
+      #
+      #     Note: The following fields are mutually exclusive: `oneof_multiple_double`, `oneof_multiple_message`, `oneof_multiple_bytes`, `oneof_multiple_enum`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] optional_int32
       #   @return [::Integer]
       # @!attribute [rw] case
