@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.39.0 / 2025-01-22
+
+* Feature: Add clarifying notes to oneof members in proto_docs
+
 ### 0.38.3 / 2024-12-10
 
 * Fix: Added logger methods to generated dummy stub classes in generated tests
