@@ -16,6 +16,6 @@
 
 module Gapic
   module Generator
-    VERSION = "0.38.3"
+    VERSION = "0.39.0"
   end
 end
