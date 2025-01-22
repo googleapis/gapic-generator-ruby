@@ -190,6 +190,7 @@ module Gapic
         fields = (descriptor.field || []).each_with_index.map do |f, i|
           load_field registry, f, address, docs, path + [2, i]
         end
+        fields.each { |field| field.populate_oneof_siblings! fields }
         extensions = (descriptor.extension || []).each_with_index.map do |e, i|
           load_field registry, e, address, docs, path + [6, i]
         end

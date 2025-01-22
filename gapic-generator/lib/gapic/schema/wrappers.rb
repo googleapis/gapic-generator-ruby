@@ -761,6 +761,7 @@ module Gapic
         super descriptor, address, docs
         @message = message
         @enum = enum
+        @oneof_siblings = nil
       end
 
       OPTION_EXTENSION_NAMES = {
@@ -966,6 +967,30 @@ module Gapic
       #   otherwise.
       def is_deprecated?
         option_named "deprecated"
+      end
+
+      # @private
+      # Populate the oneof_siblings array. This is nil if this field is not part
+      # of a oneof, otherwise it's an array of fields that are members of the
+      # oneof, with the first element being the current field.
+      def populate_oneof_siblings! all_fields
+        return unless oneof?
+        @oneof_siblings = [self]
+        all_fields.each do |field|
+          @oneof_siblings << field if field != self && field.oneof? && field.oneof_index == oneof_index
+        end
+      end
+
+      # @private
+      # Override this to add a note related to oneofs being mutually exclusive.
+      def docs_leading_comments disable_xrefs: false, transport: nil
+        str = super
+        return str unless @oneof_siblings && @oneof_siblings.size > 1
+        siblings = @oneof_siblings.map { |field| "`#{field.name}`" }.join ", "
+        note = "Note: The following fields are mutually exclusive: " \
+               "#{siblings}. If a field in that set is populated, all other " \
+               "fields in the set will automatically be cleared."
+        str ? "#{str.strip}\n\n#{note}" : note
       end
 
       # @!method name

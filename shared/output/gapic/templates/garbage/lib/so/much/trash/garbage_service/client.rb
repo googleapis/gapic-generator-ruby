@@ -716,16 +716,28 @@ module So
           #     This is a one-field oneof's string field.
           #   @param oneof_pair_int32 [::Integer]
           #     This is a pair oneof's int32 field.
+          #
+          #     Note: The following fields are mutually exclusive: `oneof_pair_int32`, `oneof_pair_float`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           #   @param oneof_pair_float [::Float]
           #     This is a pair oneof's float field.
+          #
+          #     Note: The following fields are mutually exclusive: `oneof_pair_float`, `oneof_pair_int32`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           #   @param oneof_multiple_message [::So::Much::Trash::SimpleGarbageItem, ::Hash]
           #     This is a multiple-field oneof's message field.
+          #
+          #     Note: The following fields are mutually exclusive: `oneof_multiple_message`, `oneof_multiple_bytes`, `oneof_multiple_enum`, `oneof_multiple_double`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           #   @param oneof_multiple_bytes [::String]
           #     This is a multiple-field oneof's bytes field.
+          #
+          #     Note: The following fields are mutually exclusive: `oneof_multiple_bytes`, `oneof_multiple_message`, `oneof_multiple_enum`, `oneof_multiple_double`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           #   @param oneof_multiple_enum [::So::Much::Trash::GarbageEnum]
           #     This is a multiple-field oneof's enum field.
+          #
+          #     Note: The following fields are mutually exclusive: `oneof_multiple_enum`, `oneof_multiple_message`, `oneof_multiple_bytes`, `oneof_multiple_double`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           #   @param oneof_multiple_double [::Float]
           #     This is a multiple-field oneof's double field.
+          #
+          #     Note: The following fields are mutually exclusive: `oneof_multiple_double`, `oneof_multiple_message`, `oneof_multiple_bytes`, `oneof_multiple_enum`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           #   @param optional_int32 [::Integer]
           #   @param case [::String]
           #     This field tests for collisions against Ruby reserved keywords.
