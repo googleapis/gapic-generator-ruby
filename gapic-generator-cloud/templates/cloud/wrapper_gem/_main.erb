@@ -46,6 +46,11 @@ end
 # the `transport` parameter.
 <%- end -%>
 #
+# Raises an exception if the currently installed versioned client gem for the
+# given API version does not support the <% if service.supports_multiple_transports? %>given transport of the <% end %><%= service.module_name %> service.
+# You can determine whether the method will succeed by calling
+# {<%= gem.namespace %>.<%= service.factory_method_name %>_available?}.
+#
 <%- if service.doc_description -%>
 # ## About <%= service.module_name %>
 #
@@ -73,6 +78,44 @@ def self.<%= service.factory_method_name %> version: :<%= gem.default_version %>
 <%- else -%>
   service_module<% if service.generate_rest_clients? %>.const_get(:Rest)<% end %>.const_get(:Client).new(&block)
 <%- end -%>
+end
+
+##
+# Determines whether the <%= service.module_name %> service is supported by the current client.
+# If true, you can retrieve a client object by calling {<%= gem.namespace %>.<%= service.factory_method_name %>}.
+# If false, that method will raise an exception. This could happen if the given
+# API version does not exist or does not support the <%= service.module_name %> service,
+# or if the versioned client gem needs an update to support the <%= service.module_name %> service.
+#
+# @param version [::String, ::Symbol] The API version to connect to. Optional.
+#   Defaults to `:<%= gem.default_version %>`.
+<%- if service.supports_multiple_transports? -%>
+# @param transport [:grpc, :rest] The transport to use. Defaults to `<%= gem.default_transport.inspect %>`.
+<%- end -%>
+# @return [boolean] Whether the service is available.
+#
+def self.<%= service.factory_method_name %>_available? version: :<%= gem.default_version %><% if service.supports_multiple_transports? %>, transport: <%= gem.default_transport.inspect %><% end %>
+  require "<%= gem.namespace_require %>/#{version.to_s.downcase}"
+  package_name = <%= gem.namespace %>
+                  .constants
+                  .select { |sym| sym.to_s.downcase == version.to_s.downcase.tr("_", "") }
+                  .first
+  return false unless package_name
+  service_module = <%= gem.namespace %>.const_get package_name
+  return false unless service_module.const_defined? :<%= service.module_name %>
+  service_module = service_module.const_get :<%= service.module_name %>
+<%- if service.supports_multiple_transports? -%>
+  if transport == :rest
+    return false unless service_module.const_defined? :Rest
+    service_module = service_module.const_get :Rest
+  end
+<%- elsif service.generate_rest_clients? -%>
+  return false unless service_module.const_defined? :Rest
+  service_module = service_module.const_get :Rest
+<%- end -%>
+  service_module.const_defined? :Client
+rescue ::LoadError
+  false
 end
 
 <%- end -%>
