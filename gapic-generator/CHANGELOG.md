@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.39.1 / 2025-01-23
+
+* Fix: Updated minimum gapic-common version to 0.25
+
 ### 0.39.0 / 2025-01-22
 
 * Feature: Add clarifying notes to oneof members in proto_docs
