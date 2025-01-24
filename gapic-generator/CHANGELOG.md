@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.39.2 / 2025-01-24
+
+* Fix: Add warning regarding external credential sourcing
+
 ### 0.39.1 / 2025-01-23
 
 * Fix: Updated minimum gapic-common version to 0.25

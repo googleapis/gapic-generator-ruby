@@ -1,5 +1,9 @@
 # Release History for gapic-generator-cloud
 
+### 0.39.2 / 2025-01-24
+
+* Includes changes from gapic-generator 0.39.2
+
 ### 0.39.1 / 2025-01-23
 
 * Includes changes from gapic-generator 0.39.1
