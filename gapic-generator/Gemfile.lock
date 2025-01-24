@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.40.0)
+    gapic-generator (0.41.0)
       actionpack (~> 5.2)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
@@ -41,7 +41,7 @@ GEM
     google-cloud-common (1.7.0)
       google-protobuf (>= 3.18, < 5.a)
       googleapis-common-protos-types (~> 1.7)
-    google-protobuf (3.25.5-x86_64-linux)
+    google-protobuf (3.25.6-x86_64-linux)
     google-style (1.27.1)
       rubocop (~> 1.56)
     googleapis-common-protos-types (1.18.0)

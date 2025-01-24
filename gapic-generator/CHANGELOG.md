@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.41.0 / 2025-01-24
+
+* Feature: Change minimum Ruby version to 3.0
+
 ### 0.40.0 / 2025-01-24
 
 No significant changes
