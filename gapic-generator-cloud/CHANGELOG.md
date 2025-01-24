@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.40.0 / 2025-01-24
+
+* Includes changes from gapic-generator 0.40.0
+* Feature: Wrapper clients provide better introspection to determine availability of client objects
+
 ### 0.39.2 / 2025-01-24
 
 * Includes changes from gapic-generator 0.39.2
