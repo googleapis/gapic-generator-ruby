@@ -312,6 +312,18 @@ module Gapic
       end
 
       ##
+      # @return [String] The name of the repeated field in paginated responses
+      #
+      def paged_response_repeated_field_name
+        return nil unless paged_response? @method.output
+
+        repeated_field = @method.output.fields.find do |f|
+          f.label == :LABEL_REPEATED && f.type == :TYPE_MESSAGE
+        end
+        repeated_field.name
+      end
+
+      ##
       # @return [Array<String>] The segment key names.
       #
       def routing_params

@@ -633,10 +633,10 @@ module Google
             #   @param page_token [::String]
             #     The position of the page to be returned.
             # @yield [result, operation] Access the result along with the TransportOperation object
-            # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
+            # @yieldparam result [::Google::Showcase::V1beta1::PagedExpandResponse]
             # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
-            # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
+            # @return [::Google::Showcase::V1beta1::PagedExpandResponse]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
             #
@@ -684,10 +684,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @echo_stub.paged_expand_legacy request, options do |result, operation|
-                result = ::Gapic::Rest::PagedEnumerable.new @echo_stub, :paged_expand_legacy, "responses", request,
-                                                            result, options
                 yield result, operation if block_given?
-                throw :response, result
               end
             rescue ::Faraday::Error => e
               raise ::Gapic::Rest::Error.wrap_faraday_error e
@@ -722,10 +719,10 @@ module Google
             #   @param page_token [::String]
             #     The position of the page to be returned.
             # @yield [result, operation] Access the result along with the TransportOperation object
-            # @yieldparam result [::Gapic::Rest::PagedEnumerable<::String, ::Google::Showcase::V1beta1::PagedExpandResponseList>]
+            # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse::AlphabetizedEntry>]
             # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
-            # @return [::Gapic::Rest::PagedEnumerable<::String, ::Google::Showcase::V1beta1::PagedExpandResponseList>]
+            # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse::AlphabetizedEntry>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
             #

@@ -61,6 +61,10 @@ module Gapic
         PackagePresenter.new @gem_presenter, @api, @service.parent.package
       end
 
+      def special_compute_behavior?
+        address[0] == "google" && address[1] == "cloud" && address[2] == "compute" && address[3] == "v1"
+      end
+
       ##
       # @return [Boolean] Whether the service is marked as deprecated.
       #
