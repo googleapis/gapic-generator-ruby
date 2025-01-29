@@ -62,7 +62,7 @@ module Gapic
       end
 
       def special_compute_behavior?
-        address[0] == "google" && address[1] == "cloud" && address[2] == "compute" && address[3] == "v1"
+        address[0] == "google" && address[1] == "cloud" && address[2] == "compute" && !address[3].to_s.empty?
       end
 
       ##
