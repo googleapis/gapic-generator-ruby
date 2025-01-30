@@ -23,7 +23,7 @@ module Gapic
     #
     class MethodRestPresenter
       # @return [Gapic::Presenters::Method::RestPaginationInfo]
-      attr_reader :pagination
+      attr_reader :compute_pagination
 
       attr_reader :http_bindings
 
@@ -37,7 +37,10 @@ module Gapic
       def initialize main_method, api
         @main_method = main_method
         @http_bindings = main_method.http_bindings
-        @pagination = Gapic::Presenters::Method::RestPaginationInfo.new main_method.method, api
+        @compute_pagination =
+          if @main_method.service.special_compute_behavior?
+            Gapic::Presenters::Method::RestPaginationInfo.new main_method.method, api
+          end
         @type = "method"
       end
 
@@ -91,9 +94,23 @@ module Gapic
       #
       def doc_response_type
         return "::Gapic::Operation" if lro?
-        return "::Gapic::Rest::PagedEnumerable<#{pagination.paged_element_doc_type}>" if paged?
+        if paged?
+          elem_type = compute_pagination&.paged_element_doc_type || @main_method.paged_response_type
+          return "::Gapic::Rest::PagedEnumerable<#{elem_type}>"
+        end
         return "::Gapic::GenericLRO::Operation" if nonstandard_lro?
         return_type
+      end
+
+      ##
+      # @return [String] The name of the repeated field in paginated responses
+      #
+      def paged_response_repeated_field_name
+        if compute_pagination
+          compute_pagination.response_repeated_field_name
+        else
+          @main_method.paged_response_repeated_field_name
+        end
       end
 
       ##
@@ -102,7 +119,7 @@ module Gapic
       # @return [Boolean]
       #
       def paged?
-        @pagination.paged?
+        compute_pagination ? compute_pagination.paged? : @main_method.paged?
       end
 
       def lro?
