@@ -95,8 +95,7 @@ module Gapic
       def doc_response_type
         return "::Gapic::Operation" if lro?
         if paged?
-          elem_type = compute_pagination&.paged_element_doc_type
-          elem_type ||= (lro? ? "::Gapic::Operation" : @main_method.paged_response_type)
+          elem_type = compute_pagination&.paged_element_doc_type || @main_method.paged_response_type
           return "::Gapic::Rest::PagedEnumerable<#{elem_type}>"
         end
         return "::Gapic::GenericLRO::Operation" if nonstandard_lro?
