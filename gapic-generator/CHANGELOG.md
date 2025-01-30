@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.42.0 / 2025-01-30
+
+* Feature: Change REGAPIC pagination algorithm to the standard algorithm for non-compute clients
+
 ### 0.41.0 / 2025-01-24
 
 * Feature: Change minimum Ruby version to 3.0
