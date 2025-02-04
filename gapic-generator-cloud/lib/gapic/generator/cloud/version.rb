@@ -18,7 +18,7 @@
 module Gapic
   module Generator
     module Cloud
-      VERSION = "0.42.0"
+      VERSION = "0.42.1"
     end
   end
 end

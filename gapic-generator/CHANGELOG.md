@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.42.1 / 2025-02-04
+
+* Fix: Wrappers load release dependencies if local dependencies do not match
+
 ### 0.42.0 / 2025-01-30
 
 * Feature: Change REGAPIC pagination algorithm to the standard algorithm for non-compute clients
