@@ -29,6 +29,10 @@ expand :yardoc do |t|
   t.bundler = true
 end
 
+tool "yard", delegate_to: "yardoc"
+
+expand :gem_build
+
 tool "gen" do
   desc "Regenerates output for goldens"
 
