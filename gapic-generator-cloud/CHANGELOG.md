@@ -1,5 +1,11 @@
 # Release History for gapic-generator-cloud
 
+### 0.43.0 / 2025-04-24
+
+* Includes changes from gapic-generator 0.43.0
+* Fix: Fixed typo in generated wrapper readmes
+* Fix: Provide a better check for grpc when typechecking credentials
+
 ### 0.42.1 / 2025-02-04
 
 * Includes changes from gapic-generator 0.42.1
