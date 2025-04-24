@@ -1,7 +1,7 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.42.1)
+    gapic-generator (0.43.0)
       actionpack (~> 5.2)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
@@ -12,8 +12,8 @@ PATH
 PATH
   remote: .
   specs:
-    gapic-generator-ads (0.42.1)
-      gapic-generator (= 0.42.1)
+    gapic-generator-ads (0.43.0)
+      gapic-generator (= 0.43.0)
 
 GEM
   remote: https://rubygems.org/
@@ -47,7 +47,7 @@ GEM
     google-cloud-common (1.8.0)
       google-protobuf (>= 3.18, < 5.a)
       googleapis-common-protos-types (~> 1.7)
-    google-protobuf (3.25.6-x86_64-linux)
+    google-protobuf (3.25.7-x86_64-linux)
     google-style (1.27.1)
       rubocop (~> 1.56)
     googleapis-common-protos-types (1.19.0)
@@ -55,7 +55,7 @@ GEM
     grpc-tools (1.60.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    json (2.10.2)
+    json (2.11.2)
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
     loofah (2.24.0)
@@ -134,4 +134,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.3.27
+   2.5.22
