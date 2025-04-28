@@ -58,51 +58,51 @@ module Gapic
                                                  gem_name: gem.name
 
           # Package level files
-          files << g("package.erb", "lib/#{package.package_file_path}", package: package)
-          files << g("package_rest.erb", "lib/#{package.package_rest_file_path}", package: package) if package.generate_rest_clients?
-          files << g("binding_override.erb", "lib/#{package.mixin_binding_overrides_file_path}", package: package) if package.mixin_binding_overrides? && package.generate_rest_clients?
+          files << g("package", "lib/#{package.package_file_path}", package: package)
+          files << g("package_rest", "lib/#{package.package_rest_file_path}", package: package) if package.generate_rest_clients?
+          files << g("binding_override", "lib/#{package.mixin_binding_overrides_file_path}", package: package) if package.mixin_binding_overrides? && package.generate_rest_clients?
 
           package.services.each do |service|
             should_generate_grpc = service.generate_grpc_clients?
             should_generate_rest = service.generate_rest_clients?
 
             # Service level files
-            files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)
-            files << g("service/credentials.erb",            "lib/#{service.credentials_file_path}",             service: service) unless gem.generic_endpoint?
-            files << g("service/paths.erb",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
+            files << g("service",                        "lib/#{service.service_file_path}",                 service: service)
+            files << g("service/credentials",            "lib/#{service.credentials_file_path}",             service: service) unless gem.generic_endpoint?
+            files << g("service/paths",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
 
             # Rest module file
-            files << g("service/rest.erb",                   "lib/#{service.rest.service_rest_file_path}",       service: service) if should_generate_rest
+            files << g("service/rest",                   "lib/#{service.rest.service_rest_file_path}",       service: service) if should_generate_rest
 
             # client.rb
-            files << g("service/client.erb",                 "lib/#{service.client_file_path}",                  service: service) if should_generate_grpc
-            files << g("service/rest/client.erb",            "lib/#{service.rest.client_file_path}",             service: service) if should_generate_rest
+            files << g("service/client",                 "lib/#{service.client_file_path}",                  service: service) if should_generate_grpc
+            files << g("service/rest/client",            "lib/#{service.rest.client_file_path}",             service: service) if should_generate_rest
 
             # Standard LRO shim
-            files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro? && should_generate_grpc
-            files << g("service/rest/operations.erb",        "lib/#{service.rest.operations_file_path}",         service: service) if service.rest.lro? && should_generate_rest
+            files << g("service/operations",             "lib/#{service.operations_file_path}",              service: service) if service.lro? && should_generate_grpc
+            files << g("service/rest/operations",        "lib/#{service.rest.operations_file_path}",         service: service) if service.rest.lro? && should_generate_rest
 
             # Nonstandard LRO shim
-            files << g("service/nonstandard_lro.erb",        "lib/#{service.nonstandard_lro_file_path}",         service: service) if service.nonstandard_lro_provider? && should_generate_grpc
-            files << g("service/rest/nonstandard_lro.erb",   "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.rest.nonstandard_lro_provider? && should_generate_rest
+            files << g("service/nonstandard_lro",        "lib/#{service.nonstandard_lro_file_path}",         service: service) if service.nonstandard_lro_provider? && should_generate_grpc
+            files << g("service/rest/nonstandard_lro",   "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.rest.nonstandard_lro_provider? && should_generate_rest
             
             # Rest-only `service.stub` file
-            files << g("service/rest/service_stub.erb",      "lib/#{service.rest.service_stub_file_path}",       service: service) if should_generate_rest
+            files << g("service/rest/service_stub",      "lib/#{service.rest.service_stub_file_path}",       service: service) if should_generate_rest
 
             # Unit tests for `client.rb`
-            files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service) if should_generate_grpc
-            files << g("service/rest/test/client.erb",       "test/#{service.rest.test_client_file_path}",       service: service) if should_generate_rest
+            files << g("service/test/client",            "test/#{service.test_client_file_path}",            service: service) if should_generate_grpc
+            files << g("service/rest/test/client",       "test/#{service.rest.test_client_file_path}",       service: service) if should_generate_rest
 
             # Unit tests for `paths.rb`
-            files << g("service/test/client_paths.erb",      "test/#{service.test_paths_file_path}",             service: service) if service.paths? && should_generate_grpc
+            files << g("service/test/client_paths",      "test/#{service.test_paths_file_path}",             service: service) if service.paths? && should_generate_grpc
 
             # Unit tests for standard LRO shim
-            files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro? && should_generate_grpc
+            files << g("service/test/client_operations", "test/#{service.test_client_operations_file_path}", service: service) if service.lro? && should_generate_grpc
 
             if @api.generate_standalone_snippets?
               service.methods.each do |method|
                 method.all_snippets.each do |snippet|
-                  snippet_file = g("snippets/standalone.erb", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
+                  snippet_file = g("snippets/standalone", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
                   package_snippets.add(method_presenter: method, snippet_presenter: snippet, snippet_file: snippet_file)
                 end
               end
@@ -113,27 +113,27 @@ module Gapic
         end
 
         # Gem level files
-        files << g("gem/gitignore.erb",             ".gitignore",                   gem: gem)
-        files << g("gem/version.erb",               "lib/#{gem.version_file_path}", gem: gem)
-        files << g("gem/test_helper.erb",           "test/helper.rb",               gem: gem)
-        files << g("gem/gemspec.erb",               "#{gem.name}.gemspec",          gem: gem)
-        files << g("gem/gemfile.erb",               "Gemfile",                      gem: gem)
-        files << g("gem/rakefile.erb",              "Rakefile",                     gem: gem)
-        files << g("gem/readme.erb",                "README.md",                    gem: gem)
-        files << g("gem/changelog.erb",             "CHANGELOG.md",                 gem: gem)
-        files << g("gem/rubocop.erb",               ".rubocop.yml",                 gem: gem)
-        files << g("gem/toys.erb",                  ".toys.rb",                     gem: gem)
-        files << g("gem/yardopts.erb",              ".yardopts",                    gem: gem)
-        files << g("gem/license.erb",               "LICENSE.md",                   gem: gem)
-        files << g("gem/entrypoint.erb",            "lib/#{gem.name}.rb",           gem: gem)
-        files << g("gem/gapic_metadata_json.erb",   "gapic_metadata.json",          gem: gem) if @api.generate_metadata
+        files << g("gem/gitignore",           ".gitignore",                   gem: gem)
+        files << g("gem/version",             "lib/#{gem.version_file_path}", gem: gem)
+        files << g("gem/test_helper",         "test/helper.rb",               gem: gem)
+        files << g("gem/gemspec",             "#{gem.name}.gemspec",          gem: gem)
+        files << g("gem/gemfile",             "Gemfile",                      gem: gem)
+        files << g("gem/rakefile",            "Rakefile",                     gem: gem)
+        files << g("gem/readme",              "README.md",                    gem: gem)
+        files << g("gem/changelog",           "CHANGELOG.md",                 gem: gem)
+        files << g("gem/rubocop",             ".rubocop.yml",                 gem: gem)
+        files << g("gem/toys",                ".toys.rb",                     gem: gem)
+        files << g("gem/yardopts",            ".yardopts",                    gem: gem)
+        files << g("gem/license",             "LICENSE.md",                   gem: gem)
+        files << g("gem/entrypoint",          "lib/#{gem.name}.rb",           gem: gem)
+        files << g("gem/gapic_metadata_json", "gapic_metadata.json",          gem: gem) if @api.generate_metadata
 
-        files << g("snippets/gemfile.erb",          "snippets/Gemfile",             gem: gem) if @api.generate_standalone_snippets?
+        files << g("snippets/gemfile",        "snippets/Gemfile",             gem: gem) if @api.generate_standalone_snippets?
 
         gem.proto_files.each do |proto_file|
-          files << g("proto_docs/proto_file.erb", "proto_docs/#{proto_file.docs_file_path}", file: proto_file)
+          files << g("proto_docs/proto_file", "proto_docs/#{proto_file.docs_file_path}", file: proto_file)
         end
-        files << g("proto_docs/readme.erb", "proto_docs/README.md", gem: gem)
+        files << g("proto_docs/readme",       "proto_docs/README.md", gem: gem)
 
         format_files files
 

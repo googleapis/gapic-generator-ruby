@@ -46,8 +46,10 @@ module Gapic
         template_path = File.expand_path template_path
         helpers_path = File.join template_path, "helpers"
 
-        # Configure Dependencies to know how to load helpers
-        ActiveSupport::Dependencies.autoload_paths.prepend helpers_path
+        # For some reason autoload doesn't seem to be working for helpers in Rails 8:
+        #     ActiveSupport::Dependencies.autoload_paths.prepend helpers_path
+        # So instead we eagerly load helpers
+        Dir.glob("#{helpers_path}/*_helper.rb") { |file| require file }
 
         # Configure the controller to know about the templates and helpers
         controller.prepend_view_path template_path
