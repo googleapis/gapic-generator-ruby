@@ -6,7 +6,7 @@ PATH
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
       google-protobuf (~> 3.25, >= 3.25.1)
-      google-style (~> 1.27.0)
+      google-style (~> 1.31.0)
       googleapis-common-protos-types (~> 1.8)
 
 GEM
@@ -42,8 +42,8 @@ GEM
       google-protobuf (>= 3.18, < 5.a)
       googleapis-common-protos-types (~> 1.7)
     google-protobuf (3.25.7-x86_64-linux)
-    google-style (1.27.1)
-      rubocop (~> 1.56)
+    google-style (1.31.0)
+      rubocop (~> 1.75)
     googleapis-common-protos-types (1.19.0)
       google-protobuf (>= 3.18, < 5.a)
     grpc-tools (1.60.2)
@@ -127,4 +127,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.4.19
+   2.4.10

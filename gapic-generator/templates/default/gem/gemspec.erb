@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
                       <%= gem.extra_files.inspect %>
   gem.require_paths = ["lib"]
 
-  gem.required_ruby_version = ">= 3.0"
+  gem.required_ruby_version = ">= 3.1"
 
   <%- gem.dependency_list.each do |name, requirements| -%>
   gem.add_dependency <%= name.inspect %>, <%= requirements.map { |v| v.inspect }.join ", " %>

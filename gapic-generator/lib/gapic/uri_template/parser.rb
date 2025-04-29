@@ -27,7 +27,7 @@ module Gapic
         (?<positional>\*\*?)
         |
         {(?<name>[^/]+?)(?:=(?<template>.+?))?}
-      }x.freeze
+      }x
 
       ##
       # Parses the arguments out of URI template

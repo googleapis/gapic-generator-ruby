@@ -201,6 +201,7 @@ module Gapic
           TYPE_SINT32: "::Integer",
           TYPE_SINT64: "::Integer"
         }.freeze
+        private_constant :FIELD_TYPE_MAPPING
 
         ##
         # A helper to get a Ruby doc-type for a paginated element.
