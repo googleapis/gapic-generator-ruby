@@ -34,7 +34,7 @@ def gapic_generator_ruby_repositories():
 # list_of_gems: a dictionary of gem name -> version strings to be loaded when the ruby_runtime dependency builds
 #
 def gapic_generator_ruby_customgems(list_of_gems):
-  _protobuf_version = "3.13.0"
+  _protobuf_version = "3.25.6"
   _protobuf_version_in_link = "v%s" % _protobuf_version
   _maybe(
     http_archive,
@@ -62,12 +62,12 @@ def gapic_generator_ruby_customgems(list_of_gems):
   # Create the common ruby runtime used for checks
   ruby_runtime(
     name = "ruby_runtime",
-    urls = ["https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.3.tar.gz"],
-    strip_prefix = "ruby-3.1.3",
+    urls = ["https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.8.tar.gz"],
+    strip_prefix = "ruby-3.2.8",
     prebuilt_rubys = [
-      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-3.1.3_glinux_x86_64.tar.gz",
+      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-3.2.8_glinux_x86_64.tar.gz",
     ],
-    bundler_version_to_install = "2.4.4",
+    bundler_version_to_install = "2.6.8",
     gems_to_install = list_of_gems,
   )
 

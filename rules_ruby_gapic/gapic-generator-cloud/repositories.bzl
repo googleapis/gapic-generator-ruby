@@ -22,10 +22,10 @@ def gapic_generator_cloud_repositories():
   # Create the ruby runtime
   ruby_runtime(
     name = "gapic_generator_cloud_ruby_runtime",
-    urls = ["https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.3.tar.gz"],
-    strip_prefix = "ruby-3.1.3",
+    urls = ["https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.8.tar.gz"],
+    strip_prefix = "ruby-3.2.8",
     prebuilt_rubys = [
-      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-3.1.3_glinux_x86_64.tar.gz",
+      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-3.2.8_glinux_x86_64.tar.gz",
     ],
     gemfile_lock = "@gapic_generator_ruby//:gapic-generator-cloud/Gemfile.lock",
     gems_to_install = {},
