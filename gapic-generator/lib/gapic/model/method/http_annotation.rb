@@ -82,11 +82,7 @@ module Gapic
         def self.create_with_override proto_method, service_config = nil
           proto_http = proto_method.http
 
-          http_override = begin
-            unless service_config&.http.nil?
-              service_config.http.rules.find { |http_rule| http_rule.selector == proto_method.full_name }
-            end
-          end
+          http_override = service_config&.http&.rules&.find { |http_rule| http_rule.selector == proto_method.full_name }
 
           http = http_override || proto_http
           HttpAnnotation.new http
