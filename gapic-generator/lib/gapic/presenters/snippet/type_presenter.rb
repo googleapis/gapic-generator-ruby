@@ -91,6 +91,7 @@ module Gapic
           TYPE_SINT32: "Integer",
           TYPE_SINT64: "Integer"
         }.freeze
+        private_constant :SCALAR_TYPE_MAPPING
       end
     end
   end

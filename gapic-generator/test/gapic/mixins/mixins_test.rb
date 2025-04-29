@@ -32,7 +32,8 @@ class MixinsTest < PresenterTest
     assert_equal 1, mx_model.dependencies.length
     refute_includes gem_presenter.services, "google.cloud.location.Locations"
 
-    locations_gem_name = Gapic::Model::Mixins::SERVICE_TO_DEPENDENCY[Gapic::Model::Mixins::LOCATIONS_SERVICE].keys[0]
+    service_to_dependency_value = Gapic::Model::Mixins.const_get :SERVICE_TO_DEPENDENCY
+    locations_gem_name = service_to_dependency_value[Gapic::Model::Mixins::LOCATIONS_SERVICE].keys[0]
     assert mx_model.dependencies.key? locations_gem_name
   end
 

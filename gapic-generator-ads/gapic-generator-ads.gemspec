@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.executables   = ["protoc-gen-ruby_ads"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.7"
+  spec.required_ruby_version = ">= 3.1"
 
   spec.add_dependency "gapic-generator", "= #{Gapic::Generator::Ads::VERSION}"
 end

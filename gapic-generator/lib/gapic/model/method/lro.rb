@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "singleton"
+
 require "gapic/path_pattern"
 
 module Gapic
