@@ -95,7 +95,7 @@ module Gapic
       end
 
       def overrides_of key
-        configuration&.fetch(:overrides, nil)&.fetch(key, nil) || {}
+        configuration&.dig(:overrides, key) || {}
       end
 
       def fix_file_path str

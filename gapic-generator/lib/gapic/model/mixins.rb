@@ -177,6 +177,7 @@ module Gapic
         IAM_SERVICE => "google-iam-v1",
         LRO_SERVICE => "google-longrunning-operations"
       }.freeze
+      private_constant :MIXIN_GEM_NAMES
 
       # Since mixins are scope-limited to a couple of services, it is easier to
       # have these in lookup tables than to construct a ServicePresenter
@@ -185,31 +186,37 @@ module Gapic
         LOCATIONS_SERVICE => { "google-cloud-location" => [">= 0.7", "< 2.a"] },
         IAM_SERVICE => { "google-iam-v1" => [">= 0.7", "< 2.a"] }
       }.freeze
+      private_constant :SERVICE_TO_DEPENDENCY
 
       SERVICE_TO_REQUIRE_STR = {
         LOCATIONS_SERVICE => "google/cloud/location",
         IAM_SERVICE => "google/iam/v1"
       }.freeze
+      private_constant :SERVICE_TO_REQUIRE_STR
 
       SERVICE_TO_REQUIRE_STR_REST = {
         LOCATIONS_SERVICE => "google/cloud/location/rest",
         IAM_SERVICE => "google/iam/v1/rest"
       }.freeze
+      private_constant :SERVICE_TO_REQUIRE_STR_REST
 
       SERVICE_TO_CLIENT_CLASS_NAME = {
         LOCATIONS_SERVICE => "Google::Cloud::Location::Locations::Client",
         IAM_SERVICE => "Google::Iam::V1::IAMPolicy::Client"
       }.freeze
+      private_constant :SERVICE_TO_CLIENT_CLASS_NAME
 
       SERVICE_TO_CLIENT_CLASS_NAME_REST = {
         LOCATIONS_SERVICE => "Google::Cloud::Location::Locations::Rest::Client",
         IAM_SERVICE => "Google::Iam::V1::IAMPolicy::Rest::Client"
       }.freeze
+      private_constant :SERVICE_TO_CLIENT_CLASS_NAME_REST
 
       SERVICE_TO_CLIENT_ATTR_NAME = {
         LOCATIONS_SERVICE => "location_client",
         IAM_SERVICE => "iam_policy_client"
       }.freeze
+      private_constant :SERVICE_TO_CLIENT_ATTR_NAME
 
       # @param service [String] full grpc name of the service
       # @raise [ModelError]
