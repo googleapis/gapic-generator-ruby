@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # A script demonstrating how to pack a ruby_runtime prebuild
-VERSION="3.1.3"
+VERSION="3.2.8"
 
 mkdir -p /tmp/pack_prebuilt_ruby/ruby-${VERSION}
 rm -rf /tmp/pack_prebuilt_ruby/ruby-${VERSION}/*
@@ -26,6 +26,6 @@ cp -r ~/src/gapic-generator-ruby/bazel-gapic-generator-ruby/external/ruby_runtim
 # alternative location -- from the bazel_example sub-workspace
 # cp -r ~/src/gapic-generator-ruby/bazel_example/bazel-bazel_example/external/ruby_runtime/* ./ruby-${VERSION}/
 
-tar -czf ruby-${VERSION}_linux_x86_64.tar.gz ruby-${VERSION}/bin ruby-${VERSION}/lib ruby-${VERSION}/include
-cp ./ruby-${VERSION}_linux_x86_64.tar.gz ~/src/gapic-generator-ruby/rules_ruby_gapic/prebuilt/
+tar -czf ruby-${VERSION}_glinux_x86_64.tar.gz ruby-${VERSION}/bin ruby-${VERSION}/lib ruby-${VERSION}/include
+cp ./ruby-${VERSION}_glinux_x86_64.tar.gz ~/src/gapic-generator-ruby/rules_ruby_gapic/prebuilt/
 popd
