@@ -2,10 +2,8 @@
 
 ### 0.44.0 / 2025-04-30
 
-* Fix: update Ruby prebuilt binary, version 3.1.3
-* Feature: Update Ruby to 3.2.8
-* Feature: ruby 3.1 and google-style 1.31.0
-* Fix: update Ruby prebuilt binary, version 3.2.8
+* Feature: Update Ruby for the generator to 3.2.8 including prebuilt binary
+* Feature: Set minumum Ruby version for generated code to 3.1 and use google-style 1.31
 
 ### 0.43.0 / 2025-04-24
 
