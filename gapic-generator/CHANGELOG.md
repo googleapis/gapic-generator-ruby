@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.44.0 / 2025-04-30
+
+* Feature: Update Ruby for the generator to 3.2.8 including prebuilt binary
+* Feature: Set minumum Ruby version for generated code to 3.1 and use google-style 1.31
+
 ### 0.43.0 / 2025-04-24
 
 * Fix: Fixed typo in generated wrapper readmes
