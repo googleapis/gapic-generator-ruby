@@ -1,5 +1,11 @@
 # Release History for gapic-generator-ads
 
+### 0.44.0 / 2025-04-30
+
+* Includes changes from gapic-generator 0.44.0
+* Feature: Update Ruby to 3.2.8
+* Feature: ruby 3.1 and google-style 1.31.0
+
 ### 0.43.0 / 2025-04-24
 
 * Includes changes from gapic-generator 0.43.0
