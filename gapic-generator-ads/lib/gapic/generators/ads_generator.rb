@@ -55,24 +55,24 @@ module Gapic
 
         gem.packages.each do |package|
           # Package level files
-          files << g("package.erb", "lib/#{package.package_file_path}", package: package)
+          files << g("package", "lib/#{package.package_file_path}", package: package)
           package.services.each do |service|
             # Service level files
-            files << g("service.erb",             "lib/#{service.service_file_path}",      service: service)
-            files << g("service/client.erb",      "lib/#{service.client_file_path}",       service: service)
-            files << g("service/credentials.erb", "lib/#{service.credentials_file_path}",  service: service)
-            files << g("service/paths.erb",       "lib/#{service.paths_file_path}",        service: service) if service.paths?
-            files << g("service/operations.erb",  "lib/#{service.operations_file_path}",   service: service) if service.lro?
+            files << g("service",             "lib/#{service.service_file_path}",      service: service)
+            files << g("service/client",      "lib/#{service.client_file_path}",       service: service)
+            files << g("service/credentials", "lib/#{service.credentials_file_path}",  service: service)
+            files << g("service/paths",       "lib/#{service.paths_file_path}",        service: service) if service.paths?
+            files << g("service/operations",  "lib/#{service.operations_file_path}",   service: service) if service.lro?
           end
         end
 
         # Gem level files
-        files << g("gem/version.erb", "lib/#{gem.version_file_path}", gem: gem)
+        files << g("gem/version", "lib/#{gem.version_file_path}", gem: gem)
 
         gem.proto_files.each do |proto_file|
-          files << g("proto_docs/proto_file.erb", "proto_docs/#{proto_file.docs_file_path}", file: proto_file)
+          files << g("proto_docs/proto_file", "proto_docs/#{proto_file.docs_file_path}", file: proto_file)
         end
-        files << g("proto_docs/readme.erb", "proto_docs/README.md", gem: gem)
+        files << g("proto_docs/readme", "proto_docs/README.md", gem: gem)
 
         format_files files
 

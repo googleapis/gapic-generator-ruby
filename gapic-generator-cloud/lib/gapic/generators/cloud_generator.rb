@@ -58,9 +58,9 @@ module Gapic
 
         # Additional Gem level files
         cloud_files = []
-        cloud_files << g("gem/repo-metadata.erb", ".repo-metadata.json", gem: gem)
+        cloud_files << g("gem/repo-metadata", ".repo-metadata.json", gem: gem)
         unless gem.services.empty? || gem.generic_endpoint?
-          cloud_files << g("gem/authentication.erb", "AUTHENTICATION.md", gem: gem)
+          cloud_files << g("gem/authentication", "AUTHENTICATION.md", gem: gem)
         end
 
         format_files cloud_files
@@ -82,24 +82,24 @@ module Gapic
 
         gem = Gapic::Presenters.wrapper_gem_presenter @api
 
-        files << g("gem/gitignore.erb",                 ".gitignore",                                    gem: gem)
-        files << g("gem/repo-metadata.erb",             ".repo-metadata.json",                           gem: gem)
-        files << g("wrapper_gem/rubocop.erb",           ".rubocop.yml",                                  gem: gem)
-        files << g("gem/toys.erb",                      ".toys.rb",                                      gem: gem)
-        files << g("wrapper_gem/yardopts.erb",          ".yardopts",                                     gem: gem)
-        files << g("gem/authentication.erb",            "AUTHENTICATION.md",                             gem: gem) unless gem.generic_endpoint?
-        files << g("gem/changelog.erb",                 "CHANGELOG.md",                                  gem: gem)
-        files << g("wrapper_gem/gemfile.erb",           "Gemfile",                                       gem: gem)
-        files << g("gem/license.erb",                   "LICENSE.md",                                    gem: gem)
-        files << g("wrapper_gem/rakefile.erb",          "Rakefile",                                      gem: gem)
-        files << g("wrapper_gem/readme.erb",            "README.md",                                     gem: gem)
-        files << g("wrapper_gem/gemspec.erb",           "#{gem.name}.gemspec",                           gem: gem)
-        files << g("wrapper_gem/entrypoint.erb",        "lib/#{gem.name}.rb",                            gem: gem) if gem.needs_entrypoint?
-        files << g("wrapper_gem/main.erb",              "lib/#{gem.namespace_file_path}",                gem: gem)
-        files << g("gem/version.erb",                   "lib/#{gem.version_file_path}",                  gem: gem)
-        files << g("gem/test_helper.erb",               "test/helper.rb",                                gem: gem)
-        files << g("wrapper_gem/client_test.erb",       "test/#{gem.namespace_require}/client_test.rb",  gem: gem)
-        files << g("wrapper_gem/version_test.erb",      "test/#{gem.namespace_require}/version_test.rb", gem: gem)
+        files << g("gem/gitignore",                 ".gitignore",                                    gem: gem)
+        files << g("gem/repo-metadata",             ".repo-metadata.json",                           gem: gem)
+        files << g("wrapper_gem/rubocop",           ".rubocop.yml",                                  gem: gem)
+        files << g("gem/toys",                      ".toys.rb",                                      gem: gem)
+        files << g("wrapper_gem/yardopts",          ".yardopts",                                     gem: gem)
+        files << g("gem/authentication",            "AUTHENTICATION.md",                             gem: gem) unless gem.generic_endpoint?
+        files << g("gem/changelog",                 "CHANGELOG.md",                                  gem: gem)
+        files << g("wrapper_gem/gemfile",           "Gemfile",                                       gem: gem)
+        files << g("gem/license",                   "LICENSE.md",                                    gem: gem)
+        files << g("wrapper_gem/rakefile",          "Rakefile",                                      gem: gem)
+        files << g("wrapper_gem/readme",            "README.md",                                     gem: gem)
+        files << g("wrapper_gem/gemspec",           "#{gem.name}.gemspec",                           gem: gem)
+        files << g("wrapper_gem/entrypoint",        "lib/#{gem.name}.rb",                            gem: gem) if gem.needs_entrypoint?
+        files << g("wrapper_gem/main",              "lib/#{gem.namespace_file_path}",                gem: gem)
+        files << g("gem/version",                   "lib/#{gem.version_file_path}",                  gem: gem)
+        files << g("gem/test_helper",               "test/helper.rb",                                gem: gem)
+        files << g("wrapper_gem/client_test",       "test/#{gem.namespace_require}/client_test.rb",  gem: gem)
+        files << g("wrapper_gem/version_test",      "test/#{gem.namespace_require}/version_test.rb", gem: gem)
 
         format_files files
 
