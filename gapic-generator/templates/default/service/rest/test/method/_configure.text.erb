@@ -1,0 +1,20 @@
+<%- assert_locals service -%>
+<%- full_client_name = defined?(client_name_full) ? client_name_full : service.rest.client_name_full -%>
+def test_configure
+  credentials_token = :dummy_value
+
+  client = block_config = config = nil
+  dummy_stub = ClientStub.new nil
+  Gapic::Rest::ClientStub.stub :new, dummy_stub do
+    client = <%= full_client_name %>.new do |config|
+      config.credentials = credentials_token
+    end
+  end
+
+  config = client.configure do |c|
+    block_config = c
+  end
+
+  assert_same block_config, config
+  assert_kind_of <%= full_client_name %>::Configuration, config
+end

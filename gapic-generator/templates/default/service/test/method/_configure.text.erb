@@ -1,0 +1,20 @@
+<%- assert_locals service -%>
+<%- full_client_name = defined?(client_name_full) ? client_name_full : service.client_name_full -%>
+def test_configure
+  grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+
+  client = block_config = config = nil
+  dummy_stub = ClientStub.new nil, nil
+  Gapic::ServiceStub.stub :new, dummy_stub do
+    client = <%= full_client_name =%>.new do |config|
+      config.credentials = grpc_channel
+    end
+  end
+
+  config = client.configure do |c|
+    block_config = c
+  end
+
+  assert_same block_config, config
+  assert_kind_of <%= full_client_name %>::Configuration, config
+end

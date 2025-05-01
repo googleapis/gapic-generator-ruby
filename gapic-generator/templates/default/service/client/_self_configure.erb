@@ -1,9 +1,0 @@
-<%- assert_locals service -%>
-<%- method_service ||= service -%>
-@configure ||= begin
-  default_config = <%= service.client_name %>::Configuration.new
-  <%= render partial: "service/client/self_configure_defaults", locals: {service: service} %>
-  default_config
-end
-yield @configure if block_given?
-@configure

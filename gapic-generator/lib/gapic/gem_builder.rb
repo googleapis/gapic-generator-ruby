@@ -37,23 +37,21 @@ module Gapic
     # Writes all the files for the gem.
     #
     def bootstrap
-      gen "readme.erb",     "README.md"
-      gen "gemspec.erb",    "gapic-generator-#{gem_name}.gemspec"
-      gen "rakefile.erb",   "Rakefile"
-      gen "gemfile.erb",    "Gemfile"
-      gen "gitignore.erb",  ".gitignore"
-      gen "rubocop.erb",    ".rubocop.yml"
-      gen "dockerfile.erb", "Dockerfile"
-      gen "entrypoint.erb", "docker-entrypoint.sh"
-      gen "gapic_sh.erb",   "gapic.sh"
-      gen "binary.erb",     "bin/protoc-gen-ruby_#{gem_name}"
-      gen "generator.erb",
-          "lib/gapic/generators/#{gem_name}_generator.rb"
-      gen "version.erb",
-          "lib/gapic/generator/#{gem_name}/version.rb"
-      gen "test_helper.erb",    "test/test_helper.rb"
-      gen "test_generator.erb", "test/generators/#{gem_name}_test.rb"
-      cp  "speech_desc.bin",    "proto_input/speech_desc.bin"
+      gen "readme",          "README.md"
+      gen "gemspec",         "gapic-generator-#{gem_name}.gemspec"
+      gen "rakefile",        "Rakefile"
+      gen "gemfile",         "Gemfile"
+      gen "gitignore",       ".gitignore"
+      gen "rubocop",         ".rubocop.yml"
+      gen "dockerfile",      "Dockerfile"
+      gen "entrypoint",      "docker-entrypoint.sh"
+      gen "gapic_sh",        "gapic.sh"
+      gen "binary",          "bin/protoc-gen-ruby_#{gem_name}"
+      gen "generator",       "lib/gapic/generators/#{gem_name}_generator.rb"
+      gen "version",         "lib/gapic/generator/#{gem_name}/version.rb"
+      gen "test_helper",     "test/test_helper.rb"
+      gen "test_generator",  "test/generators/#{gem_name}_test.rb"
+      cp  "speech_desc.bin", "proto_input/speech_desc.bin"
     end
 
     private

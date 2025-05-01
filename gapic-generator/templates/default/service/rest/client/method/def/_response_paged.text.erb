@@ -1,0 +1,7 @@
+<%- assert_locals method -%>
+<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: bindings_override" : "" -%>
+@<%= method.service.stub_name %>.<%= method.name %> request, options<%= boverr_str %> do |result, operation|
+  result = ::Gapic::Rest::PagedEnumerable.new @<%= method.service.stub_name %>, :<%= method.name %>, "<%= method.rest.paged_response_repeated_field_name %>", request, result, options
+  yield result, operation if block_given?
+  throw :response, result
+end

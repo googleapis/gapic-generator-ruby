@@ -1,2 +1,0 @@
-<%- assert_locals values -%>
-puts "<%= values[0].gsub("%s", "\#{%s}") % values[1..-1].map { |value| value.gsub("$resp", "response") } %>"

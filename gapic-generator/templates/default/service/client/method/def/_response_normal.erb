@@ -1,4 +1,0 @@
-<%- assert_locals method -%>
-@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options do |response, operation|
-  yield response, operation if block_given?
-end

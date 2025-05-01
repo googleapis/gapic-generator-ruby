@@ -1,0 +1,107 @@
+<%- assert_locals service -%>
+<% @requires = capture do %>
+require "gapic/operation"
+require "<%= service.lro_service.proto_service_require %>"
+<% end %>
+# Service that implements Longrunning Operations API.
+class <%= service.operations_name %>
+  # @private
+  API_VERSION = "<%= service.api_version %>".freeze
+
+  # @private
+  DEFAULT_ENDPOINT_TEMPLATE = <%= service.client_endpoint_template.inspect %>
+
+  # @private
+  attr_reader :<%= service.lro_service.stub_name %>
+
+  ##
+  # Configuration for the <%= service.name %> Operations API.
+  #
+  # @yield [config] Configure the <%= service.operations_name %> client.
+  # @yieldparam config [<%= service.operations_name %>::Configuration]
+  #
+  # @return [<%= service.operations_name %>::Configuration]
+  #
+  def self.configure
+    @configure ||= <%= service.operations_name %>::Configuration.new
+    yield @configure if block_given?
+    @configure
+  end
+
+  ##
+  # Configure the <%= service.name %> <%= service.operations_name %> instance.
+  #
+  # The configuration is set to the derived mode, meaning that values can be changed,
+  # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+  # should be made on {<%= service.operations_name %>.configure}.
+  #
+  # @yield [config] Configure the <%= service.operations_name %> client.
+  # @yieldparam config [<%= service.operations_name %>::Configuration]
+  #
+  # @return [<%= service.operations_name %>::Configuration]
+  #
+  def configure
+    yield @config if block_given?
+    @config
+  end
+
+  ##
+  # The effective universe domain
+  #
+  # @return [String]
+  #
+  def universe_domain
+    @<%= service.lro_service.stub_name %>.universe_domain
+  end
+
+  ##
+  # Create a new <%= service.operations_name %> client object.
+  #
+  # @yield [config] Configure the <%= service.client_name %> client.
+  # @yieldparam config [<%= service.operations_name %>::Configuration]
+  #
+  def initialize
+    # These require statements are intentionally placed here to initialize
+    # the gRPC module only when it's required.
+    # See https://github.com/googleapis/toolkit/issues/446
+    require "gapic/grpc"
+    require "<%= service.lro_service.proto_services_require %>"
+
+    # Create the configuration object
+    @config = Configuration.new <%= service.operations_name %>.configure
+
+    # Yield the configuration if needed
+    yield @config if block_given?
+
+    # Create credentials
+    credentials = @config.credentials
+    credentials ||= Credentials.default scope: @config.scope
+    if credentials.is_a?(::String) || credentials.is_a?(::Hash)
+      credentials = Credentials.new credentials, scope: @config.scope
+    end
+    @quota_project_id = @config.quota_project
+    @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
+    @<%= service.lro_service.stub_name %> = ::Gapic::ServiceStub.new(
+      <%= service.lro_service.proto_service_stub_name_full %>,
+      credentials: credentials,
+      endpoint: @config.endpoint,
+      endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
+      universe_domain: @config.universe_domain,
+      channel_args: @config.channel_args,
+      interceptors: @config.interceptors,
+      channel_pool_config: @config.channel_pool
+    )
+
+    # Used by an LRO wrapper for some methods of this service
+    @operations_client = self
+  end
+
+  # Service calls
+  <%- service.lro_service.methods.each do |method| -%>
+
+  <%= indent_tail render(partial: "service/client/method/def", locals: { method: method }), 2 %>
+  <%- end %>
+
+  <%= indent_tail render(partial: "service/client/config", locals: { service: service.lro_service }), 2 %>
+end

@@ -1,0 +1,6 @@
+<%- assert_locals file -%>
+<%= render partial: "proto_docs/proto_file",
+           layout: "layouts/ruby",
+           locals: { file: file,
+                     namespace: file.namespace }
+%>

@@ -1,0 +1,39 @@
+<%= render partial: "shared/header" -%>
+
+##
+# Builder image.
+# Creates /workspace/gapic-generator-<%= gem_name %>.gem
+# to be copied into the final runtime image.
+##
+FROM ruby:2.6-stretch as builder
+WORKDIR /workspace
+
+# Copy code from the local directory.
+COPY . /workspace/
+
+# Create a build of the gapic-generator-<%= gem_name %> gem from source.
+RUN gem build -o gapic-generator-<%= gem_name %>.gem \
+              gapic-generator-<%= gem_name %>.gemspec
+
+
+##
+# Runtime image.
+# Installs the generator executables, common protos, and an entrypoint.
+##
+FROM ruby:2.6-stretch
+WORKDIR /workspace
+
+# Install common protos.
+COPY --from=gcr.io/gapic-images/api-common-protos:beta /protos/ /workspace/common-protos/
+
+# Copy gems from the builder.
+COPY --from=builder /workspace/*.gem /workspace/
+
+# Install the subgenerator and other needed tools.
+RUN gem install grpc-tools gapic-generator-<%= gem_name %>.gem \
+    && rm gapic-generator-<%= gem_name %>.gem \
+    && mkdir -p --mode=777 /.cache
+
+# Install the entrypoint.
+COPY ./docker-entrypoint.sh /workspace/entrypoint.sh
+ENTRYPOINT ["/workspace/entrypoint.sh"]

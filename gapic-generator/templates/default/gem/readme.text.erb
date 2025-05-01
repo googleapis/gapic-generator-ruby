@@ -1,0 +1,42 @@
+# Ruby Client for the <%= gem.title %> API
+
+<%= gem.summary %>
+
+<%- if gem.summary != gem.description %>
+<% gem.readme_description.each do |line| %>
+<%= line %>
+<% end %>
+<%- end %>
+
+<%= gem.homepage %>
+
+## Installation
+
+```
+$ gem install <%= gem.name %>
+```
+
+## Quick Start
+
+```ruby
+require "<%= gem.entrypoint_require %>"
+<%- service = gem.quick_start_service -%>
+<%- method = service&.quick_start_method -%>
+<%- if service && method -%>
+
+client = <%= service.create_client_call %>
+request = <%= method.request_type %>.new # (request fields as keyword arguments...)
+response = client.<%= method.name %> request
+<%- end -%>
+```
+
+## Supported Ruby Versions
+
+This library is supported on Ruby 3.1+.
+
+Google provides official support for Ruby versions that are actively supported
+by Ruby Core—that is, Ruby versions that are either in normal maintenance or
+in security maintenance, and not end of life. Older versions of Ruby _may_
+still work, but are unsupported and not recommended. See
+https://www.ruby-lang.org/en/downloads/branches/ for details about the Ruby
+support schedule.

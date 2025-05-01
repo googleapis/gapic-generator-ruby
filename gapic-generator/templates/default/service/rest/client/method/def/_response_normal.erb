@@ -1,5 +1,0 @@
-<%- assert_locals method -%>
-<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: bindings_override" : "" -%>
-@<%= method.service.stub_name %>.<%= method.name %> request, options<%= boverr_str %> do |result, operation|
-  yield result, operation if block_given?
-end

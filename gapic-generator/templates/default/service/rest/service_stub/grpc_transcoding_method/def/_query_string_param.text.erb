@@ -1,0 +1,8 @@
+<%- assert_locals field -%>
+<%- field_name_interpolated = "request_pb.#{field.name}" -%>
+<%- has_field_name_interpolated = "request_pb.has_#{field.name}?" -%>
+<%- if field.proto3_optional? -%>
+query_string_params["<%= field.camel_name %>"] = <%= field_name_interpolated %>.to_s if <%= has_field_name_interpolated %>
+<%- else -%>
+query_string_params["<%= field.camel_name %>"] = <%= field_name_interpolated %>.to_s
+<%- end -%>

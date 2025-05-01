@@ -1,0 +1,24 @@
+<%- assert_locals snippet -%>
+<%- unless snippet.client_initialization.render.empty? -%>
+<%= snippet.client_initialization.render %>
+
+<%- end -%>
+<%- unless snippet.request_initialization.render_precall.empty? -%>
+<%= snippet.request_initialization.render_precall %>
+
+<%- end -%>
+<%= snippet.client_call.render %>
+<%- unless snippet.request_initialization.render_postcall.empty? -%>
+
+<%= snippet.request_initialization.render_postcall %>
+<%- end -%>
+<%- unless snippet.response_handling.render.empty? -%>
+
+<%= snippet.response_handling.render %>
+<%- end -%>
+<%- unless snippet.final_statements.empty? -%>
+
+<%- snippet.final_statements.each do |statement| -%>
+<%= statement.render %>
+<%- end -%>
+<%- end -%>

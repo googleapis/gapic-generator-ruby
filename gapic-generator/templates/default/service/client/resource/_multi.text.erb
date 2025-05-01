@@ -1,0 +1,29 @@
+<%- assert_locals resource -%>
+##
+# Create a fully-qualified <%= resource.name %> resource string.
+#
+<%- resource.patterns.each do |pattern| -%>
+# @overload <%= resource.path_helper %>(<%= pattern.formal_arguments %>)
+<%= indent render(partial: "service/client/resource/doc", locals: { pattern: pattern }), "#   " %>
+#
+<%- end -%>
+# @return [::String]
+def <%= resource.path_helper %> **args
+  resources = {
+<%- last_pattern_index = resource.patterns.count - 1 -%>
+<%- resource.patterns.each_with_index do |pattern, index| -%>
+<%- comma = last_pattern_index == index ? "" : "," -%>
+<%- if pattern.formal_arguments.empty? -%>
+    <%= pattern.arguments_key.inspect %> => (proc do
+<%- else -%>
+    <%= pattern.arguments_key.inspect %> => (proc do |<%= pattern.formal_arguments %>|
+<%- end -%>
+<%= indent render(partial: "service/client/resource/def", locals: { pattern: pattern }), 6 %>
+    end)<%= comma %>
+<%- end -%>
+  }
+
+  resource = resources[args.keys.sort.join(":")]
+  raise ::ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+  resource.call(**args)
+end

@@ -1,0 +1,28 @@
+<%- assert_locals gem -%>
+{
+<%- if gem.api_id -%>
+    "api_id": "<%= gem.api_id %>",
+<%- end -%>
+    "api_shortname": "<%= gem.api_shortname || 'unknown' %>",
+    "client_documentation": "<%= gem.library_documentation_url %>",
+    "distribution_name": "<%= gem.name %>",
+    "is_cloud": <%= gem.cloud_product? %>,
+<%- if gem.issue_tracker_url -%>
+    "issue_tracker": "<%= gem.issue_tracker_url %>",
+<%- end -%>
+    "language": "ruby",
+<%- if gem.api_shortname -%>
+    "name": "<%= gem.api_shortname %>",
+<%- end -%>
+    "name_pretty": "<%= gem.title %> API",
+<%- if gem.product_documentation_url -%>
+    "product_documentation": "<%= gem.product_documentation_url %>",
+<%- end -%>
+    "release_level": "unreleased",
+    "repo": "googleapis/google-cloud-ruby",
+    "requires_billing": <%= !gem.free_tier? %>,
+<%- gem.generator_args_for_metadata.each do |key, val| -%>
+    <%= key.inspect %>: <%= val.inspect %>,
+<%- end -%>
+    "library_type": "GAPIC_AUTO"
+}

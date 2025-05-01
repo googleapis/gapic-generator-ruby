@@ -1,0 +1,6 @@
+<%- assert_locals method -%>
+# @yield [response, operation] Access the result along with the RPC operation
+# @yieldparam response [<%= method.doc_response_type %>]
+# @yieldparam operation [::GRPC::ActiveCall::Operation]
+#
+# @return [<%= method.doc_response_type %>]

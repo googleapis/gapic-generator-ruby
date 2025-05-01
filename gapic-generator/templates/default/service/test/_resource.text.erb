@@ -1,0 +1,16 @@
+<%- assert_locals resource -%>
+<%- assert_locals service -%>
+<%- full_client_name = defined?(client_name_full) ? client_name_full : service.client_name_full -%>
+def test_<%= resource.path_helper%>
+  grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+  ::Gapic::ServiceStub.stub :new, DummyStub.new do
+    client = <%= full_client_name %>.new do |config|
+      config.credentials = grpc_channel
+    end
+<%- resource.patterns.each do |pattern| -%>
+
+    path = client.<%= resource.path_helper%> <%= pattern.arguments_with_dummy_values %>
+    assert_equal <%= pattern.expected_path_for_dummy_values.inspect %>, path
+<%- end -%>
+  end
+end

@@ -1,0 +1,33 @@
+<%- assert_locals service -%>
+<%= render partial: "shared/header" %>
+require "helper"
+
+require "gapic/grpc/service_stub"
+
+require "<%= service.service_require %>"
+
+class <%= service.client_name_full %>PathsTest < Minitest::Test
+  class DummyStub
+    def endpoint
+      "endpoint.example.com"
+    end
+  
+    def universe_domain
+      "example.com"
+    end
+
+    def stub_logger
+      nil
+    end
+
+    def logger
+      nil
+    end
+  end
+
+<%- start_line_spacer -%>
+<%- service.deduped_references.each do |resource| -%>
+<%- locals = { resource: resource, service: service } -%>
+<%= line_spacer %><%= indent render(partial: "service/test/resource", locals: locals), 2 %>
+<%- end -%>
+end

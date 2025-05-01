@@ -1,6 +1,0 @@
-<%- assert_locals resource -%>
-<%- if resource.patterns.count == 1 -%>
-<%= render partial: "service/client/resource/single", locals: { resource: resource } %>
-<%- elsif !resource.patterns.empty? -%>
-<%= render partial: "service/client/resource/multi", locals: { resource: resource } %>
-<%- end -%>

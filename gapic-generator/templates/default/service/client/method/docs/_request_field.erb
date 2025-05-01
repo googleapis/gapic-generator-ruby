@@ -1,7 +1,0 @@
-<%- assert_locals field -%>
-<%- _key, value = field -%>
-<%- if value.is_a? Hash -%>
-<%= render partial: "service/client/method/docs/request_field/hash", locals: { field: field, comma: false } -%>
-<%- else -%>
-<%= render partial: "service/client/method/docs/request_field/arg", locals: { field: field } -%>
-<%- end -%>

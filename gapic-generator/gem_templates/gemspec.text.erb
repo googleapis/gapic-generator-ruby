@@ -1,0 +1,35 @@
+<%= render partial: "shared/header" -%>
+
+
+lib = File.expand_path "lib", __dir__
+$LOAD_PATH.unshift lib unless $LOAD_PATH.include? lib
+require "gapic/generator/<%= gem_name %>/version"
+
+Gem::Specification.new do |spec|
+  spec.name          = "gapic-generator-<%= gem_name %>"
+  spec.version       = Gapic::Generator::<%= gem_class_prefix %>::VERSION
+  spec.authors       = ["Ernest Landrito", "Chris Smith", "Mike Moore"]
+  spec.email         = ["landrito@google.com", "quartzmo@gmail.com",
+                        "mike@blowmage.com"]
+
+  spec.licenses      = ["Apache-2.0"]
+
+  spec.summary       = "An API Client Generator for Ruby in Ruby!"
+  spec.homepage      = "https://github.com/googleapis/gapic-generator-ruby"
+
+  spec.files         = Dir.glob("bin/*") + Dir.glob("lib/**/*.rb") +
+                       Dir.glob("templates/**/*.{rb,erb}") +
+                       Dir.glob("*.md")
+  spec.bindir        = "bin"
+  spec.executables   = ["protoc-gen-ruby_<%= gem_name %>"]
+  spec.require_paths = ["lib"]
+
+  spec.add_dependency "actionpack", "~> 5.2"
+  spec.add_dependency "gapic-generator", "~> 0.0.0.dev"
+  spec.add_dependency "protobuf", "~> 3.8"
+  spec.add_dependency "rubocop", "~> 0.61"
+
+  spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "minitest-focus", "~> 1.0"
+  spec.add_development_dependency "rake", "~> 10.0"
+end

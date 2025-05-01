@@ -1,2 +1,0 @@
-<%- assert_locals values -%>
-File.write <%= values["file_name"].inspect %>, <%= values["contents"].gsub("$resp", "response") %>

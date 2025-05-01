@@ -1,7 +1,0 @@
-<%- assert_locals method -%>
-<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: bindings_override" : "" -%>
-@<%= method.service.stub_name %>.<%= method.name %> request, options<%= boverr_str %> do |result, operation|
-  result = ::Gapic::Operation.new result, <%= method.service.lro_client_ivar %>, options: options
-  yield result, operation if block_given?
-  throw :response, result
-end
