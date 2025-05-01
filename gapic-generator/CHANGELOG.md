@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.45.1 / 2025-05-01
+
+No significant changes
+
 ### 0.45.0 / 2025-05-01
 
 * Feature: Updated rails to 8.0
