@@ -735,14 +735,14 @@ module Google
             #   end
             #
             #   create_custom_class_request = {
-            #     parent: parent,
             #     custom_class_id: custom_class_id,
             #     custom_class: {
             #       items: [
             #         "Titanic",
             #         "RMS Queen Mary"
             #       ]
-            #     }
+            #     },
+            #     parent: parent
             #   }
             #
             #   puts("Calling the CreateCustomClass operation.")

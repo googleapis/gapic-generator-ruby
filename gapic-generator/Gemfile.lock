@@ -5,7 +5,7 @@ PATH
       actionpack (~> 8.0)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
-      google-protobuf (~> 3.25, >= 3.25.1)
+      google-protobuf (~> 4.30)
       google-style (~> 1.31.0)
       googleapis-common-protos-types (~> 1.8)
 
@@ -52,10 +52,12 @@ GEM
     crass (1.0.6)
     drb (2.2.1)
     erubi (1.13.1)
-    google-cloud-common (1.8.0)
+    google-cloud-common (1.9.0)
       google-protobuf (>= 3.18, < 5.a)
-      googleapis-common-protos-types (~> 1.7)
-    google-protobuf (3.25.7)
+      googleapis-common-protos-types (~> 1.20)
+    google-protobuf (4.30.2-x86_64-linux)
+      bigdecimal
+      rake (>= 13)
     google-style (1.31.0)
       rubocop (~> 1.75)
     googleapis-common-protos-types (1.20.0)
@@ -106,6 +108,7 @@ GEM
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     rainbow (3.1.1)
+    rake (13.2.1)
     redcarpet (3.6.1)
     regexp_parser (2.10.0)
     rubocop (1.75.4)
@@ -147,4 +150,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.6.7
+   2.6.8
