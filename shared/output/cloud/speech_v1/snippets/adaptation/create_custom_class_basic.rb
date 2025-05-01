@@ -43,14 +43,14 @@ def create_custom_class_basic parent:, custom_class_id:
   end
 
   create_custom_class_request = {
-    parent: parent,
     custom_class_id: custom_class_id,
     custom_class: {
       items: [
         "Titanic",
         "RMS Queen Mary"
       ]
-    }
+    },
+    parent: parent
   }
 
   puts "Calling the CreateCustomClass operation."

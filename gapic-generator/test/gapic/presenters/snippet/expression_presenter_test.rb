@@ -93,8 +93,8 @@ class ExpressionPresenterTest < PresenterTest
     presenter = build_expression_presenter json
     expected = [
       "{",
-      "  age: 21,",
       "  id: my_id,",
+      "  age: 21,",
       '  name: "Jane Doe"',
       "}"
     ]
@@ -133,8 +133,8 @@ class ExpressionPresenterTest < PresenterTest
       "{",
       "  id: my_id,",
       "  stats: {",
-      '    hair: "black",',
-      '    eyes: "brown"',
+      '    eyes: "brown",',
+      '    hair: "black"',
       "  },",
       '  name: "Jane Doe"',
       "}"
