@@ -32,7 +32,7 @@ def gapic_generator_repositories():
       "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-3.4.3_glinux_x86_64.tar.gz",
     ],
     gemfile_lock = "@gapic_generator_ruby//:gapic-generator/Gemfile.lock",
-    gems_to_install = {"rake": "13.2.1"},
+    gems_to_install = {},
   )
 
   # Create the bundled installation
