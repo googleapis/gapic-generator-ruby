@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.45.0 / 2025-05-01
+
+* Feature: Updated rails to 8.0
+* Feature: Update protobuf to 4.30
+* Feature: Update common dependencies for generated clients
+* Fix: update Ruby prebuilt binary, version 3.4.3
+
 ### 0.44.0 / 2025-04-30
 
 * Feature: Update Ruby for the generator to 3.2.8 including prebuilt binary
