@@ -1,5 +1,11 @@
 # Release History for gapic-generator-ads
 
+### 0.45.0 / 2025-05-01
+
+* Includes changes from gapic-generator 0.45.0
+* Feature: Updated rails to 8.0
+* Feature: Update protobuf to 4.30
+
 ### 0.44.0 / 2025-04-30
 
 * Includes changes from gapic-generator 0.44.0
