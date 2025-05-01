@@ -55,9 +55,6 @@ GEM
     google-cloud-common (1.9.0)
       google-protobuf (>= 3.18, < 5.a)
       googleapis-common-protos-types (~> 1.20)
-    google-protobuf (4.30.2)
-      bigdecimal
-      rake (>= 13)
     google-protobuf (4.30.2-x86_64-linux)
       bigdecimal
       rake (>= 13)
