@@ -108,11 +108,11 @@ module Gapic
 
         def render_list proto, json
           exprs = proto.map.with_index do |item, index|
-            ExpressionPresenter.new(item, json[index])
+            ExpressionPresenter.new item, json[index]
           end
-          
+
           lines = ["["]
-          exprs.sort_by { |expr| expr.render }.each do |expr|
+          exprs.sort_by(&:render).each do |expr|
             value_lines = expr.render_lines
             lines[lines.size - 1] = "#{lines.last}," if lines.size > 1
             lines += value_lines.map { |line| "  #{line}" }
@@ -123,8 +123,8 @@ module Gapic
         def render_map proto, json
           key_to_kvlines = {}
           proto.keys.zip(proto.values).each_with_index do |(key, value), index|
-            key_expr = ExpressionPresenter.new(key, json["keys"][index])
-            value_expr = ExpressionPresenter.new(value, json["values"][index])
+            key_expr = ExpressionPresenter.new key, json["keys"][index]
+            value_expr = ExpressionPresenter.new value, json["values"][index]
             next unless key_expr.render_lines && value_expr.render_lines
 
             key_to_kvlines[key_expr.render] = [key_expr.render_lines, value_expr.render_lines]
