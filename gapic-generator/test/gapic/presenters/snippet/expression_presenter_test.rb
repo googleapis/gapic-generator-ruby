@@ -93,8 +93,8 @@ class ExpressionPresenterTest < PresenterTest
     presenter = build_expression_presenter json
     expected = [
       "{",
-      "  id: my_id,",
       "  age: 21,",
+      "  id: my_id,",
       '  name: "Jane Doe"',
       "}"
     ]
@@ -132,11 +132,11 @@ class ExpressionPresenterTest < PresenterTest
     expected = [
       "{",
       "  id: my_id,",
+      '  name: "Jane Doe",',
       "  stats: {",
       '    eyes: "brown",',
       '    hair: "black"',
-      "  },",
-      '  name: "Jane Doe"',
+      "  }",
       "}"
     ]
     assert_equal expected, presenter.render_lines
@@ -200,12 +200,12 @@ class ExpressionPresenterTest < PresenterTest
     expected = [
       "[",
       "  {",
-      "    age: 21,",
-      '    name: "Jane Doe"',
-      "  },",
-      "  {",
       "    age: 20,",
       '    name: "John Doe"',
+      "  },",
+      "  {",
+      "    age: 21,",
+      '    name: "Jane Doe"',
       "  }",
       "]"
     ]
@@ -307,8 +307,8 @@ class ExpressionPresenterTest < PresenterTest
       "    1,",
       "    2",
       "  ] => [",
-      '    "odd",',
-      '    "even"',
+      '    "even",',
+      '    "odd"',
       "  ],",
       "  [",
       "    4,",
