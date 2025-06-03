@@ -20,7 +20,7 @@ module Gapic
       ##
       # Pagination info determined from the proto method
       #
-      class RestPaginationInfo
+      class ComputePaginationInfo
         include Gapic::Helpers::NamespaceHelper
         ##
         # @param proto_method [Gapic::Schema::Method] the method to derive pagination info from
@@ -78,7 +78,9 @@ module Gapic
 
         private
 
+        ##
         # Whether the underlying proto rpc is a server streaming rpc
+        #
         # @return [Boolean]
         attr_accessor :server_streaming
 
@@ -105,7 +107,7 @@ module Gapic
         ##
         # The field in the request that holds a page_token
         #
-        # @return[Gapic::Schema::Field, nil]
+        # @return [Gapic::Schema::Field, nil]
         def request_page_token_field
           # Has a String page_token field which specifies the actual (next) page to retrieve.
           @request_page_token_field ||= @request.fields.find do |f|
@@ -117,7 +119,7 @@ module Gapic
         # The field in the request that holds a page_size
         # For Regapic can have a name of either `page_size` or `max_results`
         #
-        # @return[Gapic::Schema::Field, nil]
+        # @return [Gapic::Schema::Field, nil]
         def request_page_size_field
           @request_page_size_field ||=
             begin
@@ -149,7 +151,7 @@ module Gapic
         ##
         # The field in the response that holds a next page_token
         #
-        # @return[Gapic::Schema::Field, nil]
+        # @return [Gapic::Schema::Field, nil]
         def response_next_page_token_field
           # Has the string next_page_token field to be used in the next request as page_token to retrieve the next page.
           @response_next_page_token_field ||= @response.fields.find do |f|

@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/presenters/method/rest_pagination_info"
+require "gapic/presenters/method/compute_pagination_info"
 
 module Gapic
   module Presenters
@@ -22,9 +22,14 @@ module Gapic
     # A presenter for rpc methods (REST submethods)
     #
     class MethodRestPresenter
-      # @return [Gapic::Presenters::Method::RestPaginationInfo]
+      # @return [Gapic::Presenters::Method::ComputePaginationInfo] Special pagination presenter for Compute
       attr_reader :compute_pagination
 
+      ##
+      # Presenters for HTTP bindings, used to check whether this method should be generated in REST client
+      #
+      # @return [Array<Gapic::Presenters::Method::HttpBindingsPresenter>]
+      #
       attr_reader :http_bindings
 
       # @return [String] String representation of this presenter type.
@@ -39,7 +44,7 @@ module Gapic
         @http_bindings = main_method.http_bindings
         @compute_pagination =
           if @main_method.service.special_compute_behavior?
-            Gapic::Presenters::Method::RestPaginationInfo.new main_method.method, api
+            Gapic::Presenters::Method::ComputePaginationInfo.new main_method.method, api
           end
         @type = "method"
       end
@@ -54,7 +59,7 @@ module Gapic
       end
 
       ##
-      # Method name
+      # Method's name
       #
       # @return [String]
       #
@@ -62,8 +67,11 @@ module Gapic
         @main_method.name
       end
 
+      ##
       # Fully qualified proto name of the method (namespace.PascalCase)
+      #
       # @return [String]
+      #
       def grpc_full_name
         @main_method.grpc.full_name
       end
@@ -103,7 +111,10 @@ module Gapic
       end
 
       ##
-      # @return [String] The name of the repeated field in paginated responses
+      # Name of the repeated field in paginated responses
+      # For Compute the pagination is different from GRPC and cannot be looked up in GRPC method presenter
+      #
+      # @return [String]
       #
       def paged_response_repeated_field_name
         if compute_pagination
@@ -168,7 +179,9 @@ module Gapic
       end
 
       ##
-      # @return [Boolean] Whether the method is marked as deprecated.
+      # Whether the method is marked as deprecated.
+      #
+      # @return [Boolean]
       #
       def is_deprecated?
         @main_method.is_deprecated?
