@@ -95,7 +95,7 @@ module Gapic
 
         def render_complex proto, json
           lines = ["{"]
-          proto.each do |key, value_expr|
+          proto.sort_by { |key, _| key.to_s }.each do |key, value_expr|
             value_presenter = ExpressionPresenter.new value_expr, json[key]
             value_lines = value_presenter.render_lines
             next unless value_lines
@@ -107,9 +107,12 @@ module Gapic
         end
 
         def render_list proto, json
+          exprs = proto.map.with_index do |item, index|
+            ExpressionPresenter.new item, json[index]
+          end
+
           lines = ["["]
-          proto.each_with_index do |item, index|
-            expr = ExpressionPresenter.new item, json[index]
+          exprs.sort_by(&:render).each do |expr|
             value_lines = expr.render_lines
             lines[lines.size - 1] = "#{lines.last}," if lines.size > 1
             lines += value_lines.map { |line| "  #{line}" }
@@ -118,16 +121,32 @@ module Gapic
         end
 
         def render_map proto, json
+          key_to_kvlines = get_key_to_kvlines proto, json
+
           lines = ["{"]
-          proto.keys.zip(proto.values).each_with_index do |(key, value), index|
-            key_lines = ExpressionPresenter.new(key, json["keys"][index]).render_lines
-            value_lines = ExpressionPresenter.new(value, json["values"][index]).render_lines
-            next unless key_lines && value_lines
+          key_to_kvlines.sort_by { |key, _| key }.each do |_, key_val_lines|
+            key_lines = key_val_lines[0]
+            value_lines = key_val_lines[1]
             elem_lines = key_lines[0..-2] + ["#{key_lines.last} => #{value_lines.first}"] + value_lines[1..]
             lines[lines.size - 1] = "#{lines.last}," if lines.size > 1
             lines += elem_lines.map { |line| "  #{line}" }
           end
           lines + ["}"]
+        end
+
+        # Helper method to render_map.
+        # Returns a map from a key rendered as a string
+        # to the array of key and value rendered as lines.
+        def get_key_to_kvlines proto, json
+          key_to_kvlines = {}
+          proto.keys.zip(proto.values).each_with_index do |(key, value), index|
+            key_expr = ExpressionPresenter.new key, json["keys"][index]
+            value_expr = ExpressionPresenter.new value, json["values"][index]
+            next unless key_expr.render_lines && value_expr.render_lines
+
+            key_to_kvlines[key_expr.render] = [key_expr.render_lines, value_expr.render_lines]
+          end
+          key_to_kvlines
         end
       end
     end

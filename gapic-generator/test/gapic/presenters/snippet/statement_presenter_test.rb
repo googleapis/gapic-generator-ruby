@@ -342,8 +342,8 @@ class StatementPresenterTest < PresenterTest
     presenter = build_statement_presenter json
     expected = [
       "collection = [",
-      '  "foo",',
-      '  "bar"',
+      '  "bar",',
+      '  "foo"',
       "]",
       "collection.each do |item|",
       "  puts(item)",

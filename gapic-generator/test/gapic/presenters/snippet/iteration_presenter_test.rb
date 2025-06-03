@@ -74,8 +74,8 @@ class IterationPresenterTest < PresenterTest
     presenter = build_iteration_presenter json
     expected_prelude = [
       "collection = [",
-      '  "foo",',
-      '  "bar"',
+      '  "bar",',
+      '  "foo"',
       "]",
       "collection.each do |item|"
     ]
@@ -83,8 +83,8 @@ class IterationPresenterTest < PresenterTest
     expected_inner = ["puts(item)"]
     expected_lines = [
       "collection = [",
-      '  "foo",',
-      '  "bar"',
+      '  "bar",',
+      '  "foo"',
       "]",
       "collection.each do |item|",
       "  puts(item)",
@@ -159,8 +159,8 @@ class IterationPresenterTest < PresenterTest
     presenter = build_iteration_presenter json
     expected_prelude = [
       "dict = {",
-      '  "foo" => 1.2,',
-      '  "bar" => 2',
+      '  "bar" => 2,',
+      '  "foo" => 1.2',
       "}",
       "dict.each do |key, val|"
     ]
@@ -171,8 +171,8 @@ class IterationPresenterTest < PresenterTest
     ]
     expected_lines = [
       "dict = {",
-      '  "foo" => 1.2,',
-      '  "bar" => 2',
+      '  "bar" => 2,',
+      '  "foo" => 1.2',
       "}",
       "dict.each do |key, val|",
       "  puts(key)",
