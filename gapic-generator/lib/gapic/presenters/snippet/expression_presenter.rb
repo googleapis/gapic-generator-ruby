@@ -121,14 +121,7 @@ module Gapic
         end
 
         def render_map proto, json
-          key_to_kvlines = {}
-          proto.keys.zip(proto.values).each_with_index do |(key, value), index|
-            key_expr = ExpressionPresenter.new key, json["keys"][index]
-            value_expr = ExpressionPresenter.new value, json["values"][index]
-            next unless key_expr.render_lines && value_expr.render_lines
-
-            key_to_kvlines[key_expr.render] = [key_expr.render_lines, value_expr.render_lines]
-          end
+          key_to_kvlines = get_key_to_kvlines proto, json
 
           lines = ["{"]
           key_to_kvlines.sort_by { |key, _| key }.each do |_, key_val_lines|
@@ -139,6 +132,21 @@ module Gapic
             lines += elem_lines.map { |line| "  #{line}" }
           end
           lines + ["}"]
+        end
+
+        # Helper method to render_map.
+        # Returns a map from a key rendered as a string
+        # to the array of key and value rendered as lines.
+        def get_key_to_kvlines proto, json
+          key_to_kvlines = {}
+          proto.keys.zip(proto.values).each_with_index do |(key, value), index|
+            key_expr = ExpressionPresenter.new key, json["keys"][index]
+            value_expr = ExpressionPresenter.new value, json["values"][index]
+            next unless key_expr.render_lines && value_expr.render_lines
+
+            key_to_kvlines[key_expr.render] = [key_expr.render_lines, value_expr.render_lines]
+          end
+          key_to_kvlines
         end
       end
     end
