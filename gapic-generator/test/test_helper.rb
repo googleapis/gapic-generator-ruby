@@ -143,6 +143,9 @@ class PresenterTest < GeneratorTest
     refute_nil service
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
+
+    yield api_obj, service, method if block_given?
+       
     gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
     service_presenter = Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
     Gapic::Presenters::MethodPresenter.new service_presenter, api_obj, method
