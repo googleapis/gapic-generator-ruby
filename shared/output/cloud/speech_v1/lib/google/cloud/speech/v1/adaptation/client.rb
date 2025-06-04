@@ -735,13 +735,13 @@ module Google
             #   end
             #
             #   create_custom_class_request = {
-            #     custom_class_id: custom_class_id,
             #     custom_class: {
             #       items: [
-            #         "Titanic",
-            #         "RMS Queen Mary"
+            #         "RMS Queen Mary",
+            #         "Titanic"
             #       ]
             #     },
+            #     custom_class_id: custom_class_id,
             #     parent: parent
             #   }
             #
