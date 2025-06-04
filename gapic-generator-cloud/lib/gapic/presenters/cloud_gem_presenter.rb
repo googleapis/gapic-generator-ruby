@@ -66,7 +66,9 @@ module Gapic
         return @api.wrapper_gem_name_override if @api.wrapper_gem_name_override?
 
         minfo = /^(.+)-v\d\w*$/.match name
-        minfo ? minfo[1] : nil
+        return nil unless minfo
+
+        minfo[1]
       end
 
       ##

@@ -102,7 +102,8 @@ module Gapic
 
       def line_indent line
         m = /^( *)\S/.match line
-        m.nil? ? nil : m[1].length
+        return nil unless m
+        m[1].length
       end
 
       def escape_line_braces line
