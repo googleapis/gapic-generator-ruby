@@ -28,6 +28,7 @@ module Gapic
         #
         def initialize proto_method, api
           @api = api
+          @method_full_name = proto_method.full_name
           @request = proto_method.input
           @response = proto_method.output
           @server_streaming = proto_method.server_streaming
@@ -38,6 +39,7 @@ module Gapic
         #
         # @return [Boolean]
         def paged?
+          # Order is important here, since paginated response heuristic can raise and should be evaluated last
           !server_streaming? && paged_request? && paged_response?
         end
 
@@ -144,7 +146,8 @@ module Gapic
         # @return [Boolean]
         def paged_response?
           # Has the string next_page_token field to be used in the next request as page_token to retrieve the next page.
-          # Has only one repeated or map<string, ?> field containing a list of paginated resources.
+          # Passes the heuristic for paginated response
+          # Order is important here, since paginated response heuristic can raise and should be evaluated last
           !response_next_page_token_field.nil? && !response_results_field.nil?
         end
 
@@ -159,9 +162,13 @@ module Gapic
           end
         end
 
+
+        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # The heuristic in `response_results_field` would be more confusing if spread across several methods
+
         ##
         # The field in the response that holds the results
-        # For Regapic can be either a vanilla repeated field or a map
+        # For Compute Regapic can be either a vanilla repeated field or a map
         #
         # @return [Gapic::Schema::Field, nil]
         def response_results_field
@@ -175,15 +182,37 @@ module Gapic
               # If the response message has only one map<string, ?> field
               # treat it as the one with paginated resources (i.e. ignore the repeated fields if any).
               map_fields.first
-            elsif repeated_fields.count == 1 && map_fields.empty?
+            elsif repeated_fields.count == 1
               # If the response message contains only one repeated field,
               # treat that field as the one containing the paginated resources.
               repeated_fields.first
+            elsif repeated_fields.count > 1
+              # If the response message contains multiple repeated fields,
+              # the one first in order should be the one with minimal field id, otherwise this should raise.
+              candidate = repeated_fields.first
+              min_id_field = repeated_fields.min { |a, b| a.descriptor.number <=> b.descriptor.number }
+
+              unless candidate.descriptor.number == min_id_field.descriptor.number
+                error_text = "A repeated field \"#{candidate.name}\" (ID: #{candidate.descriptor.number}) is  " \
+                             "the first repeated field in order of declaration " \
+                             "in the message \"#{candidate.parent.full_name}\", which is " \
+                             "a response in the pagination candidate method #{@method_full_name}. " \
+                             "However a different repeated field \"#{min_id_field.name}\" " \
+                             "(ID: #{min_id_field.descriptor.number}) in the same message has lower ID. " \
+                             "Failing, as the generator cannot determine which repeated field contains " \
+                             "the paginated resources, see AIP-4233."
+
+                raise ModelError, error_text
+              end
+
+              candidate
             end
-            # If the response message contains more than one repeated field or does not have repeated fields at all
-            # but has more than one map<string, ?> field, do not generate any paginated methods for such rpc.
+            # If the response message contains no repeated fields at all but has more than one map<string, ?> field,
+            # do not generate any paginated methods.
           end
         end
+
+        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         # @private
         FIELD_TYPE_MAPPING = {

@@ -959,6 +959,151 @@ module Google
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
+
+        # Message to test pagination heuristic. Is not used directly in proto,
+        # instead it is used to replace response message during testing.
+        # No maps, no repeated -> not paginated.
+        # @!attribute [rw] id
+        #   @return [::String]
+        # @!attribute [rw] items
+        #   @return [::String]
+        # @!attribute [rw] next_page_token
+        #   @return [::String]
+        class TestResponseNoRepeated
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # Message to test pagination heuristic. Is not used directly in proto,
+        # instead it is used to replace response message during testing.
+        # Multiple repeated, first in order has lowest ID -> paginated on `first_repeated`.
+        # @!attribute [rw] id
+        #   @return [::String]
+        # @!attribute [rw] first_repeated
+        #   @return [::Array<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+        # @!attribute [rw] second_repeated
+        #   @return [::Array<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+        # @!attribute [rw] next_page_token
+        #   @return [::String]
+        class TestResponseMultiRepeated
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # Message to test pagination heuristic. Is not used directly in proto,
+        # instead it is used to replace response message during testing.
+        # One map element -> paginated on map element `first_map`.
+        # @!attribute [rw] id
+        #   @return [::String]
+        # @!attribute [rw] first_map
+        #   @return [::Google::Protobuf::Map{::String => ::Google::Cloud::Compute::V1::ExchangedPeeringRoute}]
+        # @!attribute [rw] first_repeated
+        #   @return [::Array<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+        # @!attribute [rw] second_repeated
+        #   @return [::Array<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+        # @!attribute [rw] next_page_token
+        #   @return [::String]
+        class TestResponseSingleMap
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+
+          # @!attribute [rw] key
+          #   @return [::String]
+          # @!attribute [rw] value
+          #   @return [::Google::Cloud::Compute::V1::ExchangedPeeringRoute]
+          class FirstMapEntry
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
+          end
+        end
+
+        # Message to test pagination heuristic. Is not used directly in proto,
+        # instead it is used to replace response message during testing.
+        # Multiple maps, no repeated -> not paginated.
+        # @!attribute [rw] id
+        #   @return [::String]
+        # @!attribute [rw] first_map
+        #   @return [::Google::Protobuf::Map{::String => ::Google::Cloud::Compute::V1::ExchangedPeeringRoute}]
+        # @!attribute [rw] second_map
+        #   @return [::Google::Protobuf::Map{::String => ::Google::Cloud::Compute::V1::ExchangedPeeringRoute}]
+        # @!attribute [rw] next_page_token
+        #   @return [::String]
+        class TestResponseMultiMapNoRepeated
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+
+          # @!attribute [rw] key
+          #   @return [::String]
+          # @!attribute [rw] value
+          #   @return [::Google::Cloud::Compute::V1::ExchangedPeeringRoute]
+          class FirstMapEntry
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
+          end
+
+          # @!attribute [rw] key
+          #   @return [::String]
+          # @!attribute [rw] value
+          #   @return [::Google::Cloud::Compute::V1::ExchangedPeeringRoute]
+          class SecondMapEntry
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
+          end
+        end
+
+        # Message to test pagination heuristic. Is not used directly in proto,
+        # instead it is used to replace response message during testing.
+        # Multiple maps, multiple repeated with correct ID order -> paginated on `first_repeated`.
+        # @!attribute [rw] id
+        #   @return [::String]
+        # @!attribute [rw] first_map
+        #   @return [::Google::Protobuf::Map{::String => ::Google::Cloud::Compute::V1::ExchangedPeeringRoute}]
+        # @!attribute [rw] second_map
+        #   @return [::Google::Protobuf::Map{::String => ::Google::Cloud::Compute::V1::ExchangedPeeringRoute}]
+        # @!attribute [rw] first_repeated
+        #   @return [::Array<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+        # @!attribute [rw] second_repeated
+        #   @return [::Array<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+        # @!attribute [rw] next_page_token
+        #   @return [::String]
+        class TestResponseMultiMapWithRepeated
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+
+          # @!attribute [rw] key
+          #   @return [::String]
+          # @!attribute [rw] value
+          #   @return [::Google::Cloud::Compute::V1::ExchangedPeeringRoute]
+          class FirstMapEntry
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
+          end
+
+          # @!attribute [rw] key
+          #   @return [::String]
+          # @!attribute [rw] value
+          #   @return [::Google::Cloud::Compute::V1::ExchangedPeeringRoute]
+          class SecondMapEntry
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
+          end
+        end
+
+        # Message to test pagination heuristic. Is not used directly in proto,
+        # instead it is used to replace response message during testing.
+        # Multiple repeated, first in order does NOT have lowest ID -> generator error.
+        # @!attribute [rw] id
+        #   @return [::String]
+        # @!attribute [rw] first_repeated
+        #   @return [::Array<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+        # @!attribute [rw] second_repeated
+        #   @return [::Array<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+        # @!attribute [rw] next_page_token
+        #   @return [::String]
+        class TestResponseInvertedOrder
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
       end
     end
   end
