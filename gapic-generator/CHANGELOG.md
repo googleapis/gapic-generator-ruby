@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.45.2 / 2025-06-04
+
+* Fix: update Ruby prebuilt binary, version 3.4.3
+
 ### 0.45.1 / 2025-05-01
 
 No significant changes

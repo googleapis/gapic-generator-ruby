@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.45.1)
+    gapic-generator (0.45.2)
       actionpack (~> 8.0)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
@@ -94,7 +94,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     racc (1.8.1)
-    rack (3.1.15)
+    rack (3.1.16)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
