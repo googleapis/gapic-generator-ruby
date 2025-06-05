@@ -35,7 +35,7 @@ RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - \
 ### Requirement: system has `wget` to get the gapic-generator-ruby repo
 ### Requirement: `tar` and `unzip` are both used to produce packaged built libraries
 ### Requirement: system has `make` to build ruby
-### Requirement: system has `zlib` and `zlib-dev`, `libreadline` and `libreadline-dev`, `openssl` and `openssl-dev`, all needed for rubygems to work
+### Requirement: system has `zlib-dev`, `libreadline-dev`, `libssl-dev`, `libyaml-dev` for rubygems to work
 RUN apt-get update && apt-get install -y --no-install-recommends \
         wget \
         tar \
@@ -43,7 +43,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         make \
         zlib1g-dev \
         libreadline-dev \
-        libssl-dev \ 
+        libssl-dev \
+        libyaml-dev \
     && rm -rf /var/lib/apt/lists/*
 
 ### Requirement: Set the correct locale so Ruby strings default to UTF-8, needed for template engine to work
