@@ -47,4 +47,84 @@ class MethodPresenterRestTest < PresenterTest
     presenter = method_presenter :showcase, "Echo", "Expand"
     assert presenter.rest.server_streaming?
   end
+
+  def test_compute_list_peering_routes
+    presenter = method_presenter :compute_small, "Networks", "ListPeeringRoutes"
+    assert presenter.rest.compute_pagination
+    assert presenter.rest.paged?
+    assert_equal "items", presenter.rest.paged_response_repeated_field_name
+  end
+
+  def test_compute_list_peering_routes_replacement_no_repeated
+    presenter = method_presenter :compute_small, "Networks", "ListPeeringRoutes" do |api_obj, _, method|
+      message = api_obj.messages.find { |m| m.address.join(".") == "google.cloud.compute.v1.TestResponseNoRepeated" }
+      refute_nil message, "Replacement message should exist"
+      method.instance_variable_set :@output, message
+    end
+
+    assert presenter.rest.compute_pagination
+    refute presenter.rest.paged?
+  end
+
+  def test_compute_list_peering_routes_replacement_multi_repeated
+    presenter = method_presenter :compute_small, "Networks", "ListPeeringRoutes" do |api_obj, _, method|
+      message = api_obj.messages.find { |m| m.address.join(".") == "google.cloud.compute.v1.TestResponseMultiRepeated" }
+      refute_nil message, "Replacement message should exist"
+      method.instance_variable_set :@output, message
+    end
+
+    assert presenter.rest.compute_pagination
+    assert presenter.rest.paged?
+    assert_equal "first_repeated", presenter.rest.paged_response_repeated_field_name
+  end
+
+  def test_compute_list_peering_routes_replacement_single_map
+    presenter = method_presenter :compute_small, "Networks", "ListPeeringRoutes" do |api_obj, _, method|
+      message = api_obj.messages.find { |m| m.address.join(".") == "google.cloud.compute.v1.TestResponseSingleMap" }
+      refute_nil message, "Replacement message should exist"
+      method.instance_variable_set :@output, message
+    end
+
+    assert presenter.rest.compute_pagination
+    assert presenter.rest.paged?
+    assert_equal "first_map", presenter.rest.paged_response_repeated_field_name
+  end
+
+  def test_compute_list_peering_routes_replacement_multi_map_no_repeated
+    presenter = method_presenter :compute_small, "Networks", "ListPeeringRoutes" do |api_obj, _, method|
+      message = api_obj.messages.find { |m| m.address.join(".") == "google.cloud.compute.v1.TestResponseMultiMapNoRepeated" }
+      refute_nil message, "Replacement message should exist"
+      method.instance_variable_set :@output, message
+    end
+
+    assert presenter.rest.compute_pagination
+    refute presenter.rest.paged?
+  end
+
+  def test_compute_list_peering_routes_replacement_multi_map_with_repeated
+    presenter = method_presenter :compute_small, "Networks", "ListPeeringRoutes" do |api_obj, _, method|
+      message = api_obj.messages.find { |m| m.address.join(".") == "google.cloud.compute.v1.TestResponseMultiMapWithRepeated" }
+      refute_nil message, "Replacement message should exist"
+      method.instance_variable_set :@output, message
+    end
+
+    assert presenter.rest.compute_pagination
+    assert presenter.rest.paged?
+    assert_equal "first_repeated", presenter.rest.paged_response_repeated_field_name
+  end
+
+  def test_compute_list_peering_routes_replacement_inverted_order
+    presenter = method_presenter :compute_small, "Networks", "ListPeeringRoutes" do |api_obj, _, method|
+      message = api_obj.messages.find { |m| m.address.join(".") == "google.cloud.compute.v1.TestResponseInvertedOrder" }
+      refute_nil message, "Replacement message should exist"
+      method.instance_variable_set :@output, message
+    end
+    
+    assert_raises StandardError do |e|
+      assert presenter.rest.compute_pagination
+      assert presenter.rest.paged?
+      assert_equal "first_repeated", presenter.rest.paged_response_repeated_field_name
+      assert_contains e.message, "AIP-4233"
+    end
+  end
 end
