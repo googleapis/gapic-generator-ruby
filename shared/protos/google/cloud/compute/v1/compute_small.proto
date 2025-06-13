@@ -1140,3 +1140,100 @@ service GlobalOperations {
     option (google.cloud.operation_polling_method) = true;
   }
 }
+
+// Message to test pagination heuristic. Is not used directly in proto,
+// instead it is used to replace response message during testing.
+// No maps, no repeated -> Model error
+message TestResponseNoRepeated {
+  optional string id = 1;
+
+  string items = 200;
+
+  optional string next_page_token = 79797525;
+}
+
+// Message to test pagination heuristic. Is not used directly in proto,
+// instead it is used to replace response message during testing.
+// Multiple maps, no repeated -> Model error
+message TestResponseMultiMapNoRepeated {
+  optional string id = 1;
+
+  map<string, ExchangedPeeringRoute> first_map = 10;
+
+  map<string, ExchangedPeeringRoute> second_map = 11;
+
+  optional string next_page_token = 79797525;
+}
+
+// Message to test pagination heuristic. Is not used directly in proto,
+// instead it is used to replace response message during testing.
+// Two repeateds, one message-typed, one String -> paginating on message-typed repeated.
+message TestResponseTwoRepeatedCorrectConfiguration {
+  optional string id = 1;
+
+  repeated ExchangedPeeringRoute items = 20;
+
+  repeated string second_repeated = 21;
+
+  optional string next_page_token = 79797525;
+}
+
+// Message to test pagination heuristic. Is not used directly in proto,
+// instead it is used to replace response message during testing.
+// Two repeateds, one message-typed, one String -> paginating on message-typed repeated.
+message TestResponseTwoRepeatedWrongConfiguration {
+  optional string id = 1;
+
+  repeated ExchangedPeeringRoute first_repeated = 20;
+
+  repeated ExchangedPeeringRoute second_repeated = 21;
+
+  optional string next_page_token = 79797525;
+}
+
+// Message to test pagination heuristic. Is not used directly in proto,
+// instead it is used to replace response message during testing.
+// 3+ repeated -> Model error
+message TestResponseThreeRepeated {
+  optional string id = 1;
+
+  repeated ExchangedPeeringRoute items = 20;
+
+  repeated string second_repeated = 21;
+
+  repeated string third_repeated = 22;
+
+  optional string next_page_token = 79797525;
+}
+
+// Message to test pagination heuristic. Is not used directly in proto,
+// instead it is used to replace response message during testing.
+// One map element -> paginated on map element.
+message TestResponseSingleMap {
+  optional string id = 1;
+
+  map<string, ExchangedPeeringRoute> items = 10;
+
+  repeated ExchangedPeeringRoute first_repeated = 20;
+
+  repeated ExchangedPeeringRoute second_repeated = 21;
+
+  optional string next_page_token = 79797525;
+}
+
+// Message to test pagination heuristic. Is not used directly in proto,
+// instead it is used to replace response message during testing.
+// Multiple maps, multiple repeated with correct configuration -> paginated on `items`.
+message TestResponseMultiMapCorrectRepeated {
+  optional string id = 1;
+
+  map<string, ExchangedPeeringRoute> first_map = 10;
+
+  map<string, ExchangedPeeringRoute> second_map = 11;
+
+  repeated ExchangedPeeringRoute items = 20;
+
+  repeated string second_repeated = 21;
+
+  optional string next_page_token = 79797525;
+}
