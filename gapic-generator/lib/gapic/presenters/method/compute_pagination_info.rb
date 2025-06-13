@@ -36,7 +36,7 @@ module Gapic
       # 0. Check the exception dictionary. If the method is there as a key, use the value as the results field.
       # 1. If there is exactly one map field, that field is the results field.
       #
-      # NB: at this point the response contains either 0 or 2 map fields, I will not repeat it for the other items.
+      # NB: at this point the response contains either 0 or 2 map fields
       #
       # 2. If there are no repeated fields there is no results field and we shall throw an error
       # 3. If there is exactly one repeated field, that field is the results field.
@@ -44,9 +44,9 @@ module Gapic
       #    "String", the field of message type is the results field.
       #
       # At this point there are either 2 repeated fields in wrong configuration, or 3 or more repeated
-      #   fields the method should have been in the exception dictionary (see step 0).
-      # If the method is NOT in the exception dictionary at this point we shall throw an error to prevent
-      #   accidentally releasing a Compute library with incorrect pagination.
+      # fields. The method should have been in the exception dictionary (see step 0).
+      # Since the method is NOT in the exception dictionary we should throw an error to prevent
+      # accidentally releasing a Compute library with incorrect pagination.
       #
       class ComputePaginationInfo
         include Gapic::Helpers::NamespaceHelper
