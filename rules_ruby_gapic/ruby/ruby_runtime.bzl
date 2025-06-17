@@ -40,7 +40,7 @@ def try_prebuilt(ctx, prebuilt_ruby, os_name):
   res, log = _execute_log_action(
     ctx, 
     None,
-    ["bin/ruby", "-ropenssl", "-rzlib", "-rreadline", "-rdigest/sha2.so", "-e 'puts :success'"],
+    ["bin/ruby", "-ryaml", "-ropenssl", "-rzlib", "-rreadline", "-rdigest/sha2.so", "-e 'puts :success'"],
     working_directory = tmp
   )
 
@@ -73,6 +73,7 @@ def build_ruby_runtime(ctx, root_path, srcs_dir):
     # instead of absolute allowing for the reusable prebuilds
     "--enable-load-relative",
     "--enable-shared",
+    "--with-libyaml-dir=/usr",
     "--with-openssl-dir=/usr",
     "--with-zlib-dir=/usr",
     "--with-readline-dir=/usr",
