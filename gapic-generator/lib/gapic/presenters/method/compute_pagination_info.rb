@@ -36,7 +36,7 @@ module Gapic
       # 0. Check the exception dictionary. If the method is there as a key, use the value as the results field.
       # 1. If there is exactly one map field, that field is the results field.
       #
-      # NB: at this point the response contains either 0 or 2 map fields
+      # NB: at this point the response contains either 0 or 2+ map fields
       #
       # 2. If there are no repeated fields there is no results field and we shall throw an error
       # 3. If there is exactly one repeated field, that field is the results field.

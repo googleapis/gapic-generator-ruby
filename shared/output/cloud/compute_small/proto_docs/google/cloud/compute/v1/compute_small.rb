@@ -1042,7 +1042,7 @@ module Google
 
         # Message to test pagination heuristic. Is not used directly in proto,
         # instead it is used to replace response message during testing.
-        # Multiple repeated -> Model error
+        # 3+ repeated -> Model error
         # @!attribute [rw] id
         #   @return [::String]
         # @!attribute [rw] items
