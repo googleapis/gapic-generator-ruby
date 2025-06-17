@@ -23,7 +23,7 @@ def _check_ruby_require_impl(ctx):
   run_result_file = ctx.actions.declare_file(ctx.attr.name)
   ruby_bin = ctx.file.ruby_bin
 
-  exec_text = "#!/bin/bash\n" + "{ruby_bin} -ropenssl -rzlib -rreadline -rdigest/sha2.so -e 'puts :success'".format(ruby_bin = ruby_bin.path)
+  exec_text = "#!/bin/bash\n" + "{ruby_bin} -ryaml -ropenssl -rzlib -rreadline -rdigest/sha2.so -e 'puts :success'".format(ruby_bin = ruby_bin.path)
   ctx.actions.write(run_result_file, exec_text)
   runfiles = ctx.runfiles(files=[run_result_file, ruby_bin])
 
