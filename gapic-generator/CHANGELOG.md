@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.45.3 / 2025-06-17
+
+* Fix: update Ruby prebuilt binary, version 3.4.3
+* Fix: correct pagination heuristic for Compute
+* Fix: add libyaml to checks and configure, update prebuilt
+
 ### 0.45.2 / 2025-06-04
 
 * Fix: update Ruby prebuilt binary, version 3.4.3
