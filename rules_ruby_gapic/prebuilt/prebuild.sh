@@ -6,12 +6,12 @@ env
 pwd
 bazel --version
 
-mkdir output
+mkdir -p output
 OUTPUT_DIR=$(realpath output)
 
 bazel build //rules_ruby_gapic/gapic-generator:gapic_generator_bundled_context
 
-RUBY_DIRECTORY=$(ls -d .cache/bazel/*/*/external/gapic_generator_ruby_runtime)
+RUBY_DIRECTORY=$(ls -d "${HOME}"/.cache/bazel/*/*/external/gapic_generator_ruby_runtime)
 RUBY_VERSION=$(echo 'puts RUBY_VERSION' | "${RUBY_DIRECTORY}/bin/ruby")
 echo "Ruby version: $RUBY_VERSION, packing..."
 RUBY_ARCHIVE_DIR="ruby-$RUBY_VERSION"
