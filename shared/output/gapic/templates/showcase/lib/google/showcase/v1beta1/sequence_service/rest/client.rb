@@ -329,8 +329,7 @@ module Google
             def create_streaming_sequence request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -484,8 +483,7 @@ module Google
             def get_streaming_sequence_report request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -642,8 +640,7 @@ module Google
             def attempt_streaming_sequence request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
