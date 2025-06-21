@@ -160,7 +160,7 @@ module Gapic
           selector = setting[SELECTOR]
           methods = service_config.apis.filter_map do |api|
             # Removes API prefix and trailing period.
-            selector[api.name.length + 1..].downcase if selector.start_with? api.name
+            selector[(api.name.length + 1)..].downcase if selector.start_with? api.name
           end
           if !methods.nil? && setting.key?(AUTO_POPULATED_FIELDS)
             @auto_populated_fields_by_method_name[methods.first] = setting[AUTO_POPULATED_FIELDS]
