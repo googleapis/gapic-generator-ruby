@@ -3,7 +3,6 @@
 ### 0.45.3 / 2025-06-21
 
 * Includes changes from gapic-generator 0.45.3
-* Fix: correct pagination heuristic for Compute
 
 ### 0.45.2 / 2025-06-04
 
