@@ -36,12 +36,12 @@ module Google
       #   @return [::String]
       #     The content to be echoed by the server.
       #
-      #     Note: The following parameters are mutually exclusive: `content`, `error`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `content`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] error
       #   @return [::Google::Rpc::Status]
       #     The error to be thrown by the server.
       #
-      #     Note: The following parameters are mutually exclusive: `error`, `content`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `error`, `content`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] severity
       #   @return [::Google::Showcase::V1beta1::Severity]
       #     The severity to be echoed by the server.
@@ -228,23 +228,23 @@ module Google
       #   @return [::Google::Protobuf::Timestamp]
       #     The time that this operation will complete.
       #
-      #     Note: The following parameters are mutually exclusive: `end_time`, `ttl`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `end_time`, `ttl`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] ttl
       #   @return [::Google::Protobuf::Duration]
       #     The duration of this operation.
       #
-      #     Note: The following parameters are mutually exclusive: `ttl`, `end_time`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `ttl`, `end_time`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] error
       #   @return [::Google::Rpc::Status]
       #     The error that will be returned by the server. If this code is specified
       #     to be the OK rpc code, an empty response will be returned.
       #
-      #     Note: The following parameters are mutually exclusive: `error`, `success`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `error`, `success`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] success
       #   @return [::Google::Showcase::V1beta1::WaitResponse]
       #     The response to be returned on operation completion.
       #
-      #     Note: The following parameters are mutually exclusive: `success`, `error`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `success`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       class WaitRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -277,12 +277,12 @@ module Google
       #     The error that will be returned by the server. If this code is specified
       #     to be the OK rpc code, an empty response will be returned.
       #
-      #     Note: The following parameters are mutually exclusive: `error`, `success`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `error`, `success`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] success
       #   @return [::Google::Showcase::V1beta1::BlockResponse]
       #     The response to be returned that will signify successful method call.
       #
-      #     Note: The following parameters are mutually exclusive: `success`, `error`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `success`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       class BlockRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

@@ -72,8 +72,8 @@ module Gapic
       #   gRPC client classes. Uses the default transport if not provided.
       # @return [String]
       #
-      def doc_description transport: nil
-        @field.docs_leading_comments transport: transport
+      def doc_description transport: nil, is_rpc_param: false
+        @field.docs_leading_comments transport: transport, is_rpc_param: is_rpc_param
       end
 
       def default_value

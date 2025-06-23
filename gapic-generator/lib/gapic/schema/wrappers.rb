@@ -983,16 +983,22 @@ module Gapic
 
       # @private
       # Override this to add a note related to oneofs being mutually exclusive.
-      def docs_leading_comments disable_xrefs: false, transport: nil
-        str = super
+      def docs_leading_comments disable_xrefs: false, transport: nil, is_rpc_param: false
+        str = super(disable_xrefs: disable_xrefs, transport: transport)
         return str unless @oneof_siblings && @oneof_siblings.size > 1
         siblings = @oneof_siblings.map { |field| "`#{field.name}`" }.join ", "
-        note = "Note: The following parameters are mutually exclusive: #{siblings}. " \
-               "At most one of these parameters can be set. If more than one is set, " \
-               "only one will be used, and it is not defined which one."
+        note =
+          if is_rpc_param
+            "Note: The following parameters are mutually exclusive: #{siblings}. " \
+              "At most one of these parameters can be set. If more than one is set, " \
+              "only one will be used, and it is not defined which one."
+          else
+            "Note: The following fields are mutually exclusive: #{siblings}. " \
+              "If a field in that set is populated, all other fields in the set " \
+              "will automatically be cleared."
+          end
         str ? "#{str.strip}\n\n#{note}" : note
       end
-
       # @!method name
       #   @return [String] the unqualified name of the field.
       # @!method number

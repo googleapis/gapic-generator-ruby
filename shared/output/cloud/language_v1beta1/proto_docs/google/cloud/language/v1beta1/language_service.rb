@@ -30,7 +30,7 @@ module Google
         #   @return [::String]
         #     The content of the input in string format.
         #
-        #     Note: The following parameters are mutually exclusive: `content`, `gcs_content_uri`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+        #     Note: The following fields are mutually exclusive: `content`, `gcs_content_uri`. If a field in that set is populated, all other fields in the set will automatically be cleared.
         # @!attribute [rw] gcs_content_uri
         #   @return [::String]
         #     The Google Cloud Storage URI where the file content is located.
@@ -38,7 +38,7 @@ module Google
         #     details, see https://cloud.google.com/storage/docs/reference-uris.
         #     NOTE: Cloud Storage object versioning is not supported.
         #
-        #     Note: The following parameters are mutually exclusive: `gcs_content_uri`, `content`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+        #     Note: The following fields are mutually exclusive: `gcs_content_uri`, `content`. If a field in that set is populated, all other fields in the set will automatically be cleared.
         # @!attribute [rw] language
         #   @return [::String]
         #     The language of the document (if not specified, the language is

@@ -57,13 +57,13 @@ module Google
           #   @return [::Google::Ads::GoogleAds::V15::Resources::Campaign]
           #     Create operation: No resource name is expected for the new campaign.
           #
-          #     Note: The following parameters are mutually exclusive: `create`, `update`, `remove`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+          #     Note: The following fields are mutually exclusive: `create`, `update`, `remove`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           # @!attribute [rw] update
           #   @return [::Google::Ads::GoogleAds::V15::Resources::Campaign]
           #     Update operation: The campaign is expected to have a valid
           #     resource name.
           #
-          #     Note: The following parameters are mutually exclusive: `update`, `create`, `remove`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+          #     Note: The following fields are mutually exclusive: `update`, `create`, `remove`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           # @!attribute [rw] remove
           #   @return [::String]
           #     Remove operation: A resource name for the removed campaign is
@@ -71,7 +71,7 @@ module Google
           #
           #     `customers/{customer_id}/campaigns/{campaign_id}`
           #
-          #     Note: The following parameters are mutually exclusive: `remove`, `create`, `update`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+          #     Note: The following fields are mutually exclusive: `remove`, `create`, `update`. If a field in that set is populated, all other fields in the set will automatically be cleared.
           class CampaignOperation
             include ::Google::Protobuf::MessageExts
             extend ::Google::Protobuf::MessageExts::ClassMethods

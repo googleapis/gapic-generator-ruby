@@ -19,7 +19,7 @@
 <%- method.arguments.each do |arg| -%>
 #   @param <%= arg.name %> [<%= arg.doc_types %>]
 <%- if arg.doc_description -%>
-<%= indent arg.doc_description(transport: :grpc), "#     " %>
+<%= indent arg.doc_description(transport: :grpc, is_rpc_param: false), "#     " %>
 <%- end -%>
 <%- end -%>
 <%- end -%>

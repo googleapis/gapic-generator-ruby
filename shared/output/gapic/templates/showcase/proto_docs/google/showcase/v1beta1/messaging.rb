@@ -137,12 +137,12 @@ module Google
       #   @return [::String]
       #     The textual content of this blurb.
       #
-      #     Note: The following parameters are mutually exclusive: `text`, `image`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `text`, `image`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] image
       #   @return [::String]
       #     The image content of this blurb.
       #
-      #     Note: The following parameters are mutually exclusive: `image`, `text`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `image`, `text`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [r] create_time
       #   @return [::Google::Protobuf::Timestamp]
       #     The timestamp at which the blurb was created.
@@ -155,14 +155,14 @@ module Google
       #     the use of the compound resource pattern
       #     `rooms/{room}/blurbs/legacy/{legacy_room}.{blurb}`
       #
-      #     Note: The following parameters are mutually exclusive: `legacy_room_id`, `legacy_user_id`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `legacy_room_id`, `legacy_user_id`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] legacy_user_id
       #   @return [::String]
       #     The legacy id of the user. This field is used to signal
       #     the use of the compound resource pattern
       #     `users/{user}/profile/blurbs/legacy/{legacy_user}~{blurb}`
       #
-      #     Note: The following parameters are mutually exclusive: `legacy_user_id`, `legacy_room_id`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `legacy_user_id`, `legacy_room_id`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       class Blurb
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -361,12 +361,12 @@ module Google
       #     Provides information that specifies how to process subsequent requests.
       #     The first `ConnectRequest` message must contain a `config`  message.
       #
-      #     Note: The following parameters are mutually exclusive: `config`, `blurb`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `config`, `blurb`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       # @!attribute [rw] blurb
       #   @return [::Google::Showcase::V1beta1::Blurb]
       #     The blurb to be created.
       #
-      #     Note: The following parameters are mutually exclusive: `blurb`, `config`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
+      #     Note: The following fields are mutually exclusive: `blurb`, `config`. If a field in that set is populated, all other fields in the set will automatically be cleared.
       class ConnectRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
