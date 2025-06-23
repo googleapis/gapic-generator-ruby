@@ -254,11 +254,11 @@ module Google
           #   @param content [::String]
           #     The content to be echoed by the server.
           #
-          #     Note: The following fields are mutually exclusive: `content`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `content`, `error`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           #   @param error [::Google::Rpc::Status, ::Hash]
           #     The error to be thrown by the server.
           #
-          #     Note: The following fields are mutually exclusive: `error`, `content`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `error`, `content`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           #   @param severity [::Google::Showcase::V1beta1::Severity]
           #     The severity to be echoed by the server.
           #   @param header [::String]
@@ -982,20 +982,20 @@ module Google
           #   @param end_time [::Google::Protobuf::Timestamp, ::Hash]
           #     The time that this operation will complete.
           #
-          #     Note: The following fields are mutually exclusive: `end_time`, `ttl`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `end_time`, `ttl`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           #   @param ttl [::Google::Protobuf::Duration, ::Hash]
           #     The duration of this operation.
           #
-          #     Note: The following fields are mutually exclusive: `ttl`, `end_time`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `ttl`, `end_time`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           #   @param error [::Google::Rpc::Status, ::Hash]
           #     The error that will be returned by the server. If this code is specified
           #     to be the OK rpc code, an empty response will be returned.
           #
-          #     Note: The following fields are mutually exclusive: `error`, `success`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `error`, `success`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           #   @param success [::Google::Showcase::V1beta1::WaitResponse, ::Hash]
           #     The response to be returned on operation completion.
           #
-          #     Note: The following fields are mutually exclusive: `success`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `success`, `error`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::Gapic::Operation]
@@ -1086,11 +1086,11 @@ module Google
           #     The error that will be returned by the server. If this code is specified
           #     to be the OK rpc code, an empty response will be returned.
           #
-          #     Note: The following fields are mutually exclusive: `error`, `success`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `error`, `success`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           #   @param success [::Google::Showcase::V1beta1::BlockResponse, ::Hash]
           #     The response to be returned that will signify successful method call.
           #
-          #     Note: The following fields are mutually exclusive: `success`, `error`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `success`, `error`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::Google::Showcase::V1beta1::BlockResponse]

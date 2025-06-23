@@ -41,7 +41,6 @@ module Gapic
       #   it is known that the targets are not present in the current library.
       # @param transport [:grpc,:rest] Whether xref links should go to REST or
       #   gRPC client classes. Uses the default transport if not provided.
-      # @param is_rpc_param [Boolean] unused
       # @return [Enumerable<String>]
       #
       def format_doc_lines api, lines, disable_xrefs: false, transport: nil
