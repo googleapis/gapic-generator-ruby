@@ -987,9 +987,9 @@ module Gapic
         str = super
         return str unless @oneof_siblings && @oneof_siblings.size > 1
         siblings = @oneof_siblings.map { |field| "`#{field.name}`" }.join ", "
-        note = "Note: The following fields are mutually exclusive: " \
-               "#{siblings}. If a field in that set is populated, all other " \
-               "fields in the set will automatically be cleared."
+        note = "Note: The following parameters are mutually exclusive: #{siblings}. " \
+               "At most one of these parameters can be set. If more than one is set, " \
+               "only one will be used, and it is not defined which one."
         str ? "#{str.strip}\n\n#{note}" : note
       end
 

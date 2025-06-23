@@ -191,17 +191,17 @@ module Grafeas
     #   @return [::Grafeas::V1::CloudRepoSourceContext]
     #     A SourceContext referring to a revision in a Google Cloud Source Repo.
     #
-    #     Note: The following fields are mutually exclusive: `cloud_repo`, `gerrit`, `git`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `cloud_repo`, `gerrit`, `git`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     # @!attribute [rw] gerrit
     #   @return [::Grafeas::V1::GerritSourceContext]
     #     A SourceContext referring to a Gerrit project.
     #
-    #     Note: The following fields are mutually exclusive: `gerrit`, `cloud_repo`, `git`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `gerrit`, `cloud_repo`, `git`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     # @!attribute [rw] git
     #   @return [::Grafeas::V1::GitSourceContext]
     #     A SourceContext referring to any third party Git repo (e.g., GitHub).
     #
-    #     Note: The following fields are mutually exclusive: `git`, `cloud_repo`, `gerrit`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `git`, `cloud_repo`, `gerrit`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     # @!attribute [rw] labels
     #   @return [::Google::Protobuf::Map{::String => ::String}]
     #     Labels with user defined metadata.
@@ -256,12 +256,12 @@ module Grafeas
     #   @return [::String]
     #     A revision ID.
     #
-    #     Note: The following fields are mutually exclusive: `revision_id`, `alias_context`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `revision_id`, `alias_context`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     # @!attribute [rw] alias_context
     #   @return [::Grafeas::V1::AliasContext]
     #     An alias, which may be a branch or tag.
     #
-    #     Note: The following fields are mutually exclusive: `alias_context`, `revision_id`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `alias_context`, `revision_id`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     class CloudRepoSourceContext
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -280,12 +280,12 @@ module Grafeas
     #   @return [::String]
     #     A revision (commit) ID.
     #
-    #     Note: The following fields are mutually exclusive: `revision_id`, `alias_context`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `revision_id`, `alias_context`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     # @!attribute [rw] alias_context
     #   @return [::Grafeas::V1::AliasContext]
     #     An alias, which may be a branch or tag.
     #
-    #     Note: The following fields are mutually exclusive: `alias_context`, `revision_id`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `alias_context`, `revision_id`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     class GerritSourceContext
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -309,12 +309,12 @@ module Grafeas
     #   @return [::Grafeas::V1::ProjectRepoId]
     #     A combination of a project ID and a repo name.
     #
-    #     Note: The following fields are mutually exclusive: `project_repo_id`, `uid`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `project_repo_id`, `uid`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     # @!attribute [rw] uid
     #   @return [::String]
     #     A server-assigned, globally unique identifier.
     #
-    #     Note: The following fields are mutually exclusive: `uid`, `project_repo_id`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+    #     Note: The following parameters are mutually exclusive: `uid`, `project_repo_id`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
     class RepoId
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods

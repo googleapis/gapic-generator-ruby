@@ -268,87 +268,87 @@ module Google
           #   @return [::String]
           #     Portfolio bidding strategy used by campaign.
           #
-          #     Note: The following fields are mutually exclusive: `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] commission
           #   @return [::Google::Ads::GoogleAds::V15::Common::Commission]
           #     Commission is an automatic bidding strategy in which the advertiser pays
           #     a certain portion of the conversion value.
           #
-          #     Note: The following fields are mutually exclusive: `commission`, `bidding_strategy`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `commission`, `bidding_strategy`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] manual_cpa
           #   @return [::Google::Ads::GoogleAds::V15::Common::ManualCpa]
           #     Standard Manual CPA bidding strategy.
           #     Manual bidding strategy that allows advertiser to set the bid per
           #     advertiser-specified action. Supported only for Local Services campaigns.
           #
-          #     Note: The following fields are mutually exclusive: `manual_cpa`, `bidding_strategy`, `commission`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `manual_cpa`, `bidding_strategy`, `commission`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] manual_cpc
           #   @return [::Google::Ads::GoogleAds::V15::Common::ManualCpc]
           #     Standard Manual CPC bidding strategy.
           #     Manual click-based bidding where user pays per click.
           #
-          #     Note: The following fields are mutually exclusive: `manual_cpc`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `manual_cpc`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] manual_cpm
           #   @return [::Google::Ads::GoogleAds::V15::Common::ManualCpm]
           #     Standard Manual CPM bidding strategy.
           #     Manual impression-based bidding where user pays per thousand
           #     impressions.
           #
-          #     Note: The following fields are mutually exclusive: `manual_cpm`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `manual_cpm`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] manual_cpv
           #   @return [::Google::Ads::GoogleAds::V15::Common::ManualCpv]
           #     A bidding strategy that pays a configurable amount per video view.
           #
-          #     Note: The following fields are mutually exclusive: `manual_cpv`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `manual_cpv`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] maximize_conversions
           #   @return [::Google::Ads::GoogleAds::V15::Common::MaximizeConversions]
           #     Standard Maximize Conversions bidding strategy that automatically
           #     maximizes number of conversions while spending your budget.
           #
-          #     Note: The following fields are mutually exclusive: `maximize_conversions`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `maximize_conversions`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] maximize_conversion_value
           #   @return [::Google::Ads::GoogleAds::V15::Common::MaximizeConversionValue]
           #     Standard Maximize Conversion Value bidding strategy that automatically
           #     sets bids to maximize revenue while spending your budget.
           #
-          #     Note: The following fields are mutually exclusive: `maximize_conversion_value`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `maximize_conversion_value`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] target_cpa
           #   @return [::Google::Ads::GoogleAds::V15::Common::TargetCpa]
           #     Standard Target CPA bidding strategy that automatically sets bids to
           #     help get as many conversions as possible at the target
           #     cost-per-acquisition (CPA) you set.
           #
-          #     Note: The following fields are mutually exclusive: `target_cpa`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `target_cpa`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] target_impression_share
           #   @return [::Google::Ads::GoogleAds::V15::Common::TargetImpressionShare]
           #     Target Impression Share bidding strategy. An automated bidding strategy
           #     that sets bids to achieve a chosen percentage of impressions.
           #
-          #     Note: The following fields are mutually exclusive: `target_impression_share`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `target_impression_share`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_roas`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] target_roas
           #   @return [::Google::Ads::GoogleAds::V15::Common::TargetRoas]
           #     Standard Target ROAS bidding strategy that automatically maximizes
           #     revenue while averaging a specific target return on ad spend (ROAS).
           #
-          #     Note: The following fields are mutually exclusive: `target_roas`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_spend`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `target_roas`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_spend`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] target_spend
           #   @return [::Google::Ads::GoogleAds::V15::Common::TargetSpend]
           #     Standard Target Spend bidding strategy that automatically sets your bids
           #     to help get as many clicks as possible within your budget.
           #
-          #     Note: The following fields are mutually exclusive: `target_spend`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `percent_cpc`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `target_spend`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `percent_cpc`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] percent_cpc
           #   @return [::Google::Ads::GoogleAds::V15::Common::PercentCpc]
           #     Standard Percent Cpc bidding strategy where bids are a fraction of the
           #     advertised price for some good or service.
           #
-          #     Note: The following fields are mutually exclusive: `percent_cpc`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `target_cpm`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `percent_cpc`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `target_cpm`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           # @!attribute [rw] target_cpm
           #   @return [::Google::Ads::GoogleAds::V15::Common::TargetCpm]
           #     A bidding strategy that automatically optimizes cost per thousand
           #     impressions.
           #
-          #     Note: The following fields are mutually exclusive: `target_cpm`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`. If a field in that set is populated, all other fields in the set will automatically be cleared.
+          #     Note: The following parameters are mutually exclusive: `target_cpm`, `bidding_strategy`, `commission`, `manual_cpa`, `manual_cpc`, `manual_cpm`, `manual_cpv`, `maximize_conversions`, `maximize_conversion_value`, `target_cpa`, `target_impression_share`, `target_roas`, `target_spend`, `percent_cpc`. At most one of these parameters can be set. If more than one is set, only one will be used, and it is not defined which one.
           class Campaign
             include ::Google::Protobuf::MessageExts
             extend ::Google::Protobuf::MessageExts::ClassMethods
