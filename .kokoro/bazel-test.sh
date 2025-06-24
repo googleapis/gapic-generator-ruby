@@ -43,6 +43,6 @@ cat generator-versions.json
 bazelisk build //google/example/library/v1:google-cloud-example-library-v1-ruby
 
 # try generating the google/ads/googleads/v20 ruby gapic library
-bazelisk build //google/ads/googleads/v20:googleads_ruby_gapic_srcjar
+bazelisk build //google/ads/googleads/v20:googleads-ruby
 
 popd
