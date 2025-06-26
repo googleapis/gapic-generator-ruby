@@ -212,6 +212,5 @@ def all_service_names generator: nil, omit_generator: nil
   list = gem_defaults.keys
   list = list.find_all { |service| generator_for(service) == generator } if generator
   list = list.find_all { |service| generator_for(service) != omit_generator } if omit_generator
-  list = [:testing]
   list
 end
