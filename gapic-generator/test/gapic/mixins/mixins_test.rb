@@ -45,6 +45,22 @@ class MixinsTest < PresenterTest
     refute Gapic::Model::Mixins.mixin_service_address? "testing.mixins.ServiceWithLoc"
   end
 
+  def test_mixin_message_field_address_checker
+    # sic. no `s` at the end, this is a message named `Location`, not service named `Locations`
+    assert Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location"
+    assert Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location.metadata"
+
+    refute Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location",
+                                                             gem_name: "google-cloud-location"
+    refute Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location.metadata",
+                                                             gem_name: "google-cloud-location"
+
+    assert Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1", "Policy"]
+    assert Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1", "Policy", "bindings"]
+
+    refute Gapic::Model::Mixins.mixin_message_field_address? "testing.mixins.Request"
+  end
+
   # Test the `Garbage` library, which does NOT have mixins specified
   # in its service.yaml (or service.yaml at all)
   def test_garbage_mixins

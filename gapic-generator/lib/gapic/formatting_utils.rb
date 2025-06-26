@@ -116,7 +116,12 @@ module Gapic
       def format_line_xrefs api, line, disable_xrefs, transport
         while (m = @xref_detector.match line)
           entity = api.lookup m[:addr]
-          return line if entity.nil?
+          is_mixin_field_addr = Gapic::Model::Mixins.mixin_message_field_address?(
+            m[:addr],
+            gem_name: api.configuration.fetch(:gem, nil)&.fetch(:name, "")
+          )
+          return line if entity.nil? || is_mixin_field_addr
+
           text = m[:text]
           yard_link = disable_xrefs ? text : yard_link_for_entity(entity, text, transport)
           return line if yard_link.nil?

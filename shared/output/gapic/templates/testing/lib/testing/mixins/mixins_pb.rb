@@ -8,7 +8,7 @@ require 'google/api/client_pb'
 require 'google/api/annotations_pb'
 
 
-descriptor_data = "\n\x1btesting/mixins/mixins.proto\x12\x0etesting.mixins\x1a\x17google/api/client.proto\x1a\x1cgoogle/api/annotations.proto\"\t\n\x07Request\"\n\n\x08Response2\x97\x01\n\x0eServiceWithLoc\x12\x66\n\x06Method\x12\x17.testing.mixins.Request\x1a\x18.testing.mixins.Response\")\x82\xd3\xe4\x93\x02#\"\x1e/v1beta1/ServiceWithLoc/Method:\x01*\x1a\x1d\xca\x41\x1aservicewithloc.example.comB\x12\xea\x02\x0fTesting::Mixinsb\x06proto3"
+descriptor_data = "\n\x1btesting/mixins/mixins.proto\x12\x0etesting.mixins\x1a\x17google/api/client.proto\x1a\x1cgoogle/api/annotations.proto\"\t\n\x07Request\"\n\n\x08Response\"\x19\n\x17ReferencedInServiceYaml2\x97\x01\n\x0eServiceWithLoc\x12\x66\n\x06Method\x12\x17.testing.mixins.Request\x1a\x18.testing.mixins.Response\")\x82\xd3\xe4\x93\x02#\"\x1e/v1beta1/ServiceWithLoc/Method:\x01*\x1a\x1d\xca\x41\x1aservicewithloc.example.comB\x12\xea\x02\x0fTesting::Mixinsb\x06proto3"
 
 pool = Google::Protobuf::DescriptorPool.generated_pool
 
@@ -38,5 +38,6 @@ module Testing
   module Mixins
     Request = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.mixins.Request").msgclass
     Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.mixins.Response").msgclass
+    ReferencedInServiceYaml = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.mixins.ReferencedInServiceYaml").msgclass
   end
 end
