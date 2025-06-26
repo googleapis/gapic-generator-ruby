@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "Typical Garbage Service."
-  gem.summary       = "Typical Garbage Service."
+  gem.description   = "ServiceWithLoc and ServiceWithLocAndOps."
+  gem.summary       = "Typical ServiceWithLoc and ServiceWithLocAndOps."
   gem.homepage      = "https://github.com/googleapis/googleapis"
   gem.license       = "MIT"
 

@@ -50,6 +50,86 @@
           "type": "FULL"
         }
       ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceWithLocAndNonRestOps_Method_sync",
+      "title": "Snippet for the call_method call in the ServiceWithLocAndNonRestOps service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::Mixins::ServiceWithLocAndNonRestOps::Client#call_method.",
+      "file": "service_with_loc_and_non_rest_ops/call_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "call_method",
+        "full_name": "::Testing::Mixins::ServiceWithLocAndNonRestOps::Client#call_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::Mixins::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::Mixins::Response",
+        "client": {
+          "short_name": "ServiceWithLocAndNonRestOps::Client",
+          "full_name": "::Testing::Mixins::ServiceWithLocAndNonRestOps::Client"
+        },
+        "method": {
+          "short_name": "Method",
+          "full_name": "testing.mixins.ServiceWithLocAndNonRestOps.Method",
+          "service": {
+            "short_name": "ServiceWithLocAndNonRestOps",
+            "full_name": "testing.mixins.ServiceWithLocAndNonRestOps"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 54,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceWithLocAndNonRestOps_LROMethod_sync",
+      "title": "Snippet for the lro_method call in the ServiceWithLocAndNonRestOps service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::Mixins::ServiceWithLocAndNonRestOps::Client#lro_method.",
+      "file": "service_with_loc_and_non_rest_ops/lro_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "lro_method",
+        "full_name": "::Testing::Mixins::ServiceWithLocAndNonRestOps::Client#lro_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::Mixins::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Longrunning::Operation",
+        "client": {
+          "short_name": "ServiceWithLocAndNonRestOps::Client",
+          "full_name": "::Testing::Mixins::ServiceWithLocAndNonRestOps::Client"
+        },
+        "method": {
+          "short_name": "LROMethod",
+          "full_name": "testing.mixins.ServiceWithLocAndNonRestOps.LROMethod",
+          "service": {
+            "short_name": "ServiceWithLocAndNonRestOps",
+            "full_name": "testing.mixins.ServiceWithLocAndNonRestOps"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 61,
+          "type": "FULL"
+        }
+      ]
     }
   ]
 }

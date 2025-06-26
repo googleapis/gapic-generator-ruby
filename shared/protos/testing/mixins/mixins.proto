@@ -5,6 +5,8 @@ option ruby_package = "Testing::Mixins";
 
 import "google/api/client.proto";
 import "google/api/annotations.proto";
+import "google/longrunning/operations.proto";
+import "google/protobuf/empty.proto";
 
 service ServiceWithLoc {
     option (google.api.default_host) = "servicewithloc.example.com";
@@ -13,6 +15,25 @@ service ServiceWithLoc {
         option (google.api.http) = {
             post: "/v1beta1/ServiceWithLoc/Method"
             body: "*"
+        };
+    }
+}
+
+service ServiceWithLocAndNonRestOps {
+    option (google.api.default_host) = "servicewithlocandops.example.com";
+
+    rpc Method(Request) returns(Response) {
+        option (google.api.http) = {
+            post: "/v1beta1/ServiceWithLoc/Method"
+            body: "*"
+        };
+    }
+    
+    // LRO method without `google.api.http` -- this should not generate `rest/operations.rb`
+    rpc LROMethod(Request) returns (google.longrunning.Operation) {
+        option (google.longrunning.operation_info) = {
+            response_type: "google.protobuf.Empty"
+            metadata_type: "testing.mixins.Response"
         };
     }
 }

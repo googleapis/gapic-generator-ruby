@@ -1,7 +1,8 @@
 # Ruby Client for the Testing API
 
-Typical Garbage Service.
+Typical ServiceWithLoc and ServiceWithLocAndOps.
 
+ServiceWithLoc and ServiceWithLocAndOps.
 
 https://github.com/googleapis/googleapis
 
