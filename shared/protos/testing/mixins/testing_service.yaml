@@ -1,13 +1,14 @@
 type: google.api.Service
 documentation:
   summary: |-
-    Typical Garbage Service.  
+    Typical ServiceWithLoc and ServiceWithLocAndOps.  
   overview: |-
-    Typical Garbage Service.
+    ServiceWithLoc and ServiceWithLocAndOps.
 config_version: 3
 
 apis:
 - name: testing.mixins.ServiceWithLoc
+- name: testing.mixins.ServiceWithLocAndOps
 - name: google.longrunning.Operations
 - name: google.cloud.location.Locations
 
