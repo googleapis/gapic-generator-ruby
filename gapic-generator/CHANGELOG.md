@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.45.4 / 2025-06-26
+
+* Fix: docs for oneof parameters
+* Fix: remove require when rest operations are not generated
+
 ### 0.45.3 / 2025-06-21
 
 * Fix: correct pagination heuristic for Compute
