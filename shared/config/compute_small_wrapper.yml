@@ -6,6 +6,6 @@
   :summary: Google Cloud Compute API.
   :version_dependencies: v1:0.0
   :extra_dependencies:
-    gapic-common: ">= 0.6|< 2.a"
+    gapic-common: ">= 1.1|< 2.a"
     google-cloud-common: "~>1.0"
 :generate_metadata: false

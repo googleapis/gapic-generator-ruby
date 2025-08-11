@@ -256,7 +256,7 @@ module Gapic
 
       def dependencies
         @dependencies ||= begin
-          deps = { "gapic-common" => "~> 1.0" }
+          deps = { "gapic-common" => "~> 1.1" }
           deps["grpc-google-iam-v1"] = "~> 1.11" if iam_dependency?
           extra_deps = gem_config_dependencies
           deps.merge! mixins_model.dependencies if mixins_model.mixins?
