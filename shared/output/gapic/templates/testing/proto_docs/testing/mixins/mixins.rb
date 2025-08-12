@@ -36,5 +36,12 @@ module Testing
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods
     end
+
+    # This comment tests a mixin documentation reference:
+    # [google.cloud.location.Location.metadata][google.cloud.location.Location.metadata].
+    class ReferencedInServiceYaml
+      include ::Google::Protobuf::MessageExts
+      extend ::Google::Protobuf::MessageExts::ClassMethods
+    end
   end
 end

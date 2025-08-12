@@ -43,3 +43,9 @@ message Request {
 
 message Response {
 }
+
+// This comment tests a mixin documentation reference:
+// [google.cloud.location.Location.metadata][google.cloud.location.Location.metadata].
+message ReferencedInServiceYaml {
+
+}

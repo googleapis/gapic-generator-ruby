@@ -162,6 +162,25 @@ module Gapic
         MIXIN_GEM_NAMES.include?(service_address) && gem_name != MIXIN_GEM_NAMES[service_address]
       end
 
+      ##
+      # Returns true if the given service address is a mixin.
+      # This just checks the service against a (hard-coded) set of known mixins.
+      # If `gem_name` is provided, objects from the package of the service
+      # that corresponds to that gem_name are not considered mixins.
+      #
+      # @param message_field_address [String,Array<String>] The address (either array
+      #     or dot-delimited) of the message or field to check.
+      # @param gem_name [String] The name of the gem.
+      # @return [boolean]
+      #
+      def self.mixin_message_field_address? message_field_address, gem_name: nil
+        message_field_address = message_field_address.join "." unless message_field_address.is_a? String
+        # NB: messages are checked against package, not service
+        service_address = MIXIN_GEM_NAMES.keys.find { |sn| message_field_address.start_with? MIXIN_PACKAGE_NAMES[sn] }
+
+        !service_address.nil? && gem_name != MIXIN_GEM_NAMES[service_address]
+      end
+
       private
 
       # @return [Enumerable<String>] Names of all services that are specified
@@ -178,6 +197,13 @@ module Gapic
         LRO_SERVICE => "google-longrunning-operations"
       }.freeze
       private_constant :MIXIN_GEM_NAMES
+
+      MIXIN_PACKAGE_NAMES = {
+        LOCATIONS_SERVICE => "google.cloud.location",
+        IAM_SERVICE => "google.iam.v1",
+        LRO_SERVICE => "google.longrunning.operations"
+      }.freeze
+      private_constant :MIXIN_PACKAGE_NAMES
 
       # Since mixins are scope-limited to a couple of services, it is easier to
       # have these in lookup tables than to construct a ServicePresenter
