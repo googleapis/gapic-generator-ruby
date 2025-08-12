@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "garbage/garbage_pb"
-require "garbage/garbage_services_pb"
 require "so/much/trash/deprecated_service"
 
 class ::So::Much::Trash::DeprecatedService::ClientTest < Minitest::Test

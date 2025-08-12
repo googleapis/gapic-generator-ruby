@@ -5,7 +5,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "<%= service.proto_service_require %>"
-require "<%= service.proto_services_require %>"
 require "<%= service.service_require %>"
 
 class <%= service.client_name_full %>Test < Minitest::Test

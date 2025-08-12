@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "testing/grpc_service_config/grpc_service_config_pb"
-require "testing/grpc_service_config/grpc_service_config_services_pb"
 require "testing/grpc_service_config/service_with_retries"
 
 class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Test

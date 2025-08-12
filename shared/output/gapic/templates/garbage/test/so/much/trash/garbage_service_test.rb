@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "garbage/garbage_pb"
-require "garbage/garbage_services_pb"
 require "so/much/trash/garbage_service"
 
 class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test

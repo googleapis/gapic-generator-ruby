@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "testing/routing_headers/routing_headers_pb"
-require "testing/routing_headers/routing_headers_services_pb"
 require "testing/routing_headers/service_no_headers"
 
 class ::Testing::RoutingHeaders::ServiceNoHeaders::ClientTest < Minitest::Test

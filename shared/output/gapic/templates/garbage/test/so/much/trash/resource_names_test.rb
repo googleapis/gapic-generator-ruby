@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "garbage/resource_names_pb"
-require "garbage/resource_names_services_pb"
 require "so/much/trash/resource_names"
 
 class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test

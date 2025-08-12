@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "google/showcase/v1beta1/messaging_pb"
-require "google/showcase/v1beta1/messaging_services_pb"
 require "google/showcase/v1beta1/messaging"
 
 class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
