@@ -8,7 +8,7 @@
                     namespace.pop
                   end
 
-  default_config = Configuration.new parent_config
+  default_config = ::Gapic::Rest::HttpBindingOverrideConfiguration.new parent_config
   <%= indent_tail render(partial: "lib/package/self_configure_defaults", locals: {package: package}), 2 %>
   default_config
 end

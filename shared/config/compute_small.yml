@@ -5,7 +5,7 @@
   :description: google-cloud-compute-v1 is the official client library for the Google Cloud Compute V1 API. This library is considered to be in alpha. This means it is still a work-in-progress and under active development. Any release is subject to backwards-incompatible changes at any time.
   :summary: API Client library (ALPHA) for the Google Cloud Compute V1 API.
   :extra_dependencies:
-    gapic-common: ">= 0.6|< 2.a"
+    gapic-common: ">= 1.1|< 2.a"
     google-cloud-common: "~>1.0"
 :overrides:
   :wrapper_gem_name:
