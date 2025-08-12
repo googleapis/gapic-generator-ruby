@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
-require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_services_pb"
 require "testing/nonstandard_lro_grpc/another_lro_provider"
 
 class ::Testing::NonstandardLroGrpc::AnotherLroProvider::ClientTest < Minitest::Test

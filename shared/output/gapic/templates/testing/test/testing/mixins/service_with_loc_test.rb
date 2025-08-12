@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "testing/mixins/mixins_pb"
-require "testing/mixins/mixins_services_pb"
 require "testing/mixins/service_with_loc"
 
 class ::Testing::Mixins::ServiceWithLoc::ClientTest < Minitest::Test

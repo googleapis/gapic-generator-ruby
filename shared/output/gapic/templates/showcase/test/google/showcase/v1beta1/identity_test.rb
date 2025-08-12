@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "google/showcase/v1beta1/identity_pb"
-require "google/showcase/v1beta1/identity_services_pb"
 require "google/showcase/v1beta1/identity"
 
 class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test

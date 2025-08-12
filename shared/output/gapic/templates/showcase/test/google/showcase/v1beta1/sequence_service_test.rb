@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "google/showcase/v1beta1/sequence_pb"
-require "google/showcase/v1beta1/sequence_services_pb"
 require "google/showcase/v1beta1/sequence_service"
 
 class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test

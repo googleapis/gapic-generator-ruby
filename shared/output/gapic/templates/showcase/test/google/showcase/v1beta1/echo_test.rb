@@ -29,7 +29,6 @@ require "helper"
 require "gapic/grpc/service_stub"
 
 require "google/showcase/v1beta1/echo_pb"
-require "google/showcase/v1beta1/echo_services_pb"
 require "google/showcase/v1beta1/echo"
 
 class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
