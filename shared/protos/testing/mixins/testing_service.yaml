@@ -12,6 +12,9 @@ apis:
 - name: google.longrunning.Operations
 - name: google.cloud.location.Locations
 
+types:
+- name: testing.mixins.ReferencedInServiceYaml
+
 http:
   rules:
   - selector: google.longrunning.Operations.ListOperations

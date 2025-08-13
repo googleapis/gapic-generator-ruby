@@ -10,7 +10,7 @@ require 'google/longrunning/operations_pb'
 require 'google/protobuf/empty_pb'
 
 
-descriptor_data = "\n\x1btesting/mixins/mixins.proto\x12\x0etesting.mixins\x1a\x17google/api/client.proto\x1a\x1cgoogle/api/annotations.proto\x1a#google/longrunning/operations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\t\n\x07Request\"\n\n\x08Response2\x97\x01\n\x0eServiceWithLoc\x12\x66\n\x06Method\x12\x17.testing.mixins.Request\x1a\x18.testing.mixins.Response\")\x82\xd3\xe4\x93\x02#\"\x1e/v1beta1/ServiceWithLoc/Method:\x01*\x1a\x1d\xca\x41\x1aservicewithloc.example.com2\xa4\x02\n\x1bServiceWithLocAndNonRestOps\x12\x66\n\x06Method\x12\x17.testing.mixins.Request\x1a\x18.testing.mixins.Response\")\x82\xd3\xe4\x93\x02#\"\x1e/v1beta1/ServiceWithLoc/Method:\x01*\x12x\n\tLROMethod\x12\x17.testing.mixins.Request\x1a\x1d.google.longrunning.Operation\"3\xca\x41\x30\n\x15google.protobuf.Empty\x12\x17testing.mixins.Response\x1a#\xca\x41 servicewithlocandops.example.comB\x12\xea\x02\x0fTesting::Mixinsb\x06proto3"
+descriptor_data = "\n\x1btesting/mixins/mixins.proto\x12\x0etesting.mixins\x1a\x17google/api/client.proto\x1a\x1cgoogle/api/annotations.proto\x1a#google/longrunning/operations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\t\n\x07Request\"\n\n\x08Response\"\x19\n\x17ReferencedInServiceYaml2\x97\x01\n\x0eServiceWithLoc\x12\x66\n\x06Method\x12\x17.testing.mixins.Request\x1a\x18.testing.mixins.Response\")\x82\xd3\xe4\x93\x02#\"\x1e/v1beta1/ServiceWithLoc/Method:\x01*\x1a\x1d\xca\x41\x1aservicewithloc.example.com2\xa4\x02\n\x1bServiceWithLocAndNonRestOps\x12\x66\n\x06Method\x12\x17.testing.mixins.Request\x1a\x18.testing.mixins.Response\")\x82\xd3\xe4\x93\x02#\"\x1e/v1beta1/ServiceWithLoc/Method:\x01*\x12x\n\tLROMethod\x12\x17.testing.mixins.Request\x1a\x1d.google.longrunning.Operation\"3\xca\x41\x30\n\x15google.protobuf.Empty\x12\x17testing.mixins.Response\x1a#\xca\x41 servicewithlocandops.example.comB\x12\xea\x02\x0fTesting::Mixinsb\x06proto3"
 
 pool = Google::Protobuf::DescriptorPool.generated_pool
 
@@ -40,5 +40,6 @@ module Testing
   module Mixins
     Request = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.mixins.Request").msgclass
     Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.mixins.Response").msgclass
+    ReferencedInServiceYaml = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.mixins.ReferencedInServiceYaml").msgclass
   end
 end
