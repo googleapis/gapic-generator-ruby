@@ -155,6 +155,7 @@ def gem_defaults
         "testing/grpc_service_config/grpc_service_config.proto",
         "testing/mixins/mixins.proto",
         "testing/routing_headers/routing_headers.proto",
+        "testing/resources/resources.proto",
         "testing/nonstandard_lro_grpc/nonstandard_lro_grpc.proto",
         # `locations.proto` is included here because it is often
         # included in the real world libraries

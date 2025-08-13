@@ -26,10 +26,13 @@ module Gapic
       def initialize resource
         @resource = resource
 
-        @patterns = resource.pattern.map { |pattern| PatternPresenter.new pattern }
+        all_patterns = resource.pattern.map { |pattern| PatternPresenter.new pattern }
 
         # Keep only patterns that can be used to create path helpers
-        @patterns.filter!(&:useful_for_helpers?)
+        all_useful_patterns = all_patterns.filter(&:useful_for_helpers?)
+
+        # Remove patterns where key is duplicated
+        @patterns = ResourcePresenter.dedup_patterns all_useful_patterns
       end
 
       def dup
@@ -50,6 +53,25 @@ module Gapic
 
       def path_helper
         "#{ActiveSupport::Inflector.underscore name}_path"
+      end
+
+      ##
+      # Deduplicates pattern that have the same `arguments_key`. Our design for the "paths" helper
+      # only allows for one pattern per `arguments_key`.
+      #
+      # If patterns with the same `arguments_key` are detected, the shortest is taken. If there is
+      # a tie, the lexicographically first is taken.
+      #
+      # @param patterns [Array<PatternPresenter>]
+      #
+      # @return [Array<PatternPresenter>]
+      #
+      def self.dedup_patterns patterns
+        patterns.group_by(&:arguments_key).map do |_arguments_key, group|
+          group.min_by do |pattern|
+            [pattern.pattern.length, pattern.pattern]
+          end
+        end
       end
 
       ##
