@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.46.0 / 2025-08-13
+
+* Feature: use HTTP binding configuration class from new gapic-common
+* Fix: Remove unnecessary services_pb import from tests
+* Fix: no longer generate cross-package references for mixin objects
+* Feature: add support for multiple patterns with same arguments
+
 ### 0.45.4 / 2025-06-26
 
 * Fix: docs for oneof parameters
