@@ -1,0 +1,175 @@
+{
+  "client_library": {
+    "name": "testing",
+    "version": "",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "testing.resources",
+        "version": "resources"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "region_tag": "testing_v0_generated_ServiceResources_Plain_sync",
+      "title": "Snippet for the plain call in the ServiceResources service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::Resources::ServiceResources::Client#plain.",
+      "file": "service_resources/plain.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "plain",
+        "full_name": "::Testing::Resources::ServiceResources::Client#plain",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::Resources::RequestResource",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::Resources::Response",
+        "client": {
+          "short_name": "ServiceResources::Client",
+          "full_name": "::Testing::Resources::ServiceResources::Client"
+        },
+        "method": {
+          "short_name": "Plain",
+          "full_name": "testing.resources.ServiceResources.Plain",
+          "service": {
+            "short_name": "ServiceResources",
+            "full_name": "testing.resources.ServiceResources"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 54,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceResources_AnotherPlain_sync",
+      "title": "Snippet for the another_plain call in the ServiceResources service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::Resources::ServiceResources::Client#another_plain.",
+      "file": "service_resources/another_plain.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "another_plain",
+        "full_name": "::Testing::Resources::ServiceResources::Client#another_plain",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::Resources::RequestAnotherResource",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::Resources::Response",
+        "client": {
+          "short_name": "ServiceResources::Client",
+          "full_name": "::Testing::Resources::ServiceResources::Client"
+        },
+        "method": {
+          "short_name": "AnotherPlain",
+          "full_name": "testing.resources.ServiceResources.AnotherPlain",
+          "service": {
+            "short_name": "ServiceResources",
+            "full_name": "testing.resources.ServiceResources"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 54,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceResources_ThirdPlain_sync",
+      "title": "Snippet for the third_plain call in the ServiceResources service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::Resources::ServiceResources::Client#third_plain.",
+      "file": "service_resources/third_plain.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "third_plain",
+        "full_name": "::Testing::Resources::ServiceResources::Client#third_plain",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::Resources::RequestThirdResource",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::Resources::Response",
+        "client": {
+          "short_name": "ServiceResources::Client",
+          "full_name": "::Testing::Resources::ServiceResources::Client"
+        },
+        "method": {
+          "short_name": "ThirdPlain",
+          "full_name": "testing.resources.ServiceResources.ThirdPlain",
+          "service": {
+            "short_name": "ServiceResources",
+            "full_name": "testing.resources.ServiceResources"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 54,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceResources_FourthPlain_sync",
+      "title": "Snippet for the fourth_plain call in the ServiceResources service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::Resources::ServiceResources::Client#fourth_plain.",
+      "file": "service_resources/fourth_plain.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "fourth_plain",
+        "full_name": "::Testing::Resources::ServiceResources::Client#fourth_plain",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::Resources::RequestFourthResource",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::Resources::Response",
+        "client": {
+          "short_name": "ServiceResources::Client",
+          "full_name": "::Testing::Resources::ServiceResources::Client"
+        },
+        "method": {
+          "short_name": "FourthPlain",
+          "full_name": "testing.resources.ServiceResources.FourthPlain",
+          "service": {
+            "short_name": "ServiceResources",
+            "full_name": "testing.resources.ServiceResources"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 54,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}

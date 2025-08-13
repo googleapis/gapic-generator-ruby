@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package testing.resources;
+
+import "google/api/client.proto";
+import "google/api/resource.proto";
+
+
+option ruby_package = "Testing::Resources";
+
+service ServiceResources {
+    option (google.api.default_host) = "resources.example.com";
+
+    rpc Plain(RequestResource) returns(Response) { }
+    rpc AnotherPlain(RequestAnotherResource) returns(Response) { }
+    rpc ThirdPlain(RequestThirdResource) returns(Response) { }
+    rpc FourthPlain(RequestFourthResource) returns(Response) { }
+}
+
+message RequestResource {
+    option (google.api.resource) = {
+        type: "testing.example.com/RequestResource"
+        pattern: "projects/{project}/resources/{resource}/versions/{version}"
+        pattern: "projects/{project}/resources/{resource}/subjects/{subject}/versions/{version}"
+        pattern: "projects/{project}/compatibility/resources/{resource}/versions"
+        pattern: "projects/{project}/compatibility/resources/{resource}/versions/{version}"
+        pattern: "projects/{project}/compatibility/resources/{resource}/subjects/{subject}/versions/{version}"
+    };
+
+    string resource_name = 1;
+}
+
+message RequestAnotherResource {
+      option (google.api.resource) = {
+        type: "testing.example.com/RequestAnotherResource"
+        pattern: "projects/responses"
+        pattern: "projects/compatibility/responses"
+        pattern: "projects/{project}/responses"
+    };
+
+    string resource_name = 1;
+}
+
+message RequestThirdResource {
+      option (google.api.resource) = {
+        type: "testing.example.com/RequestThirdResource"
+        pattern: "projects/responses"
+        pattern: "projects/compatibility/responses"
+    };
+
+    string resource_name = 1;
+}
+
+message RequestFourthResource {
+      option (google.api.resource) = {
+        type: "testing.example.com/RequestFourthResource"
+        pattern: "projects/{project}/resources/{resource}/versions/{version}"
+        pattern: "projects/{project}/compatibility/resources/{resource}/versions/{version}"
+    };
+
+    string resource_name = 1;
+}
+
+message Response {  
+}
