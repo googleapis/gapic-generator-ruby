@@ -50,6 +50,9 @@ class MixinsTest < PresenterTest
     assert Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location"
     assert Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location.metadata"
 
+    assert Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location",
+                                                             gem_name: "google-cloud-something-else"
+
     refute Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location",
                                                              gem_name: "google-cloud-location"
     refute Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location.metadata",
