@@ -344,6 +344,10 @@ class FakeApi
   def fix_service_name name
     @service_mapping[name] || name
   end
+  
+  def configuration
+    {}
+  end
 end
 
 # A fake request builder
