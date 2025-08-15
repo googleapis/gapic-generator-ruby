@@ -20,7 +20,7 @@ jobs:
       packages: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install Ruby 3.4
         uses: ruby/setup-ruby@v1
         with:
