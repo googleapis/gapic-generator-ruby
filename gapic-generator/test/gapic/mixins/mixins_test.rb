@@ -45,6 +45,21 @@ class MixinsTest < PresenterTest
     refute Gapic::Model::Mixins.mixin_service_address? "testing.mixins.ServiceWithLoc"
   end
 
+  # This checks for service `WorkloadIdentityPools` in gem google.iam.v1beta which is not a mixin
+  def test_mixin_service_address_checker_beta
+    refute Gapic::Model::Mixins.mixin_service_address? "google.iam.v1beta.IAMPolicy"
+    refute Gapic::Model::Mixins.mixin_service_address? "google.iam.v1beta.IAMPolicy",
+                                                           gem_name: "google-iam-v1beta"
+    refute Gapic::Model::Mixins.mixin_service_address? "google.iam.v1beta.IAMPolicy",
+                                                           gem_name: "google-cloud-something else"
+    refute Gapic::Model::Mixins.mixin_service_address? ["google", "iam", "v1beta", "IAMPolicy"]
+    
+    assert Gapic::Model::Mixins.mixin_service_address? "google.iam.v1.IAMPolicy"
+    assert Gapic::Model::Mixins.mixin_service_address? "google.iam.v1.IAMPolicy",
+                                                           gem_name: "google-cloud-something-else"
+    assert Gapic::Model::Mixins.mixin_service_address? ["google", "iam", "v1", "IAMPolicy"]
+  end
+
   def test_mixin_message_field_address_checker
     # sic. no `s` at the end, this is a message named `Location`, not service named `Locations`
     assert Gapic::Model::Mixins.mixin_message_field_address? "google.cloud.location.Location"
@@ -62,6 +77,40 @@ class MixinsTest < PresenterTest
     assert Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1", "Policy", "bindings"]
 
     refute Gapic::Model::Mixins.mixin_message_field_address? "testing.mixins.Request"
+  end
+
+  # This checks for message `ListWorkloadIdentityPoolsRequest` in gem google.iam.v1beta which is not a mixin
+  def test_mixin_message_field_address_checker_beta
+    # sic. no `s` at the end, this is a message named `Location`, not service named `Locations`
+    refute Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1beta.SetIamPolicyRequest"
+    refute Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1beta.SetIamPolicyRequest.resource"
+
+    refute Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1beta.SetIamPolicyRequest",
+                                                             gem_name: "google-iam-v1beta"
+    
+    refute Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1beta.SetIamPolicyRequest",
+                                                             gem_name: "google-cloud-something-else"
+
+    refute Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1beta.SetIamPolicyRequest.resource",
+                                                             gem_name: "google-iam-v1beta"
+
+    refute Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1beta.SetIamPolicyRequest.resource",
+                                                             gem_name: "google-cloud-something-else"
+
+    refute Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1beta", "SetIamPolicyRequest"]
+    refute Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1beta", "SetIamPolicyRequest", "resource"]
+
+    assert Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1.SetIamPolicyRequest"
+    assert Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1.SetIamPolicyRequest.resource"
+
+    assert Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1.SetIamPolicyRequest",
+                                                             gem_name: "google-cloud-something-else"
+
+    assert Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1.SetIamPolicyRequest.resource",
+                                                             gem_name: "google-cloud-something-else"
+
+    assert Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1", "SetIamPolicyRequest"]
+    assert Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1", "SetIamPolicyRequest", "resource"]
   end
 
   # Test the `Garbage` library, which does NOT have mixins specified
