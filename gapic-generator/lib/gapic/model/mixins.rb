@@ -178,7 +178,9 @@ module Gapic
         # NB: messages are checked against package, not service
         # The dot is added to the package name to ensure that e.g. `google.iam.v1` is not considered
         # a parent package to messages and fields within `google.iam.v1beta1`
-        service_address = MIXIN_GEM_NAMES.keys.find { |sn| message_field_address.start_with?(MIXIN_PACKAGE_NAMES[sn]+".") }
+        service_address = MIXIN_GEM_NAMES.keys.find do |sn|
+          message_field_address.start_with? "#{MIXIN_PACKAGE_NAMES[sn]}."
+        end
 
         !service_address.nil? && gem_name != MIXIN_GEM_NAMES[service_address]
       end

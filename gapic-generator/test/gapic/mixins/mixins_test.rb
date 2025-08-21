@@ -49,14 +49,14 @@ class MixinsTest < PresenterTest
   def test_mixin_service_address_checker_beta
     refute Gapic::Model::Mixins.mixin_service_address? "google.iam.v1beta.IAMPolicy"
     refute Gapic::Model::Mixins.mixin_service_address? "google.iam.v1beta.IAMPolicy",
-                                                           gem_name: "google-iam-v1beta"
+                                                       gem_name: "google-iam-v1beta"
     refute Gapic::Model::Mixins.mixin_service_address? "google.iam.v1beta.IAMPolicy",
-                                                           gem_name: "google-cloud-something else"
+                                                       gem_name: "google-cloud-something else"
     refute Gapic::Model::Mixins.mixin_service_address? ["google", "iam", "v1beta", "IAMPolicy"]
-    
+
     assert Gapic::Model::Mixins.mixin_service_address? "google.iam.v1.IAMPolicy"
     assert Gapic::Model::Mixins.mixin_service_address? "google.iam.v1.IAMPolicy",
-                                                           gem_name: "google-cloud-something-else"
+                                                       gem_name: "google-cloud-something-else"
     assert Gapic::Model::Mixins.mixin_service_address? ["google", "iam", "v1", "IAMPolicy"]
   end
 
@@ -87,7 +87,7 @@ class MixinsTest < PresenterTest
 
     refute Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1beta.SetIamPolicyRequest",
                                                              gem_name: "google-iam-v1beta"
-    
+
     refute Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1beta.SetIamPolicyRequest",
                                                              gem_name: "google-cloud-something-else"
 
@@ -98,7 +98,8 @@ class MixinsTest < PresenterTest
                                                              gem_name: "google-cloud-something-else"
 
     refute Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1beta", "SetIamPolicyRequest"]
-    refute Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1beta", "SetIamPolicyRequest", "resource"]
+    refute Gapic::Model::Mixins.mixin_message_field_address? ["google", "iam", "v1beta", "SetIamPolicyRequest",
+                                                              "resource"]
 
     assert Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1.SetIamPolicyRequest"
     assert Gapic::Model::Mixins.mixin_message_field_address? "google.iam.v1.SetIamPolicyRequest.resource"
