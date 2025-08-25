@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.46.1 / 2025-08-25
+
+* Fix: better compare for mixin package includes
+
 ### 0.46.0 / 2025-08-13
 
 * Feature: use HTTP binding configuration class from new gapic-common
