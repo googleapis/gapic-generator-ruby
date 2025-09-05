@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "actionpack", "~> 8.0"
   spec.add_dependency "bigdecimal", "~> 3.0"
-  spec.add_dependency "googleapis-common-protos-types", "~> 1.8"
+  spec.add_dependency "googleapis-common-protos-types", "~> 1.9"
   spec.add_dependency "google-cloud-common", "~> 1.2"
   spec.add_dependency "google-protobuf", "~> 4.30"
   spec.add_dependency "google-style", "~> 1.31.1"
