@@ -35,6 +35,16 @@ In order to use this library, you first need to go through the following steps:
 1. [Enable the API.](https://console.cloud.google.com/apis/library/secretmanager.googleapis.com)
 1. [Set up authentication.](AUTHENTICATION.md)
 
+## Quick Start
+
+```ruby
+require "google/cloud/secret_manager"
+
+client = Google::Cloud::SecretManager.secret_manager_service
+request = ::Google::Cloud::SecretManager::V1beta1::ListSecretsRequest.new # (request fields as keyword arguments...)
+response = client.list_secrets request
+```
+
 ## Migrating from 0.x versions
 
 The 1.0 release of the google-cloud-secret_manager client is a significant upgrade
