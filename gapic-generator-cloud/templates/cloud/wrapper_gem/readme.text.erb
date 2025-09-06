@@ -53,6 +53,22 @@ In order to use this library, you first need to go through the following steps:
 1. [Set up authentication.](AUTHENTICATION.md)
 
 <%- end -%>
+## Quick Start
+
+<%- if gem.packages? -%>
+```ruby
+require "<%= gem.entrypoint_require %>"
+<%- service = gem.quick_start_service.usable_service_presenter -%>
+<%- method = service&.quick_start_method -%>
+<%- if service && method -%>
+
+client = <%= service.create_client_call %>
+request = <%= method.request_type %>.new # (request fields as keyword arguments...)
+response = client.<%= method.name %> request
+<%- end -%>
+```
+
+<%- end -%>
 <%- if gem.migration? %>
 ## Migrating from <%= gem.pre_migration_version %> versions
 

@@ -30,6 +30,16 @@ In order to use this library, you first need to go through the following steps:
 1. [Enable billing for your project.](https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project)
 1. [Set up authentication.](AUTHENTICATION.md)
 
+## Quick Start
+
+```ruby
+require "google/cloud/compute"
+
+client = Google::Cloud::Compute.addresses
+request = ::Google::Cloud::Compute::V1::AggregatedListAddressesRequest.new # (request fields as keyword arguments...)
+response = client.aggregated_list request
+```
+
 ## Debug Logging
 
 This library comes with opt-in Debug Logging that can help you troubleshoot
