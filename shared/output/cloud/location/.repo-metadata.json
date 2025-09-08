@@ -1,9 +1,10 @@
 {
-    "api_shortname": "unknown",
+    "api_shortname": "location",
     "client_documentation": "https://cloud.google.com/ruby/docs/reference/google-cloud-location/latest",
     "distribution_name": "google-cloud-location",
     "is_cloud": true,
     "language": "ruby",
+    "name": "location",
     "name_pretty": "Google Cloud Location API",
     "release_level": "unreleased",
     "repo": "googleapis/google-cloud-ruby",

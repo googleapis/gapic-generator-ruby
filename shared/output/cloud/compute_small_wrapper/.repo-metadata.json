@@ -1,9 +1,10 @@
 {
-    "api_shortname": "unknown",
+    "api_shortname": "compute",
     "client_documentation": "https://cloud.google.com/ruby/docs/reference/google-cloud-compute/latest",
     "distribution_name": "google-cloud-compute",
     "is_cloud": true,
     "language": "ruby",
+    "name": "compute",
     "name_pretty": "Google Cloud Compute API",
     "release_level": "unreleased",
     "repo": "googleapis/google-cloud-ruby",
