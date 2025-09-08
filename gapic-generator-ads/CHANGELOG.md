@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.47.0 / 2025-09-08
+
+* Includes changes from gapic-generator 0.47.0
+* Feature: update gapic-common for generated libraries to 1.2
+
 ### 0.46.1 / 2025-08-25
 
 * Includes changes from gapic-generator 0.46.1

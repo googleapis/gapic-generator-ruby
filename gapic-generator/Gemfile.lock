@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.46.1)
+    gapic-generator (0.47.0)
       actionpack (~> 8.0)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
