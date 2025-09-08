@@ -1,6 +1,7 @@
 ---
 :gem:
   :name: "google-cloud-language-v1beta2"
+  :api_shortname: language
   :env_prefix: LANGUAGE
 :defaults:
   :service:

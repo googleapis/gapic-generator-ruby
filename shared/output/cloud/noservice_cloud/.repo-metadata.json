@@ -1,10 +1,14 @@
 {
-    "client_documentation": "https://googleapis.dev/ruby/google-garbage-noservice/latest",
-    "distribution_name": "google-garbage-noservice",
+    "api_shortname": "noservice",
+    "client_documentation": "https://rubydoc.info/gems/google-cloud-noservice",
+    "distribution_name": "google-cloud-noservice",
+    "is_cloud": false,
     "language": "ruby",
-    "name_pretty": "Google Garbage Noservice API",
+    "name": "noservice",
+    "name_pretty": "Google Cloud Noservice API",
+    "release_level": "unreleased",
     "repo": "googleapis/google-cloud-ruby",
     "requires_billing": true,
-    "ruby-cloud-description": "google-garbage-noservice is the official client library for the Google Garbage Noservice API. Note that google-garbage-noservice is a version-specific client library. For most uses, we recommend installing the main client library google-garbage-noservice-wrapper instead. See the readme for more details.",
+    "ruby-cloud-description": "google-cloud-noservice is the official client library for the Google Cloud Noservice API. Note that google-cloud-noservice is a version-specific client library. For most uses, we recommend installing the main client library google-cloud-noservice-wrapper instead. See the readme for more details.",
     "library_type": "GAPIC_AUTO"
 }

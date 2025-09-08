@@ -2,6 +2,7 @@
 :transports: ["grpc", "rest"]
 :gem:
   :name: "google-cloud-vision-v1"
+  :api_shortname: vision
   :env_prefix: VISION
   :quick_start_service: ImageAnnotator
   :quick_start_method: batch_annotate_files
