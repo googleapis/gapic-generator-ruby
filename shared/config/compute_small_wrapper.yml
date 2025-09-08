@@ -2,6 +2,7 @@
 :transports: ["rest"]
 :gem:
   :name: google-cloud-compute
+  :api_shortname: compute
   :description: google-cloud-compute is the official client library for the Google Cloud Compute API.
   :summary: Google Cloud Compute API.
   :version_dependencies: v1:0.0

@@ -1,21 +1,21 @@
-# Ruby Client for the Google Garbage Noservice API
+# Ruby Client for the Google Cloud Noservice API
 
-API Client library for the Google Garbage Noservice API
+API Client library for the Google Cloud Noservice API
 
-google-garbage-noservice is the official client library for the Google Garbage Noservice API.
+google-cloud-noservice is the official client library for the Google Cloud Noservice API.
 
 https://github.com/googleapis/google-cloud-ruby
 
 This gem is a _versioned_ client. It provides basic client classes for a
-specific version of the Google Garbage Noservice API. Most users should consider using
+specific version of the Google Cloud Noservice API. Most users should consider using
 the main client gem,
-[google-garbage-noservice-wrapper](https://rubygems.org/gems/google-garbage-noservice-wrapper).
+[google-cloud-noservice-wrapper](https://rubygems.org/gems/google-cloud-noservice-wrapper).
 See the section below titled *Which client should I use?* for more information.
 
 ## Installation
 
 ```
-$ gem install google-garbage-noservice
+$ gem install google-cloud-noservice
 ```
 
 ## Before You Begin
@@ -28,26 +28,31 @@ In order to use this library, you first need to go through the following steps:
 
 ## Quick Start
 
-View the [Client Library Documentation](https://googleapis.dev/ruby/google-garbage-noservice/latest)
+View the [Client Library Documentation](https://rubydoc.info/gems/google-cloud-noservice)
 for class and method documentation.
+
+
+## Google Cloud Samples
+
+To browse ready to use code samples check [Google Cloud Samples](https://cloud.google.com/docs/samples).
 
 ## Supported Ruby Versions
 
-This library is supported on Ruby 2.5+.
+This library is supported on Ruby 3.0+.
 
 Google provides official support for Ruby versions that are actively supported
 by Ruby Core—that is, Ruby versions that are either in normal maintenance or
-in security maintenance, and not end of life. Currently, this means Ruby 2.5
-and later. Older versions of Ruby _may_ still work, but are unsupported and not
-recommended. See https://www.ruby-lang.org/en/downloads/branches/ for details
-about the Ruby support schedule.
+in security maintenance, and not end of life. Older versions of Ruby _may_
+still work, but are unsupported and not recommended. See
+https://www.ruby-lang.org/en/downloads/branches/ for details about the Ruby
+support schedule.
 
 ## Which client should I use?
 
 Most modern Ruby client libraries for Google APIs come in two flavors: the main
-client library with a name such as `google-garbage-noservice-wrapper`,
+client library with a name such as `google-cloud-noservice-wrapper`,
 and lower-level _versioned_ client libraries with names such as
-`google-garbage-noservice`.
+`google-cloud-noservice`.
 _In most cases, you should install the main client._
 
 ### What's the difference between the main client and a versioned client?
@@ -72,7 +77,7 @@ service version.
 
 We recommend that most users install the main client gem for a service. You can
 identify this gem as the one _without_ a version in its name, e.g.
-`google-garbage-noservice-wrapper`.
+`google-cloud-noservice-wrapper`.
 The main client is recommended because it will embody the best practices for
 accessing the service, and may also provide more convenient interfaces or
 tighter integration into frameworks and third-party libraries. In addition, the
@@ -85,7 +90,7 @@ You can use a versioned client if you are content with a possibly lower-level
 class interface, you explicitly want to avoid features provided by the main
 client, or you want to access a specific service version not be covered by the
 main client. You can identify versioned client gems because the service version
-is part of the name, e.g. `google-garbage-noservice`.
+is part of the name, e.g. `google-cloud-noservice`.
 
 ### What about the google-apis-<name> clients?
 

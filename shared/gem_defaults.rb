@@ -143,6 +143,12 @@ def gem_defaults
         "garbage/noservice.proto"
       ]
     },
+    noservice_cloud: {
+      protos: [
+        "garbage/noservice.proto"
+      ],
+      generator: :cloud
+    },
     googleads: {
       protos: [
         "google/ads/googleads/v15/services/campaign_service.proto"

@@ -1,6 +1,7 @@
 ---
 :gem:
   :name: "google-cloud-speech-v1"
+  :api_shortname: speech
   :env_prefix: SPEECH
 :defaults:
   :service:

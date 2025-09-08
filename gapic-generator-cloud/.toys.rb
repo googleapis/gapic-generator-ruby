@@ -42,9 +42,8 @@ tool "gen" do
 
   def run
     set :services, all_service_names(generator: :cloud) if services.empty?
-    Dir.chdir "#{context_directory}/shared" do
+    Dir.chdir "#{context_directory}/../shared" do
       cmd = ["gen"] + services + verbosity_flags
-      cmd += ["--generator", generator] if generator
       exec_separate_tool cmd
     end
   end

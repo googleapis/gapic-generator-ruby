@@ -1,4 +1,5 @@
 ---
 :gem:
   :name: "grafeas-v1"
+  :api_shortname: grafeas
   :generic_endpoint: true

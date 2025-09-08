@@ -10,6 +10,6 @@
 -
 README.md
 LICENSE.md
-<%- unless gem.generic_endpoint? -%>
+<%- unless gem.services.empty? || gem.generic_endpoint? -%>
 AUTHENTICATION.md
 <%- end -%>

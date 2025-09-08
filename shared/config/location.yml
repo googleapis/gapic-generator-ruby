@@ -2,3 +2,4 @@
 :transports: ["grpc", "rest"]
 :gem:
   :name: "google-cloud-location"
+  :api_shortname: location

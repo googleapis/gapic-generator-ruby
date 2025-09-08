@@ -1,6 +1,7 @@
 ---
 :gem:
   :name: "google-cloud-language-v1"
+  :api_shortname: language
 :defaults:
   :service:
     :default_host: "language.googleapis.com"

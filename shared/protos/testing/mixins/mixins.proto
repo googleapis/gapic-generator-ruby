@@ -6,7 +6,6 @@ option ruby_package = "Testing::Mixins";
 import "google/api/client.proto";
 import "google/api/annotations.proto";
 import "google/longrunning/operations.proto";
-import "google/protobuf/empty.proto";
 
 service ServiceWithLoc {
     option (google.api.default_host) = "servicewithloc.example.com";
