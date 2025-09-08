@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.47.0 / 2025-09-08
+
+* Feature: update gapic-common for generated libraries to 1.2
+
 ### 0.46.1 / 2025-08-25
 
 * Fix: better compare for mixin package includes
