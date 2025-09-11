@@ -30,8 +30,6 @@ In order to use this library, you first need to go through the following steps:
 1. [Enable billing for your project.](https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project)
 1. [Set up authentication.](AUTHENTICATION.md)
 
-## Quick Start
-
 ```ruby
 require "google/cloud/compute"
 
