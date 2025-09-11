@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.47.1 / 2025-09-11
+
+* Includes changes from gapic-generator 0.47.1
+* Fix: Remove duplicate quick start title from wrappers README
+
 ### 0.47.0 / 2025-09-08
 
 * Includes changes from gapic-generator 0.47.0

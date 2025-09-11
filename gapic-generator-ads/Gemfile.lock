@@ -1,7 +1,7 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.47.0)
+    gapic-generator (0.47.1)
       actionpack (~> 8.0)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
@@ -12,8 +12,8 @@ PATH
 PATH
   remote: .
   specs:
-    gapic-generator-ads (0.47.0)
-      gapic-generator (= 0.47.0)
+    gapic-generator-ads (0.47.1)
+      gapic-generator (= 0.47.1)
 
 GEM
   remote: https://rubygems.org/
@@ -135,9 +135,9 @@ GEM
     securerandom (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (3.1.5)
-      unicode-emoji (~> 4.0, >= 4.0.4)
-    unicode-emoji (4.0.4)
+    unicode-display_width (3.2.0)
+      unicode-emoji (~> 4.1)
+    unicode-emoji (4.1.0)
     uri (1.0.3)
     useragent (0.16.11)
     yard (0.9.37)
