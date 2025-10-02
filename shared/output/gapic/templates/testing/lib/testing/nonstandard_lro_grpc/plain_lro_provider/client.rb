@@ -301,8 +301,6 @@ module Testing
         #   @return [::String,nil]
         # @!attribute [rw] credentials
         #   Credentials to send with calls. You may provide any of the following types:
-        #    *  (`String`) The path to a service account key file in JSON format
-        #    *  (`Hash`) A service account key as a Hash
         #    *  (`Google::Auth::Credentials`) A googleauth credentials object
         #       (see the [googleauth docs](https://rubydoc.info/gems/googleauth/Google/Auth/Credentials))
         #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
@@ -310,6 +308,25 @@ module Testing
         #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
         #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
         #    *  (`nil`) indicating no credentials
+        #
+        #   @deprecated Passing a `String` to a keyfile path or a `Hash` of credentials
+        #     is deprecated. Providing an unvalidated credential configuration to
+        #     Google APIs can compromise the security of your systems and data.
+        #
+        #   @example
+        #
+        #     # The recommended way to provide credentials is to use the `make_creds` method
+        #     # on the appropriate credentials class for your environment.
+        #
+        #     require "googleauth"
+        #
+        #     credentials = ::Google::Auth::ServiceAccountCredentials.make_creds(
+        #       json_key_io: ::File.open("/path/to/keyfile.json")
+        #     )
+        #
+        #     client = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new do |config|
+        #       config.credentials = credentials
+        #     end
         #
         #   Warning: If you accept a credential configuration (JSON file or Hash) from an
         #   external source for authentication to Google Cloud, you must validate it before
