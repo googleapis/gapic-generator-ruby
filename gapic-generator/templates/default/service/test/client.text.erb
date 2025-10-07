@@ -33,6 +33,7 @@ class <%= service.client_name_full %>Test < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of <%= service.client_name_full %>, client
+      assert_equal creds, client.configure.credentials
     end
   end
 <%- if service.lro? -%>

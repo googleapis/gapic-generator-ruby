@@ -590,6 +590,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::Google::Showcase::V1beta1::Testing::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

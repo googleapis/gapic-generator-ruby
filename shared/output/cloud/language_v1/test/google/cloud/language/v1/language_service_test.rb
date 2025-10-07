@@ -518,6 +518,7 @@ class ::Google::Cloud::Language::V1::LanguageService::ClientTest < Minitest::Tes
         config.credentials = creds
       end
       assert_kind_of ::Google::Cloud::Language::V1::LanguageService::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

@@ -1269,6 +1269,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::So::Much::Trash::GarbageService::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 

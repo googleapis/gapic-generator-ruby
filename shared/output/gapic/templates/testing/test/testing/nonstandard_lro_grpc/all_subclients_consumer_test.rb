@@ -407,6 +407,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::ClientTest < Minites
         config.credentials = creds
       end
       assert_kind_of ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 

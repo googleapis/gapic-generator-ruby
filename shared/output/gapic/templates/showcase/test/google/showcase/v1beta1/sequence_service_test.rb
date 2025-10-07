@@ -471,6 +471,7 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::Google::Showcase::V1beta1::SequenceService::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

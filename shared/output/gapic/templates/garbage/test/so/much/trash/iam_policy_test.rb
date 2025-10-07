@@ -288,6 +288,7 @@ class ::So::Much::Trash::IAMPolicy::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::So::Much::Trash::IAMPolicy::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

@@ -225,6 +225,7 @@ class ::Google::Cloud::Location::Locations::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::Google::Cloud::Location::Locations::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

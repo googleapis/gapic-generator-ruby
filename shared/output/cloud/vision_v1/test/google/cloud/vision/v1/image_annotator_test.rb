@@ -358,6 +358,7 @@ class ::Google::Cloud::Vision::V1::ImageAnnotator::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::Google::Cloud::Vision::V1::ImageAnnotator::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 

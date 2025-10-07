@@ -1002,6 +1002,7 @@ class ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::ClientTest 
         config.credentials = creds
       end
       assert_kind_of ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

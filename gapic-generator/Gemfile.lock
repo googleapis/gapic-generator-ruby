@@ -94,7 +94,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     racc (1.8.1)
-    rack (3.2.1)
+    rack (3.2.2)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -132,7 +132,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)
-    uri (1.0.3)
+    uri (1.0.4)
     useragent (0.16.11)
     yard (0.9.37)
 
@@ -150,4 +150,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.6.9
+   2.5.11

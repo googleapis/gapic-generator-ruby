@@ -166,6 +166,7 @@ class ::Testing::NonstandardLroGrpc::PlainLroProvider::ClientTest < Minitest::Te
         config.credentials = creds
       end
       assert_kind_of ::Testing::NonstandardLroGrpc::PlainLroProvider::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

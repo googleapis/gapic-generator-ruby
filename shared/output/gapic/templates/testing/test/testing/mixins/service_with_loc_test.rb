@@ -156,6 +156,7 @@ class ::Testing::Mixins::ServiceWithLoc::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::Testing::Mixins::ServiceWithLoc::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

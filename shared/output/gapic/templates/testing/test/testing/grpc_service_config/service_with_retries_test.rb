@@ -206,6 +206,7 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
         config.credentials = creds
       end
       assert_kind_of ::Testing::GrpcServiceConfig::ServiceWithRetries::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

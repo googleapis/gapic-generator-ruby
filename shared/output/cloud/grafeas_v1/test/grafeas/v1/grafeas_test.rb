@@ -961,6 +961,7 @@ class ::Grafeas::V1::Grafeas::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::Grafeas::V1::Grafeas::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

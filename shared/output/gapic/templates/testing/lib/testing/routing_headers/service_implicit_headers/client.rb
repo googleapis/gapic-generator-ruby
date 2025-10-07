@@ -510,7 +510,7 @@ module Testing
         #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
         #    *  (`nil`) indicating no credentials
         #
-        #   @deprecated Passing a `String` to a keyfile path or a `Hash` of credentials
+        #   @note Warning: Passing a `String` to a keyfile path or a `Hash` of credentials
         #     is deprecated. Providing an unvalidated credential configuration to
         #     Google APIs can compromise the security of your systems and data.
         #
@@ -529,7 +529,7 @@ module Testing
         #       config.credentials = credentials
         #     end
         #
-        #   Warning: If you accept a credential configuration (JSON file or Hash) from an
+        #   @note Warning: If you accept a credential configuration (JSON file or Hash) from an
         #   external source for authentication to Google Cloud, you must validate it before
         #   providing it to a Google API client library. Providing an unvalidated credential
         #   configuration to Google APIs can compromise the security of your systems and data.

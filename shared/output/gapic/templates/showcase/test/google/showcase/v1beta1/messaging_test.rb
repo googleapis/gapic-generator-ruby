@@ -1019,6 +1019,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::Google::Showcase::V1beta1::Messaging::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 

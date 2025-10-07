@@ -292,6 +292,7 @@ class ::Testing::RoutingHeaders::ServiceImplicitHeaders::ClientTest < Minitest::
         config.credentials = creds
       end
       assert_kind_of ::Testing::RoutingHeaders::ServiceImplicitHeaders::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

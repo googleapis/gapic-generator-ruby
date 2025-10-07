@@ -10,29 +10,8 @@ require 'google/api/resource_pb'
 
 descriptor_data = "\n\x1cgarbage/resource_names.proto\x12\x15\x65ndless.trash.forever\x1a\x17google/api/client.proto\x1a\x19google/api/resource.proto\"\xc0\x02\n\x14SimplePatternRequest\x12\x11\n\treal_name\x18\x01 \x01(\t\x12\x41\n\x03ref\x18\x02 \x01(\tB4\xfa\x41\x31\n/resourcenames.example.com/SimplePatternResource\x12S\n\x0crepeated_ref\x18\x03 \x03(\tB=\xfa\x41:\n8resourcenames.example.com/SimplePatternNonParentResource:}\xea\x41z\n.resourcenames.example.com/SimplePatternRequest\x12#customers/{customer}/things/{thing}\x12\x18simplerequests/{request}\x1a\treal_name\"\xaa\x03\n\x15\x43omplexPatternRequest\x12\x11\n\treal_name\x18\x01 \x01(\t\x12\x42\n\x03ref\x18\x02 \x01(\tB5\xfa\x41\x32\n0resourcenames.example.com/ComplexPatternResource\x12T\n\x0crepeated_ref\x18\x03 \x03(\tB>\xfa\x41;\n9resourcenames.example.com/ComplexPatternNonParentResource:\xe3\x01\xea\x41\xdf\x01\n/resourcenames.example.com/ComplexPatternRequest\x12\x85\x01\x63ustomers/{customer}/items/{item_a_id}.{item_b_id}~{items_c_id}/details/{details_a_id}_{details_b_id}-{details_c_id}/extra/{extra_id}\x12\x19\x63omplexrequests/{request}\x1a\treal_name\"\xca\x01\n\x1aResourceNamePatternRequest\x12\x0c\n\x04name\x18\x01 \x01(\t:\x9d\x01\xea\x41\x99\x01\n4resourcenames.example.com/ResourceNamePatternRequest\x12#customers/{customer}/path/{path=**}\x12\x19patternrequests/{request}\x12!customers/{customer}/cases/{case}\"M\n\x12MultiparentRequest\x12\x37\n\x06parent\x18\x01 \x01(\tB\'\xfa\x41$\x12\"resourcenames.example.com/LogEntry\"X\n\x17NoArgumentsMultiRequest\x12=\n\x04name\x18\x01 \x01(\tB/\xfa\x41,\n*resourcenames.example.com/NoArgumentsMulti\"\n\n\x08Response2\xbf\x04\n\rResourceNames\x12\x65\n\x13SimplePatternMethod\x12+.endless.trash.forever.SimplePatternRequest\x1a\x1f.endless.trash.forever.Response\"\x00\x12g\n\x14\x43omplexPatternMethod\x12,.endless.trash.forever.ComplexPatternRequest\x1a\x1f.endless.trash.forever.Response\"\x00\x12q\n\x19ResourceNamePatternMethod\x12\x31.endless.trash.forever.ResourceNamePatternRequest\x1a\x1f.endless.trash.forever.Response\"\x00\x12\x61\n\x11MultiparentMethod\x12).endless.trash.forever.MultiparentRequest\x1a\x1f.endless.trash.forever.Response\"\x00\x12k\n\x16NoArgumentsMultiMethod\x12..endless.trash.forever.NoArgumentsMultiRequest\x1a\x1f.endless.trash.forever.Response\"\x00\x1a\x1b\xca\x41\x18\x65ndlesstrash.example.netB\x8c\x07\xea\x02\x0fSo::Much::Trash\xea\x41P\n8resourcenames.example.com/SimplePatternNonParentResource\x12\x14locations/{location}\xea\x41W\n9resourcenames.example.com/ComplexPatternNonParentResource\x12\x1aorders/{order_a}~{order_b}\xea\x41G\n/resourcenames.example.com/SimplePatternResource\x12\x14\x63ustomers/{customer}\xea\x41j\n0resourcenames.example.com/ComplexPatternResource\x12\x36\x63ustomers/{customer}/items/{item_a}.{item_b}~{items_c}\xea\x41\xa2\x01\n<resourcenames.example.com/ComplexPatternIntermediateResource\x12\x62\x63ustomers/{customer}/items/{item_a}.{item_b}~{items_c}/details/{details_a}_{details_b}-{details_c}\xea\x41N\n0resourcenames.example.com/SimplePatternLogParent\x12\x1atransactions/{transaction}\xea\x41Y\n1resourcenames.example.com/ComplexPatternLogParent\x12$returns/{return_order}~{return_item}\xea\x41Z\n\"resourcenames.example.com/LogEntry\x12\x1etransactions/{transaction}/log\x12\x14returns/{return}/log\xea\x41\x63\n*resourcenames.example.com/NoArgumentsMulti\x12#projects/{project}/widgets/{widget}\x12\x10_default-widget_b\x06proto3"
 
-pool = Google::Protobuf::DescriptorPool.generated_pool
-
-begin
-  pool.add_serialized_file(descriptor_data)
-rescue TypeError
-  # Compatibility code: will be removed in the next major version.
-  require 'google/protobuf/descriptor_pb'
-  parsed = Google::Protobuf::FileDescriptorProto.decode(descriptor_data)
-  parsed.clear_dependency
-  serialized = parsed.class.encode(parsed)
-  file = pool.add_serialized_file(serialized)
-  warn "Warning: Protobuf detected an import path issue while loading generated file #{__FILE__}"
-  imports = [
-  ]
-  imports.each do |type_name, expected_filename|
-    import_file = pool.lookup(type_name).file_descriptor
-    if import_file.name != expected_filename
-      warn "- #{file.name} imports #{expected_filename}, but that import was loaded as #{import_file.name}"
-    end
-  end
-  warn "Each proto file must use a consistent fully-qualified name."
-  warn "This will become an error in the next major version."
-end
+pool = ::Google::Protobuf::DescriptorPool.generated_pool
+pool.add_serialized_file(descriptor_data)
 
 module So
   module Much

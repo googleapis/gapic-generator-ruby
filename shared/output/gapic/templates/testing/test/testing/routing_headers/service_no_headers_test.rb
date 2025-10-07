@@ -168,6 +168,7 @@ class ::Testing::RoutingHeaders::ServiceNoHeaders::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::Testing::RoutingHeaders::ServiceNoHeaders::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

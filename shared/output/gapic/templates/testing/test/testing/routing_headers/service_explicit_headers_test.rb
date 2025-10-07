@@ -416,6 +416,7 @@ class ::Testing::RoutingHeaders::ServiceExplicitHeaders::ClientTest < Minitest::
         config.credentials = creds
       end
       assert_kind_of ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end

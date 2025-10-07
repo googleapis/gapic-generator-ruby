@@ -156,6 +156,7 @@ class ::So::Much::Trash::DeprecatedService::ClientTest < Minitest::Test
         config.credentials = creds
       end
       assert_kind_of ::So::Much::Trash::DeprecatedService::Client, client
+      assert_equal creds, client.configure.credentials
     end
   end
 end
