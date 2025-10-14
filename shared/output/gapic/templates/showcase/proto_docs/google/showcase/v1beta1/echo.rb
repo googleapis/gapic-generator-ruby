@@ -132,6 +132,33 @@ module Google
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # The custom error detail to be included in the error response from the
+      # FailEchoWithDetails method. Client libraries should be able to
+      # surface this custom error detail.
+      # @!attribute [rw] poem
+      #   @return [::String]
+      class PoetryError
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # The request message used for the FailEchoWithDetails method.
+      # @!attribute [rw] message
+      #   @return [::String]
+      #     Optional message to echo back in the PoetryError. If empty, a value will be
+      #     provided.
+      class FailEchoWithDetailsRequest
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # The response message declared (but never used) for the FailEchoWithDetails
+      # method.
+      class FailEchoWithDetailsResponse
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
       # The request message for the Expand method.
       # @!attribute [rw] content
       #   @return [::String]

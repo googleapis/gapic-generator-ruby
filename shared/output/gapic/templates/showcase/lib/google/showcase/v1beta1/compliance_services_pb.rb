@@ -57,7 +57,7 @@ module Google
           # This method echoes the ComplianceData request, using the HTTP PATCH method.
           rpc :RepeatDataBodyPatch, ::Google::Showcase::V1beta1::RepeatRequest, ::Google::Showcase::V1beta1::RepeatResponse
           # This method requests an enum value from the server. Depending on the contents of EnumRequest, the enum value returned will be a known enum declared in the
-          # .proto file, or a made-up enum value the is unknown to the client. To verify that clients can round-trip unknown enum vaues they receive, use the
+          # .proto file, or a made-up enum value the is unknown to the client. To verify that clients can round-trip unknown enum values they receive, use the
           # response from this RPC as the request to VerifyEnum()
           #
           # The values of enums sent by the server when a known or unknown value is requested will be the same within a single Showcase server run (this is needed for

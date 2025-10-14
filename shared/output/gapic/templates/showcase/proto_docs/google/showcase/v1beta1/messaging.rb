@@ -199,7 +199,7 @@ module Google
       #     The blurb to update.
       # @!attribute [rw] update_mask
       #   @return [::Google::Protobuf::FieldMask]
-      #     The field mask to determine wich fields are to be updated. If empty, the
+      #     The field mask to determine which fields are to be updated. If empty, the
       #     server will assume all fields are to be updated.
       class UpdateBlurbRequest
         include ::Google::Protobuf::MessageExts
@@ -220,7 +220,7 @@ module Google
       # method.
       # @!attribute [rw] parent
       #   @return [::String]
-      #     The resource name of the requested room or profile whos blurbs to list.
+      #     The resource name of the requested room or profile who blurbs to list.
       # @!attribute [rw] page_size
       #   @return [::Integer]
       #     The maximum number of blurbs to return. Server may return fewer

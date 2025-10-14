@@ -54,7 +54,7 @@ class ShowcasePackagePresenterTest < PresenterTest
     refute_nil echo_gprc
 
     assert_equal "::Google::Showcase::V1beta1::Echo::Client", echo_gprc[:libraryClient]
-    assert_equal 10, echo_gprc[:rpcs].length
+    assert_equal 11, echo_gprc[:rpcs].length
 
     echo_grpc_chat = echo_gprc[:rpcs]["Chat"][:methods]
     refute_nil echo_grpc_chat

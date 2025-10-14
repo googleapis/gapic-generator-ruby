@@ -201,6 +201,64 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
     end
   end
 
+  def test_fail_echo_with_details
+    # Create GRPC objects.
+    grpc_response = ::Google::Showcase::V1beta1::FailEchoWithDetailsResponse.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    message = "hello world"
+
+    fail_echo_with_details_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :fail_echo_with_details, name
+      assert_kind_of ::Google::Showcase::V1beta1::FailEchoWithDetailsRequest, request
+      assert_equal "hello world", request["message"]
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, fail_echo_with_details_client_stub do
+      # Create client
+      client = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.fail_echo_with_details({ message: message }) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use named arguments
+      client.fail_echo_with_details message: message do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.fail_echo_with_details ::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.fail_echo_with_details({ message: message }, grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.fail_echo_with_details(::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message), grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, fail_echo_with_details_client_stub.call_rpc_count
+    end
+  end
+
   def test_expand
     # Create GRPC objects.
     grpc_response = ::Google::Showcase::V1beta1::EchoResponse.new

@@ -594,6 +594,8 @@ module Google
 
             ##
             # Attempts a streaming sequence.
+            # May not function as expected in HTTP mode due to when http statuses are sent
+            # See https://github.com/googleapis/gapic-showcase/issues/1377 for more details
             #
             # @overload attempt_streaming_sequence(request, options = nil)
             #   Pass arguments to `attempt_streaming_sequence` via a request object, either of type
