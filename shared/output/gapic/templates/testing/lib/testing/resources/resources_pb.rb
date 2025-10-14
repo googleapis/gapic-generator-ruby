@@ -10,29 +10,8 @@ require 'google/api/resource_pb'
 
 descriptor_data = "\n!testing/resources/resources.proto\x12\x11testing.resources\x1a\x17google/api/client.proto\x1a\x19google/api/resource.proto\"\xc6\x03\n\x0fRequestResource\x12\x15\n\rresource_name\x18\x01 \x01(\t:\x9b\x03\xea\x41\x97\x03\n#testing.example.com/RequestResource\x12:projects/{project}/resources/{resource}/versions/{version}\x12Mprojects/{project}/resources/{resource}/subjects/{subject}/versions/{version}\x12>projects/{project}/compatibility/resources/{resource}/versions\x12Hprojects/{project}/compatibility/resources/{resource}/versions/{version}\x12[projects/{project}/compatibility/resources/{resource}/subjects/{subject}/versions/{version}\"\xb6\x01\n\x16RequestAnotherResource\x12\x15\n\rresource_name\x18\x01 \x01(\t:\x84\x01\xea\x41\x80\x01\n*testing.example.com/RequestAnotherResource\x12\x12projects/responses\x12 projects/compatibility/responses\x12\x1cprojects/{project}/responses\"\x92\x01\n\x14RequestThirdResource\x12\x15\n\rresource_name\x18\x01 \x01(\t:c\xea\x41`\n(testing.example.com/RequestThirdResource\x12\x12projects/responses\x12 projects/compatibility/responses\"\xe6\x01\n\x15RequestFourthResource\x12\x15\n\rresource_name\x18\x01 \x01(\t:\xb5\x01\xea\x41\xb1\x01\n)testing.example.com/RequestFourthResource\x12:projects/{project}/resources/{resource}/versions/{version}\x12Hprojects/{project}/compatibility/resources/{resource}/versions/{version}\"\n\n\x08Response2\x80\x03\n\x10ServiceResources\x12J\n\x05Plain\x12\".testing.resources.RequestResource\x1a\x1b.testing.resources.Response\"\x00\x12X\n\x0c\x41notherPlain\x12).testing.resources.RequestAnotherResource\x1a\x1b.testing.resources.Response\"\x00\x12T\n\nThirdPlain\x12\'.testing.resources.RequestThirdResource\x1a\x1b.testing.resources.Response\"\x00\x12V\n\x0b\x46ourthPlain\x12(.testing.resources.RequestFourthResource\x1a\x1b.testing.resources.Response\"\x00\x1a\x18\xca\x41\x15resources.example.comB\x15\xea\x02\x12Testing::Resourcesb\x06proto3"
 
-pool = Google::Protobuf::DescriptorPool.generated_pool
-
-begin
-  pool.add_serialized_file(descriptor_data)
-rescue TypeError
-  # Compatibility code: will be removed in the next major version.
-  require 'google/protobuf/descriptor_pb'
-  parsed = Google::Protobuf::FileDescriptorProto.decode(descriptor_data)
-  parsed.clear_dependency
-  serialized = parsed.class.encode(parsed)
-  file = pool.add_serialized_file(serialized)
-  warn "Warning: Protobuf detected an import path issue while loading generated file #{__FILE__}"
-  imports = [
-  ]
-  imports.each do |type_name, expected_filename|
-    import_file = pool.lookup(type_name).file_descriptor
-    if import_file.name != expected_filename
-      warn "- #{file.name} imports #{expected_filename}, but that import was loaded as #{import_file.name}"
-    end
-  end
-  warn "Each proto file must use a consistent fully-qualified name."
-  warn "This will become an error in the next major version."
-end
+pool = ::Google::Protobuf::DescriptorPool.generated_pool
+pool.add_serialized_file(descriptor_data)
 
 module Testing
   module Resources
