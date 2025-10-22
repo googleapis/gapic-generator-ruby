@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.47.2 / 2025-10-22
+
+* Includes changes from gapic-generator 0.47.2
+* Fix: Deprecate credentials via string or hash
+
 ### 0.47.1 / 2025-09-11
 
 * Includes changes from gapic-generator 0.47.1
