@@ -466,6 +466,88 @@ module Google
           end
 
           ##
+          # This method always fails with a gRPC "Aborted" error status that contains
+          # multiple error details.  These include one instance of each of the standard
+          # ones in error_details.proto
+          # (https://github.com/googleapis/googleapis/blob/master/google/rpc/error_details.proto)
+          # plus a custom, Showcase-defined PoetryError. The intent of this RPC is to
+          # verify that GAPICs can process these various error details and surface them
+          # to the user in an idiomatic form.
+          #
+          # @overload fail_echo_with_details(request, options = nil)
+          #   Pass arguments to `fail_echo_with_details` via a request object, either of type
+          #   {::Google::Showcase::V1beta1::FailEchoWithDetailsRequest} or an equivalent Hash.
+          #
+          #   @param request [::Google::Showcase::V1beta1::FailEchoWithDetailsRequest, ::Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
+          #   @param options [::Gapic::CallOptions, ::Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          # @overload fail_echo_with_details(message: nil)
+          #   Pass arguments to `fail_echo_with_details` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param message [::String]
+          #     Optional message to echo back in the PoetryError. If empty, a value will be
+          #     provided.
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [::Google::Showcase::V1beta1::FailEchoWithDetailsResponse]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
+          #
+          # @return [::Google::Showcase::V1beta1::FailEchoWithDetailsResponse]
+          #
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new
+          #
+          #   # Call the fail_echo_with_details method.
+          #   result = client.fail_echo_with_details request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::FailEchoWithDetailsResponse.
+          #   p result
+          #
+          def fail_echo_with_details request, options = nil
+            raise ::ArgumentError, "request must be provided" if request.nil?
+
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::FailEchoWithDetailsRequest
+
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.fail_echo_with_details.metadata.to_h
+
+            # Set x-goog-api-client, x-goog-user-project and x-goog-api-version headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Google::Showcase::VERSION
+            metadata[:"x-goog-api-version"] = API_VERSION unless API_VERSION.empty?
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            options.apply_defaults timeout:      @config.rpcs.fail_echo_with_details.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.fail_echo_with_details.retry_policy
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @echo_stub.call_rpc :fail_echo_with_details, request, options: options do |response, operation|
+              yield response, operation if block_given?
+            end
+          end
+
+          ##
           # This method splits the given content into words and will pass each word back
           # through the stream. This method showcases server-side streaming RPCs.
           #
@@ -1341,6 +1423,11 @@ module Google
               #
               attr_reader :echo_error_details
               ##
+              # RPC-specific configuration for `fail_echo_with_details`
+              # @return [::Gapic::Config::Method]
+              #
+              attr_reader :fail_echo_with_details
+              ##
               # RPC-specific configuration for `expand`
               # @return [::Gapic::Config::Method]
               #
@@ -1387,6 +1474,8 @@ module Google
                 @echo = ::Gapic::Config::Method.new echo_config
                 echo_error_details_config = parent_rpcs.echo_error_details if parent_rpcs.respond_to? :echo_error_details
                 @echo_error_details = ::Gapic::Config::Method.new echo_error_details_config
+                fail_echo_with_details_config = parent_rpcs.fail_echo_with_details if parent_rpcs.respond_to? :fail_echo_with_details
+                @fail_echo_with_details = ::Gapic::Config::Method.new fail_echo_with_details_config
                 expand_config = parent_rpcs.expand if parent_rpcs.respond_to? :expand
                 @expand = ::Gapic::Config::Method.new expand_config
                 collect_config = parent_rpcs.collect if parent_rpcs.respond_to? :collect

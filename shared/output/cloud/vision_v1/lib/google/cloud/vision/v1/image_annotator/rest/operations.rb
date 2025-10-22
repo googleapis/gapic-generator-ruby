@@ -115,14 +115,6 @@ module Google
               # Lists operations that match the specified filter in the request. If the
               # server doesn't support this method, it returns `UNIMPLEMENTED`.
               #
-              # NOTE: the `name` binding allows API services to override the binding
-              # to use different resource name schemes, such as `users/*/operations`. To
-              # override the binding, API services can add a binding such as
-              # `"/v1/{name=users/*}/operations"` to their service configuration.
-              # For backwards compatibility, the default name includes the operations
-              # collection id, however overriding users must ensure the name binding
-              # is the parent resource, without the operations collection id.
-              #
               # @overload list_operations(request, options = nil)
               #   Pass arguments to `list_operations` via a request object, either of type
               #   {::Google::Longrunning::ListOperationsRequest} or an equivalent Hash.
@@ -133,7 +125,7 @@ module Google
               #   @param options [::Gapic::CallOptions, ::Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
               #
-              # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil)
+              # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil, return_partial_success: nil)
               #   Pass arguments to `list_operations` via keyword arguments. Note that at
               #   least one keyword argument is required. To specify no parameters, or to keep all
               #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -146,6 +138,17 @@ module Google
               #     The standard list page size.
               #   @param page_token [::String]
               #     The standard list page token.
+              #   @param return_partial_success [::Boolean]
+              #     When set to `true`, operations that are reachable are returned as normal,
+              #     and those that are unreachable are returned in the
+              #     [ListOperationsResponse.unreachable] field.
+              #
+              #     This can only be `true` when reading across collections e.g. when `parent`
+              #     is set to `"projects/example/locations/-"`.
+              #
+              #     This field is not by default supported and will result in an
+              #     `UNIMPLEMENTED` error if set unless explicitly documented otherwise in
+              #     service or product specific documentation.
               # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Operation]
               # @yieldparam operation [::Gapic::Rest::TransportOperation]
@@ -389,8 +392,9 @@ module Google
               # other methods to check whether the cancellation succeeded or whether the
               # operation completed despite cancellation. On successful cancellation,
               # the operation is not deleted; instead, it becomes an operation with
-              # an {::Google::Longrunning::Operation#error Operation.error} value with a {::Google::Rpc::Status#code google.rpc.Status.code} of 1,
-              # corresponding to `Code.CANCELLED`.
+              # an {::Google::Longrunning::Operation#error Operation.error} value with a
+              # {::Google::Rpc::Status#code google.rpc.Status.code} of `1`, corresponding to
+              # `Code.CANCELLED`.
               #
               # @overload cancel_operation(request, options = nil)
               #   Pass arguments to `cancel_operation` via a request object, either of type

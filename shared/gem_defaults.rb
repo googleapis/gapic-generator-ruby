@@ -37,6 +37,7 @@ def gem_defaults
         "grafeas/v1/package.proto",
         "grafeas/v1/provenance.proto",
         "grafeas/v1/sbom.proto",
+        "grafeas/v1/secret.proto",
         "grafeas/v1/severity.proto",
         "grafeas/v1/slsa_provenance.proto",
         "grafeas/v1/slsa_provenance_zero_two.proto",
@@ -119,6 +120,7 @@ def gem_defaults
         "google/showcase/v1beta1/echo.proto",
         "google/showcase/v1beta1/identity.proto",
         "google/showcase/v1beta1/messaging.proto",
+        "google/showcase/v1beta1/rest_error.proto",
         "google/showcase/v1beta1/sequence.proto",
         "google/showcase/v1beta1/testing.proto"
       ],
@@ -151,7 +153,7 @@ def gem_defaults
     },
     googleads: {
       protos: [
-        "google/ads/googleads/v15/services/campaign_service.proto"
+        "google/ads/googleads/v19/services/campaign_service.proto"
       ],
       generator: :ads
     },

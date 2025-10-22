@@ -47,6 +47,14 @@ module Google
           # run-time, the actual types for these fields must be one of the types in
           # google/rpc/error_details.proto.
           rpc :EchoErrorDetails, ::Google::Showcase::V1beta1::EchoErrorDetailsRequest, ::Google::Showcase::V1beta1::EchoErrorDetailsResponse
+          # This method always fails with a gRPC "Aborted" error status that contains
+          # multiple error details.  These include one instance of each of the standard
+          # ones in error_details.proto
+          # (https://github.com/googleapis/googleapis/blob/master/google/rpc/error_details.proto)
+          # plus a custom, Showcase-defined PoetryError. The intent of this RPC is to
+          # verify that GAPICs can process these various error details and surface them
+          # to the user in an idiomatic form.
+          rpc :FailEchoWithDetails, ::Google::Showcase::V1beta1::FailEchoWithDetailsRequest, ::Google::Showcase::V1beta1::FailEchoWithDetailsResponse
           # This method splits the given content into words and will pass each word back
           # through the stream. This method showcases server-side streaming RPCs.
           rpc :Expand, ::Google::Showcase::V1beta1::ExpandRequest, stream(::Google::Showcase::V1beta1::EchoResponse)

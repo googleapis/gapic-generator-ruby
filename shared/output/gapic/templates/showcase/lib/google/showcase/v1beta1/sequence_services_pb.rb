@@ -42,6 +42,8 @@ module Google
           # Attempts a sequence.
           rpc :AttemptSequence, ::Google::Showcase::V1beta1::AttemptSequenceRequest, ::Google::Protobuf::Empty
           # Attempts a streaming sequence.
+          # May not function as expected in HTTP mode due to when http statuses are sent
+          # See https://github.com/googleapis/gapic-showcase/issues/1377 for more details
           rpc :AttemptStreamingSequence, ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest, stream(::Google::Showcase::V1beta1::AttemptStreamingSequenceResponse)
         end
 

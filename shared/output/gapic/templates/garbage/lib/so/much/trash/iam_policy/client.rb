@@ -35,7 +35,6 @@ module So
         #
         # API Overview
         #
-        #
         # Manages Identity and Access Management (IAM) policies.
         #
         # Any implementation of an API that offers access control features

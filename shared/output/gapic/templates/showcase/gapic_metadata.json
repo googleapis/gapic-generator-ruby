@@ -79,6 +79,11 @@
                 "echo_error_details"
               ]
             },
+            "FailEchoWithDetails": {
+              "methods": [
+                "fail_echo_with_details"
+              ]
+            },
             "Expand": {
               "methods": [
                 "expand"

@@ -203,7 +203,7 @@ module Google
 
       # @!attribute [rw] unknown_enum
       #   @return [::Boolean]
-      #     Whether the client is requesting a new, unknown enum value or a known enum value already declard in this proto file.
+      #     Whether the client is requesting a new, unknown enum value or a known enum value already declared in this proto file.
       class EnumRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

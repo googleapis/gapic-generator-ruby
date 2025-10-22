@@ -837,7 +837,7 @@ module Google
           #   @param blurb [::Google::Showcase::V1beta1::Blurb, ::Hash]
           #     The blurb to update.
           #   @param update_mask [::Google::Protobuf::FieldMask, ::Hash]
-          #     The field mask to determine wich fields are to be updated. If empty, the
+          #     The field mask to determine which fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -1005,7 +1005,7 @@ module Google
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
           #   @param parent [::String]
-          #     The resource name of the requested room or profile whos blurbs to list.
+          #     The resource name of the requested room or profile who blurbs to list.
           #   @param page_size [::Integer]
           #     The maximum number of blurbs to return. Server may return fewer
           #     blurbs than requested. If unspecified, server will pick an appropriate
