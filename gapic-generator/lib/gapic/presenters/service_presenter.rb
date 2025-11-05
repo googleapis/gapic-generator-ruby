@@ -526,7 +526,7 @@ module Gapic
       #
       # @return [Hash]
       def drift_manifest
-        {
+        h = {
           clients: {
             grpc: {
               libraryClient: client_name_full,
@@ -538,6 +538,11 @@ module Gapic
             }
           }
         }
+        if !@service.api_version.empty?
+          h[:apiVersion] = @service.api_version
+        end
+
+        return h
       end
 
       ##
