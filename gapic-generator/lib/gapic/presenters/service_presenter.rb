@@ -538,10 +538,7 @@ module Gapic
             }
           }
         }
-        if !@service.api_version.empty?
-          h[:apiVersion] = @service.api_version
-        end
-
+        h[:apiVersion] = @service.api_version unless @service.api_version.empty?
         return h
       end
 
