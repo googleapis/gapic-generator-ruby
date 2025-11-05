@@ -65,6 +65,7 @@
       }
     },
     "Echo": {
+      "apiVersion": "v1_20240408",
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Echo::Client",
@@ -126,8 +127,7 @@
             }
           }
         }
-      },
-      "apiVersion": "v1_20240408"
+      }
     },
     "Identity": {
       "clients": {

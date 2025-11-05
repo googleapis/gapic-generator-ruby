@@ -526,20 +526,30 @@ module Gapic
       #
       # @return [Hash]
       def drift_manifest
-        h = {
+        unless @service.api_version.empty?
+          return {
+            apiVersion: @service.api_version,
+            clients: {
+              grpc: {
+                libraryClient: client_name_full,
+                # The methods should grouped by grpc_method_name and then
+                # their names are returned together in an array.
+                # For Ruby currently we have 1:1 proto to code
+                # correspondence for methods, so our generation is easier
+                rpcs:       methods.to_h { |m| [m.grpc_method_name, m.drift_manifest] }
+              }
+            }
+          }
+        end
+
+        {
           clients: {
             grpc: {
               libraryClient: client_name_full,
-              # The methods should grouped by grpc_method_name and then
-              # their names are returned together in an array.
-              # For Ruby currently we have 1:1 proto to code
-              # correspondence for methods, so our generation is easier
               rpcs:       methods.to_h { |m| [m.grpc_method_name, m.drift_manifest] }
             }
           }
         }
-        h[:apiVersion] = @service.api_version unless @service.api_version.empty?
-        return h
       end
 
       ##
