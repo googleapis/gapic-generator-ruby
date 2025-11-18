@@ -67,7 +67,7 @@ GEM
       rubocop (~> 1.76)
     googleapis-common-protos-types (1.22.0)
       google-protobuf (~> 4.26)
-    grpc-tools (1.75.0)
+    grpc-tools (1.76.0)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     json (2.15.2)
@@ -147,7 +147,7 @@ PLATFORMS
 DEPENDENCIES
   gapic-generator!
   gapic-generator-cloud!
-  grpc-tools (>= 1.60.0, < 1.75.1)
+  grpc-tools (>= 1.60.0, < 1.76.1)
   minitest (~> 5.16)
   minitest-autotest (~> 1.0)
   minitest-focus (~> 1.0)
