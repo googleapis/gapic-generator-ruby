@@ -347,6 +347,18 @@ module Gapic
         @address.join "."
       end
 
+      # @private
+      # Override this to potentially add a google.api.api_version breadcrumb to
+      # client documentation.
+      def docs_leading_comments disable_xrefs: false, transport: nil
+        str = super(disable_xrefs: disable_xrefs, transport: transport)
+        if !str || !api_version || api_version.empty?
+          return str
+        end
+
+        "#{str.strip}\n\nThis client uses #{name} version #{api_version}."
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the service.
       # @!method options
