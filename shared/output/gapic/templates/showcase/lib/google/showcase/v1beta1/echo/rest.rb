@@ -47,6 +47,8 @@ module Google
       # 'x-goog-request-params' metadata key on any method to have the values
       # echoed in the response headers.
       #
+      # This client uses Echo version v1_20240408.
+      #
       # To load this service and instantiate a REST client:
       #
       #     require "google/showcase/v1beta1/echo/rest"

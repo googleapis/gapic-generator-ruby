@@ -347,6 +347,18 @@ module Gapic
         @address.join "."
       end
 
+      # @private
+      # This is an override that adds mention of the client's service and API
+      # version if the service has a google.api.api_version set.
+      def docs_leading_comments disable_xrefs: false, transport: nil
+        str = super(disable_xrefs: disable_xrefs, transport: transport)
+        if !str || api_version.nil? || api_version.empty?
+          return str
+        end
+
+        "#{str.strip}\n\nThis client uses #{name} version #{api_version}."
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the service.
       # @!method options
