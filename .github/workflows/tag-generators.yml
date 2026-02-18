@@ -30,4 +30,6 @@ jobs:
       - name: Execute
         shell: bash
         run: |
-          toys release tag-generators -v --remote=origin ${{ github.event.inputs.args }}
+          toys release tag-generators -v --remote=origin ${GITHUB_EVENT_INPUTS_ARGS}
+        env:
+          GITHUB_EVENT_INPUTS_ARGS: ${{ github.event.inputs.args }}
