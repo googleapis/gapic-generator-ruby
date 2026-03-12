@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.executables   = ["protoc-gen-ruby_cloud", "ruby-cloud-docker-entrypoint"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 3.1"
+  spec.required_ruby_version = ">= 3.2"
 
   spec.add_dependency "gapic-generator", "= #{Gapic::Generator::Cloud::VERSION}"
 end

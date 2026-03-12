@@ -38,12 +38,12 @@ Gem::Specification.new do |spec|
   spec.executables   = ["gapic-generator", "protoc-gen-ruby_gapic"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 3.1"
+  spec.required_ruby_version = ">= 3.2"
 
   spec.add_dependency "actionpack", "~> 8.0"
   spec.add_dependency "bigdecimal", "~> 3.0"
   spec.add_dependency "googleapis-common-protos-types", "~> 1.9"
   spec.add_dependency "google-cloud-common", "~> 1.2"
   spec.add_dependency "google-protobuf", "~> 4.30"
-  spec.add_dependency "google-style", "~> 1.31.1"
+  spec.add_dependency "google-style", "~> 1.32.0"
 end

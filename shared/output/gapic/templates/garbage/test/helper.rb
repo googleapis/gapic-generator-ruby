@@ -26,6 +26,7 @@
 
 require "minitest/autorun"
 require "minitest/focus"
+require "minitest/mock"
 require "minitest/rg"
 
 require "grpc"
