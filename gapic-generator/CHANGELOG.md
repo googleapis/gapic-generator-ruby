@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.48.0 / 2026-03-13
+
+* Fix: add per-service apiVersion to gapic_metadata
+* Fix: add api_version breadcrumb to client docs
+* Feature: Upgrade dependencies for Ruby 4.0
+
 ### 0.47.2 / 2025-10-22
 
 * Fix: Deprecate credentials via string or hash

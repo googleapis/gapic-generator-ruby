@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.48.0 / 2026-03-13
+
+* Includes changes from gapic-generator 0.48.0
+* Feature: Upgrade dependencies for Ruby 4.0
+
 ### 0.47.2 / 2025-10-22
 
 * Includes changes from gapic-generator 0.47.2
