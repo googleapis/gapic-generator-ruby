@@ -11,7 +11,7 @@ gem "gapic-generator-cloud", path: "../gapic-generator-cloud"
 gem "google-cloud-location", ">= 0.4", "< 2.a"
 gem "google-iam-v1", ">= 0.4", "< 2.a"
 
-gem "grpc-tools", ">= 1.60.0", "< 1.75.1"
+gem "grpc-tools", ">= 1.60.0", "< 1.78.2"
 gem "minitest", "~> 5.16"
 gem "minitest-autotest", "~> 1.0"
 gem "minitest-focus", "~> 1.0"

@@ -7,7 +7,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # Specify your gem's dependencies in gapic-generator.gemspec
 gemspec
 
-gem "grpc-tools", ">= 1.60.0", "< 1.75.1"
+gem "grpc-tools", ">= 1.60.0", "< 1.78.2"
 gem "minitest", "~> 5.16"
 gem "minitest-autotest", "~> 1.0"
 gem "minitest-focus", "~> 1.0"
