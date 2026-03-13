@@ -56,6 +56,45 @@ class WaitTest < ShowcaseTest
     assert operation.error?
     assert_equal "nope", operation.error.message
   end
+
+  def test_wait_retry_default_jitter
+    return unless @client
+    operation = @client.wait ttl: { nanos: 500000 }, error: Google::Rpc::Status.new(message: "nope")
+
+    # The default jitter is 1.0. The policy is configured with initial_delay: 0.2
+    # The sleep duration should be delay + rand(0.0..1.0), so between 0.2 and 1.2
+    sleep_calls = []
+    Kernel.stub :sleep, ->(delay) { sleep_calls << delay } do
+      operation.wait_until_done! retry_policy: @retry_policy
+    end
+    
+    refute_empty sleep_calls
+    sleep_calls.each do |delay|
+      assert delay >= 0.2, "Delay #{delay} should be at least initial_delay 0.2"
+      assert delay <= 1.2, "Delay #{delay} should be at most delay (0.2) + default jitter (1.0)"
+    end
+  end
+
+  def test_wait_retry_configured_jitter
+    return unless @client
+    operation = @client.wait ttl: { nanos: 500000 }, error: Google::Rpc::Status.new(message: "nope")
+
+    # Configure a custom jitter of 0.5
+    custom_policy = ::Gapic::Operation::RetryPolicy.new initial_delay: 0.2, multiplier: 2, max_delay: 1, timeout: 2, jitter: 0.5
+    
+    # The first sleep should be between 0.2 and 0.7 (0.2 + 0.5)
+    # The max delay is 1, so subsequent sleeps could be up to 1.0, but the initial max is 0.7
+    sleep_calls = []
+    Kernel.stub :sleep, ->(delay) { sleep_calls << delay } do
+      operation.wait_until_done! retry_policy: custom_policy
+    end
+    
+    refute_empty sleep_calls
+    # Check the first sleep call specifically for the 0.2 + 0.5 bound
+    first_delay = sleep_calls.first
+    assert first_delay >= 0.2, "First delay #{first_delay} should be at least initial_delay 0.2"
+    assert first_delay <= 0.7, "First delay #{first_delay} should be at most delay (0.2) + custom jitter (0.5)"
+  end
 end
 
 class WaitGRPCTest < WaitTest
