@@ -39,7 +39,7 @@ class GarbageGemPresenterTest < PresenterTest
     assert_equal ["endless.trash.forever"], presenter.packages.map(&:name)
     presenter.packages.each { |pp| assert_kind_of Gapic::Presenters::PackagePresenter, pp }
 
-    assert_equal ["GarbageService", "ReallyRenamedService", "DeprecatedService", "ResourceNames", "IAMPolicy"], presenter.services.map(&:name)
+    assert_equal ["GarbageService", "ReallyRenamedService", "EmptyService", "DeprecatedService", "ResourceNames", "IAMPolicy"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
 
     assert_equal ["garbage/garbage.proto",
