@@ -134,7 +134,9 @@ class <%= service.rest.client_name %>
       config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
       config.universe_domain = @config.universe_domain
-      <%- if subclient.respond_to?(:bindings_override) && !subclient.bindings_override.empty? -%>
+      <%- if service.rest.mixin_should_generate_override_config? &&
+             subclient.respond_to?(:bindings_override) &&
+             !subclient.bindings_override.empty? -%>
       config.bindings_override = @config.bindings_override
       <%- end -%>
     end
@@ -164,7 +166,9 @@ class <%= service.rest.client_name %>
       config.quota_project = @quota_project_id
       config.endpoint = @<%= service.stub_name %>.endpoint
       config.universe_domain = @<%= service.stub_name %>.universe_domain
-      <%- if subclient.respond_to?(:bindings_override) && !subclient.bindings_override.empty? -%>
+      <%- if service.rest.mixin_should_generate_override_config? &&
+             subclient.respond_to?(:bindings_override) &&
+             !subclient.bindings_override.empty? -%>
       config.bindings_override = @config.bindings_override
       <%- end -%>
       config.logger = @<%= service.stub_name %>.logger if config.respond_to? :logger=
