@@ -63,6 +63,9 @@ module Gapic
           files << g("binding_override", "lib/#{package.mixin_binding_overrides_file_path}", package: package) if package.mixin_binding_overrides? && package.generate_rest_clients?
 
           package.services.each do |service|
+            # Skip services with no RPCs defined
+            next if service.methods.empty?
+
             should_generate_grpc = service.generate_grpc_clients?
             should_generate_rest = service.generate_rest_clients?
 

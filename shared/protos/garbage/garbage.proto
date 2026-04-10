@@ -168,6 +168,10 @@ service RenamedService {
   }
 }
 
+service EmptyService {
+  option (google.api.default_host) = "endlesstrash.example.net";
+}
+
 service DeprecatedService {
   option deprecated = true;
 
