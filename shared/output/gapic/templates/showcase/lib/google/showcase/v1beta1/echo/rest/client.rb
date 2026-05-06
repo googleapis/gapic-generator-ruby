@@ -159,6 +159,7 @@ module Google
                 config.quota_project = @quota_project_id
                 config.endpoint = @config.endpoint
                 config.universe_domain = @config.universe_domain
+                config.faraday_config = @config.faraday_config if config.respond_to? :faraday_config=
               end
 
               @echo_stub = ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.new(
@@ -166,7 +167,8 @@ module Google
                 endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
                 universe_domain: @config.universe_domain,
                 credentials: credentials,
-                logger: @config.logger
+                logger: @config.logger,
+                faraday_config: @config.faraday_config
               )
 
               @echo_stub.logger(stub: true)&.info do |entry|
@@ -186,6 +188,7 @@ module Google
                 config.universe_domain = @echo_stub.universe_domain
                 config.bindings_override = @config.bindings_override
                 config.logger = @echo_stub.logger if config.respond_to? :logger=
+                config.faraday_config = @config.faraday_config if config.respond_to? :faraday_config=
               end
 
               @iam_policy_client = Google::Iam::V1::IAMPolicy::Rest::Client.new do |config|
@@ -195,6 +198,7 @@ module Google
                 config.universe_domain = @echo_stub.universe_domain
                 config.bindings_override = @config.bindings_override
                 config.logger = @echo_stub.logger if config.respond_to? :logger=
+                config.faraday_config = @config.faraday_config if config.respond_to? :faraday_config=
               end
             end
 
@@ -1149,6 +1153,9 @@ module Google
             #   `:default` (the default) to construct a default logger, or `nil` to
             #   explicitly disable logging.
             #   @return [::Logger,:default,nil]
+            # @!attribute [rw] faraday_config
+            #   A Proc to configure the underlying Faraday connection object.
+            #   @return [::Proc,nil]
             #
             class Configuration
               extend ::Gapic::Config
@@ -1179,6 +1186,7 @@ module Google
               # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
               config_attr :bindings_override, {}, ::Hash, nil
               config_attr :logger, :default, ::Logger, nil, :default
+              config_attr :faraday_config, nil, ::Proc, nil
 
               # @private
               def initialize parent_config = nil
