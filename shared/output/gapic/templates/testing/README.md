@@ -15,7 +15,7 @@ $ gem install testing
 ## Quick Start
 
 ```ruby
-require "testing/grpc_service_config"
+require "testing/empty_service"
 
 client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
 request = ::Testing::GrpcServiceConfig::Request.new # (request fields as keyword arguments...)

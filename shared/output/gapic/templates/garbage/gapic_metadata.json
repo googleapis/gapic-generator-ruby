@@ -108,14 +108,6 @@
         }
       }
     },
-    "EmptyService": {
-      "clients": {
-        "grpc": {
-          "libraryClient": "::So::Much::Trash::EmptyService::Client",
-          "rpcs": {}
-        }
-      }
-    },
     "DeprecatedService": {
       "clients": {
         "grpc": {

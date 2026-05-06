@@ -165,6 +165,7 @@ def gem_defaults
         "testing/routing_headers/routing_headers.proto",
         "testing/resources/resources.proto",
         "testing/nonstandard_lro_grpc/nonstandard_lro_grpc.proto",
+        "testing/empty_service/empty_service.proto",
         # `locations.proto` is included here because it is often
         # included in the real world libraries
         # as part of `files_to_generate` due to protoc limitations
