@@ -71,7 +71,7 @@ GEM
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     io-console (0.8.2)
-    json (2.19.3)
+    json (2.19.5)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -88,9 +88,10 @@ GEM
     minitest-server (1.0.10)
       drb (~> 2.0)
       minitest (~> 5.16)
-    nokogiri (1.19.2-x86_64-linux-gnu)
+    nokogiri (1.19.3-x86_64-linux-gnu)
       racc (~> 1.4)
-    parallel (2.0.1)
+    ostruct (0.6.3)
+    parallel (2.1.0)
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
@@ -143,7 +144,7 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
-    yard (0.9.41)
+    yard (0.9.43)
 
 PLATFORMS
   x86_64-linux
@@ -155,6 +156,7 @@ DEPENDENCIES
   minitest (~> 5.16)
   minitest-autotest (~> 1.0)
   minitest-focus (~> 1.0)
+  ostruct (= 0.6.3)
   pry (>= 0.14)
   redcarpet (~> 3.0)
   yard (~> 0.9)

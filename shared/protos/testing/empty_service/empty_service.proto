@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package testing.empty_service;
+option ruby_package = "Testing::EmptyService";
+
+import "google/api/client.proto";
+
+service EmptyService {
+  option (google.api.default_host) = "emptyservice.example.com";
+}

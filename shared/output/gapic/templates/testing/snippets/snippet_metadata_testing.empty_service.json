@@ -1,0 +1,14 @@
+{
+  "client_library": {
+    "name": "testing",
+    "version": "",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "testing.empty_service",
+        "version": "empty_service"
+      }
+    ]
+  },
+  "snippets": []
+}
