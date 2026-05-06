@@ -30,19 +30,22 @@ module Google
           #
           class ServiceStub
             # @private
-            def initialize endpoint:, endpoint_template:, universe_domain:, credentials:, logger:
+            def initialize endpoint:, endpoint_template:, universe_domain:, credentials:, logger:, faraday_config: nil
               # These require statements are intentionally placed here to initialize
               # the REST modules only when it's required.
               require "gapic/rest"
 
-              @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint,
-                                                           endpoint_template: endpoint_template,
-                                                           universe_domain: universe_domain,
-                                                           credentials: credentials,
-                                                           numeric_enums: false,
-                                                           service_name: self.class,
-                                                           raise_faraday_errors: false,
-                                                           logger: logger
+              @client_stub = ::Gapic::Rest::ClientStub.new(
+                endpoint: endpoint,
+                endpoint_template: endpoint_template,
+                universe_domain: universe_domain,
+                credentials: credentials,
+                numeric_enums: false,
+                service_name: self.class,
+                raise_faraday_errors: false,
+                logger: logger,
+                &faraday_config
+              )
             end
 
             ##

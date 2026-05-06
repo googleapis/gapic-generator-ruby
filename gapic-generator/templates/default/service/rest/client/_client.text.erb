@@ -137,6 +137,7 @@ class <%= service.rest.client_name %>
       <%- if subclient.respond_to?(:bindings_override) && !subclient.bindings_override.empty? -%>
       config.bindings_override = @config.bindings_override
       <%- end -%>
+      config.faraday_config = @config.faraday_config if config.respond_to? :faraday_config=
     end
 
     <%- end -%>
@@ -145,7 +146,8 @@ class <%= service.rest.client_name %>
       endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
       universe_domain: @config.universe_domain,
       credentials: credentials,
-      logger: @config.logger
+      logger: @config.logger,
+      faraday_config: @config.faraday_config
     )
 
     @<%= service.stub_name %>.logger(stub: true)&.info do |entry|
@@ -168,6 +170,7 @@ class <%= service.rest.client_name %>
       config.bindings_override = @config.bindings_override
       <%- end -%>
       config.logger = @<%= service.stub_name %>.logger if config.respond_to? :logger=
+      config.faraday_config = @config.faraday_config if config.respond_to? :faraday_config=
     end
     <%- end -%>
   end

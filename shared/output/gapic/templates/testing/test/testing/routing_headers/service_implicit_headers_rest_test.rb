@@ -272,4 +272,28 @@ class ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::ClientTest < Mini
     assert_same block_config, config
     assert_kind_of ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client::Configuration, config
   end
+
+  def test_faraday_config
+    # Create test objects.
+    credentials_token = :dummy_value
+    captured_blocks = []
+
+    faraday_config_proc = ->(conn) { conn.ssl.client_cert = "cert" }
+
+    stub_proc = ->(**kwargs, &block) do
+      captured_blocks << block
+      ClientStub.new nil
+    end
+
+    # Create client with faraday_config option.
+    Gapic::Rest::ClientStub.stub :new, stub_proc do
+      ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new do |config|
+        config.credentials = credentials_token
+        config.faraday_config = faraday_config_proc
+      end
+    end
+
+    # Verify faraday_config block passthrough.
+    assert_includes captured_blocks, faraday_config_proc
+  end
 end

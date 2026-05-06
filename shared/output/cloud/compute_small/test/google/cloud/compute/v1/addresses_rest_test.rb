@@ -386,4 +386,28 @@ class ::Google::Cloud::Compute::V1::Addresses::Rest::ClientTest < Minitest::Test
     assert_same block_config, config
     assert_kind_of ::Google::Cloud::Compute::V1::Addresses::Rest::Client::Configuration, config
   end
+
+  def test_faraday_config
+    # Create test objects.
+    credentials_token = :dummy_value
+    captured_blocks = []
+
+    faraday_config_proc = ->(conn) { conn.ssl.client_cert = "cert" }
+
+    stub_proc = ->(**kwargs, &block) do
+      captured_blocks << block
+      ClientStub.new nil
+    end
+
+    # Create client with faraday_config option.
+    Gapic::Rest::ClientStub.stub :new, stub_proc do
+      ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new do |config|
+        config.credentials = credentials_token
+        config.faraday_config = faraday_config_proc
+      end
+    end
+
+    # Verify faraday_config block passthrough.
+    assert_includes captured_blocks, faraday_config_proc
+  end
 end

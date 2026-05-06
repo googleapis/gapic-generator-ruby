@@ -108,7 +108,8 @@ module Testing
               endpoint: @config.endpoint,
               endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
               universe_domain: @config.universe_domain,
-              credentials: credentials
+              credentials: credentials,
+              faraday_config: @config.faraday_config
             )
 
             # Used by an LRO wrapper for some methods of this service
@@ -565,6 +566,9 @@ module Testing
           #   `:default` (the default) to construct a default logger, or `nil` to
           #   explicitly disable logging.
           #   @return [::Logger,:default,nil]
+          # @!attribute [rw] faraday_config
+          #   A Proc to configure the underlying Faraday connection object.
+          #   @return [::Proc,nil]
           #
           class Configuration
             extend ::Gapic::Config
@@ -588,6 +592,7 @@ module Testing
             config_attr :quota_project, nil, ::String, nil
             config_attr :universe_domain, nil, ::String, nil
             config_attr :logger, :default, ::Logger, nil, :default
+            config_attr :faraday_config, nil, ::Proc, nil
 
             # @private
             def initialize parent_config = nil
@@ -671,15 +676,18 @@ module Testing
         # Service stub contains baseline method implementations
         # including transcoding, making the REST call, and deserialing the response.
         class OperationsServiceStub
-          def initialize endpoint:, endpoint_template:, universe_domain:, credentials:
+          def initialize endpoint:, endpoint_template:, universe_domain:, credentials:, faraday_config: nil
             # These require statements are intentionally placed here to initialize
             # the REST modules only when it's required.
             require "gapic/rest"
 
-            @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint,
-                                                         endpoint_template: endpoint_template,
-                                                         universe_domain: universe_domain,
-                                                         credentials: credentials
+            @client_stub = ::Gapic::Rest::ClientStub.new(
+              endpoint: endpoint,
+              endpoint_template: endpoint_template,
+              universe_domain: universe_domain,
+              credentials: credentials,
+              &faraday_config
+            )
           end
 
           ##
