@@ -16,11 +16,16 @@ jobs:
   tests:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: ["3.2", "4.0"]
+    # Allow failures on 4.0; generator primarily runs on 3.2.
+    continue-on-error: ${{ matrix.ruby == '4.0' }}
     steps:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: ${{ matrix.ruby }}
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Checkout submodules
