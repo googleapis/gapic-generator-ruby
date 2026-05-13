@@ -105,32 +105,32 @@ class ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::ClientTest < Minite
     ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::ServiceStub.stub :transcode_plain_lro_rpc_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, plain_lro_rpc_client_stub do
         # Create client
-        client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::Client.new do |config|
+        client_stub = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.plain_lro_rpc({ request_id: request_id }) do |_result, response|
+        client_stub.plain_lro_rpc({ request_id: request_id }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.plain_lro_rpc request_id: request_id do |_result, response|
+        client_stub.plain_lro_rpc request_id: request_id do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.plain_lro_rpc ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |_result, response|
+        client_stub.plain_lro_rpc ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.plain_lro_rpc({ request_id: request_id }, call_options) do |_result, response|
+        client_stub.plain_lro_rpc({ request_id: request_id }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
+        client_stub.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 

@@ -94,36 +94,36 @@ class ::Testing::RoutingHeaders::ServiceExplicitHeaders::ClientTest < Minitest::
 
     Gapic::ServiceStub.stub :new, plain_no_template_client_stub do
       # Create client
-      client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
+      client_stub = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.plain_no_template({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
+      client_stub.plain_no_template({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.plain_no_template table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
+      client_stub.plain_no_template table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.plain_no_template ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
+      client_stub.plain_no_template ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.plain_no_template({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
+      client_stub.plain_no_template({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.plain_no_template(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
+      client_stub.plain_no_template(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -156,36 +156,36 @@ class ::Testing::RoutingHeaders::ServiceExplicitHeaders::ClientTest < Minitest::
 
     Gapic::ServiceStub.stub :new, plain_full_field_client_stub do
       # Create client
-      client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
+      client_stub = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.plain_full_field({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
+      client_stub.plain_full_field({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.plain_full_field table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
+      client_stub.plain_full_field table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.plain_full_field ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
+      client_stub.plain_full_field ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.plain_full_field({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
+      client_stub.plain_full_field({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.plain_full_field(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
+      client_stub.plain_full_field(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -218,36 +218,36 @@ class ::Testing::RoutingHeaders::ServiceExplicitHeaders::ClientTest < Minitest::
 
     Gapic::ServiceStub.stub :new, plain_extract_client_stub do
       # Create client
-      client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
+      client_stub = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.plain_extract({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
+      client_stub.plain_extract({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.plain_extract table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
+      client_stub.plain_extract table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.plain_extract ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
+      client_stub.plain_extract ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.plain_extract({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
+      client_stub.plain_extract({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.plain_extract(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
+      client_stub.plain_extract(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -280,36 +280,36 @@ class ::Testing::RoutingHeaders::ServiceExplicitHeaders::ClientTest < Minitest::
 
     Gapic::ServiceStub.stub :new, complex_client_stub do
       # Create client
-      client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
+      client_stub = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.complex({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
+      client_stub.complex({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.complex table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
+      client_stub.complex table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.complex ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
+      client_stub.complex ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.complex({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
+      client_stub.complex({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.complex(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
+      client_stub.complex(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -342,36 +342,36 @@ class ::Testing::RoutingHeaders::ServiceExplicitHeaders::ClientTest < Minitest::
 
     Gapic::ServiceStub.stub :new, with_sub_message_client_stub do
       # Create client
-      client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
+      client_stub = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.with_sub_message({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
+      client_stub.with_sub_message({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.with_sub_message table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
+      client_stub.with_sub_message table_name: table_name, app_profile_id: app_profile_id, resource: resource do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.with_sub_message ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
+      client_stub.with_sub_message ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.with_sub_message({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
+      client_stub.with_sub_message({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.with_sub_message(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
+      client_stub.with_sub_message(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

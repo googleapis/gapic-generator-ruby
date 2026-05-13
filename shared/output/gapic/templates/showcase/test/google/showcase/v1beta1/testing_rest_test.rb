@@ -105,32 +105,32 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.stub :transcode_create_session_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, create_session_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+        client_stub = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.create_session({ session: session }) do |_result, response|
+        client_stub.create_session({ session: session }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.create_session session: session do |_result, response|
+        client_stub.create_session session: session do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.create_session ::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session) do |_result, response|
+        client_stub.create_session ::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.create_session({ session: session }, call_options) do |_result, response|
+        client_stub.create_session({ session: session }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.create_session(::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session), call_options) do |_result, response|
+        client_stub.create_session(::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -159,32 +159,32 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.stub :transcode_get_session_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, get_session_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+        client_stub = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.get_session({ name: name }) do |_result, response|
+        client_stub.get_session({ name: name }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.get_session name: name do |_result, response|
+        client_stub.get_session name: name do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.get_session ::Google::Showcase::V1beta1::GetSessionRequest.new(name: name) do |_result, response|
+        client_stub.get_session ::Google::Showcase::V1beta1::GetSessionRequest.new(name: name) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.get_session({ name: name }, call_options) do |_result, response|
+        client_stub.get_session({ name: name }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.get_session(::Google::Showcase::V1beta1::GetSessionRequest.new(name: name), call_options) do |_result, response|
+        client_stub.get_session(::Google::Showcase::V1beta1::GetSessionRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -214,32 +214,32 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.stub :transcode_list_sessions_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, list_sessions_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+        client_stub = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.list_sessions({ page_size: page_size, page_token: page_token }) do |_result, response|
+        client_stub.list_sessions({ page_size: page_size, page_token: page_token }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.list_sessions page_size: page_size, page_token: page_token do |_result, response|
+        client_stub.list_sessions page_size: page_size, page_token: page_token do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token) do |_result, response|
+        client_stub.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.list_sessions({ page_size: page_size, page_token: page_token }, call_options) do |_result, response|
+        client_stub.list_sessions({ page_size: page_size, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.list_sessions(::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token), call_options) do |_result, response|
+        client_stub.list_sessions(::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -268,32 +268,32 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.stub :transcode_delete_session_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, delete_session_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+        client_stub = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.delete_session({ name: name }) do |_result, response|
+        client_stub.delete_session({ name: name }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.delete_session name: name do |_result, response|
+        client_stub.delete_session name: name do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.delete_session ::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name) do |_result, response|
+        client_stub.delete_session ::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.delete_session({ name: name }, call_options) do |_result, response|
+        client_stub.delete_session({ name: name }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.delete_session(::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name), call_options) do |_result, response|
+        client_stub.delete_session(::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -322,32 +322,32 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.stub :transcode_report_session_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, report_session_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+        client_stub = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.report_session({ name: name }) do |_result, response|
+        client_stub.report_session({ name: name }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.report_session name: name do |_result, response|
+        client_stub.report_session name: name do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.report_session ::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name) do |_result, response|
+        client_stub.report_session ::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.report_session({ name: name }, call_options) do |_result, response|
+        client_stub.report_session({ name: name }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.report_session(::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name), call_options) do |_result, response|
+        client_stub.report_session(::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -378,32 +378,32 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.stub :transcode_list_tests_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, list_tests_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+        client_stub = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
+        client_stub.list_tests({ parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.list_tests parent: parent, page_size: page_size, page_token: page_token do |_result, response|
+        client_stub.list_tests parent: parent, page_size: page_size, page_token: page_token do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
+        client_stub.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
+        client_stub.list_tests({ parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.list_tests(::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
+        client_stub.list_tests(::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -432,32 +432,32 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.stub :transcode_delete_test_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, delete_test_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+        client_stub = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.delete_test({ name: name }) do |_result, response|
+        client_stub.delete_test({ name: name }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.delete_test name: name do |_result, response|
+        client_stub.delete_test name: name do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.delete_test ::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name) do |_result, response|
+        client_stub.delete_test ::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.delete_test({ name: name }, call_options) do |_result, response|
+        client_stub.delete_test({ name: name }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.delete_test(::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name), call_options) do |_result, response|
+        client_stub.delete_test(::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -488,32 +488,32 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Testing::Rest::ServiceStub.stub :transcode_verify_test_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, verify_test_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
+        client_stub = ::Google::Showcase::V1beta1::Testing::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.verify_test({ name: name, answer: answer, answers: answers }) do |_result, response|
+        client_stub.verify_test({ name: name, answer: answer, answers: answers }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.verify_test name: name, answer: answer, answers: answers do |_result, response|
+        client_stub.verify_test name: name, answer: answer, answers: answers do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers) do |_result, response|
+        client_stub.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.verify_test({ name: name, answer: answer, answers: answers }, call_options) do |_result, response|
+        client_stub.verify_test({ name: name, answer: answer, answers: answers }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.verify_test(::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers), call_options) do |_result, response|
+        client_stub.verify_test(::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 

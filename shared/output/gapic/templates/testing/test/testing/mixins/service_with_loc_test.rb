@@ -88,30 +88,30 @@ class ::Testing::Mixins::ServiceWithLoc::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, call_method_client_stub do
       # Create client
-      client = ::Testing::Mixins::ServiceWithLoc::Client.new do |config|
+      client_stub = ::Testing::Mixins::ServiceWithLoc::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.call_method({  }) do |response, operation|
+      client_stub.call_method({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.call_method ::Testing::Mixins::Request.new() do |response, operation|
+      client_stub.call_method ::Testing::Mixins::Request.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.call_method({  }, grpc_options) do |response, operation|
+      client_stub.call_method({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.call_method(::Testing::Mixins::Request.new(), grpc_options) do |response, operation|
+      client_stub.call_method(::Testing::Mixins::Request.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

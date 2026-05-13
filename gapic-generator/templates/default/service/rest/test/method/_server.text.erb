@@ -22,34 +22,34 @@ def test_<%= method.name %>
   <%= method.service.rest.service_name_full %>::<%= method.service.rest.service_stub_name %>.stub :<%= method.rest.transcoding_helper_name %>, ["", "", {}] do
     Gapic::Rest::ClientStub.stub :new, <%= method.name %>_client_stub do
       # Create client
-      client = <%= full_client_name %>.new do |config|
+      client_stub = <%= full_client_name %>.new do |config|
         config.credentials = :dummy_value
       end
 
       # Use hash object
-      client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }) do |_result, response|
+      client_stub.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }) do |_result, response|
         <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
       end.first
 
       <%- if fields.any? -%>
       # Use named arguments
-      client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |_result, response|
+      client_stub.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |_result, response|
         <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
       end.first
 
       <%- end -%>
       # Use protobuf object
-      client.<%= method.name %> <%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>) do |_result, response|
+      client_stub.<%= method.name %> <%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>) do |_result, response|
         <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
       end.first
 
       # Use hash object with options
-      client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }, call_options) do |_result, response|
+      client_stub.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }, call_options) do |_result, response|
         <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
       end.first
 
       # Use protobuf object with options
-      client.<%= method.name %>(<%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>), call_options) do |_result, response|
+      client_stub.<%= method.name %>(<%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>), call_options) do |_result, response|
         <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
       end.first
 

@@ -90,36 +90,36 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, create_sequence_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
+      client_stub = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.create_sequence({ sequence: sequence }) do |response, operation|
+      client_stub.create_sequence({ sequence: sequence }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.create_sequence sequence: sequence do |response, operation|
+      client_stub.create_sequence sequence: sequence do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.create_sequence ::Google::Showcase::V1beta1::CreateSequenceRequest.new(sequence: sequence) do |response, operation|
+      client_stub.create_sequence ::Google::Showcase::V1beta1::CreateSequenceRequest.new(sequence: sequence) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.create_sequence({ sequence: sequence }, grpc_options) do |response, operation|
+      client_stub.create_sequence({ sequence: sequence }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.create_sequence(::Google::Showcase::V1beta1::CreateSequenceRequest.new(sequence: sequence), grpc_options) do |response, operation|
+      client_stub.create_sequence(::Google::Showcase::V1beta1::CreateSequenceRequest.new(sequence: sequence), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -148,36 +148,36 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, create_streaming_sequence_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
+      client_stub = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.create_streaming_sequence({ streaming_sequence: streaming_sequence }) do |response, operation|
+      client_stub.create_streaming_sequence({ streaming_sequence: streaming_sequence }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.create_streaming_sequence streaming_sequence: streaming_sequence do |response, operation|
+      client_stub.create_streaming_sequence streaming_sequence: streaming_sequence do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.create_streaming_sequence ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest.new(streaming_sequence: streaming_sequence) do |response, operation|
+      client_stub.create_streaming_sequence ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest.new(streaming_sequence: streaming_sequence) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.create_streaming_sequence({ streaming_sequence: streaming_sequence }, grpc_options) do |response, operation|
+      client_stub.create_streaming_sequence({ streaming_sequence: streaming_sequence }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.create_streaming_sequence(::Google::Showcase::V1beta1::CreateStreamingSequenceRequest.new(streaming_sequence: streaming_sequence), grpc_options) do |response, operation|
+      client_stub.create_streaming_sequence(::Google::Showcase::V1beta1::CreateStreamingSequenceRequest.new(streaming_sequence: streaming_sequence), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -206,36 +206,36 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_sequence_report_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
+      client_stub = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.get_sequence_report({ name: name }) do |response, operation|
+      client_stub.get_sequence_report({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.get_sequence_report name: name do |response, operation|
+      client_stub.get_sequence_report name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.get_sequence_report ::Google::Showcase::V1beta1::GetSequenceReportRequest.new(name: name) do |response, operation|
+      client_stub.get_sequence_report ::Google::Showcase::V1beta1::GetSequenceReportRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.get_sequence_report({ name: name }, grpc_options) do |response, operation|
+      client_stub.get_sequence_report({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.get_sequence_report(::Google::Showcase::V1beta1::GetSequenceReportRequest.new(name: name), grpc_options) do |response, operation|
+      client_stub.get_sequence_report(::Google::Showcase::V1beta1::GetSequenceReportRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -264,36 +264,36 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_streaming_sequence_report_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
+      client_stub = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.get_streaming_sequence_report({ name: name }) do |response, operation|
+      client_stub.get_streaming_sequence_report({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.get_streaming_sequence_report name: name do |response, operation|
+      client_stub.get_streaming_sequence_report name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.get_streaming_sequence_report ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest.new(name: name) do |response, operation|
+      client_stub.get_streaming_sequence_report ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.get_streaming_sequence_report({ name: name }, grpc_options) do |response, operation|
+      client_stub.get_streaming_sequence_report({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.get_streaming_sequence_report(::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest.new(name: name), grpc_options) do |response, operation|
+      client_stub.get_streaming_sequence_report(::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -322,36 +322,36 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, attempt_sequence_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
+      client_stub = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.attempt_sequence({ name: name }) do |response, operation|
+      client_stub.attempt_sequence({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.attempt_sequence name: name do |response, operation|
+      client_stub.attempt_sequence name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.attempt_sequence ::Google::Showcase::V1beta1::AttemptSequenceRequest.new(name: name) do |response, operation|
+      client_stub.attempt_sequence ::Google::Showcase::V1beta1::AttemptSequenceRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.attempt_sequence({ name: name }, grpc_options) do |response, operation|
+      client_stub.attempt_sequence({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.attempt_sequence(::Google::Showcase::V1beta1::AttemptSequenceRequest.new(name: name), grpc_options) do |response, operation|
+      client_stub.attempt_sequence(::Google::Showcase::V1beta1::AttemptSequenceRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -382,12 +382,12 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, attempt_streaming_sequence_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
+      client_stub = ::Google::Showcase::V1beta1::SequenceService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.attempt_streaming_sequence({ name: name, last_fail_index: last_fail_index }) do |response, operation|
+      client_stub.attempt_streaming_sequence({ name: name, last_fail_index: last_fail_index }) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::AttemptStreamingSequenceResponse, r
@@ -396,7 +396,7 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
       end
 
       # Use named arguments
-      client.attempt_streaming_sequence name: name, last_fail_index: last_fail_index do |response, operation|
+      client_stub.attempt_streaming_sequence name: name, last_fail_index: last_fail_index do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::AttemptStreamingSequenceResponse, r
@@ -405,7 +405,7 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.attempt_streaming_sequence ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest.new(name: name, last_fail_index: last_fail_index) do |response, operation|
+      client_stub.attempt_streaming_sequence ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest.new(name: name, last_fail_index: last_fail_index) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::AttemptStreamingSequenceResponse, r
@@ -414,7 +414,7 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
       end
 
       # Use hash object with options
-      client.attempt_streaming_sequence({ name: name, last_fail_index: last_fail_index }, grpc_options) do |response, operation|
+      client_stub.attempt_streaming_sequence({ name: name, last_fail_index: last_fail_index }, grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::AttemptStreamingSequenceResponse, r
@@ -423,7 +423,7 @@ class ::Google::Showcase::V1beta1::SequenceService::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.attempt_streaming_sequence(::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest.new(name: name, last_fail_index: last_fail_index), grpc_options) do |response, operation|
+      client_stub.attempt_streaming_sequence(::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest.new(name: name, last_fail_index: last_fail_index), grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::AttemptStreamingSequenceResponse, r

@@ -94,36 +94,36 @@ class ::So::Much::Trash::IAMPolicy::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, set_iam_policy_client_stub do
       # Create client
-      client = ::So::Much::Trash::IAMPolicy::Client.new do |config|
+      client_stub = ::So::Much::Trash::IAMPolicy::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.set_iam_policy({ resource: resource, policy: policy, update_mask: update_mask }) do |response, operation|
+      client_stub.set_iam_policy({ resource: resource, policy: policy, update_mask: update_mask }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.set_iam_policy resource: resource, policy: policy, update_mask: update_mask do |response, operation|
+      client_stub.set_iam_policy resource: resource, policy: policy, update_mask: update_mask do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.set_iam_policy ::Google::Iam::V1::SetIamPolicyRequest.new(resource: resource, policy: policy, update_mask: update_mask) do |response, operation|
+      client_stub.set_iam_policy ::Google::Iam::V1::SetIamPolicyRequest.new(resource: resource, policy: policy, update_mask: update_mask) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.set_iam_policy({ resource: resource, policy: policy, update_mask: update_mask }, grpc_options) do |response, operation|
+      client_stub.set_iam_policy({ resource: resource, policy: policy, update_mask: update_mask }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.set_iam_policy(::Google::Iam::V1::SetIamPolicyRequest.new(resource: resource, policy: policy, update_mask: update_mask), grpc_options) do |response, operation|
+      client_stub.set_iam_policy(::Google::Iam::V1::SetIamPolicyRequest.new(resource: resource, policy: policy, update_mask: update_mask), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -154,36 +154,36 @@ class ::So::Much::Trash::IAMPolicy::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_iam_policy_client_stub do
       # Create client
-      client = ::So::Much::Trash::IAMPolicy::Client.new do |config|
+      client_stub = ::So::Much::Trash::IAMPolicy::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.get_iam_policy({ resource: resource, options: options }) do |response, operation|
+      client_stub.get_iam_policy({ resource: resource, options: options }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.get_iam_policy resource: resource, options: options do |response, operation|
+      client_stub.get_iam_policy resource: resource, options: options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.get_iam_policy ::Google::Iam::V1::GetIamPolicyRequest.new(resource: resource, options: options) do |response, operation|
+      client_stub.get_iam_policy ::Google::Iam::V1::GetIamPolicyRequest.new(resource: resource, options: options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.get_iam_policy({ resource: resource, options: options }, grpc_options) do |response, operation|
+      client_stub.get_iam_policy({ resource: resource, options: options }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.get_iam_policy(::Google::Iam::V1::GetIamPolicyRequest.new(resource: resource, options: options), grpc_options) do |response, operation|
+      client_stub.get_iam_policy(::Google::Iam::V1::GetIamPolicyRequest.new(resource: resource, options: options), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -214,36 +214,36 @@ class ::So::Much::Trash::IAMPolicy::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, test_iam_permissions_client_stub do
       # Create client
-      client = ::So::Much::Trash::IAMPolicy::Client.new do |config|
+      client_stub = ::So::Much::Trash::IAMPolicy::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.test_iam_permissions({ resource: resource, permissions: permissions }) do |response, operation|
+      client_stub.test_iam_permissions({ resource: resource, permissions: permissions }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.test_iam_permissions resource: resource, permissions: permissions do |response, operation|
+      client_stub.test_iam_permissions resource: resource, permissions: permissions do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.test_iam_permissions ::Google::Iam::V1::TestIamPermissionsRequest.new(resource: resource, permissions: permissions) do |response, operation|
+      client_stub.test_iam_permissions ::Google::Iam::V1::TestIamPermissionsRequest.new(resource: resource, permissions: permissions) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.test_iam_permissions({ resource: resource, permissions: permissions }, grpc_options) do |response, operation|
+      client_stub.test_iam_permissions({ resource: resource, permissions: permissions }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.test_iam_permissions(::Google::Iam::V1::TestIamPermissionsRequest.new(resource: resource, permissions: permissions), grpc_options) do |response, operation|
+      client_stub.test_iam_permissions(::Google::Iam::V1::TestIamPermissionsRequest.new(resource: resource, permissions: permissions), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

@@ -22,7 +22,7 @@ def test_<%= method.name %>
 
   Gapic::ServiceStub.stub :new, <%= method.name %>_client_stub do
     # Create client
-    client = <%= full_client_name %>.new do |config|
+    client_stub = <%= full_client_name %>.new do |config|
       config.credentials = grpc_channel
     end
 
@@ -30,7 +30,7 @@ def test_<%= method.name %>
     request_hash = { <%= fields.map(&:as_kwarg).join ", " %> }
     request_proto = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
     enum_input = [request_hash, request_proto].to_enum
-    client.<%= method.name %> enum_input do |response, operation|
+    client_stub.<%= method.name %> enum_input do |response, operation|
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
     end
 
@@ -38,7 +38,7 @@ def test_<%= method.name %>
     request_hash = { <%= fields.map(&:as_kwarg).join ", " %> }
     request_proto = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
     stream_input = Gapic::StreamInput.new
-    client.<%= method.name %> stream_input do |response, operation|
+    client_stub.<%= method.name %> stream_input do |response, operation|
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
     end
     stream_input << request_hash
@@ -49,7 +49,7 @@ def test_<%= method.name %>
     request_hash = { <%= fields.map(&:as_kwarg).join ", " %> }
     request_proto = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
     enum_input = [request_hash, request_proto].to_enum
-    client.<%= method.name %> enum_input, grpc_options do |response, operation|
+    client_stub.<%= method.name %> enum_input, grpc_options do |response, operation|
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
     end
 
@@ -57,7 +57,7 @@ def test_<%= method.name %>
     request_hash = { <%= fields.map(&:as_kwarg).join ", " %> }
     request_proto = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
     stream_input = Gapic::StreamInput.new
-    client.<%= method.name %> stream_input, grpc_options do |response, operation|
+    client_stub.<%= method.name %> stream_input, grpc_options do |response, operation|
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
     end
     stream_input << request_hash
