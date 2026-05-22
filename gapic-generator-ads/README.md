@@ -97,9 +97,9 @@ This is not an official Google project. While it is being used internally to
 generate official Google API client libraries, there is no guarantee of support
 or stability for any other use.
 
-As of January 2024, this generator can be run on Ruby 3.0 or later. In general,
+As of May 2026, this generator can be run on Ruby 3.2 or later. In general,
 we will make an effort to ensure it is supported on non-end-of-life versions of
-Ruby.
+Ruby. Currently, this includes support through Ruby 4.0.
 
 Issues can be filed on GitHub at
 https://github.com/googleapis/gapic-generator-ruby/issues.
