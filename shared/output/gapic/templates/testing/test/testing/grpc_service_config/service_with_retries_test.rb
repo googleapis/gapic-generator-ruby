@@ -88,30 +88,30 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
 
     Gapic::ServiceStub.stub :new, service_level_retry_method_client_stub do
       # Create client
-      client_stub = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+      c = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.service_level_retry_method({  }) do |response, operation|
+      c.service_level_retry_method({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |response, operation|
+      c.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.service_level_retry_method({  }, grpc_options) do |response, operation|
+      c.service_level_retry_method({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
+      c.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -138,30 +138,30 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
 
     Gapic::ServiceStub.stub :new, method_level_retry_method_client_stub do
       # Create client
-      client_stub = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+      c = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.method_level_retry_method({  }) do |response, operation|
+      c.method_level_retry_method({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |response, operation|
+      c.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.method_level_retry_method({  }, grpc_options) do |response, operation|
+      c.method_level_retry_method({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
+      c.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

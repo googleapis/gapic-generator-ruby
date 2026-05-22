@@ -22,7 +22,7 @@ def test_<%= method.name %>
 
   Gapic::ServiceStub.stub :new, <%= method.name %>_client_stub do
     # Create client
-    client_stub = <%= full_client_name %>.new do |config|
+    c = <%= full_client_name %>.new do |config|
       config.credentials = grpc_channel
     end
 
@@ -30,7 +30,7 @@ def test_<%= method.name %>
     request_hash = { <%= fields.map(&:as_kwarg).join ", " %> }
     request_proto = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
     enum_input = [request_hash, request_proto].to_enum
-    client_stub.<%= method.name %> enum_input do |response, operation|
+    c.<%= method.name %> enum_input do |response, operation|
       assert_kind_of Enumerable, response
       response.to_a.each do |r|
         assert_kind_of <%= method.return_type %>, r
@@ -42,7 +42,7 @@ def test_<%= method.name %>
     request_hash = { <%= fields.map(&:as_kwarg).join ", " %> }
     request_proto = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
     stream_input = Gapic::StreamInput.new
-    client_stub.<%= method.name %> stream_input do |response, operation|
+    c.<%= method.name %> stream_input do |response, operation|
       assert_kind_of Enumerable, response
       response.to_a.each do |r|
         assert_kind_of <%= method.return_type %>, r
@@ -57,7 +57,7 @@ def test_<%= method.name %>
     request_hash = { <%= fields.map(&:as_kwarg).join ", " %> }
     request_proto = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
     enum_input = [request_hash, request_proto].to_enum
-    client_stub.<%= method.name %> enum_input, grpc_options do |response, operation|
+    c.<%= method.name %> enum_input, grpc_options do |response, operation|
       assert_kind_of Enumerable, response
       response.to_a.each do |r|
         assert_kind_of <%= method.return_type %>, r
@@ -69,7 +69,7 @@ def test_<%= method.name %>
     request_hash = { <%= fields.map(&:as_kwarg).join ", " %> }
     request_proto = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
     stream_input = Gapic::StreamInput.new
-    client_stub.<%= method.name %> stream_input, grpc_options do |response, operation|
+    c.<%= method.name %> stream_input, grpc_options do |response, operation|
       assert_kind_of Enumerable, response
       response.to_a.each do |r|
         assert_kind_of <%= method.return_type %>, r

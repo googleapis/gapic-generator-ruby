@@ -102,36 +102,36 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, echo_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }) do |response, operation|
+      c.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.echo content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id do |response, operation|
+      c.echo content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id) do |response, operation|
+      c.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }, grpc_options) do |response, operation|
+      c.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id), grpc_options) do |response, operation|
+      c.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -162,36 +162,36 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, echo_error_details_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }) do |response, operation|
+      c.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.echo_error_details single_detail_text: single_detail_text, multi_detail_text: multi_detail_text do |response, operation|
+      c.echo_error_details single_detail_text: single_detail_text, multi_detail_text: multi_detail_text do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.echo_error_details ::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text) do |response, operation|
+      c.echo_error_details ::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }, grpc_options) do |response, operation|
+      c.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.echo_error_details(::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text), grpc_options) do |response, operation|
+      c.echo_error_details(::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -220,36 +220,36 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, fail_echo_with_details_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.fail_echo_with_details({ message: message }) do |response, operation|
+      c.fail_echo_with_details({ message: message }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.fail_echo_with_details message: message do |response, operation|
+      c.fail_echo_with_details message: message do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.fail_echo_with_details ::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message) do |response, operation|
+      c.fail_echo_with_details ::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.fail_echo_with_details({ message: message }, grpc_options) do |response, operation|
+      c.fail_echo_with_details({ message: message }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.fail_echo_with_details(::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message), grpc_options) do |response, operation|
+      c.fail_echo_with_details(::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -282,12 +282,12 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, expand_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.expand({ content: content, error: error, stream_wait_time: stream_wait_time }) do |response, operation|
+      c.expand({ content: content, error: error, stream_wait_time: stream_wait_time }) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -296,7 +296,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use named arguments
-      client_stub.expand content: content, error: error, stream_wait_time: stream_wait_time do |response, operation|
+      c.expand content: content, error: error, stream_wait_time: stream_wait_time do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -305,7 +305,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client_stub.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time) do |response, operation|
+      c.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -314,7 +314,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object with options
-      client_stub.expand({ content: content, error: error, stream_wait_time: stream_wait_time }, grpc_options) do |response, operation|
+      c.expand({ content: content, error: error, stream_wait_time: stream_wait_time }, grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -323,7 +323,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client_stub.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time), grpc_options) do |response, operation|
+      c.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time), grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -360,7 +360,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, collect_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -368,7 +368,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }
       request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.collect enum_input do |response, operation|
+      c.collect enum_input do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -377,7 +377,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }
       request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id
       stream_input = Gapic::StreamInput.new
-      client_stub.collect stream_input do |response, operation|
+      c.collect stream_input do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -389,7 +389,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }
       request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.collect enum_input, grpc_options do |response, operation|
+      c.collect enum_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -398,7 +398,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }
       request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id
       stream_input = Gapic::StreamInput.new
-      client_stub.collect stream_input, grpc_options do |response, operation|
+      c.collect stream_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -448,7 +448,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, chat_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -456,7 +456,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }
       request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.chat enum_input do |response, operation|
+      c.chat enum_input do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -468,7 +468,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }
       request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id
       stream_input = Gapic::StreamInput.new
-      client_stub.chat stream_input do |response, operation|
+      c.chat stream_input do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -483,7 +483,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }
       request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.chat enum_input, grpc_options do |response, operation|
+      c.chat enum_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -495,7 +495,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       request_hash = { content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }
       request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id
       stream_input = Gapic::StreamInput.new
-      client_stub.chat stream_input, grpc_options do |response, operation|
+      c.chat stream_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -547,40 +547,40 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, paged_expand_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.paged_expand({ content: content, page_size: page_size, page_token: page_token }) do |response, operation|
+      c.paged_expand({ content: content, page_size: page_size, page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.paged_expand content: content, page_size: page_size, page_token: page_token do |response, operation|
+      c.paged_expand content: content, page_size: page_size, page_token: page_token do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |response, operation|
+      c.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.paged_expand({ content: content, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      c.paged_expand({ content: content, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.paged_expand(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
+      c.paged_expand(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -614,36 +614,36 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, paged_expand_legacy_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }) do |response, operation|
+      c.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.paged_expand_legacy content: content, max_results: max_results, page_token: page_token do |response, operation|
+      c.paged_expand_legacy content: content, max_results: max_results, page_token: page_token do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.paged_expand_legacy ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token) do |response, operation|
+      c.paged_expand_legacy ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }, grpc_options) do |response, operation|
+      c.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.paged_expand_legacy(::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token), grpc_options) do |response, operation|
+      c.paged_expand_legacy(::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -676,40 +676,40 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, paged_expand_legacy_mapped_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }) do |response, operation|
+      c.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.paged_expand_legacy_mapped content: content, page_size: page_size, page_token: page_token do |response, operation|
+      c.paged_expand_legacy_mapped content: content, page_size: page_size, page_token: page_token do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.paged_expand_legacy_mapped ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |response, operation|
+      c.paged_expand_legacy_mapped ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      c.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.paged_expand_legacy_mapped(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
+      c.paged_expand_legacy_mapped(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -743,40 +743,40 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, wait_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.wait({ end_time: end_time, error: error }) do |response, operation|
+      c.wait({ end_time: end_time, error: error }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.wait end_time: end_time, error: error do |response, operation|
+      c.wait end_time: end_time, error: error do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error) do |response, operation|
+      c.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.wait({ end_time: end_time, error: error }, grpc_options) do |response, operation|
+      c.wait({ end_time: end_time, error: error }, grpc_options) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.wait(::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error), grpc_options) do |response, operation|
+      c.wait(::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error), grpc_options) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -809,36 +809,36 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, block_client_stub do
       # Create client
-      client_stub = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.block({ response_delay: response_delay, error: error }) do |response, operation|
+      c.block({ response_delay: response_delay, error: error }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.block response_delay: response_delay, error: error do |response, operation|
+      c.block response_delay: response_delay, error: error do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error) do |response, operation|
+      c.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.block({ response_delay: response_delay, error: error }, grpc_options) do |response, operation|
+      c.block({ response_delay: response_delay, error: error }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.block(::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error), grpc_options) do |response, operation|
+      c.block(::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

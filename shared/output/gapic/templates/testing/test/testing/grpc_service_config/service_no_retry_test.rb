@@ -88,30 +88,30 @@ class ::Testing::GrpcServiceConfig::ServiceNoRetry::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, no_retry_method_client_stub do
       # Create client
-      client_stub = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new do |config|
+      c = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.no_retry_method({  }) do |response, operation|
+      c.no_retry_method({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.no_retry_method ::Testing::GrpcServiceConfig::Request.new() do |response, operation|
+      c.no_retry_method ::Testing::GrpcServiceConfig::Request.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.no_retry_method({  }, grpc_options) do |response, operation|
+      c.no_retry_method({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.no_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
+      c.no_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

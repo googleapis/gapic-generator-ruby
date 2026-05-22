@@ -88,30 +88,30 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_empty_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_empty_garbage({  }) do |response, operation|
+      c.get_empty_garbage({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_empty_garbage ::So::Much::Trash::EmptyGarbage.new() do |response, operation|
+      c.get_empty_garbage ::So::Much::Trash::EmptyGarbage.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_empty_garbage({  }, grpc_options) do |response, operation|
+      c.get_empty_garbage({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_empty_garbage(::So::Much::Trash::EmptyGarbage.new(), grpc_options) do |response, operation|
+      c.get_empty_garbage(::So::Much::Trash::EmptyGarbage.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -140,36 +140,36 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_simple_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_simple_garbage({ name: name }) do |response, operation|
+      c.get_simple_garbage({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_simple_garbage name: name do |response, operation|
+      c.get_simple_garbage name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_simple_garbage ::So::Much::Trash::SimpleGarbage.new(name: name) do |response, operation|
+      c.get_simple_garbage ::So::Much::Trash::SimpleGarbage.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_simple_garbage({ name: name }, grpc_options) do |response, operation|
+      c.get_simple_garbage({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_simple_garbage(::So::Much::Trash::SimpleGarbage.new(name: name), grpc_options) do |response, operation|
+      c.get_simple_garbage(::So::Much::Trash::SimpleGarbage.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -220,36 +220,36 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_specific_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
+      c.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_specific_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested do |response, operation|
+      c.get_specific_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_specific_garbage ::So::Much::Trash::SpecificGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested) do |response, operation|
+      c.get_specific_garbage ::So::Much::Trash::SpecificGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options) do |response, operation|
+      c.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_specific_garbage(::So::Much::Trash::SpecificGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested), grpc_options) do |response, operation|
+      c.get_specific_garbage(::So::Much::Trash::SpecificGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -298,36 +298,36 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_nested_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_nested_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum }) do |response, operation|
+      c.get_nested_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_nested_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum do |response, operation|
+      c.get_nested_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_nested_garbage ::So::Much::Trash::SpecificGarbage::NestedGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum) do |response, operation|
+      c.get_nested_garbage ::So::Much::Trash::SpecificGarbage::NestedGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_nested_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum }, grpc_options) do |response, operation|
+      c.get_nested_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_nested_garbage(::So::Much::Trash::SpecificGarbage::NestedGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum), grpc_options) do |response, operation|
+      c.get_nested_garbage(::So::Much::Trash::SpecificGarbage::NestedGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -376,36 +376,36 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_repeated_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_repeated_garbage({ repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }) do |response, operation|
+      c.get_repeated_garbage({ repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_repeated_garbage repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum do |response, operation|
+      c.get_repeated_garbage repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_repeated_garbage ::So::Much::Trash::RepeatedGarbage.new(repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum) do |response, operation|
+      c.get_repeated_garbage ::So::Much::Trash::RepeatedGarbage.new(repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_repeated_garbage({ repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }, grpc_options) do |response, operation|
+      c.get_repeated_garbage({ repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_repeated_garbage(::So::Much::Trash::RepeatedGarbage.new(repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum), grpc_options) do |response, operation|
+      c.get_repeated_garbage(::So::Much::Trash::RepeatedGarbage.new(repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -474,36 +474,36 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_typical_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param }) do |response, operation|
+      c.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_typical_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param do |response, operation|
+      c.get_typical_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_typical_garbage ::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param) do |response, operation|
+      c.get_typical_garbage ::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param }, grpc_options) do |response, operation|
+      c.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_typical_garbage(::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param), grpc_options) do |response, operation|
+      c.get_typical_garbage(::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -532,36 +532,36 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_typical_garbage_by_request_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_typical_garbage_by_request({ name: name }) do |response, operation|
+      c.get_typical_garbage_by_request({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_typical_garbage_by_request name: name do |response, operation|
+      c.get_typical_garbage_by_request name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_typical_garbage_by_request ::So::Much::Trash::GetTypicalGarbageRequest.new(name: name) do |response, operation|
+      c.get_typical_garbage_by_request ::So::Much::Trash::GetTypicalGarbageRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_typical_garbage_by_request({ name: name }, grpc_options) do |response, operation|
+      c.get_typical_garbage_by_request({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_typical_garbage_by_request(::So::Much::Trash::GetTypicalGarbageRequest.new(name: name), grpc_options) do |response, operation|
+      c.get_typical_garbage_by_request(::So::Much::Trash::GetTypicalGarbageRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -590,36 +590,36 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_complex_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_complex_garbage({ layer1: layer1 }) do |response, operation|
+      c.get_complex_garbage({ layer1: layer1 }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_complex_garbage layer1: layer1 do |response, operation|
+      c.get_complex_garbage layer1: layer1 do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_complex_garbage ::So::Much::Trash::ComplexGarbage.new(layer1: layer1) do |response, operation|
+      c.get_complex_garbage ::So::Much::Trash::ComplexGarbage.new(layer1: layer1) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_complex_garbage({ layer1: layer1 }, grpc_options) do |response, operation|
+      c.get_complex_garbage({ layer1: layer1 }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_complex_garbage(::So::Much::Trash::ComplexGarbage.new(layer1: layer1), grpc_options) do |response, operation|
+      c.get_complex_garbage(::So::Much::Trash::ComplexGarbage.new(layer1: layer1), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -650,36 +650,36 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_garbage_node_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_garbage_node({ data: data, parent: parent }) do |response, operation|
+      c.get_garbage_node({ data: data, parent: parent }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_garbage_node data: data, parent: parent do |response, operation|
+      c.get_garbage_node data: data, parent: parent do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_garbage_node ::So::Much::Trash::GarbageNode.new(data: data, parent: parent) do |response, operation|
+      c.get_garbage_node ::So::Much::Trash::GarbageNode.new(data: data, parent: parent) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_garbage_node({ data: data, parent: parent }, grpc_options) do |response, operation|
+      c.get_garbage_node({ data: data, parent: parent }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_garbage_node(::So::Much::Trash::GarbageNode.new(data: data, parent: parent), grpc_options) do |response, operation|
+      c.get_garbage_node(::So::Much::Trash::GarbageNode.new(data: data, parent: parent), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -712,40 +712,40 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_paged_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_paged_garbage({ garbage: garbage, page_size: page_size, page_token: page_token }) do |response, operation|
+      c.get_paged_garbage({ garbage: garbage, page_size: page_size, page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_paged_garbage garbage: garbage, page_size: page_size, page_token: page_token do |response, operation|
+      c.get_paged_garbage garbage: garbage, page_size: page_size, page_token: page_token do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_paged_garbage ::So::Much::Trash::PagedGarbageRequest.new(garbage: garbage, page_size: page_size, page_token: page_token) do |response, operation|
+      c.get_paged_garbage ::So::Much::Trash::PagedGarbageRequest.new(garbage: garbage, page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_paged_garbage({ garbage: garbage, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      c.get_paged_garbage({ garbage: garbage, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_paged_garbage(::So::Much::Trash::PagedGarbageRequest.new(garbage: garbage, page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
+      c.get_paged_garbage(::So::Much::Trash::PagedGarbageRequest.new(garbage: garbage, page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -775,40 +775,40 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, long_running_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.long_running_garbage({ garbage: garbage }) do |response, operation|
+      c.long_running_garbage({ garbage: garbage }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.long_running_garbage garbage: garbage do |response, operation|
+      c.long_running_garbage garbage: garbage do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.long_running_garbage ::So::Much::Trash::LongRunningGarbageRequest.new(garbage: garbage) do |response, operation|
+      c.long_running_garbage ::So::Much::Trash::LongRunningGarbageRequest.new(garbage: garbage) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.long_running_garbage({ garbage: garbage }, grpc_options) do |response, operation|
+      c.long_running_garbage({ garbage: garbage }, grpc_options) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.long_running_garbage(::So::Much::Trash::LongRunningGarbageRequest.new(garbage: garbage), grpc_options) do |response, operation|
+      c.long_running_garbage(::So::Much::Trash::LongRunningGarbageRequest.new(garbage: garbage), grpc_options) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -838,7 +838,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, client_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -846,7 +846,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { garbage: garbage }
       request_proto = ::So::Much::Trash::ListGarbageRequest.new garbage: garbage
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.client_garbage enum_input do |response, operation|
+      c.client_garbage enum_input do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -855,7 +855,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { garbage: garbage }
       request_proto = ::So::Much::Trash::ListGarbageRequest.new garbage: garbage
       stream_input = Gapic::StreamInput.new
-      client_stub.client_garbage stream_input do |response, operation|
+      c.client_garbage stream_input do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -867,7 +867,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { garbage: garbage }
       request_proto = ::So::Much::Trash::ListGarbageRequest.new garbage: garbage
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.client_garbage enum_input, grpc_options do |response, operation|
+      c.client_garbage enum_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -876,7 +876,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { garbage: garbage }
       request_proto = ::So::Much::Trash::ListGarbageRequest.new garbage: garbage
       stream_input = Gapic::StreamInput.new
-      client_stub.client_garbage stream_input, grpc_options do |response, operation|
+      c.client_garbage stream_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -914,12 +914,12 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, server_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.server_garbage({ garbage: garbage }) do |response, operation|
+      c.server_garbage({ garbage: garbage }) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -928,7 +928,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use named arguments
-      client_stub.server_garbage garbage: garbage do |response, operation|
+      c.server_garbage garbage: garbage do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -937,7 +937,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client_stub.server_garbage ::So::Much::Trash::ListGarbageRequest.new(garbage: garbage) do |response, operation|
+      c.server_garbage ::So::Much::Trash::ListGarbageRequest.new(garbage: garbage) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -946,7 +946,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object with options
-      client_stub.server_garbage({ garbage: garbage }, grpc_options) do |response, operation|
+      c.server_garbage({ garbage: garbage }, grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -955,7 +955,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client_stub.server_garbage(::So::Much::Trash::ListGarbageRequest.new(garbage: garbage), grpc_options) do |response, operation|
+      c.server_garbage(::So::Much::Trash::ListGarbageRequest.new(garbage: garbage), grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -987,7 +987,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, bidi_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -995,7 +995,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { garbage: garbage }
       request_proto = ::So::Much::Trash::ListGarbageRequest.new garbage: garbage
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.bidi_garbage enum_input do |response, operation|
+      c.bidi_garbage enum_input do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -1007,7 +1007,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { garbage: garbage }
       request_proto = ::So::Much::Trash::ListGarbageRequest.new garbage: garbage
       stream_input = Gapic::StreamInput.new
-      client_stub.bidi_garbage stream_input do |response, operation|
+      c.bidi_garbage stream_input do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -1022,7 +1022,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { garbage: garbage }
       request_proto = ::So::Much::Trash::ListGarbageRequest.new garbage: garbage
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.bidi_garbage enum_input, grpc_options do |response, operation|
+      c.bidi_garbage enum_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -1034,7 +1034,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { garbage: garbage }
       request_proto = ::So::Much::Trash::ListGarbageRequest.new garbage: garbage
       stream_input = Gapic::StreamInput.new
-      client_stub.bidi_garbage stream_input, grpc_options do |response, operation|
+      c.bidi_garbage stream_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::GarbageItem, r
@@ -1093,7 +1093,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, bidi_typical_garbage_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -1101,7 +1101,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param }
       request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.bidi_typical_garbage enum_input do |response, operation|
+      c.bidi_typical_garbage enum_input do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::TypicalGarbage, r
@@ -1113,7 +1113,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param }
       request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param
       stream_input = Gapic::StreamInput.new
-      client_stub.bidi_typical_garbage stream_input do |response, operation|
+      c.bidi_typical_garbage stream_input do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::TypicalGarbage, r
@@ -1128,7 +1128,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param }
       request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param
       enum_input = [request_hash, request_proto].to_enum
-      client_stub.bidi_typical_garbage enum_input, grpc_options do |response, operation|
+      c.bidi_typical_garbage enum_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::TypicalGarbage, r
@@ -1140,7 +1140,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param }
       request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32, case: case_param
       stream_input = Gapic::StreamInput.new
-      client_stub.bidi_typical_garbage stream_input, grpc_options do |response, operation|
+      c.bidi_typical_garbage stream_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::So::Much::Trash::TypicalGarbage, r
@@ -1201,30 +1201,30 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, call_send_client_stub do
       # Create client
-      client_stub = ::So::Much::Trash::GarbageService::Client.new do |config|
+      c = ::So::Much::Trash::GarbageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.call_send({  }) do |response, operation|
+      c.call_send({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.call_send ::So::Much::Trash::EmptyGarbage.new() do |response, operation|
+      c.call_send ::So::Much::Trash::EmptyGarbage.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.call_send({  }, grpc_options) do |response, operation|
+      c.call_send({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.call_send(::So::Much::Trash::EmptyGarbage.new(), grpc_options) do |response, operation|
+      c.call_send(::So::Much::Trash::EmptyGarbage.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

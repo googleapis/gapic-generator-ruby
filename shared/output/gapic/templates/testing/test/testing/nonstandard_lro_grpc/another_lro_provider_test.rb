@@ -92,36 +92,36 @@ class ::Testing::NonstandardLroGrpc::AnotherLroProvider::ClientTest < Minitest::
 
     Gapic::ServiceStub.stub :new, get_another_client_stub do
       # Create client
-      client_stub = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Client.new do |config|
+      c = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }) do |response, operation|
+      c.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.get_another another_request_id: another_request_id, another_lro_name: another_lro_name do |response, operation|
+      c.get_another another_request_id: another_request_id, another_lro_name: another_lro_name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.get_another ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name) do |response, operation|
+      c.get_another ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }, grpc_options) do |response, operation|
+      c.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.get_another(::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name), grpc_options) do |response, operation|
+      c.get_another(::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

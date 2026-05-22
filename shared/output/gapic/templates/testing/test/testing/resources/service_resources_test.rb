@@ -90,36 +90,36 @@ class ::Testing::Resources::ServiceResources::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, plain_client_stub do
       # Create client
-      client_stub = ::Testing::Resources::ServiceResources::Client.new do |config|
+      c = ::Testing::Resources::ServiceResources::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.plain({ resource_name: resource_name }) do |response, operation|
+      c.plain({ resource_name: resource_name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.plain resource_name: resource_name do |response, operation|
+      c.plain resource_name: resource_name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.plain ::Testing::Resources::RequestResource.new(resource_name: resource_name) do |response, operation|
+      c.plain ::Testing::Resources::RequestResource.new(resource_name: resource_name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.plain({ resource_name: resource_name }, grpc_options) do |response, operation|
+      c.plain({ resource_name: resource_name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.plain(::Testing::Resources::RequestResource.new(resource_name: resource_name), grpc_options) do |response, operation|
+      c.plain(::Testing::Resources::RequestResource.new(resource_name: resource_name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -148,36 +148,36 @@ class ::Testing::Resources::ServiceResources::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, another_plain_client_stub do
       # Create client
-      client_stub = ::Testing::Resources::ServiceResources::Client.new do |config|
+      c = ::Testing::Resources::ServiceResources::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.another_plain({ resource_name: resource_name }) do |response, operation|
+      c.another_plain({ resource_name: resource_name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.another_plain resource_name: resource_name do |response, operation|
+      c.another_plain resource_name: resource_name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.another_plain ::Testing::Resources::RequestAnotherResource.new(resource_name: resource_name) do |response, operation|
+      c.another_plain ::Testing::Resources::RequestAnotherResource.new(resource_name: resource_name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.another_plain({ resource_name: resource_name }, grpc_options) do |response, operation|
+      c.another_plain({ resource_name: resource_name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.another_plain(::Testing::Resources::RequestAnotherResource.new(resource_name: resource_name), grpc_options) do |response, operation|
+      c.another_plain(::Testing::Resources::RequestAnotherResource.new(resource_name: resource_name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -206,36 +206,36 @@ class ::Testing::Resources::ServiceResources::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, third_plain_client_stub do
       # Create client
-      client_stub = ::Testing::Resources::ServiceResources::Client.new do |config|
+      c = ::Testing::Resources::ServiceResources::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.third_plain({ resource_name: resource_name }) do |response, operation|
+      c.third_plain({ resource_name: resource_name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.third_plain resource_name: resource_name do |response, operation|
+      c.third_plain resource_name: resource_name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.third_plain ::Testing::Resources::RequestThirdResource.new(resource_name: resource_name) do |response, operation|
+      c.third_plain ::Testing::Resources::RequestThirdResource.new(resource_name: resource_name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.third_plain({ resource_name: resource_name }, grpc_options) do |response, operation|
+      c.third_plain({ resource_name: resource_name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.third_plain(::Testing::Resources::RequestThirdResource.new(resource_name: resource_name), grpc_options) do |response, operation|
+      c.third_plain(::Testing::Resources::RequestThirdResource.new(resource_name: resource_name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -264,36 +264,36 @@ class ::Testing::Resources::ServiceResources::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, fourth_plain_client_stub do
       # Create client
-      client_stub = ::Testing::Resources::ServiceResources::Client.new do |config|
+      c = ::Testing::Resources::ServiceResources::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.fourth_plain({ resource_name: resource_name }) do |response, operation|
+      c.fourth_plain({ resource_name: resource_name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.fourth_plain resource_name: resource_name do |response, operation|
+      c.fourth_plain resource_name: resource_name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.fourth_plain ::Testing::Resources::RequestFourthResource.new(resource_name: resource_name) do |response, operation|
+      c.fourth_plain ::Testing::Resources::RequestFourthResource.new(resource_name: resource_name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.fourth_plain({ resource_name: resource_name }, grpc_options) do |response, operation|
+      c.fourth_plain({ resource_name: resource_name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.fourth_plain(::Testing::Resources::RequestFourthResource.new(resource_name: resource_name), grpc_options) do |response, operation|
+      c.fourth_plain(::Testing::Resources::RequestFourthResource.new(resource_name: resource_name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

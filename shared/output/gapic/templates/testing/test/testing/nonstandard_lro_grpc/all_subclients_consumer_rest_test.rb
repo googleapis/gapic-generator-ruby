@@ -105,32 +105,32 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_plain_lro_rpc_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, plain_lro_rpc_client_stub do
         # Create client
-        client_stub = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
+        c = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.plain_lro_rpc({ request_id: request_id }) do |_result, response|
+        c.plain_lro_rpc({ request_id: request_id }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.plain_lro_rpc request_id: request_id do |_result, response|
+        c.plain_lro_rpc request_id: request_id do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.plain_lro_rpc ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |_result, response|
+        c.plain_lro_rpc ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.plain_lro_rpc({ request_id: request_id }, call_options) do |_result, response|
+        c.plain_lro_rpc({ request_id: request_id }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
+        c.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -159,32 +159,32 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_another_lro_rpc_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, another_lro_rpc_client_stub do
         # Create client
-        client_stub = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
+        c = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.another_lro_rpc({ request_id: request_id }) do |_result, response|
+        c.another_lro_rpc({ request_id: request_id }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.another_lro_rpc request_id: request_id do |_result, response|
+        c.another_lro_rpc request_id: request_id do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.another_lro_rpc ::Testing::NonstandardLroGrpc::AnotherRequest.new(request_id: request_id) do |_result, response|
+        c.another_lro_rpc ::Testing::NonstandardLroGrpc::AnotherRequest.new(request_id: request_id) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.another_lro_rpc({ request_id: request_id }, call_options) do |_result, response|
+        c.another_lro_rpc({ request_id: request_id }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.another_lro_rpc(::Testing::NonstandardLroGrpc::AnotherRequest.new(request_id: request_id), call_options) do |_result, response|
+        c.another_lro_rpc(::Testing::NonstandardLroGrpc::AnotherRequest.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -212,27 +212,27 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_non_copy_another_lro_rpc_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, non_copy_another_lro_rpc_client_stub do
         # Create client
-        client_stub = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
+        c = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.non_copy_another_lro_rpc({  }) do |_result, response|
+        c.non_copy_another_lro_rpc({  }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.non_copy_another_lro_rpc ::Testing::NonstandardLroGrpc::NonCopyRequest.new() do |_result, response|
+        c.non_copy_another_lro_rpc ::Testing::NonstandardLroGrpc::NonCopyRequest.new() do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.non_copy_another_lro_rpc({  }, call_options) do |_result, response|
+        c.non_copy_another_lro_rpc({  }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.non_copy_another_lro_rpc(::Testing::NonstandardLroGrpc::NonCopyRequest.new(), call_options) do |_result, response|
+        c.non_copy_another_lro_rpc(::Testing::NonstandardLroGrpc::NonCopyRequest.new(), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -261,32 +261,32 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_aip_lro_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, aip_lro_client_stub do
         # Create client
-        client_stub = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
+        c = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.aip_lro({ request_id: request_id }) do |_result, response|
+        c.aip_lro({ request_id: request_id }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.aip_lro request_id: request_id do |_result, response|
+        c.aip_lro request_id: request_id do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.aip_lro ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |_result, response|
+        c.aip_lro ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.aip_lro({ request_id: request_id }, call_options) do |_result, response|
+        c.aip_lro({ request_id: request_id }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.aip_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
+        c.aip_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -315,32 +315,32 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
     ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_no_lro_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, no_lro_client_stub do
         # Create client
-        client_stub = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
+        c = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.no_lro({ request_id: request_id }) do |_result, response|
+        c.no_lro({ request_id: request_id }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.no_lro request_id: request_id do |_result, response|
+        c.no_lro request_id: request_id do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.no_lro ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |_result, response|
+        c.no_lro ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.no_lro({ request_id: request_id }, call_options) do |_result, response|
+        c.no_lro({ request_id: request_id }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.no_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
+        c.no_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 

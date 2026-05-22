@@ -84,36 +84,36 @@ class ::Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest
 
     Gapic::ServiceStub.stub :new, analyze_sentiment_client_stub do
       # Create client
-      client_stub = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      c = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.analyze_sentiment({ document: document, encoding_type: encoding_type }) do |response, operation|
+      c.analyze_sentiment({ document: document, encoding_type: encoding_type }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.analyze_sentiment document: document, encoding_type: encoding_type do |response, operation|
+      c.analyze_sentiment document: document, encoding_type: encoding_type do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.analyze_sentiment ::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
+      c.analyze_sentiment ::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.analyze_sentiment({ document: document, encoding_type: encoding_type }, grpc_options) do |response, operation|
+      c.analyze_sentiment({ document: document, encoding_type: encoding_type }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.analyze_sentiment(::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type), grpc_options) do |response, operation|
+      c.analyze_sentiment(::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -144,36 +144,36 @@ class ::Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest
 
     Gapic::ServiceStub.stub :new, analyze_entities_client_stub do
       # Create client
-      client_stub = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      c = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.analyze_entities({ document: document, encoding_type: encoding_type }) do |response, operation|
+      c.analyze_entities({ document: document, encoding_type: encoding_type }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.analyze_entities document: document, encoding_type: encoding_type do |response, operation|
+      c.analyze_entities document: document, encoding_type: encoding_type do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.analyze_entities ::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
+      c.analyze_entities ::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.analyze_entities({ document: document, encoding_type: encoding_type }, grpc_options) do |response, operation|
+      c.analyze_entities({ document: document, encoding_type: encoding_type }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.analyze_entities(::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type), grpc_options) do |response, operation|
+      c.analyze_entities(::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -204,36 +204,36 @@ class ::Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest
 
     Gapic::ServiceStub.stub :new, analyze_syntax_client_stub do
       # Create client
-      client_stub = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      c = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.analyze_syntax({ document: document, encoding_type: encoding_type }) do |response, operation|
+      c.analyze_syntax({ document: document, encoding_type: encoding_type }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.analyze_syntax document: document, encoding_type: encoding_type do |response, operation|
+      c.analyze_syntax document: document, encoding_type: encoding_type do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.analyze_syntax ::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
+      c.analyze_syntax ::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.analyze_syntax({ document: document, encoding_type: encoding_type }, grpc_options) do |response, operation|
+      c.analyze_syntax({ document: document, encoding_type: encoding_type }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.analyze_syntax(::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type), grpc_options) do |response, operation|
+      c.analyze_syntax(::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -266,36 +266,36 @@ class ::Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest
 
     Gapic::ServiceStub.stub :new, annotate_text_client_stub do
       # Create client
-      client_stub = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      c = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client_stub.annotate_text({ document: document, features: features, encoding_type: encoding_type }) do |response, operation|
+      c.annotate_text({ document: document, features: features, encoding_type: encoding_type }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client_stub.annotate_text document: document, features: features, encoding_type: encoding_type do |response, operation|
+      c.annotate_text document: document, features: features, encoding_type: encoding_type do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client_stub.annotate_text ::Google::Cloud::Language::V1beta1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type) do |response, operation|
+      c.annotate_text ::Google::Cloud::Language::V1beta1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client_stub.annotate_text({ document: document, features: features, encoding_type: encoding_type }, grpc_options) do |response, operation|
+      c.annotate_text({ document: document, features: features, encoding_type: encoding_type }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client_stub.annotate_text(::Google::Cloud::Language::V1beta1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type), grpc_options) do |response, operation|
+      c.annotate_text(::Google::Cloud::Language::V1beta1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

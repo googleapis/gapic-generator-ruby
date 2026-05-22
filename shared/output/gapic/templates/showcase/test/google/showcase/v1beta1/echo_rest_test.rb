@@ -110,32 +110,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_echo_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, echo_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }) do |_result, response|
+        c.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.echo content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id do |_result, response|
+        c.echo content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id) do |_result, response|
+        c.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }, call_options) do |_result, response|
+        c.echo({ content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id), call_options) do |_result, response|
+        c.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header, request_id: request_id, other_request_id: other_request_id), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -165,32 +165,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_echo_error_details_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, echo_error_details_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }) do |_result, response|
+        c.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.echo_error_details single_detail_text: single_detail_text, multi_detail_text: multi_detail_text do |_result, response|
+        c.echo_error_details single_detail_text: single_detail_text, multi_detail_text: multi_detail_text do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.echo_error_details ::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text) do |_result, response|
+        c.echo_error_details ::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }, call_options) do |_result, response|
+        c.echo_error_details({ single_detail_text: single_detail_text, multi_detail_text: multi_detail_text }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.echo_error_details(::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text), call_options) do |_result, response|
+        c.echo_error_details(::Google::Showcase::V1beta1::EchoErrorDetailsRequest.new(single_detail_text: single_detail_text, multi_detail_text: multi_detail_text), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -219,32 +219,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_fail_echo_with_details_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, fail_echo_with_details_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.fail_echo_with_details({ message: message }) do |_result, response|
+        c.fail_echo_with_details({ message: message }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.fail_echo_with_details message: message do |_result, response|
+        c.fail_echo_with_details message: message do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.fail_echo_with_details ::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message) do |_result, response|
+        c.fail_echo_with_details ::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.fail_echo_with_details({ message: message }, call_options) do |_result, response|
+        c.fail_echo_with_details({ message: message }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.fail_echo_with_details(::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message), call_options) do |_result, response|
+        c.fail_echo_with_details(::Google::Showcase::V1beta1::FailEchoWithDetailsRequest.new(message: message), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -275,32 +275,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_expand_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, expand_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.expand({ content: content, error: error, stream_wait_time: stream_wait_time }) do |_result, response|
+        c.expand({ content: content, error: error, stream_wait_time: stream_wait_time }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use named arguments
-        client_stub.expand content: content, error: error, stream_wait_time: stream_wait_time do |_result, response|
+        c.expand content: content, error: error, stream_wait_time: stream_wait_time do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object
-        client_stub.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time) do |_result, response|
+        c.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use hash object with options
-        client_stub.expand({ content: content, error: error, stream_wait_time: stream_wait_time }, call_options) do |_result, response|
+        c.expand({ content: content, error: error, stream_wait_time: stream_wait_time }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object with options
-        client_stub.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time), call_options) do |_result, response|
+        c.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error, stream_wait_time: stream_wait_time), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
@@ -331,32 +331,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_paged_expand_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, paged_expand_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.paged_expand({ content: content, page_size: page_size, page_token: page_token }) do |_result, response|
+        c.paged_expand({ content: content, page_size: page_size, page_token: page_token }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.paged_expand content: content, page_size: page_size, page_token: page_token do |_result, response|
+        c.paged_expand content: content, page_size: page_size, page_token: page_token do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |_result, response|
+        c.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.paged_expand({ content: content, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
+        c.paged_expand({ content: content, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.paged_expand(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), call_options) do |_result, response|
+        c.paged_expand(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -387,32 +387,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_paged_expand_legacy_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, paged_expand_legacy_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }) do |_result, response|
+        c.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.paged_expand_legacy content: content, max_results: max_results, page_token: page_token do |_result, response|
+        c.paged_expand_legacy content: content, max_results: max_results, page_token: page_token do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.paged_expand_legacy ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token) do |_result, response|
+        c.paged_expand_legacy ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }, call_options) do |_result, response|
+        c.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.paged_expand_legacy(::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token), call_options) do |_result, response|
+        c.paged_expand_legacy(::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -443,32 +443,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_paged_expand_legacy_mapped_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, paged_expand_legacy_mapped_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }) do |_result, response|
+        c.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.paged_expand_legacy_mapped content: content, page_size: page_size, page_token: page_token do |_result, response|
+        c.paged_expand_legacy_mapped content: content, page_size: page_size, page_token: page_token do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.paged_expand_legacy_mapped ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |_result, response|
+        c.paged_expand_legacy_mapped ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
+        c.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.paged_expand_legacy_mapped(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), call_options) do |_result, response|
+        c.paged_expand_legacy_mapped(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -498,32 +498,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_wait_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, wait_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.wait({ end_time: end_time, error: error }) do |_result, response|
+        c.wait({ end_time: end_time, error: error }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.wait end_time: end_time, error: error do |_result, response|
+        c.wait end_time: end_time, error: error do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error) do |_result, response|
+        c.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.wait({ end_time: end_time, error: error }, call_options) do |_result, response|
+        c.wait({ end_time: end_time, error: error }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.wait(::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error), call_options) do |_result, response|
+        c.wait(::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -553,32 +553,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_block_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, block_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.block({ response_delay: response_delay, error: error }) do |_result, response|
+        c.block({ response_delay: response_delay, error: error }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.block response_delay: response_delay, error: error do |_result, response|
+        c.block response_delay: response_delay, error: error do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error) do |_result, response|
+        c.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.block({ response_delay: response_delay, error: error }, call_options) do |_result, response|
+        c.block({ response_delay: response_delay, error: error }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.block(::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error), call_options) do |_result, response|
+        c.block(::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 

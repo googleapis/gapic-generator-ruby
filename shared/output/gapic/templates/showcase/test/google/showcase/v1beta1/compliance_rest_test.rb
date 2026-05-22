@@ -114,32 +114,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_repeat_data_body_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, repeat_data_body_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.repeat_data_body({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
+        c.repeat_data_body({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.repeat_data_body name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
+        c.repeat_data_body name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.repeat_data_body ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
+        c.repeat_data_body ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.repeat_data_body({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
+        c.repeat_data_body({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.repeat_data_body(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
+        c.repeat_data_body(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -177,32 +177,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_repeat_data_body_info_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, repeat_data_body_info_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.repeat_data_body_info({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
+        c.repeat_data_body_info({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.repeat_data_body_info name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
+        c.repeat_data_body_info name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.repeat_data_body_info ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
+        c.repeat_data_body_info ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.repeat_data_body_info({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
+        c.repeat_data_body_info({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.repeat_data_body_info(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
+        c.repeat_data_body_info(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -240,32 +240,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_repeat_data_query_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, repeat_data_query_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.repeat_data_query({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
+        c.repeat_data_query({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.repeat_data_query name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
+        c.repeat_data_query name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.repeat_data_query ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
+        c.repeat_data_query ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.repeat_data_query({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
+        c.repeat_data_query({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.repeat_data_query(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
+        c.repeat_data_query(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -303,32 +303,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_repeat_data_simple_path_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, repeat_data_simple_path_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.repeat_data_simple_path({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
+        c.repeat_data_simple_path({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.repeat_data_simple_path name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
+        c.repeat_data_simple_path name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.repeat_data_simple_path ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
+        c.repeat_data_simple_path ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.repeat_data_simple_path({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
+        c.repeat_data_simple_path({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.repeat_data_simple_path(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
+        c.repeat_data_simple_path(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -366,32 +366,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_repeat_data_path_resource_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, repeat_data_path_resource_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.repeat_data_path_resource({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
+        c.repeat_data_path_resource({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.repeat_data_path_resource name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
+        c.repeat_data_path_resource name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.repeat_data_path_resource ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
+        c.repeat_data_path_resource ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.repeat_data_path_resource({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
+        c.repeat_data_path_resource({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.repeat_data_path_resource(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
+        c.repeat_data_path_resource(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -429,32 +429,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_repeat_data_path_trailing_resource_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, repeat_data_path_trailing_resource_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.repeat_data_path_trailing_resource({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
+        c.repeat_data_path_trailing_resource({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.repeat_data_path_trailing_resource name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
+        c.repeat_data_path_trailing_resource name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.repeat_data_path_trailing_resource ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
+        c.repeat_data_path_trailing_resource ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.repeat_data_path_trailing_resource({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
+        c.repeat_data_path_trailing_resource({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.repeat_data_path_trailing_resource(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
+        c.repeat_data_path_trailing_resource(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -492,32 +492,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_repeat_data_body_put_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, repeat_data_body_put_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.repeat_data_body_put({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
+        c.repeat_data_body_put({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.repeat_data_body_put name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
+        c.repeat_data_body_put name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.repeat_data_body_put ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
+        c.repeat_data_body_put ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.repeat_data_body_put({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
+        c.repeat_data_body_put({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.repeat_data_body_put(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
+        c.repeat_data_body_put(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -555,32 +555,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_repeat_data_body_patch_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, repeat_data_body_patch_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.repeat_data_body_patch({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
+        c.repeat_data_body_patch({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.repeat_data_body_patch name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
+        c.repeat_data_body_patch name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.repeat_data_body_patch ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
+        c.repeat_data_body_patch ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.repeat_data_body_patch({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
+        c.repeat_data_body_patch({ name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.repeat_data_body_patch(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
+        c.repeat_data_body_patch(::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, intended_binding_uri: intended_binding_uri, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -609,32 +609,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_get_enum_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, get_enum_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.get_enum({ unknown_enum: unknown_enum }) do |_result, response|
+        c.get_enum({ unknown_enum: unknown_enum }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.get_enum unknown_enum: unknown_enum do |_result, response|
+        c.get_enum unknown_enum: unknown_enum do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.get_enum ::Google::Showcase::V1beta1::EnumRequest.new(unknown_enum: unknown_enum) do |_result, response|
+        c.get_enum ::Google::Showcase::V1beta1::EnumRequest.new(unknown_enum: unknown_enum) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.get_enum({ unknown_enum: unknown_enum }, call_options) do |_result, response|
+        c.get_enum({ unknown_enum: unknown_enum }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.get_enum(::Google::Showcase::V1beta1::EnumRequest.new(unknown_enum: unknown_enum), call_options) do |_result, response|
+        c.get_enum(::Google::Showcase::V1beta1::EnumRequest.new(unknown_enum: unknown_enum), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -664,32 +664,32 @@ class ::Google::Showcase::V1beta1::Compliance::Rest::ClientTest < Minitest::Test
     ::Google::Showcase::V1beta1::Compliance::Rest::ServiceStub.stub :transcode_verify_enum_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, verify_enum_client_stub do
         # Create client
-        client_stub = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.verify_enum({ request: request, continent: continent }) do |_result, response|
+        c.verify_enum({ request: request, continent: continent }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client_stub.verify_enum request: request, continent: continent do |_result, response|
+        c.verify_enum request: request, continent: continent do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.verify_enum ::Google::Showcase::V1beta1::EnumResponse.new(request: request, continent: continent) do |_result, response|
+        c.verify_enum ::Google::Showcase::V1beta1::EnumResponse.new(request: request, continent: continent) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.verify_enum({ request: request, continent: continent }, call_options) do |_result, response|
+        c.verify_enum({ request: request, continent: continent }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.verify_enum(::Google::Showcase::V1beta1::EnumResponse.new(request: request, continent: continent), call_options) do |_result, response|
+        c.verify_enum(::Google::Showcase::V1beta1::EnumResponse.new(request: request, continent: continent), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 

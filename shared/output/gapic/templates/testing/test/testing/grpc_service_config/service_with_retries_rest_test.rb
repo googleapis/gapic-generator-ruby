@@ -104,27 +104,27 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ClientTest < Minit
     ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ServiceStub.stub :transcode_service_level_retry_method_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, service_level_retry_method_client_stub do
         # Create client
-        client_stub = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new do |config|
+        c = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.service_level_retry_method({  }) do |_result, response|
+        c.service_level_retry_method({  }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
+        c.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.service_level_retry_method({  }, call_options) do |_result, response|
+        c.service_level_retry_method({  }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
+        c.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -152,27 +152,27 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ClientTest < Minit
     ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ServiceStub.stub :transcode_method_level_retry_method_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, method_level_retry_method_client_stub do
         # Create client
-        client_stub = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new do |config|
+        c = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client_stub.method_level_retry_method({  }) do |_result, response|
+        c.method_level_retry_method({  }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client_stub.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
+        c.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client_stub.method_level_retry_method({  }, call_options) do |_result, response|
+        c.method_level_retry_method({  }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client_stub.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
+        c.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
