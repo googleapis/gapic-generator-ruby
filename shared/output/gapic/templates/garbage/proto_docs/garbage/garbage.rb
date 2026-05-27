@@ -477,7 +477,7 @@ module So
         DUMPSTER = 3
 
         # The end of garbage.
-        GarbageEnum::END = 4
+        const_set :END, 4
       end
     end
   end

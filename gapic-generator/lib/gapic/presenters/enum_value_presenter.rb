@@ -28,7 +28,18 @@ module Gapic
 
       # @return [String] The enum value name without keyword collision.
       def name
-        Gapic::RubyInfo.keywords.include?(@value.name) ? "#{@value.parent.name}::#{@value.name}" : @value.name
+        keyword_collision? ? "#{@value.parent.name}::#{@value.name}" : @value.name
+      end
+
+      # @return [Boolean] Whether the enum name collides with a Ruby keyword.
+      def keyword_collision?
+        Gapic::RubyInfo.keywords.include? @value.name
+      end
+
+      # @return [String] The doc stub string for the enum value. Prevents YARD warnings in cases of keyword
+      # collision.
+      def doc_line
+        keyword_collision? ? "const_set :#{@value.name}, #{@value.number}" : "#{@value.name} = #{@value.number}"
       end
 
       def doc_description
