@@ -9,6 +9,6 @@ module <%= enum.name %>
   <%- if value.doc_description -%>
 <%= indent value.doc_description, "  # " %>
   <%- end -%>
-  <%= value.name %> = <%= value.number %>
+  <%= value.doc_line %>
   <%- end -%>
 end

@@ -29,5 +29,13 @@ class EnumValuePresenterTest < PresenterTest
   def test_enum_value_name_with_keyword_collision
     evp = typical_garbage_enum_value 4
     assert_equal "GarbageEnum::END", evp.name
+    assert evp.keyword_collision?
+    assert_equal "const_set :END, 4", evp.doc_line
+  end
+
+  def test_enum_value_doc_line_no_keyword_collision
+    evp = typical_garbage_enum_value 3
+    refute evp.keyword_collision?
+    assert_equal "DUMPSTER = 3", evp.doc_line
   end
 end
