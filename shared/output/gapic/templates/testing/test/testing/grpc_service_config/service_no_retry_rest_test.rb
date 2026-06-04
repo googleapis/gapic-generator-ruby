@@ -104,27 +104,27 @@ class ::Testing::GrpcServiceConfig::ServiceNoRetry::Rest::ClientTest < Minitest:
     ::Testing::GrpcServiceConfig::ServiceNoRetry::Rest::ServiceStub.stub :transcode_no_retry_method_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, no_retry_method_client_stub do
         # Create client
-        client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Rest::Client.new do |config|
+        c = ::Testing::GrpcServiceConfig::ServiceNoRetry::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.no_retry_method({  }) do |_result, response|
+        c.no_retry_method({  }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.no_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
+        c.no_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.no_retry_method({  }, call_options) do |_result, response|
+        c.no_retry_method({  }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.no_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
+        c.no_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 

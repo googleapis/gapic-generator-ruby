@@ -106,32 +106,32 @@ class ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::ClientTest < Minite
     ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::ServiceStub.stub :transcode_get_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, get_client_stub do
         # Create client
-        client = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
+        c = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.get({ initial_request_id: initial_request_id, lro_name: lro_name }) do |_result, response|
+        c.get({ initial_request_id: initial_request_id, lro_name: lro_name }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.get initial_request_id: initial_request_id, lro_name: lro_name do |_result, response|
+        c.get initial_request_id: initial_request_id, lro_name: lro_name do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.get ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id, lro_name: lro_name) do |_result, response|
+        c.get ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id, lro_name: lro_name) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.get({ initial_request_id: initial_request_id, lro_name: lro_name }, call_options) do |_result, response|
+        c.get({ initial_request_id: initial_request_id, lro_name: lro_name }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.get(::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id, lro_name: lro_name), call_options) do |_result, response|
+        c.get(::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id, lro_name: lro_name), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 

@@ -90,36 +90,36 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, create_session_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.create_session({ session: session }) do |response, operation|
+      c.create_session({ session: session }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.create_session session: session do |response, operation|
+      c.create_session session: session do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.create_session ::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session) do |response, operation|
+      c.create_session ::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.create_session({ session: session }, grpc_options) do |response, operation|
+      c.create_session({ session: session }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.create_session(::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session), grpc_options) do |response, operation|
+      c.create_session(::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -148,36 +148,36 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_session_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.get_session({ name: name }) do |response, operation|
+      c.get_session({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.get_session name: name do |response, operation|
+      c.get_session name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.get_session ::Google::Showcase::V1beta1::GetSessionRequest.new(name: name) do |response, operation|
+      c.get_session ::Google::Showcase::V1beta1::GetSessionRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.get_session({ name: name }, grpc_options) do |response, operation|
+      c.get_session({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.get_session(::Google::Showcase::V1beta1::GetSessionRequest.new(name: name), grpc_options) do |response, operation|
+      c.get_session(::Google::Showcase::V1beta1::GetSessionRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -208,40 +208,40 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, list_sessions_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.list_sessions({ page_size: page_size, page_token: page_token }) do |response, operation|
+      c.list_sessions({ page_size: page_size, page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.list_sessions page_size: page_size, page_token: page_token do |response, operation|
+      c.list_sessions page_size: page_size, page_token: page_token do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token) do |response, operation|
+      c.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.list_sessions({ page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      c.list_sessions({ page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.list_sessions(::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
+      c.list_sessions(::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -271,36 +271,36 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, delete_session_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.delete_session({ name: name }) do |response, operation|
+      c.delete_session({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.delete_session name: name do |response, operation|
+      c.delete_session name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.delete_session ::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name) do |response, operation|
+      c.delete_session ::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.delete_session({ name: name }, grpc_options) do |response, operation|
+      c.delete_session({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.delete_session(::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name), grpc_options) do |response, operation|
+      c.delete_session(::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -329,36 +329,36 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, report_session_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.report_session({ name: name }) do |response, operation|
+      c.report_session({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.report_session name: name do |response, operation|
+      c.report_session name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.report_session ::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name) do |response, operation|
+      c.report_session ::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.report_session({ name: name }, grpc_options) do |response, operation|
+      c.report_session({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.report_session(::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name), grpc_options) do |response, operation|
+      c.report_session(::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -391,40 +391,40 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, list_tests_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }) do |response, operation|
+      c.list_tests({ parent: parent, page_size: page_size, page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.list_tests parent: parent, page_size: page_size, page_token: page_token do |response, operation|
+      c.list_tests parent: parent, page_size: page_size, page_token: page_token do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
+      c.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      c.list_tests({ parent: parent, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.list_tests(::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
+      c.list_tests(::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -454,36 +454,36 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, delete_test_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.delete_test({ name: name }) do |response, operation|
+      c.delete_test({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.delete_test name: name do |response, operation|
+      c.delete_test name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.delete_test ::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name) do |response, operation|
+      c.delete_test ::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.delete_test({ name: name }, grpc_options) do |response, operation|
+      c.delete_test({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.delete_test(::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name), grpc_options) do |response, operation|
+      c.delete_test(::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -516,36 +516,36 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, verify_test_client_stub do
       # Create client
-      client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
+      c = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.verify_test({ name: name, answer: answer, answers: answers }) do |response, operation|
+      c.verify_test({ name: name, answer: answer, answers: answers }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.verify_test name: name, answer: answer, answers: answers do |response, operation|
+      c.verify_test name: name, answer: answer, answers: answers do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers) do |response, operation|
+      c.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.verify_test({ name: name, answer: answer, answers: answers }, grpc_options) do |response, operation|
+      c.verify_test({ name: name, answer: answer, answers: answers }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.verify_test(::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers), grpc_options) do |response, operation|
+      c.verify_test(::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

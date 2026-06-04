@@ -94,36 +94,36 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, simple_pattern_method_client_stub do
       # Create client
-      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+      c = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }) do |response, operation|
+      c.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.simple_pattern_method real_name: real_name, ref: ref, repeated_ref: repeated_ref do |response, operation|
+      c.simple_pattern_method real_name: real_name, ref: ref, repeated_ref: repeated_ref do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.simple_pattern_method ::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref) do |response, operation|
+      c.simple_pattern_method ::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }, grpc_options) do |response, operation|
+      c.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.simple_pattern_method(::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref), grpc_options) do |response, operation|
+      c.simple_pattern_method(::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -156,36 +156,36 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, complex_pattern_method_client_stub do
       # Create client
-      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+      c = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }) do |response, operation|
+      c.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.complex_pattern_method real_name: real_name, ref: ref, repeated_ref: repeated_ref do |response, operation|
+      c.complex_pattern_method real_name: real_name, ref: ref, repeated_ref: repeated_ref do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.complex_pattern_method ::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref) do |response, operation|
+      c.complex_pattern_method ::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }, grpc_options) do |response, operation|
+      c.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.complex_pattern_method(::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref), grpc_options) do |response, operation|
+      c.complex_pattern_method(::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -214,36 +214,36 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, resource_name_pattern_method_client_stub do
       # Create client
-      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+      c = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.resource_name_pattern_method({ name: name }) do |response, operation|
+      c.resource_name_pattern_method({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.resource_name_pattern_method name: name do |response, operation|
+      c.resource_name_pattern_method name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.resource_name_pattern_method ::So::Much::Trash::ResourceNamePatternRequest.new(name: name) do |response, operation|
+      c.resource_name_pattern_method ::So::Much::Trash::ResourceNamePatternRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.resource_name_pattern_method({ name: name }, grpc_options) do |response, operation|
+      c.resource_name_pattern_method({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.resource_name_pattern_method(::So::Much::Trash::ResourceNamePatternRequest.new(name: name), grpc_options) do |response, operation|
+      c.resource_name_pattern_method(::So::Much::Trash::ResourceNamePatternRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -272,36 +272,36 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, multiparent_method_client_stub do
       # Create client
-      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+      c = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.multiparent_method({ parent: parent }) do |response, operation|
+      c.multiparent_method({ parent: parent }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.multiparent_method parent: parent do |response, operation|
+      c.multiparent_method parent: parent do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.multiparent_method ::So::Much::Trash::MultiparentRequest.new(parent: parent) do |response, operation|
+      c.multiparent_method ::So::Much::Trash::MultiparentRequest.new(parent: parent) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.multiparent_method({ parent: parent }, grpc_options) do |response, operation|
+      c.multiparent_method({ parent: parent }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.multiparent_method(::So::Much::Trash::MultiparentRequest.new(parent: parent), grpc_options) do |response, operation|
+      c.multiparent_method(::So::Much::Trash::MultiparentRequest.new(parent: parent), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -330,36 +330,36 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, no_arguments_multi_method_client_stub do
       # Create client
-      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+      c = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.no_arguments_multi_method({ name: name }) do |response, operation|
+      c.no_arguments_multi_method({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.no_arguments_multi_method name: name do |response, operation|
+      c.no_arguments_multi_method name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.no_arguments_multi_method ::So::Much::Trash::NoArgumentsMultiRequest.new(name: name) do |response, operation|
+      c.no_arguments_multi_method ::So::Much::Trash::NoArgumentsMultiRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.no_arguments_multi_method({ name: name }, grpc_options) do |response, operation|
+      c.no_arguments_multi_method({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.no_arguments_multi_method(::So::Much::Trash::NoArgumentsMultiRequest.new(name: name), grpc_options) do |response, operation|
+      c.no_arguments_multi_method(::So::Much::Trash::NoArgumentsMultiRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

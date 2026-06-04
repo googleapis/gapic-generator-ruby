@@ -90,40 +90,40 @@ class ::Testing::NonstandardLroGrpc::PlainLroConsumer::ClientTest < Minitest::Te
 
     Gapic::ServiceStub.stub :new, plain_lro_rpc_client_stub do
       # Create client
-      client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Client.new do |config|
+      c = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.plain_lro_rpc({ request_id: request_id }) do |response, operation|
+      c.plain_lro_rpc({ request_id: request_id }) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.plain_lro_rpc request_id: request_id do |response, operation|
+      c.plain_lro_rpc request_id: request_id do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.plain_lro_rpc ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |response, operation|
+      c.plain_lro_rpc ::Testing::NonstandardLroGrpc::Request.new(request_id: request_id) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.plain_lro_rpc({ request_id: request_id }, grpc_options) do |response, operation|
+      c.plain_lro_rpc({ request_id: request_id }, grpc_options) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), grpc_options) do |response, operation|
+      c.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), grpc_options) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation

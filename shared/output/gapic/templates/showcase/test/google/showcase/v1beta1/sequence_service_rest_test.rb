@@ -105,32 +105,32 @@ class ::Google::Showcase::V1beta1::SequenceService::Rest::ClientTest < Minitest:
     ::Google::Showcase::V1beta1::SequenceService::Rest::ServiceStub.stub :transcode_create_sequence_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, create_sequence_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.create_sequence({ sequence: sequence }) do |_result, response|
+        c.create_sequence({ sequence: sequence }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.create_sequence sequence: sequence do |_result, response|
+        c.create_sequence sequence: sequence do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.create_sequence ::Google::Showcase::V1beta1::CreateSequenceRequest.new(sequence: sequence) do |_result, response|
+        c.create_sequence ::Google::Showcase::V1beta1::CreateSequenceRequest.new(sequence: sequence) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.create_sequence({ sequence: sequence }, call_options) do |_result, response|
+        c.create_sequence({ sequence: sequence }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.create_sequence(::Google::Showcase::V1beta1::CreateSequenceRequest.new(sequence: sequence), call_options) do |_result, response|
+        c.create_sequence(::Google::Showcase::V1beta1::CreateSequenceRequest.new(sequence: sequence), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -159,32 +159,32 @@ class ::Google::Showcase::V1beta1::SequenceService::Rest::ClientTest < Minitest:
     ::Google::Showcase::V1beta1::SequenceService::Rest::ServiceStub.stub :transcode_create_streaming_sequence_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, create_streaming_sequence_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.create_streaming_sequence({ streaming_sequence: streaming_sequence }) do |_result, response|
+        c.create_streaming_sequence({ streaming_sequence: streaming_sequence }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.create_streaming_sequence streaming_sequence: streaming_sequence do |_result, response|
+        c.create_streaming_sequence streaming_sequence: streaming_sequence do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.create_streaming_sequence ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest.new(streaming_sequence: streaming_sequence) do |_result, response|
+        c.create_streaming_sequence ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest.new(streaming_sequence: streaming_sequence) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.create_streaming_sequence({ streaming_sequence: streaming_sequence }, call_options) do |_result, response|
+        c.create_streaming_sequence({ streaming_sequence: streaming_sequence }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.create_streaming_sequence(::Google::Showcase::V1beta1::CreateStreamingSequenceRequest.new(streaming_sequence: streaming_sequence), call_options) do |_result, response|
+        c.create_streaming_sequence(::Google::Showcase::V1beta1::CreateStreamingSequenceRequest.new(streaming_sequence: streaming_sequence), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -213,32 +213,32 @@ class ::Google::Showcase::V1beta1::SequenceService::Rest::ClientTest < Minitest:
     ::Google::Showcase::V1beta1::SequenceService::Rest::ServiceStub.stub :transcode_get_sequence_report_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, get_sequence_report_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.get_sequence_report({ name: name }) do |_result, response|
+        c.get_sequence_report({ name: name }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.get_sequence_report name: name do |_result, response|
+        c.get_sequence_report name: name do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.get_sequence_report ::Google::Showcase::V1beta1::GetSequenceReportRequest.new(name: name) do |_result, response|
+        c.get_sequence_report ::Google::Showcase::V1beta1::GetSequenceReportRequest.new(name: name) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.get_sequence_report({ name: name }, call_options) do |_result, response|
+        c.get_sequence_report({ name: name }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.get_sequence_report(::Google::Showcase::V1beta1::GetSequenceReportRequest.new(name: name), call_options) do |_result, response|
+        c.get_sequence_report(::Google::Showcase::V1beta1::GetSequenceReportRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -267,32 +267,32 @@ class ::Google::Showcase::V1beta1::SequenceService::Rest::ClientTest < Minitest:
     ::Google::Showcase::V1beta1::SequenceService::Rest::ServiceStub.stub :transcode_get_streaming_sequence_report_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, get_streaming_sequence_report_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.get_streaming_sequence_report({ name: name }) do |_result, response|
+        c.get_streaming_sequence_report({ name: name }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.get_streaming_sequence_report name: name do |_result, response|
+        c.get_streaming_sequence_report name: name do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.get_streaming_sequence_report ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest.new(name: name) do |_result, response|
+        c.get_streaming_sequence_report ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest.new(name: name) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.get_streaming_sequence_report({ name: name }, call_options) do |_result, response|
+        c.get_streaming_sequence_report({ name: name }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.get_streaming_sequence_report(::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest.new(name: name), call_options) do |_result, response|
+        c.get_streaming_sequence_report(::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -321,32 +321,32 @@ class ::Google::Showcase::V1beta1::SequenceService::Rest::ClientTest < Minitest:
     ::Google::Showcase::V1beta1::SequenceService::Rest::ServiceStub.stub :transcode_attempt_sequence_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, attempt_sequence_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.attempt_sequence({ name: name }) do |_result, response|
+        c.attempt_sequence({ name: name }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
-        client.attempt_sequence name: name do |_result, response|
+        c.attempt_sequence name: name do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.attempt_sequence ::Google::Showcase::V1beta1::AttemptSequenceRequest.new(name: name) do |_result, response|
+        c.attempt_sequence ::Google::Showcase::V1beta1::AttemptSequenceRequest.new(name: name) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.attempt_sequence({ name: name }, call_options) do |_result, response|
+        c.attempt_sequence({ name: name }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.attempt_sequence(::Google::Showcase::V1beta1::AttemptSequenceRequest.new(name: name), call_options) do |_result, response|
+        c.attempt_sequence(::Google::Showcase::V1beta1::AttemptSequenceRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
@@ -376,32 +376,32 @@ class ::Google::Showcase::V1beta1::SequenceService::Rest::ClientTest < Minitest:
     ::Google::Showcase::V1beta1::SequenceService::Rest::ServiceStub.stub :transcode_attempt_streaming_sequence_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, attempt_streaming_sequence_client_stub do
         # Create client
-        client = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
+        c = ::Google::Showcase::V1beta1::SequenceService::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.attempt_streaming_sequence({ name: name, last_fail_index: last_fail_index }) do |_result, response|
+        c.attempt_streaming_sequence({ name: name, last_fail_index: last_fail_index }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use named arguments
-        client.attempt_streaming_sequence name: name, last_fail_index: last_fail_index do |_result, response|
+        c.attempt_streaming_sequence name: name, last_fail_index: last_fail_index do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object
-        client.attempt_streaming_sequence ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest.new(name: name, last_fail_index: last_fail_index) do |_result, response|
+        c.attempt_streaming_sequence ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest.new(name: name, last_fail_index: last_fail_index) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use hash object with options
-        client.attempt_streaming_sequence({ name: name, last_fail_index: last_fail_index }, call_options) do |_result, response|
+        c.attempt_streaming_sequence({ name: name, last_fail_index: last_fail_index }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object with options
-        client.attempt_streaming_sequence(::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest.new(name: name, last_fail_index: last_fail_index), call_options) do |_result, response|
+        c.attempt_streaming_sequence(::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest.new(name: name, last_fail_index: last_fail_index), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end.first
 

@@ -88,30 +88,30 @@ class ::So::Much::Trash::ReallyRenamedService::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_empty_garbage_client_stub do
       # Create client
-      client = ::So::Much::Trash::ReallyRenamedService::Client.new do |config|
+      c = ::So::Much::Trash::ReallyRenamedService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use hash object
-      client.get_empty_garbage({  }) do |response, operation|
+      c.get_empty_garbage({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.get_empty_garbage ::So::Much::Trash::EmptyGarbage.new() do |response, operation|
+      c.get_empty_garbage ::So::Much::Trash::EmptyGarbage.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.get_empty_garbage({  }, grpc_options) do |response, operation|
+      c.get_empty_garbage({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.get_empty_garbage(::So::Much::Trash::EmptyGarbage.new(), grpc_options) do |response, operation|
+      c.get_empty_garbage(::So::Much::Trash::EmptyGarbage.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

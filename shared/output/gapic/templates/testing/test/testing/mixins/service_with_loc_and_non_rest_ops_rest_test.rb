@@ -104,27 +104,27 @@ class ::Testing::Mixins::ServiceWithLocAndNonRestOps::Rest::ClientTest < Minites
     ::Testing::Mixins::ServiceWithLocAndNonRestOps::Rest::ServiceStub.stub :transcode_call_method_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, call_method_client_stub do
         # Create client
-        client = ::Testing::Mixins::ServiceWithLocAndNonRestOps::Rest::Client.new do |config|
+        c = ::Testing::Mixins::ServiceWithLocAndNonRestOps::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 
         # Use hash object
-        client.call_method({  }) do |_result, response|
+        c.call_method({  }) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
-        client.call_method ::Testing::Mixins::Request.new() do |_result, response|
+        c.call_method ::Testing::Mixins::Request.new() do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
-        client.call_method({  }, call_options) do |_result, response|
+        c.call_method({  }, call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
-        client.call_method(::Testing::Mixins::Request.new(), call_options) do |_result, response|
+        c.call_method(::Testing::Mixins::Request.new(), call_options) do |_result, response|
           assert_equal http_response, response.underlying_op
         end
 
