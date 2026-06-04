@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.49.0 / 2026-06-04
+
+* Feature: add retry jitter configuration
+* Feature: Skip generation for services without RPC methods defined
+* Fix: rename variable in generated test methods to avoid field name collision
+* Fix: prevent YARD failures on enum keywords
+
 ### 0.48.1 / 2026-03-17
 
 * Fix: Add irb to dependencies

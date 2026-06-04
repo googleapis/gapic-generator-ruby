@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.49.0 / 2026-06-04
+
+* Includes changes from gapic-generator 0.49.0
+* Feature: Skip generation for services without RPC methods defined
+
 ### 0.48.1 / 2026-03-17
 
 * Includes changes from gapic-generator 0.48.1
