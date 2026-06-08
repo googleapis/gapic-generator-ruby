@@ -14,13 +14,15 @@ jobs:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
     permissions:
       contents: write
       packages: read
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
       - name: Install Ruby 3.4
         uses: ruby/setup-ruby@v1
         with:
