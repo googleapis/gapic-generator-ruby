@@ -54,7 +54,7 @@ GEM
     google-cloud-common (1.10.0)
       google-protobuf (>= 3.18, < 5.a)
       googleapis-common-protos-types (~> 1.20)
-    google-protobuf (4.35.0-x86_64-linux-gnu)
+    google-protobuf (4.35.1-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
     google-style (1.32.0)
@@ -65,7 +65,7 @@ GEM
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     io-console (0.8.2)
-    json (2.19.8)
+    json (2.19.9)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)

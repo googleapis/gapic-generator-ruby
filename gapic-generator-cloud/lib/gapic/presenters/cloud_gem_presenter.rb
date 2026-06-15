@@ -47,7 +47,7 @@ module Gapic
 
       def dependencies
         deps = super
-        deps["google-cloud-errors"] = "~> 1.0"
+        deps["google-cloud-errors"] = "~> 1.6"
         deps
       end
 

@@ -123,7 +123,7 @@ module Gapic
 
       def dependencies
         @dependencies ||= begin
-          deps = { "google-cloud-core" => "~> 1.6" }
+          deps = { "google-cloud-core" => "~> 1.9" }
           version_dependencies.each do |version, requirement|
             # For pre-release dependencies on versioned clients, support both
             # 0.x and 1.x versions to ease the transition to 1.0 (GA) releases

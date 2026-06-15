@@ -213,8 +213,8 @@ module Gapic
       # have these in lookup tables than to construct a ServicePresenter
 
       SERVICE_TO_DEPENDENCY = {
-        LOCATIONS_SERVICE => { "google-cloud-location" => ["~> 1.0"] },
-        IAM_SERVICE => { "google-iam-v1" => ["~> 1.3"] }
+        LOCATIONS_SERVICE => { "google-cloud-location" => ["~> 1.5"] },
+        IAM_SERVICE => { "google-iam-v1" => ["~> 1.7"] }
       }.freeze
       private_constant :SERVICE_TO_DEPENDENCY
 

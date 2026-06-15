@@ -16,6 +16,7 @@
 
 require "minitest/autorun"
 require "minitest/focus"
+require "minitest/mock"
 require "fileutils"
 require "open3"
 require "tmpdir"
