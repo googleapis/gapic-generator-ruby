@@ -88,7 +88,7 @@ GEM
     minitest-server (1.0.10)
       drb (~> 2.0)
       minitest (~> 5.16)
-    nokogiri (1.19.3-x86_64-linux-gnu)
+    nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
     ostruct (0.6.3)
     parallel (2.1.0)
