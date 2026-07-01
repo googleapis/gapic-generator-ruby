@@ -1,3 +1,6 @@
+permissions:
+  contents: read
+
 name: "CI tests"
 
 on:
@@ -23,11 +26,13 @@ jobs:
     continue-on-error: ${{ matrix.ruby == '4.0' }}
     steps:
       - name: Install Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
       - name: Checkout submodules
         run: |
           git submodule set-url shared/googleapis https://github.com/googleapis/googleapis.git
