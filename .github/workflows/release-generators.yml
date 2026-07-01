@@ -1,3 +1,6 @@
+permissions:
+  contents: read
+
 name: Prepare Generator Release
 on:
   workflow_dispatch:
@@ -14,9 +17,11 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
       - name: Install Ruby 3.4
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
           ruby-version: "3.4"
       - name: Install tools
