@@ -28,7 +28,7 @@ jobs:
           token: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
           persist-credentials: false
       - name: Install Ruby 3.4
-        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1
+        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
           ruby-version: "3.4"
       - name: Install tools
