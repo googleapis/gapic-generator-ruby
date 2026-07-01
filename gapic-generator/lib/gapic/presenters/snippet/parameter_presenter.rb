@@ -33,7 +33,7 @@ module Gapic
         def initialize proto, json
           @name = proto.name
           @description = proto.description
-          @description = nil if @description&.empty?
+          @description = nil if @description && @description.empty?
           @type = TypePresenter.new proto&.type, json&.fetch("type", nil)
           @example = ExpressionPresenter.new proto&.value, json&.fetch("value", nil)
         end
