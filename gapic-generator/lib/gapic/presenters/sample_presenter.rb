@@ -69,7 +69,7 @@ module Gapic
           @value = convert field["value"]
           @input_parameter = field["input_parameter"]
           @comment = field["comment"]
-          @comment = nil if @comment&.empty?
+          @comment = nil if @comment && @comment.empty?
           @value_is_file = field["value_is_file"]
         end
 
