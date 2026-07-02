@@ -17,7 +17,7 @@
 # Creates /workspace/gapic-generator.gem which is later copied into the
 # final runtime image.
 ##
-FROM ruby:3.1-buster as builder
+FROM ruby:3.1-buster@sha256:5b9ce51a2b6c646c716fece7236d341f70f485e279fbad5cfdfc4dfbf3007b48 as builder
 WORKDIR /workspace
 
 # Copy code from the local directory.
@@ -31,11 +31,11 @@ RUN gem build -o gapic-generator.gem gapic-generator.gemspec
 # Runtime image.
 # Installs the generator executables, common protos, and an entrypoint.
 ##
-FROM ruby:3.1-buster
+FROM ruby:3.1-buster@sha256:5b9ce51a2b6c646c716fece7236d341f70f485e279fbad5cfdfc4dfbf3007b48
 WORKDIR /workspace
 
 # Install common protos.
-COPY --from=gcr.io/gapic-images/api-common-protos:latest /protos/ /workspace/common-protos/
+COPY --from=gcr.io/gapic-images/api-common-protos:latest@sha256:bff39e8eb3f95c117aaeb7fa36e7f118612a27bad041b2cb87627915cd7498cd /protos/ /workspace/common-protos/
 
 # Copy gems from the builder.
 COPY --from=builder /workspace/*.gem /workspace/

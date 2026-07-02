@@ -15,7 +15,7 @@
 ##
 # Base image.
 ##
-FROM ruby:3.1-buster as base
+FROM ruby:3.1-buster@sha256:5b9ce51a2b6c646c716fece7236d341f70f485e279fbad5cfdfc4dfbf3007b48 as base
 
 # Set the correct locale so Ruby strings default to UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
@@ -60,7 +60,7 @@ FROM base
 WORKDIR /app
 
 # Install common protos.
-COPY --from=gcr.io/gapic-images/api-common-protos:latest /protos/ /protos/
+COPY --from=gcr.io/gapic-images/api-common-protos:latest@sha256:bff39e8eb3f95c117aaeb7fa36e7f118612a27bad041b2cb87627915cd7498cd /protos/ /protos/
 
 # Copy gems from the builder.
 COPY --from=builder /workspace/*.gem /app/

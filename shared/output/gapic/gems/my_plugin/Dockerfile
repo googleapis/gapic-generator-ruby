@@ -21,7 +21,7 @@
 # Creates /workspace/gapic-generator-my_plugin.gem
 # to be copied into the final runtime image.
 ##
-FROM ruby:2.6-stretch as builder
+FROM ruby:2.6-stretch@sha256:53036d1d5886b2904a03e86400afb933ce713a03657718f1eb562c3ee93b863f as builder
 WORKDIR /workspace
 
 # Copy code from the local directory.
@@ -36,11 +36,11 @@ RUN gem build -o gapic-generator-my_plugin.gem \
 # Runtime image.
 # Installs the generator executables, common protos, and an entrypoint.
 ##
-FROM ruby:2.6-stretch
+FROM ruby:2.6-stretch@sha256:53036d1d5886b2904a03e86400afb933ce713a03657718f1eb562c3ee93b863f
 WORKDIR /workspace
 
 # Install common protos.
-COPY --from=gcr.io/gapic-images/api-common-protos:beta /protos/ /workspace/common-protos/
+COPY --from=gcr.io/gapic-images/api-common-protos:beta@sha256:d5725b72fc0ac14e7abf49731806c509a257e332e6a43bfa55f3674125fe120f /protos/ /workspace/common-protos/
 
 # Copy gems from the builder.
 COPY --from=builder /workspace/*.gem /workspace/
