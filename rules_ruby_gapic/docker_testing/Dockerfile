@@ -15,7 +15,7 @@
 # A dockerfile that decribes an image that showcases bazel rules for gapic-generator-ruby
 
 
-FROM buildpack-deps:stretch
+FROM buildpack-deps:stretch@sha256:78e995165a5788c2f55aed6e548d8f6c1534830d4310c870408fccb2da8c5b2e
 ## Alternatively, start from buildpack-deps:xenial
 ## FROM buildpack-deps:xenial
 ## Alternatively, start from bazel image and install dev tools
