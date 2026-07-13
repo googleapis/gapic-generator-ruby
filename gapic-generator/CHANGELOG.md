@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.50.0 / 2026-07-13
+
+* Feature: Add minitest-reporters dependency and shared preloader to generator templates
+
 ### 0.49.0 / 2026-06-04
 
 * Feature: add retry jitter configuration
