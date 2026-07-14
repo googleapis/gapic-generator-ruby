@@ -5,7 +5,7 @@ PATH
       actionpack (~> 8.0)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
-      google-protobuf (~> 4.30)
+      google-protobuf (>= 4.36.0.rc.1, < 5.0)
       google-style (~> 1.32.0)
       googleapis-common-protos-types (~> 1.9)
 
@@ -61,7 +61,7 @@ GEM
     google-cloud-common (1.10.0)
       google-protobuf (>= 3.18, < 5.a)
       googleapis-common-protos-types (~> 1.20)
-    google-protobuf (4.35.1-x86_64-linux-gnu)
+    google-protobuf (4.36.0.rc.1-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
     google-style (1.32.0)
