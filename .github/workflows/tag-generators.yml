@@ -23,10 +23,10 @@ jobs:
       packages: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        # zizmor: ignore[artipacked] - checkout v6 persists credentials safely in RUNNER_TEMP
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           token: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
-          persist-credentials: false
       - name: Install Ruby 3.4
         uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
