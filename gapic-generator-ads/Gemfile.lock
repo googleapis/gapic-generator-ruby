@@ -86,10 +86,10 @@ GEM
       path_expander (~> 2.0)
     minitest-focus (1.4.1)
       minitest (> 5.0)
-    minitest-reporters (1.5.0)
+    minitest-reporters (1.8.0)
       ansi
       builder
-      minitest (>= 5.0)
+      minitest (>= 5.0, < 7)
       ruby-progressbar
     minitest-server (1.0.10)
       drb (~> 2.0)
@@ -162,7 +162,7 @@ DEPENDENCIES
   minitest (~> 5.16)
   minitest-autotest (~> 1.0)
   minitest-focus (~> 1.0)
-  minitest-reporters (~> 1.5.0)
+  minitest-reporters (~> 1.8.0)
   ostruct (= 0.6.3)
   pry (>= 0.14)
   redcarpet (~> 3.0)
