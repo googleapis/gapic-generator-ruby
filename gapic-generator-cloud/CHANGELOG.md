@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.50.0 / 2026-07-13
+
+* Includes changes from gapic-generator 0.50.0
+* Feature: Add minitest-reporters dependency and shared preloader to generator templates
+
 ### 0.49.0 / 2026-06-04
 
 * Includes changes from gapic-generator 0.49.0
