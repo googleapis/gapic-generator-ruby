@@ -20,14 +20,14 @@ class RegexPathPatternTest < PathPatternTest
   def test_simple_path_patterns
     path_pattern_to_regex_str = {
       "*" => "[^/]+",
-      "**" => ".*",
+      "**" => "(?<__wildcard__>.*)",
       "foo" => "foo",
       "hello/world" => "hello/world",
       "hello/*" => "hello/[^/]+",
       "*/world" => "[^/]+/world",
       "hello/*/world" => "hello/[^/]+/world",
-      "hello/*/**" => "hello/[^/]+(?:/.*)?",
-      "hello/**" => "hello(?:/.*)?"
+      "hello/*/**" => "hello/[^/]+(?:/(?<__wildcard__>.*))?",
+      "hello/**" => "hello(?:/(?<__wildcard__>.*))?"
     }
 
     path_pattern_to_regex_str.each do |key, value|
@@ -40,7 +40,8 @@ class RegexPathPatternTest < PathPatternTest
       "{foo}" => "(?<foo>[^/]+)",
       "{foo.bar}" => "(?<foo.bar>[^/]+)",
       "{foo=*}" => "(?<foo>[^/]+)",
-      "{foo=**}" => "(?<foo>.*)"
+      "{foo=**}" => "(?<foo>(?<__wildcard__>.*))",
+      "{parent=projects/*/databases/*/documents/*/**}" => "(?<parent>projects/[^/]+/databases/[^/]+/documents/[^/]+(?:/(?<__wildcard__>.*))?)"
     }
 
     path_pattern_to_regex_str.each do |key, value|

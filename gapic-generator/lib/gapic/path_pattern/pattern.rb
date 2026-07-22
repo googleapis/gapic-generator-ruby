@@ -52,7 +52,8 @@ module Gapic
       end
 
       ##
-      # Whether this is a basic double-star ("**") pattern
+      # Whether this is a basic double-star ("**") pattern (e.g. `{name=**}`).
+      # Basic double-star patterns match the entire parameter value.
       # @return [Boolean]
       def double_star_pattern?
         @segments.length == 1 && @segments[0].pattern == "**"
@@ -66,12 +67,22 @@ module Gapic
       end
 
       ##
-      # Converts the PathPattern into a regex string
+      # Converts the PathPattern into a regex string.
+      #
+      # Note: Double wildcard segments (`**`) are compiled with a named capture group
+      # `(?<__wildcard__>.*)`. This allows the runtime library (`gapic-common`) to extract
+      # the isolated substring matching the wildcard.
+      #
       # @return [String]
       def to_regex_str
+        if double_star_pattern?
+          # If the pattern is just a double wildcard (e.g. `{name=**}`), capture everything.
+          return "(?<__wildcard__>.*)"
+        end
+
         regex_str = segments.first.to_regex_str
 
-        # for double wildcards the leading `/`` is optional
+        # for double wildcards the leading `/` is optional
         # e.g. `foo/**` should match `foo`
         # this is why segments 'bring' the leading separator
         # with them as they build the pattern
@@ -79,7 +90,8 @@ module Gapic
           is_double_wildcard = segment.pattern == "**"
 
           regex_str = if is_double_wildcard
-                        "#{regex_str}(?:/.*)?"
+                        # Capture the multi-segment suffix path specifically inside `__wildcard__`
+                        "#{regex_str}(?:/(?<__wildcard__>.*))?"
                       else
                         "#{regex_str}/#{segment.to_regex_str}"
                       end
