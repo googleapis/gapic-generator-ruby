@@ -17,16 +17,15 @@ jobs:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
       packages: read
     steps:
       - name: Checkout repo
-        # zizmor: ignore[artipacked] - checkout v6 persists credentials safely in RUNNER_TEMP
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
-          token: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Ruby 3.4
         uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
