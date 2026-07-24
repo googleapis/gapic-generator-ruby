@@ -620,7 +620,8 @@ module Google
                                                         uri_template: "/v1beta1/repeat/{info.f_string}/{info.f_child.f_string}:pathtrailingresource",
                                                         matches: [
                                                           ["info.f_string", %r{^first/[^/]+/?$}, false],
-                                                          ["info.f_child.f_string", %r{^second(?:/.*)?$}, true]
+                                                          ["info.f_child.f_string",
+                                                           %r{^second(?:/(?<__wildcard__>.*))?$}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb
