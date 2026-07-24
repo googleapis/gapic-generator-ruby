@@ -1,6 +1,6 @@
 <%- assert_locals package -%>
 <% @requires = capture do %>
-<%- package.services.each do |service| -%>
+<%- package.services.select { |s| s.methods.any? }.each do |service| -%>
 require "<%= service.service_require %>"
 <%- end -%>
 require "<%= package.gem.version_require %>"

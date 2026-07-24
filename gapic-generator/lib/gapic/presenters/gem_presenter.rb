@@ -61,8 +61,12 @@ module Gapic
         end
       end
 
+      # Select the primary non-common service for documentation.
+      # Prioritize services with methods so that the README quickstart showcases a functional client.
+      # If all are empty (e.g., in unit tests), fall back to the first non-common service.
       def first_non_common_service
-        services.find { |service| service.common_service_delegate.nil? }
+        non_common = services.select { |service| service.common_service_delegate.nil? }
+        non_common.find { |service| service.methods.any? } || non_common.first
       end
 
       def proto_files
