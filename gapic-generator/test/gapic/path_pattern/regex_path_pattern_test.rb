@@ -41,7 +41,8 @@ class RegexPathPatternTest < PathPatternTest
       "{foo.bar}" => "(?<foo.bar>[^/]+)",
       "{foo=*}" => "(?<foo>[^/]+)",
       "{foo=**}" => "(?<foo>(?<__wildcard__>.*))",
-      "{parent=projects/*/databases/*/documents/*/**}" => "(?<parent>projects/[^/]+/databases/[^/]+/documents/[^/]+(?:/(?<__wildcard__>.*))?)"
+      "{parent=projects/*/databases/*/documents/*/**}" =>
+        "(?<parent>projects/[^/]+/databases/[^/]+/documents/[^/]+(?:/(?<__wildcard__>.*))?)"
     }
 
     path_pattern_to_regex_str.each do |key, value|
