@@ -564,7 +564,7 @@ module Testing
             header_params["table_name"] = request.table_name
           end
           if request.table_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/aliases(?:/.*)?$}.match?(request.table_name)
+             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/aliases(?:/(?<__wildcard__>.*))?$}.match?(request.table_name)
             header_params["table_name"] = request.table_name
           end
           if request.app_profile_id && !request.app_profile_id.empty?

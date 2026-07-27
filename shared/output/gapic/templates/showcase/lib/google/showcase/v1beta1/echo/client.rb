@@ -338,21 +338,21 @@ module Google
               header_params["routing_id"] = request.header
             end
             if request.header &&
-               %r{^regions/[^/]+/zones/[^/]+(?:/.*)?$}.match?(request.header)
+               %r{^regions/[^/]+/zones/[^/]+(?:/(?<__wildcard__>.*))?$}.match?(request.header)
               header_params["table_name"] = request.header
             end
             if request.header &&
-               %r{^projects/[^/]+/instances/[^/]+(?:/.*)?$}.match?(request.header)
+               %r{^projects/[^/]+/instances/[^/]+(?:/(?<__wildcard__>.*))?$}.match?(request.header)
               header_params["table_name"] = request.header
             end
             if request.header
-              regex_match = %r{^(?<super_id>projects/[^/]+)(?:/.*)?$}.match request.header
+              regex_match = %r{^(?<super_id>projects/[^/]+)(?:/(?<__wildcard__>.*))?$}.match request.header
               if regex_match
                 header_params["super_id"] = regex_match["super_id".to_s]
               end
             end
             if request.header
-              regex_match = %r{^projects/[^/]+/(?<instance_id>instances/[^/]+)(?:/.*)?$}.match request.header
+              regex_match = %r{^projects/[^/]+/(?<instance_id>instances/[^/]+)(?:/(?<__wildcard__>.*))?$}.match request.header
               if regex_match
                 header_params["instance_id"] = regex_match["instance_id".to_s]
               end
@@ -361,7 +361,7 @@ module Google
               header_params["baz"] = request.other_header
             end
             if request.other_header
-              regex_match = %r{^(?<qux>projects/[^/]+)(?:/.*)?$}.match request.other_header
+              regex_match = %r{^(?<qux>projects/[^/]+)(?:/(?<__wildcard__>.*))?$}.match request.other_header
               if regex_match
                 header_params["qux"] = regex_match["qux".to_s]
               end
