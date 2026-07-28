@@ -122,7 +122,11 @@ module Gapic
       end
 
       def gemspec_description
-        description.gsub(/\s+/, " ").strip
+        desc = gem_config(:description) ||
+               @api.api_metadata.summary ||
+               @api.api_metadata.description ||
+               "#{name} is the official client library for the #{title} API."
+        desc.gsub(/\s+/, " ").strip
       end
 
       ##
