@@ -34,7 +34,7 @@ def gapic_generator_ruby_repositories():
 # list_of_gems: a dictionary of gem name -> version strings to be loaded when the ruby_runtime dependency builds
 #
 def gapic_generator_ruby_customgems(list_of_gems):
-  _protobuf_version = "3.25.6"
+  _protobuf_version = "33.2"
   _protobuf_version_in_link = "v%s" % _protobuf_version
   _maybe(
     http_archive,
