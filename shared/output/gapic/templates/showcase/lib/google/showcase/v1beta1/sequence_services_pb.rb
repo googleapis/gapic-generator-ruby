@@ -23,6 +23,8 @@ module Google
   module Showcase
     module V1beta1
       module SequenceService
+        # A service that enables testing of unary and server streaming calls
+        # by specifying a specific, predictable sequence of responses from the service
         class Service
 
           include ::GRPC::GenericService
@@ -31,17 +33,20 @@ module Google
           self.unmarshal_class_method = :decode
           self.service_name = 'google.showcase.v1beta1.SequenceService'
 
-          # Creates a sequence.
+          # Create a sequence of responses to be returned as unary calls
           rpc :CreateSequence, ::Google::Showcase::V1beta1::CreateSequenceRequest, ::Google::Showcase::V1beta1::Sequence
-          # Creates a sequence.
+          # Creates a sequence of responses to be returned in a server streaming call
           rpc :CreateStreamingSequence, ::Google::Showcase::V1beta1::CreateStreamingSequenceRequest, ::Google::Showcase::V1beta1::StreamingSequence
-          # Retrieves a sequence.
+          # Retrieves a sequence report which can be used to retrieve information about a
+          # sequence of unary calls.
           rpc :GetSequenceReport, ::Google::Showcase::V1beta1::GetSequenceReportRequest, ::Google::Showcase::V1beta1::SequenceReport
-          # Retrieves a sequence.
+          # Retrieves a sequence report which can be used to retrieve information
+          # about a sequences of responses in a server streaming call.
           rpc :GetStreamingSequenceReport, ::Google::Showcase::V1beta1::GetStreamingSequenceReportRequest, ::Google::Showcase::V1beta1::StreamingSequenceReport
-          # Attempts a sequence.
+          # Attempts a sequence of unary responses.
           rpc :AttemptSequence, ::Google::Showcase::V1beta1::AttemptSequenceRequest, ::Google::Protobuf::Empty
-          # Attempts a streaming sequence.
+          # Attempts a server streaming call with a sequence of responses
+          # Can be used to test retries and stream resumption logic
           # May not function as expected in HTTP mode due to when http statuses are sent
           # See https://github.com/googleapis/gapic-showcase/issues/1377 for more details
           rpc :AttemptStreamingSequence, ::Google::Showcase::V1beta1::AttemptStreamingSequenceRequest, stream(::Google::Showcase::V1beta1::AttemptStreamingSequenceResponse)

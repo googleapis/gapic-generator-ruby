@@ -132,6 +132,26 @@ module Google
       #   @return [::String]
       # @!attribute [rw] p_int32
       #   @return [::Integer]
+      # @!attribute [rw] p_sint32
+      #   @return [::Integer]
+      # @!attribute [rw] p_sfixed32
+      #   @return [::Integer]
+      # @!attribute [rw] p_uint32
+      #   @return [::Integer]
+      # @!attribute [rw] p_fixed32
+      #   @return [::Integer]
+      # @!attribute [rw] p_int64
+      #   @return [::Integer]
+      # @!attribute [rw] p_sint64
+      #   @return [::Integer]
+      # @!attribute [rw] p_sfixed64
+      #   @return [::Integer]
+      # @!attribute [rw] p_uint64
+      #   @return [::Integer]
+      # @!attribute [rw] p_fixed64
+      #   @return [::Integer]
+      # @!attribute [rw] p_float
+      #   @return [::Float]
       # @!attribute [rw] p_double
       #   @return [::Float]
       # @!attribute [rw] p_bool

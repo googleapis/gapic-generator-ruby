@@ -28,6 +28,7 @@
 module Google
   module Showcase
     module V1beta1
+      # A sequence of responses to be returned in order for each unary call attempt
       # @!attribute [r] name
       #   @return [::String]
       # @!attribute [rw] responses
@@ -51,11 +52,15 @@ module Google
         end
       end
 
+      # A sequence of responses to be returned in order at the delay specified
+      # as part of the server streaming call
       # @!attribute [r] name
       #   @return [::String]
+      #     The name of the streaming sequence.
       # @!attribute [rw] content
       #   @return [::String]
-      #     The Content that the stream will send
+      #     The content that the stream will send
+      #     this was specified when the sequence was created
       # @!attribute [rw] responses
       #   @return [::Array<::Google::Showcase::V1beta1::StreamingSequence::Response>]
       #     Sequence of responses to return in order for each attempt. If empty, the
@@ -73,13 +78,14 @@ module Google
         #     The amount of time to delay sending the response.
         # @!attribute [rw] response_index
         #   @return [::Integer]
-        #     The index that the status should be sent
+        #     The index that the status should be sent at
         class Response
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
       end
 
+      # A report of the results of a streaming sequence.
       # @!attribute [r] name
       #   @return [::String]
       # @!attribute [rw] attempts
@@ -113,6 +119,7 @@ module Google
         end
       end
 
+      # A report of the results of a sequence of unary responses
       # @!attribute [r] name
       #   @return [::String]
       # @!attribute [rw] attempts
@@ -146,6 +153,7 @@ module Google
         end
       end
 
+      # Request message for creating a sequence of unary calls
       # @!attribute [rw] sequence
       #   @return [::Google::Showcase::V1beta1::Sequence]
       class CreateSequenceRequest
@@ -153,6 +161,7 @@ module Google
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # Request message for the sequences of responses to be sent in a server streaming call
       # @!attribute [rw] streaming_sequence
       #   @return [::Google::Showcase::V1beta1::StreamingSequence]
       class CreateStreamingSequenceRequest
@@ -160,6 +169,7 @@ module Google
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # Request message for the unary AttemptSequence method
       # @!attribute [rw] name
       #   @return [::String]
       class AttemptSequenceRequest
@@ -167,6 +177,7 @@ module Google
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # Request message for the AttemptStreamingSequence method.
       # @!attribute [rw] name
       #   @return [::String]
       # @!attribute [rw] last_fail_index
@@ -179,7 +190,7 @@ module Google
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
-      # The response message for the Echo methods.
+      # The response message for the AttemptStreamingSequence method.
       # @!attribute [rw] content
       #   @return [::String]
       #     The content specified in the request.

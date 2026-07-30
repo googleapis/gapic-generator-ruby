@@ -36,6 +36,7 @@ def gem_defaults
         "grafeas/v1/intoto_statement.proto",
         "grafeas/v1/package.proto",
         "grafeas/v1/provenance.proto",
+        "grafeas/v1/risk.proto",
         "grafeas/v1/sbom.proto",
         "grafeas/v1/secret.proto",
         "grafeas/v1/severity.proto",
@@ -153,7 +154,7 @@ def gem_defaults
     },
     googleads: {
       protos: [
-        "google/ads/googleads/v19/services/campaign_service.proto"
+        "google/ads/googleads/v21/services/campaign_service.proto"
       ],
       generator: :ads
     },
