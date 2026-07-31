@@ -5,7 +5,7 @@ PATH
       actionpack (~> 8.0)
       bigdecimal (~> 3.0)
       google-cloud-common (~> 1.2)
-      google-protobuf (~> 4.30)
+      google-protobuf (~> 4.32)
       google-style (~> 1.32.0)
       googleapis-common-protos-types (~> 1.9)
 
@@ -72,7 +72,7 @@ GEM
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     io-console (0.8.2)
-    json (2.21.1)
+    json (2.21.2)
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
     logger (1.7.0)
