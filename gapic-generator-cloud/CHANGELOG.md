@@ -1,5 +1,11 @@
 # Release History for gapic-generator-cloud
 
+### 0.51.0 / 2026-07-31
+
+* Includes changes from gapic-generator 0.51.0
+* Fix: upgrade minitest-reporters dependency to ~> 1.8.0 in wrapper gem template
+* Feature: Update protobuf to 33.2
+
 ### 0.50.0 / 2026-07-13
 
 * Includes changes from gapic-generator 0.50.0

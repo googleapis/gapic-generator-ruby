@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.51.0 / 2026-07-31
+
+* Includes changes from gapic-generator 0.51.0
+* Feature: Update protobuf to 33.2
+
 ### 0.50.0 / 2026-07-13
 
 * Includes changes from gapic-generator 0.50.0
