@@ -37,6 +37,9 @@ module Google
           ##
           # REST client for the SequenceService service.
           #
+          # A service that enables testing of unary and server streaming calls
+          # by specifying a specific, predictable sequence of responses from the service
+          #
           class Client
             # @private
             API_VERSION = ""
@@ -208,7 +211,7 @@ module Google
             # Service calls
 
             ##
-            # Creates a sequence.
+            # Create a sequence of responses to be returned as unary calls
             #
             # @overload create_sequence(request, options = nil)
             #   Pass arguments to `create_sequence` via a request object, either of type
@@ -285,7 +288,7 @@ module Google
             end
 
             ##
-            # Creates a sequence.
+            # Creates a sequence of responses to be returned in a server streaming call
             #
             # @overload create_streaming_sequence(request, options = nil)
             #   Pass arguments to `create_streaming_sequence` via a request object, either of type
@@ -362,7 +365,8 @@ module Google
             end
 
             ##
-            # Retrieves a sequence.
+            # Retrieves a sequence report which can be used to retrieve information about a
+            # sequence of unary calls.
             #
             # @overload get_sequence_report(request, options = nil)
             #   Pass arguments to `get_sequence_report` via a request object, either of type
@@ -439,7 +443,8 @@ module Google
             end
 
             ##
-            # Retrieves a sequence.
+            # Retrieves a sequence report which can be used to retrieve information
+            # about a sequences of responses in a server streaming call.
             #
             # @overload get_streaming_sequence_report(request, options = nil)
             #   Pass arguments to `get_streaming_sequence_report` via a request object, either of type
@@ -516,7 +521,7 @@ module Google
             end
 
             ##
-            # Attempts a sequence.
+            # Attempts a sequence of unary responses.
             #
             # @overload attempt_sequence(request, options = nil)
             #   Pass arguments to `attempt_sequence` via a request object, either of type
@@ -593,7 +598,8 @@ module Google
             end
 
             ##
-            # Attempts a streaming sequence.
+            # Attempts a server streaming call with a sequence of responses
+            # Can be used to test retries and stream resumption logic
             # May not function as expected in HTTP mode due to when http statuses are sent
             # See https://github.com/googleapis/gapic-showcase/issues/1377 for more details
             #

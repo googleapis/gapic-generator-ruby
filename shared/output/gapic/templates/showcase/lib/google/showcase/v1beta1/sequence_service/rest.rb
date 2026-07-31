@@ -39,6 +39,9 @@ module Google
   module Showcase
     module V1beta1
       ##
+      # A service that enables testing of unary and server streaming calls
+      # by specifying a specific, predictable sequence of responses from the service
+      #
       # To load this service and instantiate a REST client:
       #
       #     require "google/showcase/v1beta1/sequence_service/rest"
