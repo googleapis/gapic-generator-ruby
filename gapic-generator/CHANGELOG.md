@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.51.0 / 2026-07-31
+
+* Feature: Update protobuf to 33.2
+
 ### 0.50.0 / 2026-07-13
 
 * Feature: Add minitest-reporters dependency and shared preloader to generator templates
