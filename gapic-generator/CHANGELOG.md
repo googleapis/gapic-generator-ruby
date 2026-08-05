@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.51.1 / 2026-08-05
+
+No significant changes
+
 ### 0.51.0 / 2026-07-31
 
 * Feature: Update protobuf to 33.2
