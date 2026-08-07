@@ -19,6 +19,25 @@ require "minitest/focus"
 require "fileutils"
 require "open3"
 require "tmpdir"
+require "openssl"
+
+def generate_local_tls_certs(tmp_dir)
+  key = OpenSSL::PKey::RSA.new(2048)
+  cert = OpenSSL::X509::Certificate.new
+  cert.version = 2
+  cert.serial = 1
+  cert.subject = OpenSSL::X509::Name.parse("/CN=localhost")
+  cert.issuer = cert.subject
+  cert.public_key = key.public_key
+  cert.not_before = Time.now
+  cert.not_after = cert.not_before + 3600
+  cert.sign(key, OpenSSL::Digest::SHA256.new)
+  cert_path = File.join(tmp_dir, 'cert.pem')
+  key_path = File.join(tmp_dir, 'key.pem')
+  File.write(cert_path, cert.to_pem)
+  File.write(key_path, key.to_pem)
+end
+
 
 # @private
 GAPIC_SHOWCASE_VERSION = '0.42.0'
@@ -68,32 +87,32 @@ end
 class ShowcaseTest < Minitest::Test
   def new_echo_client
     Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = :this_channel_is_insecure
+      config.credentials = GRPC::Core::ChannelCredentials.new
     end
   end
 
   def new_echo_rest_client
     Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
-      config.endpoint = "http://localhost:7469"
+      config.endpoint = "https://localhost:7469"
       config.credentials = :this_channel_is_insecure
     end
   end
 
   def new_identity_client
     Google::Showcase::V1beta1::Identity::Client.new do |config|
-      config.credentials = :this_channel_is_insecure
+      config.credentials = GRPC::Core::ChannelCredentials.new
     end
   end
 
   def new_echo_operations_client
     Google::Showcase::V1beta1::Echo::Operations.new do |config|
-      config.credentials = :this_channel_is_insecure
+      config.credentials = GRPC::Core::ChannelCredentials.new
     end
   end
 
   def new_compliance_rest_client
     Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
-      config.endpoint = "http://localhost:7469"
+      config.endpoint = "https://localhost:7469"
       config.credentials = :this_channel_is_insecure
     end
   end
@@ -106,7 +125,11 @@ class ShowcaseTest < Minitest::Test
       url = "https://github.com/googleapis/gapic-showcase/releases/download/v#{GAPIC_SHOWCASE_VERSION}/#{tar_file_name}"
       _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory #{tmp_dir}/"
       raise "failed to start showcase" unless status.exitstatus.zero?
-      server_id = Process.spawn("#{tmp_dir}/gapic-showcase run", :out => [log_file, "w"])
+      generate_local_tls_certs(tmp_dir)
+ENV["GRPC_DEFAULT_SSL_ROOTS_FILE_PATH"] = "#{tmp_dir}/cert.pem"
+ENV["SSL_CERT_FILE"] = "#{tmp_dir}/cert.pem"
+server_id = Process.spawn("#{tmp_dir}/gapic-showcase run --tls-cert=#{tmp_dir}/cert.pem --tls-key=#{tmp_dir}/key.pem", :out => [log_file, "w"])
+
       puts "Started showcase server v#{GAPIC_SHOWCASE_VERSION} (pid: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
     else
       puts "Existing showcase server is available. Continuing..." if ENV["VERBOSE"]
