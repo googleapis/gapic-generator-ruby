@@ -125,10 +125,13 @@ class ShowcaseTest < Minitest::Test
       url = "https://github.com/googleapis/gapic-showcase/releases/download/v#{GAPIC_SHOWCASE_VERSION}/#{tar_file_name}"
       _, status = Open3.capture2 "curl -sSL #{url} | tar -zx --directory #{tmp_dir}/"
       raise "failed to start showcase" unless status.exitstatus.zero?
-      generate_local_tls_certs(tmp_dir)
-ENV["GRPC_DEFAULT_SSL_ROOTS_FILE_PATH"] = "#{tmp_dir}/cert.pem"
-ENV["SSL_CERT_FILE"] = "#{tmp_dir}/cert.pem"
-server_id = Process.spawn("#{tmp_dir}/gapic-showcase run --tls-cert=#{tmp_dir}/cert.pem --tls-key=#{tmp_dir}/key.pem", :out => [log_file, "w"])
+      generate_local_tls_certs tmp_dir
+      ENV["GRPC_DEFAULT_SSL_ROOTS_FILE_PATH"] = "#{tmp_dir}/cert.pem"
+      ENV["SSL_CERT_FILE"] = "#{tmp_dir}/cert.pem"
+      server_id = Process.spawn(
+        "#{tmp_dir}/gapic-showcase run --tls-cert=#{tmp_dir}/cert.pem --tls-key=#{tmp_dir}/key.pem",
+        out: [log_file, "w"]
+      )
 
       puts "Started showcase server v#{GAPIC_SHOWCASE_VERSION} (pid: #{server_id}) > #{log_file}." if ENV["VERBOSE"]
     else
