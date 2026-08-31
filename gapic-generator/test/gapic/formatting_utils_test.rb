@@ -602,4 +602,13 @@ class FormattingUtilsTest < Minitest::Test
       "Use `@pattern` to specify format\n"
     ], result
   end
+
+  def test_escape_braces_followed_by_backtick
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
+      "must be one of {`training`, `validation`, `test`}, and it defines\n"
+    ]
+    assert_equal [
+      "must be one of \\\\{`training`, `validation`, `test`}, and it defines\n"
+    ], result
+  end
 end

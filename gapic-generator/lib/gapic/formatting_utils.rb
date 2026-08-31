@@ -115,7 +115,8 @@ module Gapic
         parts = line.split(/(`[^`]*`)/)
         parts.map.with_index do |part, idx|
           if idx.even?
-            part.gsub(/(?<!\\)\{(?=[^\s])/) { "\\\\{" }
+            pattern = idx < parts.length - 1 ? /(?<!\\)\{(?=[^\s]|\z)/ : /(?<!\\)\{(?=[^\s])/
+            part.gsub(pattern) { "\\\\{" }
           else
             part
           end
