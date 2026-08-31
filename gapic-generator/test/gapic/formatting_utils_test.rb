@@ -45,7 +45,7 @@ class FormattingUtilsTest < Minitest::Test
 
   def test_escape_braces_unmatched_brace_line
     result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {ruby world\n"]
-    assert_equal ["hello {ruby world\n"], result
+    assert_equal ["hello \\\\{ruby world\n"], result
   end
 
   def test_escape_braces_escaped_brace_line
@@ -527,5 +527,79 @@ class FormattingUtilsTest < Minitest::Test
   def test_format_number_negative_large_float
     str = Gapic::FormattingUtils.format_number(-1_234_567.89)
     assert_equal "-1_234_567.89", str
+  end
+
+  def test_escape_braces_multiline_unmatched
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
+      "Formatted as an array of inclusive ranges {min: min-value, max:\n",
+      "max-value}. For example, [{min: 123, max: 123}, {min: 64512, max: 65534}]\n"
+    ]
+    assert_equal [
+      "Formatted as an array of inclusive ranges \\\\{min: min-value, max:\n",
+      "max-value}. For example, [\\\\{min: 123, max: 123}, \\\\{min: 64512, max: 65534}]\n"
+    ], result
+  end
+
+  def test_escape_braces_multiline_unmatched_json
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
+      "port number. Named ports can also contain multiple ports. " \
+      "For example:[{name: \"app1\", port: 8080}, {name:\n",
+      "\"app1\", port: 8081}, {name: \"app2\", port:\n",
+      "8082}]\n"
+    ]
+    assert_equal [
+      "port number. Named ports can also contain multiple ports. " \
+      "For example:[\\\\{name: \"app1\", port: 8080}, \\\\{name:\n",
+      "\"app1\", port: 8081}, \\\\{name: \"app2\", port:\n",
+      "8082}]\n"
+    ], result
+  end
+
+  def test_sanitize_unknown_tags
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
+      "@pattern: \\d+(?:-\\d+)?\n",
+      "@required compute.instancegroups.addInstances\n",
+      "RFC1035 @pattern [a-z](?:[-a-z0-9]\\{0,61}[a-z0-9])?\n"
+    ]
+    assert_equal [
+      "`@pattern`: \\d+(?:-\\d+)?\n",
+      "`@required` compute.instancegroups.addInstances\n",
+      "RFC1035 `@pattern` [a-z](?:[-a-z0-9]\\{0,61}[a-z0-9])?\n"
+    ], result
+  end
+
+  def test_dont_sanitize_known_yard_tags
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
+      "@param foo [String]\n",
+      "@return [Integer]\n",
+      "@deprecated Do not use\n",
+      "@see http://example.com\n",
+      "@!attribute [rw] foo\n"
+    ]
+    assert_equal [
+      "@param foo [String]\n",
+      "@return [Integer]\n",
+      "@deprecated Do not use\n",
+      "@see http://example.com\n",
+      "@!attribute [rw] foo\n"
+    ], result
+  end
+
+  def test_dont_sanitize_email_addresses
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
+      "Contact support@example.com for help\n"
+    ]
+    assert_equal [
+      "Contact support@example.com for help\n"
+    ], result
+  end
+
+  def test_dont_sanitize_already_backticked_tags
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
+      "Use `@pattern` to specify format\n"
+    ]
+    assert_equal [
+      "Use `@pattern` to specify format\n"
+    ], result
   end
 end

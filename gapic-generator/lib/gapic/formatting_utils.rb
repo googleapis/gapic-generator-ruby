@@ -21,16 +21,20 @@ module Gapic
   # Various string formatting utils
   #
   module FormattingUtils
-    @brace_detector = /\A(?<pre>[^`]*(?:`[^`]*`[^`]*)*[^`\\])?\{(?<inside>[^\s][^}]*)\}(?<post>.*)\z/m
     @xref_detector = /\A(?<pre>[^`]*(?:`[^`]*`[^`]*)*)?\[(?<text>[\w. `-]+)\]\[(?<addr>[\w.]+)\](?<post>.*)\z/m
     @list_element_detector = /\A\s*(?:\*|\+|-|[0-9a-zA-Z]+\.)\s/
     @omit_lines = ["@InputOnly\n", "@OutputOnly\n"]
+    @known_yard_tags = [
+      "abstract", "api", "author", "deprecated", "example", "note", "option", "overload", "param",
+      "private", "raise", "return", "see", "since", "todo", "version", "yield", "yieldparam", "yieldreturn"
+    ].freeze
 
     class << self
       ##
       # Given an enumerable of lines, performs yardoc formatting, including:
       # * Interpreting cross-references identified as described in AIP 192
       # * Escaping literal braces that look like yardoc type links
+      # * Backticking unknown doc tags so they are not parsed as YARD tags
       #
       # Tries to be smart about exempting preformatted text blocks.
       #
@@ -61,6 +65,7 @@ module Gapic
             in_block, base_indent = update_indent_state in_block, base_indent, line, indent
             if in_block == false
               line = escape_line_braces line
+              line = sanitize_line_tags line
               line = format_line_xrefs api, line, disable_xrefs, transport
             end
           end
@@ -107,10 +112,28 @@ module Gapic
       end
 
       def escape_line_braces line
-        while (m = @brace_detector.match line)
-          line = "#{m[:pre]}\\\\{#{m[:inside]}}#{m[:post]}"
-        end
-        line
+        parts = line.split(/(`[^`]*`)/)
+        parts.map.with_index do |part, idx|
+          if idx.even?
+            part.gsub(/(?<!\\)\{(?=[^\s])/) { "\\\\{" }
+          else
+            part
+          end
+        end.join
+      end
+
+      def sanitize_line_tags line
+        parts = line.split(/(`[^`]*`)/)
+        parts.map.with_index do |part, idx|
+          if idx.even?
+            part.gsub(/(?<=\A|\s)@([a-zA-Z_]\w*)/) do |match|
+              tag = Regexp.last_match 1
+              @known_yard_tags.include?(tag) || tag.start_with?("!") ? match : "`#{match}`"
+            end
+          else
+            part
+          end
+        end.join
       end
 
       def format_line_xrefs api, line, disable_xrefs, transport
