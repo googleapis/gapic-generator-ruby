@@ -24,6 +24,8 @@ module Gapic
     @xref_detector = /\A(?<pre>[^`]*(?:`[^`]*`[^`]*)*)?\[(?<text>[\w. `-]+)\]\[(?<addr>[\w.]+)\](?<post>.*)\z/m
     @list_element_detector = /\A\s*(?:\*|\+|-|[0-9a-zA-Z]+\.)\s/
     @omit_lines = ["@InputOnly\n", "@OutputOnly\n"]
+    # Built-in YARD meta-data tags as documented in:
+    # https://github.com/lsegal/yard/blob/main/docs/Tags.md#tag-list
     @known_yard_tags = [
       "abstract", "api", "author", "deprecated", "example", "note", "option", "overload", "param",
       "private", "raise", "return", "see", "since", "todo", "version", "yield", "yieldparam", "yieldreturn"
@@ -119,7 +121,7 @@ module Gapic
             # Matches unescaped `{` outside backtick spans followed by non-whitespace.
             # If `{` is at the end of a non-code chunk (idx < parts.length - 1), it is followed
             # immediately by a backticked code span (starting with a non-whitespace backtick),
-            # so \z is also matched.
+            # so \z (end of string) is also matched.
             pattern = idx < parts.length - 1 ? /(?<!\\)\{(?=[^\s]|\z)/ : /(?<!\\)\{(?=[^\s])/
             part.gsub(pattern) { "\\\\{" }
           else
