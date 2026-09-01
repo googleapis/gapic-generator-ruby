@@ -25,10 +25,11 @@ module Gapic
     @list_element_detector = /\A\s*(?:\*|\+|-|[0-9a-zA-Z]+\.)\s/
     @omit_lines = ["@InputOnly\n", "@OutputOnly\n"]
     # Built-in YARD meta-data tags as documented in:
-    # https://github.com/lsegal/yard/blob/main/docs/Tags.md#tag-list
+    # https://rubydoc.info/gems/yard/file/docs/Tags.md#Tag_List
     @known_yard_tags = [
-      "abstract", "api", "author", "deprecated", "example", "note", "option", "overload", "param",
-      "private", "raise", "return", "see", "since", "todo", "version", "yield", "yieldparam", "yieldreturn"
+      "abstract", "api", "attr", "attr_reader", "attr_writer", "author", "deprecated", "example",
+      "note", "option", "overload", "param", "private", "raise", "return", "see", "since", "todo",
+      "version", "yield", "yieldparam", "yieldreturn"
     ].freeze
 
     class << self

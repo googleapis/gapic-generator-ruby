@@ -574,6 +574,9 @@ class FormattingUtilsTest < Minitest::Test
       "@return [Integer]\n",
       "@deprecated Do not use\n",
       "@see http://example.com\n",
+      "@attr [String] name description\n",
+      "@attr_reader [String] name description\n",
+      "@attr_writer [String] name description\n",
       "@!attribute [rw] foo\n"
     ]
     assert_equal [
@@ -581,6 +584,9 @@ class FormattingUtilsTest < Minitest::Test
       "@return [Integer]\n",
       "@deprecated Do not use\n",
       "@see http://example.com\n",
+      "@attr [String] name description\n",
+      "@attr_reader [String] name description\n",
+      "@attr_writer [String] name description\n",
       "@!attribute [rw] foo\n"
     ], result
   end
