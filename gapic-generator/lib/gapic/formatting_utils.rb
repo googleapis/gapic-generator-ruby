@@ -112,9 +112,14 @@ module Gapic
       end
 
       def escape_line_braces line
+        # Tokenize by backticks so inline code spans (e.g. `foo {bar}`) are preserved in odd indices.
         parts = line.split(/(`[^`]*`)/)
         parts.map.with_index do |part, idx|
           if idx.even?
+            # Matches unescaped `{` outside backtick spans followed by non-whitespace.
+            # If `{` is at the end of a non-code chunk (idx < parts.length - 1), it is followed
+            # immediately by a backticked code span (starting with a non-whitespace backtick),
+            # so \z is also matched.
             pattern = idx < parts.length - 1 ? /(?<!\\)\{(?=[^\s]|\z)/ : /(?<!\\)\{(?=[^\s])/
             part.gsub(pattern) { "\\\\{" }
           else
@@ -124,9 +129,14 @@ module Gapic
       end
 
       def sanitize_line_tags line
+        # Tokenize by backticks so inline code spans are preserved in odd indices.
         parts = line.split(/(`[^`]*`)/)
         parts.map.with_index do |part, idx|
           if idx.even?
+            # Matches doc tags starting with `@` at the start of a line or preceded by whitespace.
+            # Avoids matching `@` within email addresses (e.g. user@example.com) or quotes.
+            # Any tag not in the YARD recognized list (or starting with `!`) is wrapped in backticks
+            # so YARD renders it as literal text rather than an unrecognized tag directive.
             part.gsub(/(?<=\A|\s)@([a-zA-Z_]\w*)/) do |match|
               tag = Regexp.last_match 1
               @known_yard_tags.include?(tag) || tag.start_with?("!") ? match : "`#{match}`"
