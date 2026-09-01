@@ -52,24 +52,33 @@ module Gapic
       #
       def format_doc_lines api, lines, disable_xrefs: false, transport: nil
         transport ||= api&.default_transport || :grpc
-        # To detect preformatted blocks, this tracks the "expected" base indent
-        # according to Markdown. Specifically, this is the effective indent of
-        # previous block, which is normally 0 except if we're in a list item.
-        # Then, if a block is indented at least 4 spaces past that expected
-        # indent (and as long as it remains so), those lines are considered
-        # preformatted.
+        # To detect preformatted blocks, this tracks:
+        # 1. Fenced code blocks (delimited by ``` or ~~~)
+        # 2. Indented code blocks according to Markdown. Specifically, this is the
+        #    effective indent of previous block, which is normally 0 except if we're
+        #    in a list item. If a block is indented at least 4 spaces past that
+        #    expected indent (and as long as it remains so), those lines are
+        #    considered preformatted.
+        in_fence = false
         in_block = nil
         base_indent = 0
         (lines - @omit_lines).map do |line|
-          indent = line_indent line
-          if indent.nil?
+          if line =~ /^\s*(?:```|~~~)/
+            in_fence = !in_fence
             in_block = nil
+          elsif in_fence
+            # Preformatted code inside fence; do not format
           else
-            in_block, base_indent = update_indent_state in_block, base_indent, line, indent
-            if in_block == false
-              line = escape_line_braces line
-              line = sanitize_line_tags line
-              line = format_line_xrefs api, line, disable_xrefs, transport
+            indent = line_indent line
+            if indent.nil?
+              in_block = nil
+            else
+              in_block, base_indent = update_indent_state in_block, base_indent, line, indent
+              if in_block == false
+                line = escape_line_braces line
+                line = sanitize_line_tags line
+                line = format_line_xrefs api, line, disable_xrefs, transport
+              end
             end
           end
           line

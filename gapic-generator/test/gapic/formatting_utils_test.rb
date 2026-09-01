@@ -617,4 +617,50 @@ class FormattingUtilsTest < Minitest::Test
       "must be one of \\\\{`training`, `validation`, `test`}, and it defines\n"
     ], result
   end
+
+  def test_fenced_code_block_preserves_braces_and_tags
+    lines = [
+      "For example, the following JSON creates a divider:\n",
+      "\n",
+      "```\n",
+      "\"divider\": {}\n",
+      "Hello @FooBot how are you!\n",
+      "```\n",
+      "\n",
+      "Choose from {100, 200, 300}.\n"
+    ]
+    result = Gapic::FormattingUtils.format_doc_lines nil, lines
+    assert_equal [
+      "For example, the following JSON creates a divider:\n",
+      "\n",
+      "```\n",
+      "\"divider\": {}\n",
+      "Hello @FooBot how are you!\n",
+      "```\n",
+      "\n",
+      "Choose from \\\\{100, 200, 300}.\n"
+    ], result
+  end
+
+  def test_fenced_code_block_with_language_tag
+    lines = [
+      "Example with language:\n",
+      "```json\n",
+      "{\"name\": \"app\", \"ports\": [{8080}]}\n",
+      "```\n"
+    ]
+    result = Gapic::FormattingUtils.format_doc_lines nil, lines
+    assert_equal lines, result
+  end
+
+  def test_fenced_code_block_with_tilde
+    lines = [
+      "Example with tilde:\n",
+      "~~~\n",
+      "{\"name\": \"app\", \"ports\": [{8080}]}\n",
+      "~~~\n"
+    ]
+    result = Gapic::FormattingUtils.format_doc_lines nil, lines
+    assert_equal lines, result
+  end
 end
