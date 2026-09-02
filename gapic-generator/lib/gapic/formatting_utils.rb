@@ -52,31 +52,25 @@ module Gapic
       #
       def format_doc_lines api, lines, disable_xrefs: false, transport: nil
         transport ||= api&.default_transport || :grpc
-        # To detect preformatted blocks, this tracks:
-        # 1. Fenced code blocks (delimited by ``` or ~~~)
-        # 2. Indented code blocks according to Markdown. Specifically, this is the
-        #    effective indent of previous block, which is normally 0 except if we're
-        #    in a list item. If a block is indented at least 4 spaces past that
-        #    expected indent (and as long as it remains so), those lines are
-        #    considered preformatted.
+        # Tracks fenced blocks, multiline inline code spans, and indented code blocks.
         in_fence = false
+        in_code_span = false
         in_block = nil
         base_indent = 0
         (lines - @omit_lines).map do |line|
           if line =~ /^\s*(?:```|~~~)/
             in_fence = !in_fence
+            in_code_span = false
             in_block = nil
-          elsif in_fence
-            # Preformatted code inside fence; do not format
-          else
+          elsif !in_fence
             indent = line_indent line
             if indent.nil?
               in_block = nil
+              in_code_span = false
             else
               in_block, base_indent = update_indent_state in_block, base_indent, line, indent
               if in_block == false
-                line = escape_line_braces line
-                line = sanitize_line_tags line
+                line, in_code_span = format_line_content line, in_code_span
                 line = format_line_xrefs api, line, disable_xrefs, transport
               end
             end
@@ -123,40 +117,40 @@ module Gapic
         m[1].length
       end
 
-      def escape_line_braces line
-        # Tokenize by backticks so inline code spans (e.g. `foo {bar}`) are preserved in odd indices.
-        parts = line.split(/(`[^`]*`)/)
-        parts.map.with_index do |part, idx|
-          if idx.even?
-            # Matches unescaped `{` outside backtick spans followed by non-whitespace.
-            # If `{` is at the end of a non-code chunk (idx < parts.length - 1), it is followed
-            # immediately by a backticked code span (starting with a non-whitespace backtick),
-            # so \z (end of string) is also matched.
-            pattern = idx < parts.length - 1 ? /(?<!\\)\{(?=[^\s]|\z)/ : /(?<!\\)\{(?=[^\s])/
-            part.gsub(pattern) { "\\\\{" }
-          else
+      def format_line_content line, in_code_span
+        parts = line.split("`", -1)
+        formatted_parts = parts.each_with_index.map do |part, idx|
+          if in_code_span
+            in_code_span = false if idx < parts.length - 1
             part
+          else
+            is_followed_by_backtick = idx < parts.length - 1
+            in_code_span = true if is_followed_by_backtick
+            formatted = escape_prose_braces part, is_followed_by_backtick: is_followed_by_backtick
+            sanitize_prose_tags formatted
           end
-        end.join
+        end
+        [formatted_parts.join("`"), in_code_span]
       end
 
-      def sanitize_line_tags line
-        # Tokenize by backticks so inline code spans are preserved in odd indices.
-        parts = line.split(/(`[^`]*`)/)
-        parts.map.with_index do |part, idx|
-          if idx.even?
-            # Matches doc tags starting with `@` at the start of a line or preceded by whitespace.
-            # Avoids matching `@` within email addresses (e.g. user@example.com) or quotes.
-            # Any tag not in the YARD recognized list (or starting with `!`) is wrapped in backticks
-            # so YARD renders it as literal text rather than an unrecognized tag directive.
-            part.gsub(/(?<=\A|\s)@([a-zA-Z_]\w*)/) do |match|
-              tag = Regexp.last_match 1
-              @known_yard_tags.include?(tag) || tag.start_with?("!") ? match : "`#{match}`"
-            end
-          else
-            part
-          end
-        end.join
+      def escape_prose_braces text, is_followed_by_backtick: false
+        # Matches unescaped `{` outside backtick spans followed by non-whitespace.
+        # If `{` is at the end of a non-code chunk (is_followed_by_backtick: true), it is followed
+        # immediately by a backticked code span (starting with a non-whitespace backtick),
+        # so \z (end of string) is also matched.
+        pattern = is_followed_by_backtick ? /(?<!\\)\{(?=[^\s]|\z)/ : /(?<!\\)\{(?=[^\s])/
+        text.gsub(pattern) { "\\\\{" }
+      end
+
+      def sanitize_prose_tags text
+        # Matches doc tags starting with `@` at the start of a line or preceded by whitespace.
+        # Avoids matching `@` within email addresses (e.g. user@example.com) or quotes.
+        # Any tag not in the YARD recognized list (or starting with `!`) is wrapped in backticks
+        # so YARD renders it as literal text rather than an unrecognized tag directive.
+        text.gsub(/(?<=\A|\s)@([a-zA-Z_]\w*)/) do |match|
+          tag = Regexp.last_match 1
+          @known_yard_tags.include?(tag) || tag.start_with?("!") ? match : "`#{match}`"
+        end
       end
 
       def format_line_xrefs api, line, disable_xrefs, transport

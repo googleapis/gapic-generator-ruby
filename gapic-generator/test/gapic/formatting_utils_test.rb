@@ -663,4 +663,64 @@ class FormattingUtilsTest < Minitest::Test
     result = Gapic::FormattingUtils.format_doc_lines nil, lines
     assert_equal lines, result
   end
+
+  def test_multiline_inline_code_span_preserves_braces
+    lines = [
+      "Value format:\n",
+      "`projects/{project}/locations/{location}/featurestores/\n",
+      "{featurestore}/entityTypes/{entityType}`. For example,\n",
+      "choose from {100, 200}.\n"
+    ]
+    result = Gapic::FormattingUtils.format_doc_lines nil, lines
+    assert_equal [
+      "Value format:\n",
+      "`projects/{project}/locations/{location}/featurestores/\n",
+      "{featurestore}/entityTypes/{entityType}`. For example,\n",
+      "choose from \\\\{100, 200}.\n"
+    ], result
+  end
+
+  def test_multiline_inline_code_span_preserves_tags
+    lines = [
+      "Here is an example:\n",
+      "`Hello @FooBot\n",
+      "@BarBot` in code\n",
+      "@FooBot outside code\n"
+    ]
+    result = Gapic::FormattingUtils.format_doc_lines nil, lines
+    assert_equal [
+      "Here is an example:\n",
+      "`Hello @FooBot\n",
+      "@BarBot` in code\n",
+      "`@FooBot` outside code\n"
+    ], result
+  end
+
+  def test_multiline_inline_code_span_three_lines
+    lines = [
+      "Start `code line 1 {foo}\n",
+      "code line 2 {bar}\n",
+      "code line 3 {baz}` end {qux}\n"
+    ]
+    result = Gapic::FormattingUtils.format_doc_lines nil, lines
+    assert_equal [
+      "Start `code line 1 {foo}\n",
+      "code line 2 {bar}\n",
+      "code line 3 {baz}` end \\\\{qux}\n"
+    ], result
+  end
+
+  def test_multiline_code_span_resets_on_blank_line
+    lines = [
+      "Unclosed `code span\n",
+      "\n",
+      "New paragraph with {100, 200}\n"
+    ]
+    result = Gapic::FormattingUtils.format_doc_lines nil, lines
+    assert_equal [
+      "Unclosed `code span\n",
+      "\n",
+      "New paragraph with \\\\{100, 200}\n"
+    ], result
+  end
 end
