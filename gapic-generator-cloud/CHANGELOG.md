@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.52.0 / 2026-09-04
+
+* Includes changes from gapic-generator 0.52.0
+* Feature: add ruby-cloud-renamed-from for renamed wrapper gems
+
 ### 0.51.1 / 2026-08-05
 
 * Includes changes from gapic-generator 0.51.1

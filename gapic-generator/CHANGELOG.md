@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.52.0 / 2026-09-04
+
+* Fix: escape multi-line braces and backtick unknown doc tags in yard formatting
+* Fix: rejoin split doc URLs (b/153077040) and strip non-existent message links (b/158466893)
+* Feature: add ruby-cloud-renamed-from for renamed wrapper gems
+
 ### 0.51.1 / 2026-08-05
 
 No significant changes
