@@ -30,7 +30,7 @@ jobs:
       - name: Install Ruby 3.4
         uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
-          ruby-version: "3.4"
+          ruby-version: "3.4.10"
       - name: Install tools
         run: "gem install --no-document toys"
       - name: Execute
