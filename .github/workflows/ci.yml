@@ -45,3 +45,60 @@ jobs:
       - name: Run CI
         run: |
           toys ci
+
+  # The showcase suite above runs on ubuntu-latest, whose system OpenSSL is
+  # 3.0.13. ML-KEM only exists from OpenSSL 3.5, so the REST transport there
+  # legitimately falls back to classical X25519 and the post-quantum assertion
+  # stays tolerant. gRPC is unaffected because it carries its own BoringSSL
+  # inside the grpc gem.
+  #
+  # This job re-runs the same suite on a Debian trixie image (OpenSSL 3.5.5) and
+  # sets SHOWCASE_REQUIRE_REST_PQC, which promotes that tolerant assertion into
+  # a hard X25519MLKEM768 requirement. It is what actually proves REST
+  # post-quantum key exchange works.
+  #
+  # Once ubuntu-latest moves to Ubuntu 26.04 (OpenSSL 3.5.5) this job can be
+  # dropped and the variable set on the matrix above instead.
+  pqc-rest:
+    if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
+    runs-on: ubuntu-latest
+    container: ruby:3.2-trixie
+    env:
+      SHOWCASE_REQUIRE_REST_PQC: "1"
+    steps:
+      # Deliberately no ruby/setup-ruby: inside a container it detects
+      # debian-13-x64, treats the job as self-hosted, and will not use the
+      # prebuilt binaries. The image's own Ruby is already linked against the
+      # OpenSSL we want.
+      - name: Checkout repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Checkout submodules
+        run: |
+          # actions/checkout writes as the runner user (uid 1001) but this
+          # container runs as root, so git rejects the tree as dubiously
+          # owned. The host-runner `tests` job above does not hit this.
+          git config --global --add safe.directory '*'
+          git submodule set-url shared/googleapis https://github.com/googleapis/googleapis.git
+          git submodule set-url shared/gapic-showcase https://github.com/googleapis/gapic-showcase.git
+          git submodule update --init --recursive
+      - name: Verify the image provides a post-quantum capable OpenSSL
+        run: |
+          ruby -ropenssl -e '
+            required = Gem::Version.new "3.5.0"
+            actual = Gem::Version.new OpenSSL::OPENSSL_LIBRARY_VERSION.split[1]
+            if actual < required
+              abort "This job asserts post-quantum key exchange but the image " \
+                    "provides OpenSSL #{actual}, below the required #{required}."
+            end
+            puts "OpenSSL #{actual} supports post-quantum key exchange."
+          '
+      - name: Install dependencies
+        run: |
+          gem install --no-document toys
+          toys bundle install
+      - name: Run showcase tests
+        run: |
+          cd shared
+          toys test showcase
