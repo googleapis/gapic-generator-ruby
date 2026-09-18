@@ -154,7 +154,8 @@ def gem_defaults
     },
     googleads: {
       protos: [
-        "google/ads/googleads/v21/services/campaign_service.proto"
+        "google/ads/googleads/v25/services/campaign_service.proto",
+        "google/ads/googleads/v25/services/youtube_video_upload_service.proto"
       ],
       generator: :ads
     },
