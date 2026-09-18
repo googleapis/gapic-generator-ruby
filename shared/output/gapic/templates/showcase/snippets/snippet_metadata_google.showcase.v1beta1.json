@@ -1612,6 +1612,46 @@
       ]
     },
     {
+      "region_tag": "showcase_v0_generated_ResumableUploadService_UploadMedia_sync",
+      "title": "Snippet for the upload_media call in the ResumableUploadService service",
+      "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::ResumableUploadService::Client#upload_media.",
+      "file": "resumable_upload_service/upload_media.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "upload_media",
+        "full_name": "::Google::Showcase::V1beta1::ResumableUploadService::Client#upload_media",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::UploadMediaRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::UploadMediaResponse",
+        "client": {
+          "short_name": "ResumableUploadService::Client",
+          "full_name": "::Google::Showcase::V1beta1::ResumableUploadService::Client"
+        },
+        "method": {
+          "short_name": "UploadMedia",
+          "full_name": "google.showcase.v1beta1.ResumableUploadService.UploadMedia",
+          "service": {
+            "short_name": "ResumableUploadService",
+            "full_name": "google.showcase.v1beta1.ResumableUploadService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 54,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
       "region_tag": "showcase_v0_generated_SequenceService_CreateSequence_sync",
       "title": "Snippet for the create_sequence call in the SequenceService service",
       "description": "This is an auto-generated example demonstrating basic usage of Google::Showcase::V1beta1::SequenceService::Client#create_sequence.",

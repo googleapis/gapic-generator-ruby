@@ -122,6 +122,7 @@ def gem_defaults
         "google/showcase/v1beta1/identity.proto",
         "google/showcase/v1beta1/messaging.proto",
         "google/showcase/v1beta1/rest_error.proto",
+        "google/showcase/v1beta1/resumable_upload.proto",
         "google/showcase/v1beta1/sequence.proto",
         "google/showcase/v1beta1/testing.proto"
       ],

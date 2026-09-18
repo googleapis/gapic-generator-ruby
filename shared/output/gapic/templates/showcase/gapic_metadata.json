@@ -242,6 +242,20 @@
         }
       }
     },
+    "ResumableUploadService": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::Google::Showcase::V1beta1::ResumableUploadService::Client",
+          "rpcs": {
+            "UploadMedia": {
+              "methods": [
+                "upload_media"
+              ]
+            }
+          }
+        }
+      }
+    },
     "SequenceService": {
       "clients": {
         "grpc": {

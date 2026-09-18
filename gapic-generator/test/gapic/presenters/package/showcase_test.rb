@@ -30,7 +30,7 @@ class ShowcasePackagePresenterTest < PresenterTest
 
     assert_kind_of Gapic::Presenters::GemPresenter, presenter.gem
 
-    assert_equal ["Compliance", "Echo", "Identity", "Messaging", "SequenceService", "Testing"], presenter.services.map(&:name)
+    assert_equal ["Compliance", "Echo", "Identity", "Messaging", "ResumableUploadService", "SequenceService", "Testing"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
   end
 
@@ -46,7 +46,7 @@ class ShowcasePackagePresenterTest < PresenterTest
     assert_equal "1.0", presenter.drift_manifest[:schema]
     assert_equal "google.showcase.v1beta1", presenter.drift_manifest[:protoPackage]
     assert_equal "::Google::Showcase::V1beta1", presenter.drift_manifest[:libraryPackage]
-    assert_equal 6, presenter.drift_manifest[:services].length
+    assert_equal 7, presenter.drift_manifest[:services].length
 
     echo_service_manifest = presenter.drift_manifest[:services]["Echo"]
     echo_gprc = echo_service_manifest[:clients][:grpc]

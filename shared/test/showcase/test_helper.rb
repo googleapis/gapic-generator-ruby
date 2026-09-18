@@ -123,7 +123,7 @@ class ShowcaseTest < Minitest::Test
       else
         generate_library_for_test(
           %w[protos googleapis],
-          %w[google/showcase/v1beta1/compliance.proto google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
+          %w[google/showcase/v1beta1/compliance.proto google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto google/showcase/v1beta1/resumable_upload.proto])
       end
     $LOAD_PATH.unshift "#{library}/lib"
     library
