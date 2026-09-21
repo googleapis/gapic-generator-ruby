@@ -21,6 +21,14 @@ require "securerandom"
 <%= indent service.doc_description(transport: :rest), "# " %>
 #
 <%- end -%>
+<%- if service.resumable_upload? -%>
+<%- upload_names = service.resumable_upload_methods.map { |upload_method| "`#{upload_method.name}`" }.join ", " -%>
+<%- upload_many = service.resumable_upload_methods.length > 1 -%>
+# <%= upload_names %> <%= upload_many ? "perform resumable uploads: each returns" : "performs a resumable upload: it returns" %> a {::Gapic::ResumableUpload} handle
+# instead of a response, and the per-call `timeout` and retry policy cover only the request that
+# creates the upload session, not the upload itself.
+#
+<%- end -%>
 class <%= service.rest.client_name %>
   # @private
   API_VERSION = "<%= service.api_version %>".freeze
@@ -140,6 +148,16 @@ class <%= service.rest.client_name %>
       config.bindings_override = @config.bindings_override
       <%- end -%>
     end
+
+    <%- end -%>
+    <%- if service.resumable_upload? -%>
+    <%= service.resumable_upload_stub_ivar %> = <%= service.resumable_upload_stub_name_full %>.new(
+      endpoint: @config.endpoint,
+      endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
+      universe_domain: @config.universe_domain,
+      credentials: credentials,
+      logger: @config.logger
+    )
 
     <%- end -%>
     @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new(

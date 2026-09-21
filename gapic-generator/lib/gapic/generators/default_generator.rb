@@ -92,9 +92,15 @@ module Gapic
             # Rest-only `service.stub` file
             files << g("service/rest/service_stub",      "lib/#{service.rest.service_stub_file_path}",       service: service) if should_generate_rest
 
+            # Resumable upload stub, shared by both transports because uploads always travel over REST
+            files << g("service/resumable_upload_stub",  "lib/#{service.resumable_upload_stub_file_path}",   service: service) if service.resumable_upload?
+
             # Unit tests for `client.rb`
             files << g("service/test/client",            "test/#{service.test_client_file_path}",            service: service) if should_generate_grpc
             files << g("service/rest/test/client",       "test/#{service.rest.test_client_file_path}",       service: service) if should_generate_rest
+
+            # Unit tests for resumable upload RPCs, which the client tests above skip
+            files << g("service/test/resumable_upload",  "test/#{service.test_resumable_upload_file_path}",  service: service) if service.resumable_upload?
 
             # Unit tests for `paths.rb`
             files << g("service/test/client_paths",      "test/#{service.test_paths_file_path}",             service: service) if service.paths? && should_generate_grpc

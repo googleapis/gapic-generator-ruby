@@ -10,7 +10,7 @@ require "<%= service.service_require %>"
 class <%= service.client_name_full %>Test < Minitest::Test
 <%= indent render(partial: "service/test/method/setup"), 2 %>
 
-<% service.methods.each do |method| %>
+<% service.methods.reject(&:resumable_upload?).each do |method| %>
 <%= indent render(partial: "service/test/method/#{method.kind}",
                   locals: { method: method }), 2 %>
 

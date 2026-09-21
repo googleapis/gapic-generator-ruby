@@ -63,6 +63,7 @@ module Gapic
             files << g("service/credentials", "lib/#{service.credentials_file_path}",  service: service)
             files << g("service/paths",       "lib/#{service.paths_file_path}",        service: service) if service.paths?
             files << g("service/operations",  "lib/#{service.operations_file_path}",   service: service) if service.lro?
+            files << g("service/resumable_upload_stub", "lib/#{service.resumable_upload_stub_file_path}", service: service) if service.resumable_upload?
           end
         end
 
