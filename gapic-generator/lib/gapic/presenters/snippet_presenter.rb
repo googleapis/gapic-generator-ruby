@@ -63,6 +63,8 @@ module Gapic
           :paged
         elsif @method_presenter.lro?
           :lro
+        elsif @method_presenter.resumable_upload?
+          :resumable_upload
         else
           :simple
         end
@@ -244,18 +246,26 @@ module Gapic
           LroResponseHandlingPresenter.new call_proto&.lro_handling,
                                            call_json&.fetch("lroHandling", nil),
                                            phase1: phase1
+        when :resumable_upload
+          ResumableUploadResponseHandlingPresenter.new call_proto&.response_handling,
+                                                       call_json&.fetch("responseHandling", nil),
+                                                       response_type: return_type, phase1: phase1
         when :streaming
-          response_name = phase1 ? "output" : call_proto&.server_stream_name
-          response_name = nil if response_name == ""
-          StreamingResponseHandlingPresenter.new call_proto&.response_handling,
-                                                 call_json&.fetch("responseHandling", nil),
-                                                 response_name: response_name, base_response_type: base_response_type,
-                                                 phase1: phase1
+          build_streaming_response_handling_presenter call_proto, call_json, phase1
         else
           SimpleResponseHandlingPresenter.new call_proto&.response_handling,
                                               call_json&.fetch("responseHandling", nil),
                                               response_type: return_type, phase1: phase1
         end
+      end
+
+      def build_streaming_response_handling_presenter call_proto, call_json, phase1
+        response_name = phase1 ? "output" : call_proto&.server_stream_name
+        response_name = nil if response_name == ""
+        StreamingResponseHandlingPresenter.new call_proto&.response_handling,
+                                               call_json&.fetch("responseHandling", nil),
+                                               response_name: response_name, base_response_type: base_response_type,
+                                               phase1: phase1
       end
 
       def build_client_call_presenter call_proto, call_json, request_name, response_name
