@@ -1,5 +1,9 @@
 <%- assert_locals method -%>
-<%- if method.server_streaming? -%>
+<%- if method.resumable_upload? -%>
+# @return [::Gapic::ResumableUpload]
+#   A reusable upload handle. No request is sent and no byte is read from a stream until
+#   {::Gapic::ResumableUpload#start} or {::Gapic::ResumableUpload#resume} is called on it.
+<%- elsif method.server_streaming? -%>
 # @return [::Enumerable<<%= method.rest.doc_response_type %>>]
 <%- else -%>
 # @yield [result, operation] Access the result along with the TransportOperation object

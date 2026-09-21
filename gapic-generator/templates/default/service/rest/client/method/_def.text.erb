@@ -10,7 +10,7 @@
 <%= render partial: "service/rest/client/method/docs/error", locals: { method: method } -%>
 #
 <%= render partial: "service/rest/client/method/docs/snippets", locals: { method: method } -%>
-def <%= method.name %> request, options = nil
+def <%= method.name %> request<%= method.resumable_upload? ? " = {}" : "" %>, options = nil
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/rest/client/method/def/options_defaults", locals: { method: method }), 2 %>
