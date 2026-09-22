@@ -68,6 +68,16 @@ class PqcTest < ShowcaseTest
   # requirement. Everywhere else the classical fallback remains acceptable.
   REQUIRE_REST_PQC = ENV["SHOWCASE_REQUIRE_REST_PQC"] == "1"
 
+  # Whether the host can perform post-quantum key exchange over REST at all.
+  #
+  # Distinct from REQUIRE_REST_PQC, which is a policy choice about how strict to
+  # be. This is a fact about the machine. The two coincide in CI only because
+  # the strict environment variable is set on exactly the job that runs a
+  # PQC-capable image; anywhere else - a workstation on OpenSSL >= 3.5, or CI
+  # after the runner is upgraded - they diverge.
+  REST_OPENSSL_SUPPORTS_PQC =
+    Gem::Version.new(OpenSSL::OPENSSL_LIBRARY_VERSION.split[1]) >= MINIMUM_REST_OPENSSL_VERSION
+
   def test_grpc_negotiates_post_quantum_key_exchange
     assert_grpc_pqc_capable
     headers = grpc_tls_headers new_echo_client
@@ -109,7 +119,9 @@ class PqcTest < ShowcaseTest
       # Same reasoning as the gRPC case, but only checkable where the host
       # OpenSSL implements ML-KEM at all; below 3.5 the client has no
       # post-quantum group to withhold, so there is no fallback to observe.
-      if REQUIRE_REST_PQC
+      # Gated on capability rather than on REQUIRE_REST_PQC so that a
+      # PQC-capable host runs the real assertion even when strict mode is off.
+      if REST_OPENSSL_SUPPORTS_PQC
         assert_includes offered_groups(headers), PQC_GROUP,
                         "REST client no longer advertises #{PQC_GROUP}, so no fallback was exercised"
       end
