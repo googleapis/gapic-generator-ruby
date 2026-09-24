@@ -47,15 +47,15 @@ jobs:
           toys ci
 
   # The showcase suite above runs on ubuntu-latest, whose system OpenSSL is
-  # 3.0.13. ML-KEM only exists from OpenSSL 3.5, so the REST transport there
-  # legitimately falls back to classical X25519 and the post-quantum assertion
-  # stays tolerant. gRPC is unaffected because it carries its own BoringSSL
-  # inside the grpc gem.
+  # 3.0.13. ML-KEM only exists from OpenSSL 3.5, so the REST test there
+  # expects the classical X25519 fallback. gRPC is unaffected because it
+  # carries its own BoringSSL inside the grpc gem.
   #
-  # This job re-runs the same suite on a Debian trixie image (OpenSSL 3.5.5) and
-  # sets SHOWCASE_REQUIRE_REST_PQC, which promotes that tolerant assertion into
-  # a hard X25519MLKEM768 requirement. It is what actually proves REST
-  # post-quantum key exchange works.
+  # This job re-runs the same suite on a Debian trixie image (OpenSSL 3.5.5),
+  # where the REST test expects a post-quantum group instead. It is what
+  # actually proves REST post-quantum key exchange works. SHOWCASE_REQUIRE_REST_PQC
+  # makes the suite fail if the image's OpenSSL ever drops below 3.5, rather
+  # than silently falling back to the classical expectation.
   #
   # Once ubuntu-latest moves to Ubuntu 26.04 (OpenSSL 3.5.5) this job can be
   # dropped and SHOWCASE_REQUIRE_REST_PQC set on the matrix above instead. That
