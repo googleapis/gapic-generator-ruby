@@ -243,62 +243,6 @@ class PqcTest < ShowcaseTest
   end
 
   ##
-  # Boots an auxiliary Showcase server whose key exchange preferences are
-  # restricted to the given IANA codepoints, yields its port and the CA
-  # certificate it generated, and guarantees the process is reaped.
-  #
-  # Every server started with --tls mints its own certificate authority, so the
-  # auxiliary server cannot share a trust root with the main harness. Both
-  # transports have to be pointed at the CA yielded here: REST through
-  # SSL_CERT_FILE, which is scoped to the block below because Net::HTTP rebuilds
-  # its trust store per connection, and gRPC through explicit credentials built
-  # from the yielded path.
-  #
-  # The suite is not parallelized, so swapping a process-wide environment
-  # variable for the duration of the block is safe; adding parallelize_me! to
-  # this file would break that assumption.
-  #
-  # @param codepoints [String] Comma separated IANA key exchange group IDs.
-  # @yieldparam port [Integer]
-  # @yieldparam ca_path [String]
-  # @return [void]
-  def with_showcase_tls_groups codepoints
-    dir = ShowcaseTest.instance_variable_get :@showcase_dir
-    skip "requires a showcase server managed by this test run" if dir.nil?
-
-    port = SHOWCASE_PORT + 1
-    ca_path = File.join dir, "ca-#{port}.pem"
-    pid = spawn_showcase "#{dir}/gapic-showcase",
-                         port: port,
-                         ca_path: ca_path,
-                         log_file: File.join(dir, "gapic-showcase-#{port}.log"),
-                         extra_args: ["--tls-groups", codepoints]
-
-    original_tls_env = TLS_ENV_KEYS.to_h { |key| [key, ENV[key]] }
-    begin
-      TLS_ENV_KEYS.each { |key| ENV[key] = ca_path }
-      yield port, ca_path
-    ensure
-      original_tls_env.each { |key, value| ENV[key] = value }
-      stop_showcase pid
-    end
-  end
-
-  def grpc_echo_client_for port, ca_path
-    Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.endpoint = "localhost:#{port}"
-      config.credentials = ShowcaseTest.channel_credentials ca_path
-    end
-  end
-
-  def rest_echo_client_for port
-    Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
-      config.endpoint = "https://localhost:#{port}"
-      config.credentials = :this_channel_is_insecure
-    end
-  end
-
-  ##
   # Asserts on the key exchange the server negotiated for a REST call.
   #
   # The gRPC transport carries its own BoringSSL inside the grpc gem, so it can
