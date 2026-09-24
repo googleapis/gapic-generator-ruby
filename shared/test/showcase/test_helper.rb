@@ -173,6 +173,79 @@ class ShowcaseTest < Minitest::Test
     end
   end
 
+  # Echo client for an auxiliary server started by with_showcase_tls_groups.
+  #
+  # @param port [Integer]
+  # @param ca_path [String] CA certificate minted by that server.
+  # @return [Google::Showcase::V1beta1::Echo::Client]
+  def grpc_echo_client_for port, ca_path
+    Google::Showcase::V1beta1::Echo::Client.new do |config|
+      config.endpoint = "localhost:#{port}"
+      config.credentials = ShowcaseTest.channel_credentials ca_path
+    end
+  end
+
+  # Echo REST client for an auxiliary server started by
+  # with_showcase_tls_groups. Trust comes from SSL_CERT_FILE, which that helper
+  # points at the server's CA for the duration of its block.
+  #
+  # @param port [Integer]
+  # @return [Google::Showcase::V1beta1::Echo::Rest::Client]
+  def rest_echo_client_for port
+    Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+      config.endpoint = "https://localhost:#{port}"
+      config.credentials = :this_channel_is_insecure
+    end
+  end
+
+  ##
+  # Boots an auxiliary Showcase server whose key exchange preferences are
+  # restricted to the given IANA codepoints, yields its port and the CA
+  # certificate it generated, and guarantees the process is reaped.
+  #
+  # Every server started with --tls mints its own certificate authority, so the
+  # auxiliary server cannot share a trust root with the main harness. Both
+  # transports have to be pointed at the CA yielded here: REST through
+  # SSL_CERT_FILE, which is scoped to the block below because Net::HTTP rebuilds
+  # its trust store per connection, and gRPC through explicit credentials built
+  # from the yielded path.
+  #
+  # @param codepoints [String] Comma separated IANA key exchange group IDs.
+  # @yieldparam port [Integer]
+  # @yieldparam ca_path [String]
+  # @return [void]
+  def with_showcase_tls_groups codepoints
+    # This helper is only safe when tests run one at a time. It repoints the
+    # process-wide SSL_CERT_FILE, which every concurrent REST connection would
+    # pick up, and restores it on exit, which would clobber an overlapping
+    # caller's value. It also binds a fixed port and CA file path, so two
+    # overlapping calls would collide. Minitest runs serially by default;
+    # parallelize_me! switches the class's test_order to :parallel.
+    refute_equal :parallel, self.class.test_order,
+                 "#{self.class} is parallelized, but with_showcase_tls_groups " \
+                 "mutates process-wide state and must run serially"
+
+    dir = ShowcaseTest.instance_variable_get :@showcase_dir
+    skip "requires a showcase server managed by this test run" if dir.nil?
+
+    port = SHOWCASE_PORT + 1
+    ca_path = File.join dir, "ca-#{port}.pem"
+    pid = spawn_showcase "#{dir}/gapic-showcase",
+                         port: port,
+                         ca_path: ca_path,
+                         log_file: File.join(dir, "gapic-showcase-#{port}.log"),
+                         extra_args: ["--tls-groups", codepoints]
+
+    original_tls_env = TLS_ENV_KEYS.to_h { |key| [key, ENV[key]] }
+    begin
+      TLS_ENV_KEYS.each { |key| ENV[key] = ca_path }
+      yield port, ca_path
+    ensure
+      original_tls_env.each { |key, value| ENV[key] = value }
+      stop_showcase pid
+    end
+  end
+
   # Env vars pointing REST at Showcase's CA, saved so after_run can restore them
   # rather than leak a test-only root. REST only: Net::HTTP re-reads
   # SSL_CERT_FILE per connection, while the gRPC C core resolves
