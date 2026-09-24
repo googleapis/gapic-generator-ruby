@@ -67,19 +67,16 @@ class PqcTest < ShowcaseTest
   # of the host rather than of any gem we can pin.
   MINIMUM_REST_OPENSSL_VERSION = Gem::Version.new "3.5.0"
 
-  # Opt-in strict mode for the REST transport. CI sets this on jobs running an
-  # image that is guaranteed to provide OpenSSL >= 3.5, which turns the
-  # tolerant key exchange assertion below into a hard post-quantum
-  # requirement. Everywhere else the classical fallback remains acceptable.
+  # Set by CI on jobs whose image is guaranteed to provide OpenSSL >= 3.5. It
+  # does not change which outcome the REST test expects - host capability
+  # decides that - it only asserts that the capability is actually there, so a
+  # base-image regression fails loudly instead of silently turning the REST test
+  # into a classical-only check.
   REQUIRE_REST_PQC = ENV["SHOWCASE_REQUIRE_REST_PQC"] == "1"
 
-  # Whether the host can perform post-quantum key exchange over REST at all.
-  #
-  # Distinct from REQUIRE_REST_PQC, which is a policy choice about how strict to
-  # be. This is a fact about the machine. The two coincide in CI only because
-  # the strict environment variable is set on exactly the job that runs a
-  # PQC-capable image; anywhere else - a workstation on OpenSSL >= 3.5, or CI
-  # after the runner is upgraded - they diverge.
+  # Whether the host can perform post-quantum key exchange over REST at all, and
+  # therefore which outcome the REST test expects: a post-quantum group when
+  # true, CLASSICAL_GROUP when false.
   REST_OPENSSL_SUPPORTS_PQC =
     Gem::Version.new(OpenSSL::OPENSSL_LIBRARY_VERSION.split[1]) >= MINIMUM_REST_OPENSSL_VERSION
 
@@ -119,8 +116,6 @@ class PqcTest < ShowcaseTest
       # Same reasoning as the gRPC case, but only checkable where the host
       # OpenSSL implements ML-KEM at all; below 3.5 the client has no
       # post-quantum group to withhold, so there is no fallback to observe.
-      # Gated on capability rather than on REQUIRE_REST_PQC so that a
-      # PQC-capable host runs the real assertion even when strict mode is off.
       assert_advertises_pqc headers, "REST" if REST_OPENSSL_SUPPORTS_PQC
       assert_equal CLASSICAL_GROUP, headers[NEGOTIATED_GROUP_HEADER],
                    "REST client failed to fall back to classical key exchange"
@@ -248,37 +243,28 @@ class PqcTest < ShowcaseTest
   # The gRPC transport carries its own BoringSSL inside the grpc gem, so it can
   # be held to post-quantum key exchange unconditionally. REST cannot: it
   # delegates to the host's OpenSSL, and ML-KEM only exists from OpenSSL 3.5
-  # onward. Skipping on older hosts would leave the REST path entirely
-  # unverified in any environment below 3.5 - including the stock GitHub
-  # Actions runner - so instead the negotiated group is required to be one of
-  # the outcomes we consider correct, and is cross-checked against the groups
-  # the client actually offered. A non-TLS connection, or any group outside
-  # that set, still fails. This mirrors the conformance test in gax-php.
-  #
-  # Setting SHOWCASE_REQUIRE_REST_PQC=1 promotes this to a strict post-quantum
-  # assertion, and is used by the CI job that runs on an image pinned to
-  # OpenSSL >= 3.5.
+  # onward. Rather than skipping on older hosts, which would leave REST
+  # unverified on the stock GitHub Actions runner, the expected outcome follows
+  # from the host: a post-quantum group on OpenSSL >= 3.5, CLASSICAL_GROUP below
+  # it. Either way exactly one outcome passes.
   #
   # @param headers [Hash{String=>String}]
   # @return [void]
   def assert_rest_key_exchange headers
-    negotiated = headers[NEGOTIATED_GROUP_HEADER]
-    offered = offered_groups headers
-
     if REQUIRE_REST_PQC
+      assert REST_OPENSSL_SUPPORTS_PQC,
+             "SHOWCASE_REQUIRE_REST_PQC is set but the host provides " \
+             "#{OpenSSL::OPENSSL_LIBRARY_VERSION}; post-quantum key exchange " \
+             "requires OpenSSL >= #{MINIMUM_REST_OPENSSL_VERSION}"
+    end
+
+    if REST_OPENSSL_SUPPORTS_PQC
       assert_advertises_pqc headers, "REST"
-      assert pqc_group?(negotiated),
-             "SHOWCASE_REQUIRE_REST_PQC is set but REST negotiated #{negotiated}. " \
-             "Host provides #{OpenSSL::OPENSSL_LIBRARY_VERSION} and post-quantum " \
-             "key exchange requires OpenSSL >= #{MINIMUM_REST_OPENSSL_VERSION}"
+      assert_negotiated_pqc headers, "REST"
     else
-      assert_includes offered, negotiated,
-                      "server negotiated #{negotiated} but the client never offered it"
-      assert pqc_group?(negotiated) || negotiated == CLASSICAL_GROUP,
-             "REST negotiated an unexpected key exchange group #{negotiated}. " \
-             "Expected a post-quantum group on OpenSSL >= #{MINIMUM_REST_OPENSSL_VERSION} " \
-             "or #{CLASSICAL_GROUP} on older hosts " \
-             "(host provides #{OpenSSL::OPENSSL_LIBRARY_VERSION})"
+      assert_equal CLASSICAL_GROUP, headers[NEGOTIATED_GROUP_HEADER],
+                   "REST on #{OpenSSL::OPENSSL_LIBRARY_VERSION} should negotiate " \
+                   "#{CLASSICAL_GROUP}"
     end
   end
 end
