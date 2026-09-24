@@ -15,7 +15,7 @@
 ##
 # Base image.
 ##
-FROM ruby:3.1-buster@sha256:5b9ce51a2b6c646c716fece7236d341f70f485e279fbad5cfdfc4dfbf3007b48 as base
+FROM ruby:3.2-buster@sha256:8401591f18ed4cb38e2ce73fe9f655e17c3386306851e2569f0102a05dc5aab2 as base
 
 # Set the correct locale so Ruby strings default to UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
