@@ -23,5 +23,5 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 3.2"
 
-  gem.add_dependency "gapic-common", "~> 1.3"
+  gem.add_dependency "gapic-common", "~> 1.4"
 end
