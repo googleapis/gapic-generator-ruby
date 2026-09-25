@@ -17,6 +17,7 @@
 require "active_support/inflector"
 require "gapic/ruby_info"
 require "gapic/helpers/namespace_helper"
+require "gapic/model/method/resumable_upload"
 
 module Gapic
   module Presenters
@@ -71,6 +72,10 @@ module Gapic
         @lro = Gapic::Model::Method.parse_lro @method, @api
 
         @rest = MethodRestPresenter.new self, @api
+
+        # Built last: detection is cheap but its validation reads the LRO model, the HTTP bindings
+        # and the pagination check, all of which have to exist first.
+        @resumable_upload = Gapic::Model::Method::ResumableUpload.create self
       end
 
       ##
@@ -277,6 +282,36 @@ module Gapic
       def nonstandard_lro_client
         return unless nonstandard_lro?
         service.nonstandard_lros.find { |model| model.service == @lro.service_full_name }
+      end
+
+      ##
+      # Whether this method performs a resumable upload. Such a method returns an upload handle
+      # rather than a response, and its payload travels over REST in chunks after the request this
+      # method describes has created the upload session.
+      #
+      # @return [Boolean]
+      #
+      def resumable_upload?
+        !@resumable_upload.nil?
+      end
+
+      ##
+      # The path prefix prepended to this method's transcoded initiation URL, without surrounding
+      # slashes, e.g. `resumable/upload`. `nil` unless this method performs a resumable upload.
+      #
+      # @return [String, nil]
+      #
+      def upload_url_prefix
+        @resumable_upload&.url_prefix
+      end
+
+      ##
+      # The name of the constant the generated upload stub holds this method's URL prefix in.
+      #
+      # @return [String]
+      #
+      def upload_url_prefix_const_name
+        "#{name.upcase}_URL_PREFIX"
       end
 
       def client_streaming?

@@ -190,6 +190,14 @@ class Configuration
   <%- method_service.methods.each do |method| -%>
     ##
     # RPC-specific configuration for `<%= method.name %>`
+  <%- if method.resumable_upload? -%>
+    #
+    # `<%= method.name %>` performs a resumable upload, so the `timeout` and `retry_policy`
+    # configured here cover the request that creates the upload session only, not the upload
+    # itself. The whole-upload budget is the `upload_timeout:` argument of
+    # {::Gapic::ResumableUpload#start} and {::Gapic::ResumableUpload#resume}.
+    #
+  <%- end -%>
     # @return [::Gapic::Config::Method]
     #
     attr_reader :<%= method.name %>

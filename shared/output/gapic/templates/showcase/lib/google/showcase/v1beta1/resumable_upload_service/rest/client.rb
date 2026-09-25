@@ -39,6 +39,10 @@ module Google
           #
           # A service showcasing universal resumable upload protocol support.
           #
+          # `upload_media` performs a resumable upload: it returns a {::Gapic::ResumableUpload} handle
+          # instead of a response, and the per-call `timeout` and retry policy cover only the request that
+          # creates the upload session, not the upload itself.
+          #
           class Client
             # @private
             API_VERSION = ""
@@ -145,6 +149,14 @@ module Google
               @quota_project_id = @config.quota_project
               @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
+              @resumable_upload_stub = ::Google::Showcase::V1beta1::ResumableUploadService::ResumableUploadStub.new(
+                endpoint: @config.endpoint,
+                endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
+                universe_domain: @config.universe_domain,
+                credentials: credentials,
+                logger: @config.logger
+              )
+
               @resumable_upload_service_stub = ::Google::Showcase::V1beta1::ResumableUploadService::Rest::ServiceStub.new(
                 endpoint: @config.endpoint,
                 endpoint_template: DEFAULT_ENDPOINT_TEMPLATE,
@@ -210,15 +222,22 @@ module Google
             ##
             # A method with media_upload annotation enabled.
             #
-            # @overload upload_media(request, options = nil)
+            # @overload upload_media(request = {}, options = nil)
             #   Pass arguments to `upload_media` via a request object, either of type
             #   {::Google::Showcase::V1beta1::UploadMediaRequest} or an equivalent Hash.
             #
             #   @param request [::Google::Showcase::V1beta1::UploadMediaRequest, ::Hash]
-            #     A request object representing the call parameters. Required. To specify no
-            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #     A request object representing the call parameters. Optional: it is ignored when the returned
+            #     handle is resumed rather than started, because a resumed upload targets a session the server
+            #     has already created.
             #   @param options [::Gapic::CallOptions, ::Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #     Overrides for the initiation request only. The `timeout`, `retry_policy` and `metadata` set
+            #     here apply to the single request that creates the upload session, not to the upload as a
+            #     whole: an upload still transferring bytes an hour later has long outlived this `timeout`.
+            #     To bound the whole upload, pass `upload_timeout:` to {::Gapic::ResumableUpload#start} or
+            #     {::Gapic::ResumableUpload#resume}. Chunk transfers are retried by the upload protocol itself,
+            #     with the defaults documented on {::Gapic::ResumableUpload}; no call option reaches them.
+            #     Optional.
             #
             # @overload upload_media(name: nil)
             #   Pass arguments to `upload_media` via keyword arguments. Note that at
@@ -226,11 +245,9 @@ module Google
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
             #   @param name [::String]
-            # @yield [result, operation] Access the result along with the TransportOperation object
-            # @yieldparam result [::Google::Showcase::V1beta1::UploadMediaResponse]
-            # @yieldparam operation [::Gapic::Rest::TransportOperation]
-            #
-            # @return [::Google::Showcase::V1beta1::UploadMediaResponse]
+            # @return [::Gapic::ResumableUpload]
+            #   A reusable upload handle. No request is sent and no byte is read from a stream until
+            #   {::Gapic::ResumableUpload#start} or {::Gapic::ResumableUpload#resume} is called on it.
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
             #
@@ -244,12 +261,18 @@ module Google
             #   request = Google::Showcase::V1beta1::UploadMediaRequest.new
             #
             #   # Call the upload_media method.
-            #   result = client.upload_media request
+            #   upload = client.upload_media request
+            #
+            #   # The returned object is a handle for a resumable upload. Nothing has been
+            #   # uploaded yet, and the timeout and retry policy of the call above cover only
+            #   # the request that creates the upload session, not the upload as a whole.
+            #   stream = File.open "input.bin", "rb"
+            #   result = upload.start stream: stream, content_type: "application/octet-stream"
             #
             #   # The returned object is of type Google::Showcase::V1beta1::UploadMediaResponse.
             #   p result
             #
-            def upload_media request, options = nil
+            def upload_media request = {}, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
               request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::UploadMediaRequest
@@ -277,11 +300,17 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @resumable_upload_service_stub.upload_media request, options do |result, operation|
-                yield result, operation if block_given?
-              end
-            rescue ::Faraday::Error => e
-              raise ::Gapic::Rest::Error.wrap_faraday_error e
+              ::Gapic::ResumableUpload.new(
+                client_stub_proc:     -> { @resumable_upload_stub.client_stub },
+                initial_request_proc: lambda {
+                  ::Google::Showcase::V1beta1::ResumableUploadService::ResumableUploadStub.transcode_upload_media_request request
+                },
+                initial_headers:      options.metadata,
+                start_retry_policy:   ::Gapic::Rest::ResumableUpload.start_retry_policy_for(options),
+                response_type:        ::Google::Showcase::V1beta1::UploadMediaResponse,
+                method_name:          "upload_media",
+                error_handler:        nil
+              )
             end
 
             ##
@@ -442,6 +471,12 @@ module Google
               class Rpcs
                 ##
                 # RPC-specific configuration for `upload_media`
+                #
+                # `upload_media` performs a resumable upload, so the `timeout` and `retry_policy`
+                # configured here cover the request that creates the upload session only, not the upload
+                # itself. The whole-upload budget is the `upload_timeout:` argument of
+                # {::Gapic::ResumableUpload#start} and {::Gapic::ResumableUpload#resume}.
+                #
                 # @return [::Gapic::Config::Method]
                 #
                 attr_reader :upload_media

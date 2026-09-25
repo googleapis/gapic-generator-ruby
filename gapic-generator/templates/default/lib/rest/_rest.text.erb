@@ -15,6 +15,9 @@ require "<%= service.credentials_require %>"
 <%- if service.paths? -%>
 require "<%= service.paths_require %>"
 <%- end -%>
+<%- if service.resumable_upload? -%>
+require "<%= service.resumable_upload_stub_require %>"
+<%- end -%>
 <%- if service.rest.lro? -%>
 require "<%= service.rest.operations_require %>"
 <%- end -%>

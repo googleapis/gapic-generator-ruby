@@ -1,0 +1,13 @@
+<%- assert_locals method -%>
+<%- error_handler = render(partial: "service/client/method/def/upload_error_handler", locals: { method: method }).strip -%>
+::Gapic::ResumableUpload.new(
+  client_stub_proc:     -> { <%= method.service.resumable_upload_stub_ivar %>.client_stub },
+  initial_request_proc: lambda {
+    <%= method.service.resumable_upload_stub_name_full %>.<%= method.rest.transcoding_helper_name %> request
+  },
+  initial_headers:      options.metadata,
+  start_retry_policy:   ::Gapic::Rest::ResumableUpload.start_retry_policy_for(options),
+  response_type:        <%= method.return_type %>,
+  method_name:          "<%= method.name %>",
+  error_handler:        <%= error_handler %>
+)

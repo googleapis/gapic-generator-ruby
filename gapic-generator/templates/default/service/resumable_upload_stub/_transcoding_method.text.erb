@@ -1,0 +1,22 @@
+<%- assert_locals method, service -%>
+##
+# @private
+#
+# GRPC transcoding helper method for the <%= method.name %> resumable upload initiation request.
+#
+# The upload itself is not transcoded: only the request that creates the upload session is, and the
+# verb is discarded because initiation is always a POST. Query string parameters are folded into the
+# URL, since the upload sends the initiation request with no separate parameters.
+#
+# @param request_pb [<%= method.request_type %>]
+#   A request object representing the call parameters. Required.
+# @return [Array(String, [String, nil])]
+#   Uri, Body
+def self.<%= method.rest.transcoding_helper_name %> request_pb
+  transcoder = ::Gapic::Rest::GrpcTranscoder.new
+<%= indent render(partial: "service/rest/service_stub/grpc_transcoding_method/bindings", locals: { method: method }), 46 %>
+  _verb, uri, query_string_params, body = transcoder.transcode request_pb
+  uri = "/#{<%= method.upload_url_prefix_const_name %>}#{uri}"
+  uri = "#{uri}?#{query_string_params.join '&'}" if query_string_params.any?
+  [uri, body]
+end

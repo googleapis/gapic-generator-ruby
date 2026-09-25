@@ -31,6 +31,7 @@ require "gapic/config/method"
 require "google/showcase/version"
 
 require "google/showcase/v1beta1/resumable_upload_service/credentials"
+require "google/showcase/v1beta1/resumable_upload_service/resumable_upload_stub"
 require "google/showcase/v1beta1/resumable_upload_service/client"
 require "google/showcase/v1beta1/resumable_upload_service/rest"
 
