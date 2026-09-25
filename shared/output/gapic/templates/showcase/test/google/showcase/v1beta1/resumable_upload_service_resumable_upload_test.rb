@@ -57,13 +57,19 @@ class ::Google::Showcase::V1beta1::ResumableUploadService::ResumableUploadTest <
   end
 
   def test_transcode_upload_media_request
-    name = "hello world"
-    request = ::Google::Showcase::V1beta1::UploadMediaRequest.new name: name
+    request = ::Google::Showcase::V1beta1::UploadMediaRequest.new
 
-    uri, body = ::Google::Showcase::V1beta1::ResumableUploadService::ResumableUploadStub.transcode_upload_media_request request
+    # The transcoder is stubbed so the test pins the upload-specific post-processing (prefix,
+    # query-string folding, [uri, body] shape) independently of the method's path template.
+    transcoder = Gapic::Rest::GrpcTranscoder.new
+    transcoder.stub :transcode, [:post, "/transcoded/path", ["foo=bar", "baz=qux"], "{\"body\":true}"] do
+      Gapic::Rest::GrpcTranscoder.stub :new, transcoder do
+        uri, body = ::Google::Showcase::V1beta1::ResumableUploadService::ResumableUploadStub.transcode_upload_media_request request
 
-    assert_equal "/#{::Google::Showcase::V1beta1::ResumableUploadService::ResumableUploadStub::UPLOAD_MEDIA_URL_PREFIX}/v1beta1/files:upload", uri
-    refute_nil body
+        assert_equal "/#{::Google::Showcase::V1beta1::ResumableUploadService::ResumableUploadStub::UPLOAD_MEDIA_URL_PREFIX}/transcoded/path?foo=bar&baz=qux", uri
+        assert_equal "{\"body\":true}", body
+      end
+    end
   end
 
   def test_upload_media
