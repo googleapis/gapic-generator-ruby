@@ -20,5 +20,7 @@ def <%= method.name %> request<%= method.resumable_upload? ? " = {}" : "" %>, op
 <%- end -%>
 
 <%= indent render(partial: "service/rest/client/method/def/response", locals: { method: method }), 2 %>
+<%- unless method.resumable_upload? -%>
 <%= render partial: "service/rest/client/method/def/rescue", locals: { method: method } -%>
+<%- end -%>
 end
