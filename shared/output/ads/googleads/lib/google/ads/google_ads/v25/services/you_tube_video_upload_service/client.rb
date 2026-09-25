@@ -293,8 +293,6 @@ module Google
                   method_name:          "create_you_tube_video_upload",
                   error_handler:        nil
                 )
-                # rescue GRPC::BadStatus => grpc_error
-                #  raise Google::Ads::GoogleAds::Error.new grpc_error.message
               end
 
               ##

@@ -311,8 +311,6 @@ module Google
                 method_name:          "upload_media",
                 error_handler:        nil
               )
-            rescue ::Faraday::Error => e
-              raise ::Gapic::Rest::Error.wrap_faraday_error e
             end
 
             ##
