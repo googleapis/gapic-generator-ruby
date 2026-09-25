@@ -40,24 +40,21 @@ class <%= service.service_name_full %>::ResumableUploadTest < Minitest::Test
 <%- service.resumable_upload_methods.each do |method| -%>
 <%- fields = method.fields_with_first_oneof -%>
 <%- prefix_const = "#{service.resumable_upload_stub_name_full}::#{method.upload_url_prefix_const_name}" -%>
-<%- bindings = method.http_bindings -%>
-<%- static_uri = bindings.length == 1 && !bindings.first.uri_for_transcoding.include?("{") ? bindings.first.uri_for_transcoding : nil -%>
 
   def test_transcode_<%= method.name %>_request
-    <%- fields.each do |field| -%>
-    <%= field.value_name %> = <%= field.default_value %>
-    <%- end -%>
-    request = <%= method.request_type %>.new <%= fields.map(&:as_kwarg).join ", " %>
+    request = <%= method.request_type %>.new
 
-    uri, body = <%= service.resumable_upload_stub_name_full %>.<%= method.rest.transcoding_helper_name %> request
+    # The transcoder is stubbed so the test pins the upload-specific post-processing (prefix,
+    # query-string folding, [uri, body] shape) independently of the method's path template.
+    transcoder = Gapic::Rest::GrpcTranscoder.new
+    transcoder.stub :transcode, [:post, "/transcoded/path", ["foo=bar", "baz=qux"], "{\"body\":true}"] do
+      Gapic::Rest::GrpcTranscoder.stub :new, transcoder do
+        uri, body = <%= service.resumable_upload_stub_name_full %>.<%= method.rest.transcoding_helper_name %> request
 
-    <%- if static_uri -%>
-    assert_equal "/#{<%= prefix_const %>}<%= static_uri %>", uri
-    <%- else -%>
-    assert uri.start_with?("/#{<%= prefix_const %>}/"),
-           "expected #{uri} to be prefixed with #{<%= prefix_const %>}"
-    <%- end -%>
-    refute_nil body
+        assert_equal "/#{<%= prefix_const %>}/transcoded/path?foo=bar&baz=qux", uri
+        assert_equal "{\"body\":true}", body
+      end
+    end
   end
 <%- if service.generate_grpc_clients? -%>
 
