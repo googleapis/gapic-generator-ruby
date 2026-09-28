@@ -77,8 +77,10 @@ def spawn_showcase binary, port:, ca_path:, log_file:, extra_args: []
   )
   begin
     wait_for_showcase_ca ca_path
-  rescue StandardError
+  rescue StandardError, SignalException
     # Otherwise it survives holding the port and the next run silently reuses it.
+    # SignalException also covers Ctrl-C (Interrupt) and kill (SIGTERM), neither
+    # of which is a StandardError.
     stop_showcase pid
     raise
   end
