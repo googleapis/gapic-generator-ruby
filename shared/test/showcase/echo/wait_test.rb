@@ -23,7 +23,10 @@ class WaitTest < ShowcaseTest
 
   def setup client = nil
     @client = client
-    @retry_policy = ::Gapic::Operation::RetryPolicy.new initial_delay: 0.2, multiplier: 2, max_delay: 1, timeout: 2
+    # RetryPolicy fixes its deadline on construction, before test_wait creates
+    # its 2s operation, so the timeout needs headroom past that ttl; otherwise
+    # polling can give up just before the operation completes.
+    @retry_policy = ::Gapic::Operation::RetryPolicy.new initial_delay: 0.2, multiplier: 2, max_delay: 1, timeout: 10
   end
 
   def test_wait
