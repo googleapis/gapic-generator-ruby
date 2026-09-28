@@ -252,8 +252,7 @@ class ShowcaseTest < Minitest::Test
 
     unless @showcase_id.nil?
       puts "Stopping showcase server (id: #{@showcase_id})..." if ENV["VERBOSE"]
-      _, status = Open3.capture2 "kill #{@showcase_id}"
-      raise "failed to kill showcase" unless status.exitstatus.zero?
+      stop_showcase @showcase_id
     end
 
     @original_tls_env.each { |key, value| ENV[key] = value }
