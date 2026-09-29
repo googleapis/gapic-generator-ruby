@@ -31,16 +31,22 @@ module ResumableUploadTests
   # Three full chunks and a partial one, so the upload spans several requests.
   PAYLOAD = ("0123456789" * ((CHUNK_SIZE * 3 / 10) + 100)).b.freeze
 
+  # Whole-upload budget for every run. Without it a broken server is not an
+  # error: the upload keeps recovering until the default budget of at least an
+  # hour runs out, and the suite hangs instead of failing.
+  UPLOAD_TIMEOUT = 30
+
   class UserPauseError < StandardError
   end
 
   def test_upload_media
     progress = []
     upload = @client.upload_media
-    response = upload.start stream:      StringIO.new(PAYLOAD),
-                            upload_size: PAYLOAD.bytesize,
-                            chunk_size:  CHUNK_SIZE,
-                            on_progress: ->(p) { progress << p }
+    response = upload.start stream:         StringIO.new(PAYLOAD),
+                            upload_size:    PAYLOAD.bytesize,
+                            chunk_size:     CHUNK_SIZE,
+                            upload_timeout: UPLOAD_TIMEOUT,
+                            on_progress:    ->(p) { progress << p }
 
     assert_instance_of ::Google::Showcase::V1beta1::UploadMediaResponse, response
     assert_equal PAYLOAD.bytesize, response.size
@@ -56,20 +62,22 @@ module ResumableUploadTests
     end
     paused = @client.upload_media
     assert_raises UserPauseError do
-      paused.start stream:      StringIO.new(PAYLOAD),
-                   upload_size: PAYLOAD.bytesize,
-                   chunk_size:  CHUNK_SIZE,
-                   on_progress: pause
+      paused.start stream:         StringIO.new(PAYLOAD),
+                   upload_size:    PAYLOAD.bytesize,
+                   chunk_size:     CHUNK_SIZE,
+                   upload_timeout: UPLOAD_TIMEOUT,
+                   on_progress:    pause
     end
     assert paused.resumable?
 
     # A fresh handle with no request: resuming needs only the resume handle.
     progress = []
     resumed = @client.upload_media
-    response = resumed.resume stream:        StringIO.new(PAYLOAD),
-                              resume_handle: paused.resume_handle,
-                              upload_size:   PAYLOAD.bytesize,
-                              on_progress:   ->(p) { progress << p }
+    response = resumed.resume stream:         StringIO.new(PAYLOAD),
+                              resume_handle:  paused.resume_handle,
+                              upload_size:    PAYLOAD.bytesize,
+                              upload_timeout: UPLOAD_TIMEOUT,
+                              on_progress:    ->(p) { progress << p }
 
     assert_instance_of ::Google::Showcase::V1beta1::UploadMediaResponse, response
     assert_equal PAYLOAD.bytesize, response.size
