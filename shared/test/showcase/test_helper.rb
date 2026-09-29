@@ -175,6 +175,23 @@ class ShowcaseTest < Minitest::Test
     end
   end
 
+  # Uploads always travel over REST, even from the gRPC client: its upload stub prepends `https://` to
+  # the default `localhost:7469` endpoint and trusts the CA through SSL_CERT_FILE, like the REST
+  # clients. Credentials are a Symbol rather than ShowcaseTest.channel_credentials because the upload
+  # stub cannot use gRPC channel credentials; the channel they would secure is never used here.
+  def new_resumable_upload_client
+    Google::Showcase::V1beta1::ResumableUploadService::Client.new do |config|
+      config.credentials = :this_channel_is_insecure
+    end
+  end
+
+  def new_resumable_upload_rest_client
+    Google::Showcase::V1beta1::ResumableUploadService::Rest::Client.new do |config|
+      config.endpoint = "https://localhost:#{SHOWCASE_PORT}"
+      config.credentials = :this_channel_is_insecure
+    end
+  end
+
   # Echo client for an auxiliary server started by with_showcase_tls_groups.
   #
   # @param port [Integer]
