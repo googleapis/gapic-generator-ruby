@@ -1,0 +1,6 @@
+<%- assert_locals service -%>
+<%= render partial: "service/resumable_upload_stub/resumable_upload_stub",
+           layout: "layouts/ruby",
+           locals: { service: service,
+                     namespace: service.service_name_full }
+%>

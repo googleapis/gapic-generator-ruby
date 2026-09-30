@@ -71,64 +71,6 @@ class ::Google::Showcase::V1beta1::ResumableUploadService::ClientTest < Minitest
     end
   end
 
-  def test_upload_media
-    # Create GRPC objects.
-    grpc_response = ::Google::Showcase::V1beta1::UploadMediaResponse.new
-    grpc_operation = GRPC::ActiveCall::Operation.new nil
-    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    grpc_options = {}
-
-    # Create request parameters for a unary method.
-    name = "hello world"
-
-    upload_media_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
-      assert_equal :upload_media, name
-      assert_kind_of ::Google::Showcase::V1beta1::UploadMediaRequest, request
-      assert_equal "hello world", request["name"]
-      refute_nil options
-    end
-
-    Gapic::ServiceStub.stub :new, upload_media_client_stub do
-      # Create client
-      c = ::Google::Showcase::V1beta1::ResumableUploadService::Client.new do |config|
-        config.credentials = grpc_channel
-      end
-
-      # Use hash object
-      c.upload_media({ name: name }) do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Use named arguments
-      c.upload_media name: name do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Use protobuf object
-      c.upload_media ::Google::Showcase::V1beta1::UploadMediaRequest.new(name: name) do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Use hash object with options
-      c.upload_media({ name: name }, grpc_options) do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Use protobuf object with options
-      c.upload_media(::Google::Showcase::V1beta1::UploadMediaRequest.new(name: name), grpc_options) do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Verify method calls
-      assert_equal 5, upload_media_client_stub.call_rpc_count
-    end
-  end
-
   def test_configure
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
 

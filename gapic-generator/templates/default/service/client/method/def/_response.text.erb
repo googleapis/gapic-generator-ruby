@@ -1,5 +1,7 @@
 <%- assert_locals method -%>
-<%- if method.paged? -%>
+<%- if method.resumable_upload? -%>
+<%= render partial: "service/client/method/def/response_resumable_upload", locals: { method: method } -%>
+<%- elsif method.paged? -%>
 <%= render partial: "service/client/method/def/response_paged", locals: { method: method } -%>
 <%- elsif method.rest.nonstandard_lro? -%>
 <%= render partial: "service/client/method/def/response_nonstandard_lro", locals: { method: method } -%>

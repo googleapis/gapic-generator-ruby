@@ -1,4 +1,22 @@
 <%- assert_locals method -%>
+<%- if method.resumable_upload? -%>
+# @overload <%= method.name %>(request = {}, options = nil)
+#   Pass arguments to `<%= method.name %>` via a request object, either of type
+#   {<%= method.request_type %>} or an equivalent Hash.
+#
+#   @param request [<%= method.request_type %>, ::Hash]
+#     A request object representing the call parameters. Optional: it is ignored when the returned
+#     handle is resumed rather than started, because a resumed upload targets a session the server
+#     has already created.
+#   @param options [::Gapic::CallOptions, ::Hash]
+#     Overrides for the initiation request only. The `timeout`, `retry_policy` and `metadata` set
+#     here apply to the single request that creates the upload session, not to the upload as a
+#     whole: an upload still transferring bytes an hour later has long outlived this `timeout`.
+#     To bound the whole upload, pass `upload_timeout:` to {::Gapic::ResumableUpload#start} or
+#     {::Gapic::ResumableUpload#resume}. Chunk transfers are retried by the upload protocol itself,
+#     with the defaults documented on {::Gapic::ResumableUpload}; no call option reaches them.
+#     Optional.
+<%- else -%>
 # @overload <%= method.name %>(request, options = nil)
 #   Pass arguments to `<%= method.name %>` via a request object, either of type
 #   {<%= method.request_type %>} or an equivalent Hash.
@@ -8,6 +26,7 @@
 #     parameters, or to keep all the default parameter values, pass an empty Hash.
 #   @param options [::Gapic::CallOptions, ::Hash]
 #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+<%- end -%>
 <%-if method.arguments.any?-%>
 #
 <%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>

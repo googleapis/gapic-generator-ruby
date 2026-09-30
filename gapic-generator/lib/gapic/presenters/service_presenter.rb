@@ -422,6 +422,15 @@ module Gapic
         service_file_path.sub ".rb", "_operations_test.rb"
       end
 
+      ##
+      # Path of the generated tests covering this service's resumable upload RPCs. Those RPCs are
+      # excluded from the ordinary client tests, which assume a call returns a response.
+      #
+      # @return [String]
+      def test_resumable_upload_file_path
+        service_file_path.sub ".rb", "_resumable_upload_test.rb"
+      end
+
       def stub_name
         "#{ActiveSupport::Inflector.underscore name}_stub"
       end
@@ -487,6 +496,62 @@ module Gapic
       def lro_service
         lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
         ServicePresenter.new @gem_presenter, @api, lro.services.first, parent_service: self unless lro.nil?
+      end
+
+      ##
+      # Whether any of this service's RPCs perform resumable uploads, and therefore whether an upload
+      # stub has to be generated for it and built by its clients.
+      #
+      # @return [Boolean]
+      def resumable_upload?
+        methods.any?(&:resumable_upload?)
+      end
+
+      ##
+      # Presenters for the RPCs of this service that perform resumable uploads.
+      #
+      # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
+      def resumable_upload_methods
+        methods.select(&:resumable_upload?)
+      end
+
+      ##
+      # The class name of the generated upload stub. One per service, shared by both transports, and
+      # deliberately not nested under `Rest::`: the gRPC client builds it too, because the upload
+      # itself always travels over REST.
+      #
+      # @return [String]
+      def resumable_upload_stub_name
+        "ResumableUploadStub"
+      end
+
+      # @return [String]
+      def resumable_upload_stub_name_full
+        fix_namespace @api, "#{service_name_full}::#{resumable_upload_stub_name}"
+      end
+
+      # @return [String]
+      def resumable_upload_stub_require
+        ruby_file_path @api, resumable_upload_stub_name_full
+      end
+
+      # @return [String]
+      def resumable_upload_stub_file_path
+        "#{resumable_upload_stub_require}.rb"
+      end
+
+      # @return [String]
+      def resumable_upload_stub_file_name
+        resumable_upload_stub_file_path.split("/").last
+      end
+
+      ##
+      # An instance variable name used for the generated upload stub. The clients keep the stub here
+      # and expose no reader for it.
+      #
+      # @return [String]
+      def resumable_upload_stub_ivar
+        "@resumable_upload_stub"
       end
 
       def config_channel_args

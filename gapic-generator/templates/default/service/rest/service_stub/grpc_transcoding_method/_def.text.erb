@@ -19,19 +19,6 @@ def self.<%= method.rest.transcoding_helper_name %> request_pb<%= boverr_str %>
   <%- end %>
   <%- assignment = method.service.rest.is_main_mixin_service? ? "||=" : "=" -%>
   transcoder <%= assignment %> Gapic::Rest::GrpcTranscoder.new
-  <%- method.http_bindings.each do |http_binding| -%>
-                                            .with_bindings(
-                                              uri_method: :<%= http_binding.verb %>,
-                                              uri_template: "<%= http_binding.uri_for_transcoding %>",
-                                            <%- if http_binding.body? -%>
-                                              body: "<%= http_binding.body %>",
-                                            <%- end -%>
-                                              matches: [
-                                            <%- http_binding.routing_params_transcoder_matches_strings.each do |match_str| -%>
-                                                <%= match_str %>
-                                            <%- end -%>
-                                              ]
-                                            )
-  <%- end %>
+<%= indent render(partial: "service/rest/service_stub/grpc_transcoding_method/bindings", locals: { method: method }), 44 %>
   transcoder.transcode request_pb
 end

@@ -1,0 +1,132 @@
+<%- assert_locals service -%>
+<%= render partial: "shared/header" %>
+require "helper"
+
+require "gapic/rest"
+<%- if service.generate_grpc_clients? -%>
+require "gapic/grpc/service_stub"
+<%- end -%>
+
+require "<%= service.proto_service_require %>"
+<%- if service.generate_grpc_clients? -%>
+require "<%= service.service_require %>"
+<%- end -%>
+<%- if service.generate_rest_clients? -%>
+require "<%= service.rest.service_require %>"
+<%- end -%>
+
+class <%= service.service_name_full %>::ResumableUploadTest < Minitest::Test
+  ##
+  # Stands in for the transport stub a client builds in its constructor. An upload method sends
+  # nothing, so this only has to satisfy the constructor.
+  #
+  class ClientStub
+    def endpoint
+      "endpoint.example.com"
+    end
+
+    def universe_domain
+      "example.com"
+    end
+
+    def stub_logger
+      nil
+    end
+
+    def logger
+      nil
+    end
+  end
+<%- service.resumable_upload_methods.each do |method| -%>
+<%- fields = method.fields_with_first_oneof -%>
+<%- prefix_const = "#{service.resumable_upload_stub_name_full}::#{method.upload_url_prefix_const_name}" -%>
+
+  def test_transcode_<%= method.name %>_request
+    request = <%= method.request_type %>.new
+
+    # The transcoder is stubbed so the test pins the upload-specific post-processing (prefix,
+    # query-string folding, [uri, body] shape) independently of the method's path template.
+    transcoder = Gapic::Rest::GrpcTranscoder.new
+    transcoder.stub :transcode, [:post, "/transcoded/path", ["foo=bar", "baz=qux"], "{\"body\":true}"] do
+      Gapic::Rest::GrpcTranscoder.stub :new, transcoder do
+        uri, body = <%= service.resumable_upload_stub_name_full %>.<%= method.rest.transcoding_helper_name %> request
+
+        assert_equal "/#{<%= prefix_const %>}/transcoded/path?foo=bar&baz=qux", uri
+        assert_equal "{\"body\":true}", body
+      end
+    end
+  end
+<%- if service.generate_grpc_clients? -%>
+
+  def test_<%= method.name %>
+    <%- fields.each do |field| -%>
+    <%= field.value_name %> = <%= field.default_value %>
+    <%- end -%>
+
+    client = nil
+    Gapic::ServiceStub.stub :new, ClientStub.new do
+      client = <%= service.client_name_full %>.new do |config|
+        config.credentials = :this_channel_is_insecure
+      end
+    end
+
+    upload = client.<%= method.name %> <%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>)
+
+    # The call builds a handle and sends nothing. The upload only begins on #start or #resume.
+    assert_kind_of ::Gapic::ResumableUpload, upload
+    assert_nil upload.resume_handle
+    refute upload.resumable?
+    refute upload.running?
+  end
+
+  def test_<%= method.name %>_channel_credentials
+    <%- fields.each do |field| -%>
+    <%= field.value_name %> = <%= field.default_value %>
+    <%- end -%>
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+
+    client = nil
+    Gapic::ServiceStub.stub :new, ClientStub.new do
+      client = <%= service.client_name_full %>.new do |config|
+        config.credentials = grpc_channel
+      end
+    end
+
+    upload = client.<%= method.name %> <%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>)
+
+    assert_kind_of ::Gapic::ResumableUpload, upload
+
+    # Uploads travel over REST and cannot use a channel as credentials. The error surfaces here,
+    # rather than at construction, and before the stream is touched.
+    stream = StringIO.new "resumable upload test payload"
+    assert_raises ::ArgumentError do
+      upload.start stream: stream, content_type: "application/octet-stream"
+    end
+    assert_equal 0, stream.pos
+  end
+<%- end -%>
+<%- if service.generate_rest_clients? -%>
+
+  def test_<%= method.name %>_rest
+    <%- fields.each do |field| -%>
+    <%= field.value_name %> = <%= field.default_value %>
+    <%- end -%>
+
+    client = nil
+    Gapic::Rest::ClientStub.stub :new, ClientStub.new do
+      client = <%= service.rest.client_name_full %>.new do |config|
+        config.credentials = :dummy_value
+      end
+    end
+
+    upload = client.<%= method.name %> <%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>)
+
+    # The call builds a handle and sends nothing. The upload only begins on #start or #resume.
+    assert_kind_of ::Gapic::ResumableUpload, upload
+    assert_nil upload.resume_handle
+    refute upload.resumable?
+    refute upload.running?
+  end
+<%- end -%>
+<%- end -%>
+end

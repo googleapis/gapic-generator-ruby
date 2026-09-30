@@ -22,7 +22,7 @@ require "openssl"
 require "tmpdir"
 
 # @private
-GAPIC_SHOWCASE_VERSION = "0.44.0"
+GAPIC_SHOWCASE_VERSION = "0.44.2"
 
 # @private
 SHOWCASE_PORT = 7469
@@ -170,6 +170,24 @@ class ShowcaseTest < Minitest::Test
 
   def new_compliance_rest_client
     Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+      config.endpoint = "https://localhost:#{SHOWCASE_PORT}"
+      config.credentials = :this_channel_is_insecure
+    end
+  end
+
+  # Uploads always travel over REST, even from the gRPC client: its upload stub prepends `https://` to
+  # the default `localhost:7469` endpoint and trusts the CA through SSL_CERT_FILE, like the REST
+  # clients. Credentials are a Symbol rather than ShowcaseTest.channel_credentials because the upload
+  # stub cannot use gRPC channel credentials; the channel they would secure is never used here.
+  # Requires gapic-showcase 0.44.1+: earlier servers hand out http:// upload URLs under --tls.
+  def new_resumable_upload_client
+    Google::Showcase::V1beta1::ResumableUploadService::Client.new do |config|
+      config.credentials = :this_channel_is_insecure
+    end
+  end
+
+  def new_resumable_upload_rest_client
+    Google::Showcase::V1beta1::ResumableUploadService::Rest::Client.new do |config|
       config.endpoint = "https://localhost:#{SHOWCASE_PORT}"
       config.credentials = :this_channel_is_insecure
     end

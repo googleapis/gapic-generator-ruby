@@ -358,6 +358,18 @@ module Gapic
       end
 
       ##
+      # Presenters for methods that the REST service stub carries an implementation for. An upload
+      # RPC has no ordinary REST path: the REST client delegates to the upload handle exactly as the
+      # gRPC client does, so a plain call method and transcoder here would be dead code that also
+      # happens to be wrong — a non-resumable POST of the whole payload.
+      #
+      # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
+      #
+      def service_stub_methods
+        methods.reject(&:resumable_upload?)
+      end
+
+      ##
       # Require string for the helpers file
       #
       # @return [String]

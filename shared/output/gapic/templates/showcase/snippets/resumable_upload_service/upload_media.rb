@@ -47,7 +47,13 @@ def upload_media
   request = Google::Showcase::V1beta1::UploadMediaRequest.new
 
   # Call the upload_media method.
-  result = client.upload_media request
+  upload = client.upload_media request
+
+  # The returned object is a handle for a resumable upload. Nothing has been
+  # uploaded yet, and the timeout and retry policy of the call above cover only
+  # the request that creates the upload session, not the upload as a whole.
+  stream = File.open "input.bin", "rb"
+  result = upload.start stream: stream, content_type: "application/octet-stream"
 
   # The returned object is of type Google::Showcase::V1beta1::UploadMediaResponse.
   p result

@@ -81,6 +81,66 @@ module Gapic
       end
 
       ##
+      # Presentation information about resumable upload response handling.
+      #
+      # A resumable upload RPC returns a {::Gapic::ResumableUpload} handle rather than a
+      # response message, so the snippet names the call result `upload` and goes on to
+      # start the upload, which is what actually produces the response message.
+      #
+      class ResumableUploadResponseHandlingPresenter
+        include ResponseHandlingPresenterCommon
+
+        ##
+        # Create a resumable upload response handling presenter
+        #
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::SimpleResponseHandling]
+        #     The protobuf representation
+        # @param json [String]
+        #     The JSON representation
+        # @param response_type [String] The fully qualified response message class
+        # @param phase1 [Boolean] True if this is a phase 1 snippet without config
+        #
+        def initialize proto, _json, response_type:, phase1:
+          @response_name = phase1 ? "upload" : compute_response_name(proto, phase1)
+          @render_lines = phase1 ? upload_lines(response_type) : []
+          @render = @render_lines.join "\n"
+        end
+
+        ##
+        # The lines of rendered code
+        # @return [Array<String>]
+        #
+        attr_reader :render_lines
+
+        ##
+        # The rendered code as a single string, possibly with line breaks
+        # @return [String]
+        #
+        attr_reader :render
+
+        ##
+        # The name of the response variable, or nil for no response handling
+        # @return [String,nil]
+        #
+        attr_reader :response_name
+
+        private
+
+        def upload_lines response_type
+          [
+            "# The returned object is a handle for a resumable upload. Nothing has been",
+            "# uploaded yet, and the timeout and retry policy of the call above cover only",
+            "# the request that creates the upload session, not the upload as a whole.",
+            "stream = File.open \"input.bin\", \"rb\"",
+            "result = #{@response_name}.start stream: stream, content_type: \"application/octet-stream\"",
+            "",
+            "# The returned object is of type #{response_type}.",
+            "p result"
+          ]
+        end
+      end
+
+      ##
       # Presentation information about LRO response handling
       #
       class LroResponseHandlingPresenter
