@@ -7,8 +7,10 @@
 <%= render partial: "service/rest/client/method/docs/request", locals: { method: method } -%>
 <%= render partial: "service/rest/client/method/docs/result", locals: { method: method } -%>
 #
+<%- unless method.resumable_upload? -%>
 <%= render partial: "service/rest/client/method/docs/error", locals: { method: method } -%>
 #
+<%- end -%>
 <%= render partial: "service/rest/client/method/docs/snippets", locals: { method: method } -%>
 def <%= method.name %> request<%= method.resumable_upload? ? " = {}" : "" %>, options = nil
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>

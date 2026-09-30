@@ -254,8 +254,8 @@ module Google
           # @return [::Gapic::ResumableUpload]
           #   A reusable upload handle. No request is sent and no byte is read from a stream until
           #   {::Gapic::ResumableUpload#start} or {::Gapic::ResumableUpload#resume} is called on it.
-          #
-          # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #   Upload failures, including a failed initiation request, are raised by those methods,
+          #   not by this one.
           #
           # @example Basic example
           #   require "google/showcase/v1beta1"

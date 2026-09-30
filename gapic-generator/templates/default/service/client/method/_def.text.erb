@@ -9,8 +9,10 @@
 #
 <%= render partial: "service/client/method/docs/response", locals: { method: method } -%>
 #
+<%- unless method.resumable_upload? -%>
 <%= render partial: "service/client/method/docs/error", locals: { method: method } -%>
 #
+<%- end -%>
 <%= render partial: "service/client/method/docs/snippets", locals: { method: method } -%>
 <%= render partial: "service/client/method/docs/samples", locals: { method: method } -%>
 def <%= method.name %> request<%= method.resumable_upload? ? " = {}" : "" %>, options = nil
