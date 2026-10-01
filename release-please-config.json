@@ -1,0 +1,38 @@
+{
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": false,
+  "draft": false,
+  "include-component-in-tag": true,
+  "include-v-in-tag": true,
+  "prerelease": false,
+  "release-type": "ruby-yoshi",
+  "skip-github-release": false,
+  "separate-pull-requests": false,
+  "tag-separator": "/",
+  "sequential-calls": true,
+  "packages": {
+    "gapic-generator": {
+      "component": "gapic-generator",
+      "version-file": "lib/gapic/generator/version.rb"
+    },
+    "gapic-generator-ads": {
+      "component": "gapic-generator-ads",
+      "version-file": "lib/gapic/generator/ads/version.rb"
+    },
+    "gapic-generator-cloud": {
+      "component": "gapic-generator-cloud",
+      "version-file": "lib/gapic/generator/cloud/version.rb"
+    }
+  },
+  "plugins": [
+    {
+      "type": "linked-versions",
+      "groupName": "gapic-generator",
+      "components": [
+        "gapic-generator",
+        "gapic-generator-ads",
+        "gapic-generator-cloud"
+      ]
+    }
+  ]
+}

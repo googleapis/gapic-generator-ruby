@@ -1,0 +1,70 @@
+permissions:
+  contents: read
+
+name: Sync Release Lockfiles
+
+# release-please bumps the three generator versions on its release branch, but
+# it cannot update Gemfile.lock. The Bazel rules in rules_ruby_gapic install
+# these bundles in deployment (frozen) mode, and googleapis consumes the
+# generator by release tag, so each tagged commit needs lockfiles that match
+# the new versions. This workflow runs `bundle lock` on the release branch and
+# pushes the result. It is the replacement for the `bundle update` step in the
+# old toys release script.
+on:
+  push:
+    branches:
+      - release-please--branches--main
+
+# release-please force-pushes this branch whenever main changes. Cancel any
+# in-flight run so only the newest branch head gets a lockfile commit.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  sync-lockfiles:
+    # The job is idempotent: when it runs on its own lockfile commit (or on a
+    # human push), `bundle lock` finds nothing to change and the job exits.
+    if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Install Ruby 3.4
+        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
+        with:
+          ruby-version: "3.4"
+          # Install the Bundler version from this lockfile's BUNDLED WITH line.
+          # A newer Bundler would rewrite that line in all three lockfiles.
+          working-directory: gapic-generator
+      - name: Update lockfiles
+        run: |
+          for dir in gapic-generator gapic-generator-ads gapic-generator-cloud; do
+            (cd "$dir" && bundle lock)
+          done
+      - name: Push lockfile changes
+        env:
+          # A pull request push made with the default GITHUB_TOKEN would not
+          # start the required CI checks on the new head, so push as the bot.
+          BOT_TOKEN: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
+        run: |
+          if git diff --quiet; then
+            echo "Lockfiles already match the gemspecs."
+            exit 0
+          fi
+          git add gapic-generator/Gemfile.lock gapic-generator-ads/Gemfile.lock gapic-generator-cloud/Gemfile.lock
+          if ! git diff --quiet; then
+            echo "bundle lock changed files other than the lockfiles:"
+            git status --short
+            exit 1
+          fi
+          git config user.name "Yoshi Automation Bot"
+          git config user.email "yoshi-automation@google.com"
+          # Disable hooks so nothing from the checkout runs while the token is in use.
+          git -c core.hooksPath=/dev/null commit -m "chore: update Gemfile.lock files for release"
+          # Push without --force so a newer release-please push is never overwritten.
+          git -c core.hooksPath=/dev/null push \
+            "https://x-access-token:${BOT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            "HEAD:refs/heads/${GITHUB_REF_NAME}"
