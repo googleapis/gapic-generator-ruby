@@ -65,7 +65,7 @@ jobs:
   pqc-rest:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
     runs-on: ubuntu-latest
-    container: ruby:3.2-trixie@sha256:d3bcbd845d26ae1efafcc987f641aa9ac796267b9b857e0f196a2b05070c8330
+    container: ruby:3.4-trixie@sha256:5e5d85bc99877697c213b27fe320344329854ad18c415315e3fb39aba050f275
     env:
       SHOWCASE_REQUIRE_REST_PQC: "1"
     steps:
