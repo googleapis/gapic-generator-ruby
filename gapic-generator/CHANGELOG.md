@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.53.0 / 2026-09-30
+
+* Feature: update gapic-common for generated libraries to 1.4
+* Feature: resumable upload support in gapic-generator
+
 ### 0.52.0 / 2026-09-04
 
 * Fix: escape multi-line braces and backtick unknown doc tags in yard formatting

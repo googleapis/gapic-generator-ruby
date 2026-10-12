@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.53.0 / 2026-09-30
+
+* Includes changes from gapic-generator 0.53.0
+* Feature: resumable upload support in gapic-generator
+
 ### 0.52.0 / 2026-09-04
 
 * Includes changes from gapic-generator 0.52.0
