@@ -40,7 +40,7 @@ jobs:
           git submodule update --init --recursive
       - name: Install dependencies
         run: |
-          gem install --no-document toys
+          gem install --no-document toys -v '~> 0.22.0'
           toys bundle install
       - name: Run CI
         run: |
@@ -99,7 +99,7 @@ jobs:
           '
       - name: Install dependencies
         run: |
-          gem install --no-document toys
+          gem install --no-document toys -v '~> 0.22.0'
           toys bundle install
       - name: Run showcase tests
         run: |
