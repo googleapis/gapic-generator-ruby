@@ -1,5 +1,5 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker@sha256:56bdaa06db7f365246db658f9b769b260e52c844566f493aa02019fc04a9ce9e'
+  - name: 'gcr.io/cloud-builders/docker@sha256:f772ab459889c67835bd959c2b9e9351f2c0752c4f989710ecda20c229f0733e'
     args: ['build', '--tag=${_IMAGE_URL}:${_VERSION}', '.']
 
 images: ['${_IMAGE_URL}:${_VERSION}']
