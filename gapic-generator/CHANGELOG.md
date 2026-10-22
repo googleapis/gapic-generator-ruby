@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.54.0 / 2026-10-22
+
+* Feature: update gapic-common for generated libraries to 1.6
+
 ### 0.53.1 / 2026-10-15
 
 No significant changes
