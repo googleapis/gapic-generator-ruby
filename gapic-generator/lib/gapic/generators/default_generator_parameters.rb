@@ -21,6 +21,7 @@ module Gapic
     # Contains the default generator's parameters
     module DefaultGeneratorParameters
       BOOL_PARAMETERS = [
+        ":format",
         ":gem.:free_tier",
         ":gem.:yard_strict",
         ":gem.:generic_endpoint",
