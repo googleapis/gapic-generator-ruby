@@ -74,6 +74,7 @@ module Gapic
       alias_method :g, :generate_file
 
       def format_files files
+        return files unless @api.format?
         FileFormatter.new(format_config, files).files
       end
 

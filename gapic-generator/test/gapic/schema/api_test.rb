@@ -16,6 +16,7 @@
 
 require "test_helper"
 require "api_test_resources"
+require "gapic/generators/base_generator"
 
 class ApiTest < Minitest::Test
   API_INFO = ApiTestResources::API_INFO
@@ -41,6 +42,7 @@ class ApiTest < Minitest::Test
       [":gem.:is_cloud_product", API_INFO[:is_cloud_product].to_s],
       [":gem.:rest_numeric_enums", API_INFO[:rest_numeric_enums].to_s],
       [":generate_metadata", API_INFO[:generate_metadata].to_s],
+      [":format", API_INFO[:format].to_s],
 
       [":gem.:name", API_INFO[:name]],
       [":gem.:namespace", API_INFO[:namespace]],
@@ -91,8 +93,9 @@ class ApiTest < Minitest::Test
       ["gem-generic-endpoint", API_INFO[:generic_endpoint]],
       ["gem-is-cloud-product", API_INFO[:is_cloud_product]],
       ["rest-numeric-enums", API_INFO[:rest_numeric_enums]],
-      # this parameter has no alias in gapic-generator-vanilla
+      # these parameters have no alias in gapic-generator-vanilla
       [":generate_metadata", API_INFO[:generate_metadata]],
+      [":format", API_INFO[:format]],
 
       ["gem-name", API_INFO[:name]],
       ["gem-namespace", API_INFO[:namespace]],
@@ -145,6 +148,20 @@ class ApiTest < Minitest::Test
     request = OpenStruct.new parameter: parameter, proto_file: []
     api = Gapic::Schema::Api.new request
     assert_equal parameter, api.protoc_parameter
+  end
+
+  def test_format_default_and_override
+    default_api = Gapic::Schema::Api.new OpenStruct.new(parameter: "", proto_file: [])
+    assert default_api.format?
+
+    unformatted_api = Gapic::Schema::Api.new OpenStruct.new(parameter: ":format=false", proto_file: [])
+    refute unformatted_api.format?
+
+    file = Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+      name: "foo.rb", content: "x = 'unformatted'\n"
+    )
+    formatted = Gapic::Generators::BaseGenerator.new(unformatted_api).send(:format_files, [file])
+    assert_equal "x = 'unformatted'\n", formatted.first.content
   end
 
   private
