@@ -289,6 +289,12 @@ module Gapic
         configuration.fetch :generate_yardoc_snippets, true
       end
 
+      # Whether to format generated files
+      # @return [Boolean]
+      def format?
+        configuration.fetch :format, true
+      end
+
       # Whether to generate gapic metadata (drift manifest) file
       # @return [Boolean]
       def generate_metadata
