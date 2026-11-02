@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.55.0 / 2026-11-02
+
+* Includes changes from gapic-generator 0.55.0
+* Feature: add option to disable rubocop formatting during generation
+
 ### 0.54.0 / 2026-10-22
 
 * Includes changes from gapic-generator 0.54.0
