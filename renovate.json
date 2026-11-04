@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "config:best-practices",
-    ":disableDependencyDashboard"
-  ],
-  "rangeStrategy": "widen"
-}
