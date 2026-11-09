@@ -26,7 +26,7 @@ jobs:
     continue-on-error: ${{ matrix.ruby == '4.0' }}
     steps:
       - name: Install Ruby
-        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
+        uses: ruby/setup-ruby@824c0e29fdfc7d689c191c27acc969d2d04b7dd8 # v1.331.0
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Checkout repo
@@ -65,7 +65,7 @@ jobs:
   pqc-rest:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
     runs-on: ubuntu-latest
-    container: ruby:3.4-trixie@sha256:2547cdb5a1345b26a01f6c605f0cd0754ee66f041df5c8b6cbdf717e2f5a8d9e
+    container: ruby:3.4-trixie@sha256:3acb7705baee45c4815270dbedf953e95c34e25d5440babadf5ae451a706d012
     env:
       SHOWCASE_REQUIRE_REST_PQC: "1"
     steps:
