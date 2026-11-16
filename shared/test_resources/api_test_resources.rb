@@ -28,6 +28,7 @@ module ApiTestResources
     is_cloud_product: true,
     generate_metadata: false,
     rest_numeric_enums: true,
+    format: false,
 
     # string parameters
     name: 'google-cloud-container_analysis-v1',
@@ -113,6 +114,7 @@ module ApiTestResources
       wrapper_gem_name: API_INFO[:wrapper_gem_name_override]
     },
     transports: API_INFO[:transports],
-    generate_metadata: API_INFO[:generate_metadata]
+    generate_metadata: API_INFO[:generate_metadata],
+    format: API_INFO[:format]
   }.freeze
 end

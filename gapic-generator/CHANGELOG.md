@@ -1,5 +1,17 @@
 # Release History for gapic-generator
 
+### 0.55.0 / 2026-11-02
+
+* Feature: add option to disable rubocop formatting during generation
+
+### 0.54.0 / 2026-10-22
+
+* Feature: update gapic-common for generated libraries to 1.6
+
+### 0.53.1 / 2026-10-15
+
+No significant changes
+
 ### 0.53.0 / 2026-09-30
 
 * Feature: update gapic-common for generated libraries to 1.4

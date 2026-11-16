@@ -26,7 +26,7 @@ jobs:
     continue-on-error: ${{ matrix.ruby == '4.0' }}
     steps:
       - name: Install Ruby
-        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
+        uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199 # v1.338.0
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Checkout repo
@@ -40,7 +40,7 @@ jobs:
           git submodule update --init --recursive
       - name: Install dependencies
         run: |
-          gem install --no-document toys
+          gem install --no-document toys -v '~> 0.22.0'
           toys bundle install
       - name: Run CI
         run: |
@@ -65,7 +65,7 @@ jobs:
   pqc-rest:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
     runs-on: ubuntu-latest
-    container: ruby:3.4-trixie@sha256:4116b6119a53dfef69f4cd591784a1aff9e1095b2ef4eccd865e46906e90be36
+    container: ruby:3.4-trixie@sha256:3acb7705baee45c4815270dbedf953e95c34e25d5440babadf5ae451a706d012
     env:
       SHOWCASE_REQUIRE_REST_PQC: "1"
     steps:
@@ -99,7 +99,7 @@ jobs:
           '
       - name: Install dependencies
         run: |
-          gem install --no-document toys
+          gem install --no-document toys -v '~> 0.22.0'
           toys bundle install
       - name: Run showcase tests
         run: |

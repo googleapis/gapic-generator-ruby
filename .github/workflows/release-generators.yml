@@ -21,11 +21,11 @@ jobs:
         with:
           persist-credentials: false
       - name: Install Ruby 3.4
-        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
+        uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199 # v1.338.0
         with:
           ruby-version: "3.4"
       - name: Install tools
-        run: "gem install --no-document toys"
+        run: "gem install --no-document toys -v '~> 0.22.0'"
       - name: execute
         run: |
           toys release generators -v --fork ${GITHUB_EVENT_INPUTS_ARGS}
