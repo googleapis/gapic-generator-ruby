@@ -82,19 +82,6 @@ tool "irb" do
   end
 end
 
-tool "image" do
-  desc "Build the docker image"
-  flag :local, "--local=NAME", default: "ruby-gapic-generator"
-
-  include :exec, e: true
-
-  def run
-    Dir.chdir context_directory
-    tag = capture(["git", "rev-parse", "HEAD"]).strip
-    exec ["docker", "build", "-t", "#{local}:#{tag}", "."]
-  end
-end
-
 tool "snippetgen" do
   tool "generate-protos" do
     desc "Generate snippetgen tool protos"
