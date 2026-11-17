@@ -81,24 +81,3 @@ tool "irb" do
     IRB.start
   end
 end
-
-tool "image" do
-  desc "Build the docker image"
-
-  flag :local, "--local=NAME", default: "ruby-gapic-generator-ads"
-
-  include :exec, e: true
-  include :fileutils
-
-  def run
-    cd context_directory
-    mkdir_p "tmp"
-    base_source_dir = File.join File.dirname(context_directory), "gapic-generator"
-    base_tmp_dir = File.join context_directory, "tmp", "gapic-generator"
-    rm_rf base_tmp_dir
-    cp_r base_source_dir, base_tmp_dir
-    tag = capture(["git", "rev-parse", "HEAD"]).strip
-    exec ["docker", "build", "--no-cache", "-t", "#{local}:#{tag}", "."]
-    rm_r base_tmp_dir
-  end
-end
