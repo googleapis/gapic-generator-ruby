@@ -21,7 +21,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Install Ruby 3.4
-        uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199 # v1.338.0
+        uses: ruby/setup-ruby@20eb24b0d509e2b9ed9b6d42ddfeb992915e0564 # v1.341.0
         with:
           ruby-version: "3.4"
       - name: Install tools
