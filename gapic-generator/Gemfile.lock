@@ -3,7 +3,7 @@ PATH
   specs:
     gapic-generator (0.55.0)
       actionpack (~> 8.0)
-      bigdecimal (~> 3.0)
+      bigdecimal (>= 3.0, < 5)
       google-cloud-common (~> 1.2)
       google-protobuf (~> 4.32)
       google-style (~> 1.32.0)
@@ -44,7 +44,7 @@ GEM
     ansi (1.6.0)
     ast (2.4.3)
     base64 (0.3.0)
-    bigdecimal (3.3.1)
+    bigdecimal (4.1.3)
     builder (3.3.0)
     coderay (1.1.3)
     concurrent-ruby (1.3.8)
